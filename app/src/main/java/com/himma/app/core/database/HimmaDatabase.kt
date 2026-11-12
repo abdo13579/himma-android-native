@@ -7,10 +7,13 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.himma.app.core.database.dao.ExerciseDao
 import com.himma.app.core.database.dao.RoutineDao
 import com.himma.app.core.database.dao.UserProfileDao
+import com.himma.app.core.database.dao.WorkoutDao
 import com.himma.app.core.database.entity.ExerciseEntity
 import com.himma.app.core.database.entity.RoutineEntity
 import com.himma.app.core.database.entity.RoutineExerciseEntity
 import com.himma.app.core.database.entity.UserProfileEntity
+import com.himma.app.core.database.entity.WorkoutEntity
+import com.himma.app.core.database.entity.WorkoutSetEntity
 
 @Database(
     entities = [
@@ -18,6 +21,8 @@ import com.himma.app.core.database.entity.UserProfileEntity
         ExerciseEntity::class,
         RoutineEntity::class,
         RoutineExerciseEntity::class,
+        WorkoutEntity::class,
+        WorkoutSetEntity::class,
     ],
     version = HimmaDatabase.DATABASE_VERSION,
     exportSchema = true,
@@ -26,10 +31,11 @@ abstract class HimmaDatabase : RoomDatabase() {
     abstract fun userProfileDao(): UserProfileDao
     abstract fun exerciseDao(): ExerciseDao
     abstract fun routineDao(): RoutineDao
+    abstract fun workoutDao(): WorkoutDao
 
     companion object {
         const val DATABASE_NAME = "himma.db"
-        const val DATABASE_VERSION = 5
+        const val DATABASE_VERSION = 6
 
         val MIGRATION_1_2 = object : Migration(1, 2) {
             override fun migrate(db: SupportSQLiteDatabase) {
@@ -134,6 +140,62 @@ abstract class HimmaDatabase : RoomDatabase() {
             }
         }
 
+        val MIGRATION_5_6 = object : Migration(5, 6) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS `workouts` (
+                        `id` TEXT NOT NULL,
+                        `routine_id` TEXT,
+                        `title` TEXT NOT NULL,
+                        `start_time` INTEGER NOT NULL,
+                        `end_time` INTEGER,
+                        `duration_seconds` INTEGER NOT NULL,
+                        `total_volume_kg` REAL NOT NULL,
+                        `notes` TEXT NOT NULL,
+                        `is_completed` INTEGER NOT NULL,
+                        PRIMARY KEY(`id`),
+                        FOREIGN KEY(`routine_id`) REFERENCES `routines`(`id`) ON UPDATE NO ACTION ON DELETE SET NULL
+                    )
+                    """.trimIndent(),
+                )
+                db.execSQL(
+                    "CREATE INDEX IF NOT EXISTS `index_workouts_routine_id` ON `workouts` (`routine_id`)",
+                )
+                db.execSQL(
+                    "CREATE INDEX IF NOT EXISTS `index_workouts_is_completed_start_time` ON `workouts` (`is_completed`, `start_time`)",
+                )
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS `workout_sets` (
+                        `id` TEXT NOT NULL,
+                        `workout_id` TEXT NOT NULL,
+                        `exercise_id` TEXT NOT NULL,
+                        `exercise_order` INTEGER NOT NULL,
+                        `set_index` INTEGER NOT NULL,
+                        `rest_seconds` INTEGER NOT NULL,
+                        `weight_kg` REAL,
+                        `reps` INTEGER,
+                        `rpe` REAL,
+                        `set_type` TEXT NOT NULL,
+                        `is_completed` INTEGER NOT NULL,
+                        `is_pr` INTEGER NOT NULL,
+                        `completed_at` INTEGER,
+                        PRIMARY KEY(`id`),
+                        FOREIGN KEY(`workout_id`) REFERENCES `workouts`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE,
+                        FOREIGN KEY(`exercise_id`) REFERENCES `exercises`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE
+                    )
+                    """.trimIndent(),
+                )
+                db.execSQL(
+                    "CREATE INDEX IF NOT EXISTS `index_workout_sets_workout_id_exercise_order_set_index` ON `workout_sets` (`workout_id`, `exercise_order`, `set_index`)",
+                )
+                db.execSQL(
+                    "CREATE INDEX IF NOT EXISTS `index_workout_sets_exercise_id_set_index_is_completed` ON `workout_sets` (`exercise_id`, `set_index`, `is_completed`)",
+                )
+            }
+        }
+
         /**
          * Explicit migrations array; new specs append versioned migrations here
          * to guarantee zero data loss across updates.
@@ -143,6 +205,7 @@ abstract class HimmaDatabase : RoomDatabase() {
             MIGRATION_2_3,
             MIGRATION_3_4,
             MIGRATION_4_5,
+            MIGRATION_5_6,
         )
     }
 }

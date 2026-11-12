@@ -177,4 +177,53 @@
     <string name="routine_picker_title">اختر تمارين للروتين</string>
     <string name="routine_picker_done">تم (%1$d)</string>
     <string name="routine_picker_added">مضاف</string>
+
+    <!-- Active Workout & Rest Timer (Spec 4) -->
+    <string name="today_resume_workout">استئناف التمرين النشط</string>
+    <string name="today_free_workout_cta">بدء تمرين حر</string>
+    <string name="today_quick_routines_title">بدء روتين سريع</string>
+    <string name="today_sets_completed">%1$d / %2$d مجموعة</string>
+    <string name="workout_free_title">تمرين حر</string>
+    <string name="workout_replace_dialog_title">يوجد تمرين نشط حالياً</string>
+    <string name="workout_replace_dialog_body">لديك جلسة «%1$s» غير منتهية. هل تريد استئنافها أم تجاهلها وبدء تمرين جديد؟</string>
+    <string name="workout_resume_action">استئناف النشط</string>
+    <string name="workout_start_new_action">تجاهل وبدء الجديد</string>
+
+    <string name="workout_finish_cta">إنهاء</string>
+    <string name="workout_add_exercise">إضافة تمرين</string>
+    <string name="workout_add_set">إضافة مجموعة</string>
+    <string name="workout_set_column">#</string>
+    <string name="workout_previous_hint">السابق: %1$s</string>
+    <string name="workout_previous_none">السابق: —</string>
+    <string name="workout_weight_label">الوزن (%1$s)</string>
+    <string name="workout_reps_label">العدات</string>
+    <string name="workout_notes_label">ملاحظات الجلسة</string>
+    <string name="workout_empty_exercises">أضف تمارين لبدء تسجيل المجموعات</string>
+    <string name="workout_discard_action">إلغاء وحذف الجلسة</string>
+    <string name="workout_discard_title">إلغاء التمرين النشط؟</string>
+    <string name="workout_discard_body">سيتم حذف هذه الجلسة ومجموعاتها الحالية نهائياً.</string>
+    <string name="workout_finish_title">إنهاء التمرين؟</string>
+    <string name="workout_finish_body">المدة: %1$s • الحجم المرفوع: %2$s %3$s • المجموعات المكتملة: %4$d</string>
+    <string name="workout_finished_msg">عاش! تم حفظ التمرين (%1$s %2$s في %3$s)</string>
+    <string name="workout_remove_exercise">إزالة التمرين</string>
+    <string name="workout_remove_set">حذف المجموعة</string>
+    <string name="workout_mark_done">إتمام المجموعة</string>
+
+    <string name="set_type_normal">عادي</string>
+    <string name="set_type_warmup">إحماء</string>
+    <string name="set_type_drop_set">دروب سيت</string>
+    <string name="set_type_failure">فشل</string>
+
+    <string name="rest_timer_label">مؤقت الراحة</string>
+    <string name="rest_timer_minus_15">-15 ث</string>
+    <string name="rest_timer_plus_15">+15 ث</string>
+    <string name="rest_timer_skip">تخطي</string>
+    <string name="rest_channel_progress_name">مؤقت الراحة أثناء التمرين</string>
+    <string name="rest_channel_progress_desc">يعرض العد التنازلي المستمر للراحة على شاشة القفل</string>
+    <string name="rest_channel_complete_name">تنبيه انتهاء الراحة</string>
+    <string name="rest_channel_complete_desc">ينبهك بالصوت والاهتزاز عند انتهاء فترة الراحة</string>
+    <string name="rest_notif_ongoing_title">راحة — %1$s</string>
+    <string name="rest_notif_ongoing_body">المتبقي: %1$s</string>
+    <string name="rest_notif_done_title">انتهت الراحة!</string>
+    <string name="rest_notif_done_body">حان وقت المجموعة التالية — %1$s</string>
 </resources>

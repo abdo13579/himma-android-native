@@ -177,4 +177,53 @@
     <string name="routine_picker_title">Pick Exercises</string>
     <string name="routine_picker_done">Done (%1$d)</string>
     <string name="routine_picker_added">Added</string>
+
+    <!-- Active Workout & Rest Timer (Spec 4) -->
+    <string name="today_resume_workout">Resume Active Workout</string>
+    <string name="today_free_workout_cta">Start Free Workout</string>
+    <string name="today_quick_routines_title">Quick Start Routine</string>
+    <string name="today_sets_completed">%1$d / %2$d sets</string>
+    <string name="workout_free_title">Free Workout</string>
+    <string name="workout_replace_dialog_title">Active Workout in Progress</string>
+    <string name="workout_replace_dialog_body">You have an unfinished \"%1$s\" session. Resume it or discard it to start a new one?</string>
+    <string name="workout_resume_action">Resume Active</string>
+    <string name="workout_start_new_action">Discard &amp; Start New</string>
+
+    <string name="workout_finish_cta">Finish</string>
+    <string name="workout_add_exercise">Add Exercise</string>
+    <string name="workout_add_set">Add Set</string>
+    <string name="workout_set_column">#</string>
+    <string name="workout_previous_hint">Prev: %1$s</string>
+    <string name="workout_previous_none">Prev: —</string>
+    <string name="workout_weight_label">Weight (%1$s)</string>
+    <string name="workout_reps_label">Reps</string>
+    <string name="workout_notes_label">Session Notes</string>
+    <string name="workout_empty_exercises">Add exercises to start logging your sets</string>
+    <string name="workout_discard_action">Discard Workout</string>
+    <string name="workout_discard_title">Discard Active Workout?</string>
+    <string name="workout_discard_body">This will permanently delete this active session and its logged sets.</string>
+    <string name="workout_finish_title">Finish Workout?</string>
+    <string name="workout_finish_body">Duration: %1$s • Volume: %2$s %3$s • Completed sets: %4$d</string>
+    <string name="workout_finished_msg">Great work! Saved workout (%1$s %2$s in %3$s)</string>
+    <string name="workout_remove_exercise">Remove exercise</string>
+    <string name="workout_remove_set">Remove set</string>
+    <string name="workout_mark_done">Complete set</string>
+
+    <string name="set_type_normal">Normal</string>
+    <string name="set_type_warmup">Warmup</string>
+    <string name="set_type_drop_set">Drop Set</string>
+    <string name="set_type_failure">Failure</string>
+
+    <string name="rest_timer_label">Rest Timer</string>
+    <string name="rest_timer_minus_15">-15s</string>
+    <string name="rest_timer_plus_15">+15s</string>
+    <string name="rest_timer_skip">Skip</string>
+    <string name="rest_channel_progress_name">Workout Rest Timer</string>
+    <string name="rest_channel_progress_desc">Shows live rest countdown on your lock screen</string>
+    <string name="rest_channel_complete_name">Rest Timer Alert</string>
+    <string name="rest_channel_complete_desc">Plays sound and vibrates when rest ends</string>
+    <string name="rest_notif_ongoing_title">Resting — %1$s</string>
+    <string name="rest_notif_ongoing_body">Remaining: %1$s</string>
+    <string name="rest_notif_done_title">Rest Complete!</string>
+    <string name="rest_notif_done_body">Time for your next set — %1$s</string>
 </resources>
