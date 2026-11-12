@@ -1,5 +1,6 @@
 package com.himma.app.features.shell
 
+import android.net.Uri
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -21,14 +22,28 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.himma.app.R
+import com.himma.app.features.exercises.CustomExerciseScreen
+import com.himma.app.features.exercises.ExerciseDetailScreen
+import com.himma.app.features.exercises.ExerciseLibraryScreen
 import com.himma.app.features.onboarding.OnboardingScreen
 import com.himma.app.features.settings.SettingsScreen
 import kotlinx.coroutines.launch
+
+private object ExerciseRoutes {
+    const val DETAIL = "exercise_detail/{exerciseId}"
+    const val CUSTOM_FORM = "custom_exercise?exerciseId={exerciseId}"
+
+    fun detail(exerciseId: String): String = "exercise_detail/${Uri.encode(exerciseId)}"
+    fun createCustom(): String = "custom_exercise"
+    fun editCustom(exerciseId: String): String = "custom_exercise?exerciseId=${Uri.encode(exerciseId)}"
+}
 
 @Composable
 fun HimmaRootNavHost(
@@ -55,55 +70,64 @@ fun HimmaAppShell() {
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
 
+    val savedExerciseMsg = stringResource(id = R.string.custom_exercise_saved_msg)
+    val deletedExerciseMsg = stringResource(id = R.string.custom_exercise_deleted_msg)
+
     val activeTab = HimmaDestination.entries.firstOrNull { tab ->
         currentDestination?.hierarchy?.any { it.route == tab.route } == true
-    } ?: HimmaDestination.TODAY
+    }
+    val showShellChrome = activeTab != null || currentDestination == null
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text(
-                        text = stringResource(id = activeTab.titleRes),
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                    )
-                },
-            )
+            if (showShellChrome) {
+                val topTab = activeTab ?: HimmaDestination.TODAY
+                CenterAlignedTopAppBar(
+                    title = {
+                        Text(
+                            text = stringResource(id = topTab.titleRes),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                        )
+                    },
+                )
+            }
         },
         bottomBar = {
-            NavigationBar {
-                HimmaDestination.entries.forEach { destination ->
-                    val selected = currentDestination?.hierarchy?.any {
-                        it.route == destination.route
-                    } == true
-                    NavigationBarItem(
-                        selected = selected,
-                        onClick = {
-                            navController.navigate(destination.route) {
-                                popUpTo(navController.graph.findStartDestination().id) {
-                                    saveState = true
+            if (showShellChrome) {
+                NavigationBar {
+                    HimmaDestination.entries.forEach { destination ->
+                        val selected = currentDestination?.hierarchy?.any {
+                            it.route == destination.route
+                        } == true
+                        NavigationBarItem(
+                            selected = selected,
+                            onClick = {
+                                navController.navigate(destination.route) {
+                                    popUpTo(navController.graph.findStartDestination().id) {
+                                        saveState = true
+                                    }
+                                    launchSingleTop = true
+                                    restoreState = true
                                 }
-                                launchSingleTop = true
-                                restoreState = true
-                            }
-                        },
-                        icon = {
-                            Icon(
-                                imageVector = destination.icon,
-                                contentDescription = stringResource(id = destination.labelRes),
-                            )
-                        },
-                        label = {
-                            Text(
-                                text = stringResource(id = destination.labelRes),
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis,
-                            )
-                        },
-                    )
+                            },
+                            icon = {
+                                Icon(
+                                    imageVector = destination.icon,
+                                    contentDescription = stringResource(id = destination.labelRes),
+                                )
+                            },
+                            label = {
+                                Text(
+                                    text = stringResource(id = destination.labelRes),
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis,
+                                )
+                            },
+                        )
+                    }
                 }
             }
         },
@@ -111,7 +135,7 @@ fun HimmaAppShell() {
         NavHost(
             navController = navController,
             startDestination = HimmaDestination.TODAY.route,
-            modifier = Modifier.padding(innerPadding),
+            modifier = if (showShellChrome) Modifier.padding(innerPadding) else Modifier,
         ) {
             composable(HimmaDestination.TODAY.route) {
                 TodayFoundationScreen()
@@ -124,10 +148,13 @@ fun HimmaAppShell() {
                 )
             }
             composable(HimmaDestination.EXERCISES.route) {
-                PlaceholderFeatureScreen(
-                    title = stringResource(id = R.string.exercises_title),
-                    description = stringResource(id = R.string.exercises_foundation_desc),
-                    icon = HimmaDestination.EXERCISES.icon,
+                ExerciseLibraryScreen(
+                    onExerciseClick = { exerciseId ->
+                        navController.navigate(ExerciseRoutes.detail(exerciseId))
+                    },
+                    onCreateCustomClick = {
+                        navController.navigate(ExerciseRoutes.createCustom())
+                    },
                 )
             }
             composable(HimmaDestination.ANALYTICS.route) {
@@ -142,6 +169,47 @@ fun HimmaAppShell() {
                     onShowMessage = { msg ->
                         coroutineScope.launch {
                             snackbarHostState.showSnackbar(msg)
+                        }
+                    },
+                )
+            }
+
+            composable(
+                route = ExerciseRoutes.DETAIL,
+                arguments = listOf(
+                    navArgument("exerciseId") { type = NavType.StringType },
+                ),
+            ) {
+                ExerciseDetailScreen(
+                    onBackClick = { navController.popBackStack() },
+                    onEditCustomClick = { id ->
+                        navController.navigate(ExerciseRoutes.editCustom(id))
+                    },
+                    onDeleted = {
+                        navController.popBackStack()
+                        coroutineScope.launch {
+                            snackbarHostState.showSnackbar(deletedExerciseMsg)
+                        }
+                    },
+                )
+            }
+
+            composable(
+                route = ExerciseRoutes.CUSTOM_FORM,
+                arguments = listOf(
+                    navArgument("exerciseId") {
+                        type = NavType.StringType
+                        nullable = true
+                        defaultValue = null
+                    },
+                ),
+            ) {
+                CustomExerciseScreen(
+                    onBackClick = { navController.popBackStack() },
+                    onSaved = {
+                        navController.popBackStack()
+                        coroutineScope.launch {
+                            snackbarHostState.showSnackbar(savedExerciseMsg)
                         }
                     },
                 )

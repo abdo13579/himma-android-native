@@ -3,27 +3,94 @@ package com.himma.app.core.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
+import com.himma.app.core.database.dao.ExerciseDao
 import com.himma.app.core.database.dao.UserProfileDao
+import com.himma.app.core.database.entity.ExerciseEntity
 import com.himma.app.core.database.entity.UserProfileEntity
 
 @Database(
     entities = [
         UserProfileEntity::class,
+        ExerciseEntity::class,
     ],
     version = HimmaDatabase.DATABASE_VERSION,
     exportSchema = true,
 )
 abstract class HimmaDatabase : RoomDatabase() {
     abstract fun userProfileDao(): UserProfileDao
+    abstract fun exerciseDao(): ExerciseDao
 
     companion object {
         const val DATABASE_NAME = "himma.db"
-        const val DATABASE_VERSION = 1
+        const val DATABASE_VERSION = 4
+
+        val MIGRATION_1_2 = object : Migration(1, 2) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS `exercises` (
+                        `id` TEXT NOT NULL,
+                        `name_en` TEXT NOT NULL,
+                        `name_ar` TEXT NOT NULL,
+                        `primary_muscle` TEXT NOT NULL,
+                        `secondary_muscles` TEXT NOT NULL,
+                        `equipment` TEXT NOT NULL,
+                        `instructions_en` TEXT NOT NULL,
+                        `instructions_ar` TEXT NOT NULL,
+                        `local_media_key` TEXT,
+                        `default_rest_seconds` INTEGER NOT NULL,
+                        `is_custom` INTEGER NOT NULL,
+                        `created_at` INTEGER NOT NULL,
+                        `updated_at` INTEGER NOT NULL,
+                        PRIMARY KEY(`id`)
+                    )
+                    """.trimIndent(),
+                )
+                db.execSQL(
+                    "CREATE INDEX IF NOT EXISTS `index_exercises_primary_muscle` ON `exercises` (`primary_muscle`)",
+                )
+                db.execSQL(
+                    "CREATE INDEX IF NOT EXISTS `index_exercises_equipment` ON `exercises` (`equipment`)",
+                )
+                db.execSQL(
+                    "CREATE INDEX IF NOT EXISTS `index_exercises_is_custom` ON `exercises` (`is_custom`)",
+                )
+            }
+        }
+
+        val MIGRATION_2_3 = object : Migration(2, 3) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    "ALTER TABLE `exercises` ADD COLUMN `name_ar_normalized` TEXT NOT NULL DEFAULT ''",
+                )
+                db.execSQL(
+                    "CREATE INDEX IF NOT EXISTS `index_exercises_name_ar_normalized` ON `exercises` (`name_ar_normalized`)",
+                )
+                db.execSQL(
+                    "UPDATE `exercises` SET `equipment` = 'BODYWEIGHT' WHERE `id` = 'Ab_Roller'",
+                )
+                db.execSQL(
+                    "UPDATE `exercises` SET `equipment` = 'DUMBBELL' WHERE `id` = 'One-Arm_Kettlebell_Swings'",
+                )
+            }
+        }
+
+        val MIGRATION_3_4 = object : Migration(3, 4) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                // Refresh built-in seed rows to open-source CC BY-SA 4.0 catalog; custom exercises preserved.
+                db.execSQL("DELETE FROM `exercises` WHERE `is_custom` = 0")
+            }
+        }
 
         /**
          * Explicit migrations array; new specs append versioned migrations here
          * to guarantee zero data loss across updates.
          */
-        val MIGRATIONS: Array<Migration> = emptyArray()
+        val MIGRATIONS: Array<Migration> = arrayOf(
+            MIGRATION_1_2,
+            MIGRATION_2_3,
+            MIGRATION_3_4,
+        )
     }
 }

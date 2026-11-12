@@ -2,9 +2,12 @@ package com.himma.app.core.di
 
 import android.content.Context
 import androidx.room.Room
+import com.himma.app.core.database.ExerciseRepository
 import com.himma.app.core.database.HimmaDatabase
+import com.himma.app.core.database.RoomExerciseRepository
 import com.himma.app.core.database.RoomUserProfileRepository
 import com.himma.app.core.database.UserProfileRepository
+import com.himma.app.core.database.dao.ExerciseDao
 import com.himma.app.core.database.dao.UserProfileDao
 import dagger.Binds
 import dagger.Module
@@ -23,6 +26,12 @@ abstract class DatabaseModule {
     abstract fun bindUserProfileRepository(
         impl: RoomUserProfileRepository,
     ): UserProfileRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindExerciseRepository(
+        impl: RoomExerciseRepository,
+    ): ExerciseRepository
 
     companion object {
         @Provides
@@ -43,6 +52,11 @@ abstract class DatabaseModule {
         @Provides
         fun provideUserProfileDao(database: HimmaDatabase): UserProfileDao {
             return database.userProfileDao()
+        }
+
+        @Provides
+        fun provideExerciseDao(database: HimmaDatabase): ExerciseDao {
+            return database.exerciseDao()
         }
     }
 }

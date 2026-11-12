@@ -68,4 +68,70 @@
     <string name="settings_storage_desc">قاعدة بيانات Room SQLite و Jetpack DataStore تعملان محلياً بالكامل بدون خوادم أو تسجيل دخول.</string>
     <string name="settings_reset_onboarding">إعادة شاشة الإعداد الأولي</string>
     <string name="validation_invalid_weight">أدخل وزناً صحيحاً أكبر من صفر</string>
+
+    <!-- Exercise Library (Spec 2) -->
+    <string name="exercises_search_placeholder">ابحث عن تمرين (بالعربية أو الإنجليزية)</string>
+    <string name="exercises_clear_search">مسح البحث</string>
+    <string name="exercises_filter_all">الكل</string>
+    <string name="exercises_count_label">%1$d تمرين</string>
+    <string name="exercises_empty_title">لا توجد تمارين مطابقة</string>
+    <string name="exercises_empty_subtitle">جرّب مسح الفلاتر أو أضف تمريناً مخصصاً جديداً.</string>
+    <string name="exercises_reset_filters">إعادة ضبط الفلاتر</string>
+    <string name="exercises_add_custom">تمرين مخصص</string>
+    <string name="exercises_custom_badge">مخصص</string>
+
+    <!-- Muscle Groups -->
+    <string name="muscle_chest">صدر</string>
+    <string name="muscle_back">ظهر</string>
+    <string name="muscle_legs">أرجل</string>
+    <string name="muscle_shoulders">أكتاف</string>
+    <string name="muscle_arms">ذراعين</string>
+    <string name="muscle_core">بطن</string>
+
+    <!-- Equipment Types -->
+    <string name="equipment_barbell">بار</string>
+    <string name="equipment_dumbbell">دمبل</string>
+    <string name="equipment_cable">كابل</string>
+    <string name="equipment_machine">جهاز</string>
+    <string name="equipment_bodyweight">وزن الجسم</string>
+    <string name="equipment_other">أخرى</string>
+
+    <!-- Exercise Detail -->
+    <string name="exercise_detail_title">تفاصيل التمرين</string>
+    <string name="exercise_detail_back">رجوع</string>
+    <string name="exercise_detail_frame_start">البداية (1)</string>
+    <string name="exercise_detail_frame_end">النهاية (2)</string>
+    <string name="exercise_detail_play">تحريك</string>
+    <string name="exercise_detail_pause">إيقاف</string>
+    <string name="exercise_detail_primary_muscle">العضلة الأساسية</string>
+    <string name="exercise_detail_secondary_muscles">العضلات المساعدة</string>
+    <string name="exercise_detail_equipment">المعدات</string>
+    <string name="exercise_detail_rest">الراحة الافتراضية</string>
+    <string name="exercise_detail_instructions">خطوات الأداء</string>
+    <string name="exercise_detail_no_instructions">لا توجد تعليمات مسجلة لهذا التمرين بعد.</string>
+    <string name="exercise_detail_custom_no_image">تمرين مخصص (بدون صورة مدمجة)</string>
+    <string name="exercise_detail_edit">تعديل</string>
+    <string name="exercise_detail_delete">حذف</string>
+    <string name="exercise_delete_title">حذف التمرين المخصص؟</string>
+    <string name="exercise_delete_body">سيتم حذف هذا التمرين المخصص نهائياً من مكتبتك المحلية.</string>
+    <string name="exercise_delete_confirm">حذف</string>
+    <string name="exercise_cancel">إلغاء</string>
+
+    <!-- Custom Exercise Form -->
+    <string name="custom_exercise_create_title">تمرين مخصص جديد</string>
+    <string name="custom_exercise_edit_title">تعديل التمرين المخصص</string>
+    <string name="custom_exercise_name_ar_label">اسم التمرين بالعربية</string>
+    <string name="custom_exercise_name_ar_placeholder">مثال: ضغط صدر مائل خاص</string>
+    <string name="custom_exercise_name_en_label">الاسم بالإنجليزية (اختياري)</string>
+    <string name="custom_exercise_name_en_placeholder">مثال: Custom Incline Press</string>
+    <string name="custom_exercise_muscle_label">العضلة الأساسية</string>
+    <string name="custom_exercise_secondary_label">العضلات المساعدة (اختياري)</string>
+    <string name="custom_exercise_equipment_label">المعدات</string>
+    <string name="custom_exercise_rest_label">وقت الراحة الافتراضي</string>
+    <string name="custom_exercise_instructions_ar_label">خطوات الأداء بالعربية (اختياري)</string>
+    <string name="custom_exercise_instructions_en_label">خطوات الأداء بالإنجليزية (اختياري)</string>
+    <string name="custom_exercise_save">حفظ التمرين</string>
+    <string name="custom_exercise_name_required">أدخل اسم التمرين بالعربية أو الإنجليزية على الأقل</string>
+    <string name="custom_exercise_saved_msg">تم حفظ التمرين محلياً</string>
+    <string name="custom_exercise_deleted_msg">تم حذف التمرين المخصص</string>
 </resources>
