@@ -706,6 +706,15 @@ private fun WorkoutSetRow(
                         fontWeight = FontWeight.Bold,
                     )
 
+                    if (set.isPr) {
+                        Text(
+                            text = "PR 🏆",
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.primary,
+                            fontWeight = FontWeight.Bold,
+                        )
+                    }
+
                     Box {
                         Surface(
                             color = setTypeBadgeContainerColor(set.setType),

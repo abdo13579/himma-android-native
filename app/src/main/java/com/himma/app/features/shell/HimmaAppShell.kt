@@ -41,6 +41,7 @@ import androidx.navigation.navArgument
 import com.himma.app.R
 import com.himma.app.domain.model.WeightUnit
 import com.himma.app.domain.model.WorkoutMath
+import com.himma.app.features.analytics.AnalyticsScreen
 import com.himma.app.features.exercises.CustomExerciseScreen
 import com.himma.app.features.exercises.ExerciseDetailScreen
 import com.himma.app.features.exercises.ExerciseLibraryScreen
@@ -241,10 +242,12 @@ fun HimmaAppShell(
                 )
             }
             composable(HimmaDestination.ANALYTICS.route) {
-                PlaceholderFeatureScreen(
-                    title = stringResource(id = R.string.analytics_title),
-                    description = stringResource(id = R.string.analytics_foundation_desc),
-                    icon = HimmaDestination.ANALYTICS.icon,
+                AnalyticsScreen(
+                    onShowMessage = { msg ->
+                        coroutineScope.launch {
+                            snackbarHostState.showSnackbar(msg)
+                        }
+                    },
                 )
             }
             composable(HimmaDestination.SETTINGS.route) {
@@ -339,11 +342,15 @@ fun HimmaAppShell(
                             if (preferredUnit == WeightUnit.KG) R.string.unit_kg else R.string.unit_lbs,
                         )
                         val durStr = WorkoutMath.formatTimer(summary.durationSeconds)
+                        val baseMsg = context.getString(R.string.workout_finished_msg, volStr, unitStr, durStr)
+                        val finalMsg = if (summary.newPrCount > 0) {
+                            "$baseMsg • ${context.getString(R.string.analytics_pr_badge, summary.newPrCount)}"
+                        } else {
+                            baseMsg
+                        }
                         coroutineScope.launch {
                             snackbarHostState.currentSnackbarData?.dismiss()
-                            snackbarHostState.showSnackbar(
-                                context.getString(R.string.workout_finished_msg, volStr, unitStr, durStr),
-                            )
+                            snackbarHostState.showSnackbar(finalMsg)
                         }
                     },
                     onWorkoutDiscarded = {

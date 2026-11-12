@@ -2,8 +2,10 @@ package com.himma.app.core.di
 
 import android.content.Context
 import androidx.room.Room
+import com.himma.app.core.database.AnalyticsRepository
 import com.himma.app.core.database.ExerciseRepository
 import com.himma.app.core.database.HimmaDatabase
+import com.himma.app.core.database.RoomAnalyticsRepository
 import com.himma.app.core.database.RoomExerciseRepository
 import com.himma.app.core.database.RoomRoutineRepository
 import com.himma.app.core.database.RoomUserProfileRepository
@@ -11,6 +13,7 @@ import com.himma.app.core.database.RoomWorkoutRepository
 import com.himma.app.core.database.RoutineRepository
 import com.himma.app.core.database.UserProfileRepository
 import com.himma.app.core.database.WorkoutRepository
+import com.himma.app.core.database.dao.AnalyticsDao
 import com.himma.app.core.database.dao.ExerciseDao
 import com.himma.app.core.database.dao.RoutineDao
 import com.himma.app.core.database.dao.UserProfileDao
@@ -51,6 +54,12 @@ abstract class DatabaseModule {
         impl: RoomWorkoutRepository,
     ): WorkoutRepository
 
+    @Binds
+    @Singleton
+    abstract fun bindAnalyticsRepository(
+        impl: RoomAnalyticsRepository,
+    ): AnalyticsRepository
+
     companion object {
         @Provides
         @Singleton
@@ -85,6 +94,11 @@ abstract class DatabaseModule {
         @Provides
         fun provideWorkoutDao(database: HimmaDatabase): WorkoutDao {
             return database.workoutDao()
+        }
+
+        @Provides
+        fun provideAnalyticsDao(database: HimmaDatabase): AnalyticsDao {
+            return database.analyticsDao()
         }
     }
 }

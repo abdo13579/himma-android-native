@@ -68,6 +68,7 @@ data class FinishedWorkoutSummary(
     val durationSeconds: Int,
     val totalVolumeKg: Double,
     val completedSets: Int,
+    val newPrCount: Int = 0,
 )
 
 object WorkoutMath {

@@ -4,11 +4,14 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.himma.app.core.database.dao.AnalyticsDao
 import com.himma.app.core.database.dao.ExerciseDao
 import com.himma.app.core.database.dao.RoutineDao
 import com.himma.app.core.database.dao.UserProfileDao
 import com.himma.app.core.database.dao.WorkoutDao
+import com.himma.app.core.database.entity.BodyWeightEntity
 import com.himma.app.core.database.entity.ExerciseEntity
+import com.himma.app.core.database.entity.PersonalRecordEntity
 import com.himma.app.core.database.entity.RoutineEntity
 import com.himma.app.core.database.entity.RoutineExerciseEntity
 import com.himma.app.core.database.entity.UserProfileEntity
@@ -23,6 +26,8 @@ import com.himma.app.core.database.entity.WorkoutSetEntity
         RoutineExerciseEntity::class,
         WorkoutEntity::class,
         WorkoutSetEntity::class,
+        PersonalRecordEntity::class,
+        BodyWeightEntity::class,
     ],
     version = HimmaDatabase.DATABASE_VERSION,
     exportSchema = true,
@@ -32,10 +37,11 @@ abstract class HimmaDatabase : RoomDatabase() {
     abstract fun exerciseDao(): ExerciseDao
     abstract fun routineDao(): RoutineDao
     abstract fun workoutDao(): WorkoutDao
+    abstract fun analyticsDao(): AnalyticsDao
 
     companion object {
         const val DATABASE_NAME = "himma.db"
-        const val DATABASE_VERSION = 6
+        const val DATABASE_VERSION = 7
 
         val MIGRATION_1_2 = object : Migration(1, 2) {
             override fun migrate(db: SupportSQLiteDatabase) {
@@ -196,6 +202,50 @@ abstract class HimmaDatabase : RoomDatabase() {
             }
         }
 
+        val MIGRATION_6_7 = object : Migration(6, 7) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS `personal_records` (
+                        `id` TEXT NOT NULL,
+                        `exercise_id` TEXT NOT NULL,
+                        `max_weight_kg` REAL,
+                        `max_volume_set_kg` REAL,
+                        `estimated_1rm_kg` REAL,
+                        `achieved_at` INTEGER NOT NULL,
+                        `workout_id` TEXT,
+                        PRIMARY KEY(`id`),
+                        FOREIGN KEY(`exercise_id`) REFERENCES `exercises`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE,
+                        FOREIGN KEY(`workout_id`) REFERENCES `workouts`(`id`) ON UPDATE NO ACTION ON DELETE SET NULL
+                    )
+                    """.trimIndent(),
+                )
+                db.execSQL(
+                    "CREATE UNIQUE INDEX IF NOT EXISTS `index_personal_records_exercise_id` ON `personal_records` (`exercise_id`)",
+                )
+                db.execSQL(
+                    "CREATE INDEX IF NOT EXISTS `index_personal_records_achieved_at` ON `personal_records` (`achieved_at`)",
+                )
+                db.execSQL(
+                    "CREATE INDEX IF NOT EXISTS `index_personal_records_workout_id` ON `personal_records` (`workout_id`)",
+                )
+
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS `body_weights` (
+                        `id` TEXT NOT NULL,
+                        `weight_kg` REAL NOT NULL,
+                        `recorded_at` INTEGER NOT NULL,
+                        PRIMARY KEY(`id`)
+                    )
+                    """.trimIndent(),
+                )
+                db.execSQL(
+                    "CREATE INDEX IF NOT EXISTS `index_body_weights_recorded_at` ON `body_weights` (`recorded_at`)",
+                )
+            }
+        }
+
         /**
          * Explicit migrations array; new specs append versioned migrations here
          * to guarantee zero data loss across updates.
@@ -206,6 +256,7 @@ abstract class HimmaDatabase : RoomDatabase() {
             MIGRATION_3_4,
             MIGRATION_4_5,
             MIGRATION_5_6,
+            MIGRATION_6_7,
         )
     }
 }

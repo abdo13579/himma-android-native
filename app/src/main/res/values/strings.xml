@@ -254,4 +254,31 @@
     <string name="backup_error_unsupported_version">This backup schema version requires a newer Himma version</string>
     <string name="backup_error_corrupt">Backup validation failed — existing data was untouched</string>
     <string name="backup_error_io">Could not access the selected file</string>
+
+    <string name="analytics_tab_history">History</string>
+    <string name="analytics_tab_prs">PR Ledger</string>
+    <string name="analytics_tab_progression">Progression</string>
+    <string name="analytics_tab_body_weight">Body Weight</string>
+    <string name="analytics_history_empty">No completed workouts yet. Complete your first session to see history.</string>
+    <string name="analytics_prs_empty">No personal records yet. Finish workouts to unlock your PR trophies 🏆.</string>
+    <string name="analytics_body_weight_empty">No body weight entries yet. Log your weight to view trend graphs.</string>
+    <string name="analytics_pr_badge">%1$d PR 🏆</string>
+    <string name="analytics_metric_max_weight">Max Weight</string>
+    <string name="analytics_metric_estimated_1rm">Est. 1RM (Brzycki)</string>
+    <string name="analytics_metric_max_volume">Max Set Volume</string>
+    <string name="analytics_chart_1rm_mode">Est. 1RM</string>
+    <string name="analytics_chart_weight_mode">Max Weight</string>
+    <string name="analytics_range_7d">7 Days</string>
+    <string name="analytics_range_30d">30 Days</string>
+    <string name="analytics_range_90d">90 Days</string>
+    <string name="analytics_range_all">All</string>
+    <string name="analytics_weekly_muscle_title">Weekly Muscle Volume Distribution</string>
+    <string name="analytics_log_weight_cta">Log Weight</string>
+    <string name="analytics_weight_logged_msg">Body weight recorded</string>
+    <string name="analytics_weight_deleted_msg">Body weight entry removed</string>
+    <string name="analytics_select_exercise">Select Exercise</string>
+    <string name="analytics_workout_detail_title">Workout Details</string>
+    <string name="analytics_insights_title">Progression Insights &amp; Hints</string>
+    <string name="analytics_sets_count">%1$d sets</string>
+    <string name="analytics_body_weight_current">Latest Body Weight</string>
 </resources>

@@ -254,4 +254,31 @@
     <string name="backup_error_unsupported_version">يتطلب إصدار هذه النسخة تحديثاً أحدث من تطبيق هِمّة</string>
     <string name="backup_error_corrupt">فشل التحقق من سلامة النسخة الاحتياطية — لم تتغير بياناتك</string>
     <string name="backup_error_io">تعذر قراءة أو كتابة الملف المحدد</string>
+
+    <string name="analytics_tab_history">السجل</string>
+    <string name="analytics_tab_prs">الأرقام القياسية</string>
+    <string name="analytics_tab_progression">التقدم</string>
+    <string name="analytics_tab_body_weight">وزن الجسم</string>
+    <string name="analytics_history_empty">لا توجد جلسات تمرين مكتملة بعد. أنهِ تمرينك الأول لتظهر تفاصيله هنا.</string>
+    <string name="analytics_prs_empty">لم تُسجل أرقام قياسية بعد. أتمم جلساتك وسجل مجموعاتك لتظهر شارات الـ 🏆 هنا.</string>
+    <string name="analytics_body_weight_empty">لم تسجل أي قياس لوزن الجسم بعد. سجّل وزنك لتتبع تطور الكتلة.</string>
+    <string name="analytics_pr_badge">%1$d رقم قياسي 🏆</string>
+    <string name="analytics_metric_max_weight">أقصى وزن</string>
+    <string name="analytics_metric_estimated_1rm">الـ 1RM التقديري (Brzycki)</string>
+    <string name="analytics_metric_max_volume">أقصى حجم للمجموعة</string>
+    <string name="analytics_chart_1rm_mode">الـ 1RM التقديري</string>
+    <string name="analytics_chart_weight_mode">أقصى وزن</string>
+    <string name="analytics_range_7d">7 أيام</string>
+    <string name="analytics_range_30d">30 يوماً</string>
+    <string name="analytics_range_90d">90 يوماً</string>
+    <string name="analytics_range_all">الكل</string>
+    <string name="analytics_weekly_muscle_title">توزيع الحجم الأسبوعي للعضلات</string>
+    <string name="analytics_log_weight_cta">تسجيل وزن</string>
+    <string name="analytics_weight_logged_msg">تم تسجيل وزن الجسم بنجاح</string>
+    <string name="analytics_weight_deleted_msg">تم حذف السجل</string>
+    <string name="analytics_select_exercise">اختر التمرين</string>
+    <string name="analytics_workout_detail_title">تفاصيل الجلسة</string>
+    <string name="analytics_insights_title">توصيات وتحليلات التقدم التدريبي</string>
+    <string name="analytics_sets_count">%1$d مجموعات</string>
+    <string name="analytics_body_weight_current">آخر قياس لوزن الجسم</string>
 </resources>

@@ -6,11 +6,14 @@ import androidx.room.withTransaction
 import com.himma.app.BuildConfig
 import com.himma.app.core.database.ExerciseRepository
 import com.himma.app.core.database.HimmaDatabase
+import com.himma.app.core.database.dao.AnalyticsDao
 import com.himma.app.core.database.dao.ExerciseDao
 import com.himma.app.core.database.dao.RoutineDao
 import com.himma.app.core.database.dao.UserProfileDao
 import com.himma.app.core.database.dao.WorkoutDao
+import com.himma.app.core.database.entity.BodyWeightEntity
 import com.himma.app.core.database.entity.ExerciseEntity
+import com.himma.app.core.database.entity.PersonalRecordEntity
 import com.himma.app.core.database.entity.RoutineEntity
 import com.himma.app.core.database.entity.RoutineExerciseEntity
 import com.himma.app.core.database.entity.UserProfileEntity
@@ -18,7 +21,9 @@ import com.himma.app.core.database.entity.WorkoutEntity
 import com.himma.app.core.database.entity.WorkoutSetEntity
 import com.himma.app.core.datastore.UserPreferencesRepository
 import com.himma.app.domain.model.AppLanguage
+import com.himma.app.domain.model.BackupBodyWeight
 import com.himma.app.domain.model.BackupExercise
+import com.himma.app.domain.model.BackupPersonalRecord
 import com.himma.app.domain.model.BackupPreferences
 import com.himma.app.domain.model.BackupPreview
 import com.himma.app.domain.model.BackupProfile
@@ -72,6 +77,7 @@ class LocalBackupRepository @Inject constructor(
     private val exerciseDao: ExerciseDao,
     private val routineDao: RoutineDao,
     private val workoutDao: WorkoutDao,
+    private val analyticsDao: AnalyticsDao,
     private val exerciseRepository: ExerciseRepository,
     private val preferencesRepository: UserPreferencesRepository,
 ) : BackupRepository {
@@ -90,6 +96,8 @@ class LocalBackupRepository @Inject constructor(
         val routineExercises = routineDao.getAllRoutineExercisesOnce()
         val workouts = workoutDao.getAllWorkoutsOnce()
         val workoutSets = workoutDao.getAllWorkoutSetsOnce()
+        val personalRecords = analyticsDao.getAllPersonalRecordsOnce()
+        val bodyWeights = analyticsDao.getAllBodyWeightsOnce()
 
         val document = HimmaBackupDocument(
             format = HimmaBackupDocument.FORMAT_ID,
@@ -163,6 +171,24 @@ class LocalBackupRepository @Inject constructor(
                     isCompleted = it.isCompleted,
                     isPr = it.isPr,
                     completedAt = it.completedAt,
+                )
+            },
+            personalRecords = personalRecords.map {
+                BackupPersonalRecord(
+                    id = it.id,
+                    exerciseId = it.exerciseId,
+                    maxWeightKg = it.maxWeightKg,
+                    maxVolumeSetKg = it.maxVolumeSetKg,
+                    estimated1rmKg = it.estimated1rmKg,
+                    achievedAt = it.achievedAt,
+                    workoutId = it.workoutId,
+                )
+            },
+            bodyWeights = bodyWeights.map {
+                BackupBodyWeight(
+                    id = it.id,
+                    weightKg = it.weightKg,
+                    recordedAt = it.recordedAt,
                 )
             },
         )
@@ -265,6 +291,8 @@ class LocalBackupRepository @Inject constructor(
     override fun hasLocalAutoSnapshot(): Boolean = latestAutoSnapshotFile.exists()
 
     private suspend fun applyReplaceRestore(document: HimmaBackupDocument): RestoreSummary {
+        analyticsDao.deleteAllPersonalRecords()
+        analyticsDao.deleteAllBodyWeights()
         workoutDao.deleteAllWorkouts()
         routineDao.deleteAllRoutines()
         exerciseDao.deleteAllCustomExercises()
@@ -319,6 +347,34 @@ class LocalBackupRepository @Inject constructor(
                     updatedAt = profile.updatedAt,
                 ),
             )
+        }
+
+        val validPrs = document.personalRecords
+            .filter { it.exerciseId in validExerciseIds }
+            .map { pr ->
+                PersonalRecordEntity(
+                    id = pr.id,
+                    exerciseId = pr.exerciseId,
+                    maxWeightKg = pr.maxWeightKg,
+                    maxVolumeSetKg = pr.maxVolumeSetKg,
+                    estimated1rmKg = pr.estimated1rmKg,
+                    achievedAt = pr.achievedAt,
+                    workoutId = pr.workoutId?.takeIf { it in acceptedWorkoutIds },
+                )
+            }
+        if (validPrs.isNotEmpty()) {
+            analyticsDao.upsertPersonalRecords(validPrs)
+        }
+
+        val bodyWeights = document.bodyWeights.map { bw ->
+            BodyWeightEntity(
+                id = bw.id,
+                weightKg = bw.weightKg,
+                recordedAt = bw.recordedAt,
+            )
+        }
+        if (bodyWeights.isNotEmpty()) {
+            analyticsDao.insertAllBodyWeights(bodyWeights)
         }
 
         return RestoreSummary(
@@ -401,6 +457,38 @@ class LocalBackupRepository @Inject constructor(
         skippedCount += invalidSets.size
         if (validSets.isNotEmpty()) {
             workoutDao.insertSets(validSets.map { it.toEntity() })
+        }
+
+        val allWorkoutIds = (existingWorkoutIds + acceptedWorkoutIds)
+        val existingPrByExercise = analyticsDao.getAllPersonalRecordsOnce().associateBy { it.exerciseId }
+        val prsToUpsert = document.personalRecords
+            .filter { it.exerciseId in validExerciseIds }
+            .mapNotNull { incoming ->
+                val current = existingPrByExercise[incoming.exerciseId]
+                val incomingBetter = current == null ||
+                    (incoming.maxWeightKg ?: 0.0) > (current.maxWeightKg ?: 0.0) ||
+                    (incoming.estimated1rmKg ?: 0.0) > (current.estimated1rmKg ?: 0.0)
+                if (!incomingBetter) return@mapNotNull null
+                PersonalRecordEntity(
+                    id = current?.id ?: incoming.id,
+                    exerciseId = incoming.exerciseId,
+                    maxWeightKg = maxOf(incoming.maxWeightKg ?: 0.0, current?.maxWeightKg ?: 0.0),
+                    maxVolumeSetKg = maxOf(incoming.maxVolumeSetKg ?: 0.0, current?.maxVolumeSetKg ?: 0.0),
+                    estimated1rmKg = maxOf(incoming.estimated1rmKg ?: 0.0, current?.estimated1rmKg ?: 0.0),
+                    achievedAt = incoming.achievedAt,
+                    workoutId = incoming.workoutId?.takeIf { it in allWorkoutIds } ?: current?.workoutId,
+                )
+            }
+        if (prsToUpsert.isNotEmpty()) {
+            analyticsDao.upsertPersonalRecords(prsToUpsert)
+        }
+
+        val existingBwIds = analyticsDao.getAllBodyWeightsOnce().map { it.id }.toSet()
+        val bwToInsert = document.bodyWeights
+            .filter { it.id !in existingBwIds }
+            .map { BodyWeightEntity(id = it.id, weightKg = it.weightKg, recordedAt = it.recordedAt) }
+        if (bwToInsert.isNotEmpty()) {
+            analyticsDao.insertAllBodyWeights(bwToInsert)
         }
 
         return RestoreSummary(

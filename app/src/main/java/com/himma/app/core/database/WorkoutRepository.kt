@@ -1,11 +1,14 @@
 package com.himma.app.core.database
 
+import com.himma.app.core.database.dao.AnalyticsDao
 import com.himma.app.core.database.dao.RoutineDao
 import com.himma.app.core.database.dao.WorkoutDao
 import com.himma.app.core.database.entity.WorkoutEntity
 import com.himma.app.core.database.entity.WorkoutSetEntity
+import com.himma.app.domain.model.BrzyckiMath
 import com.himma.app.domain.model.Exercise
 import com.himma.app.domain.model.FinishedWorkoutSummary
+import com.himma.app.domain.model.PersonalRecord
 import com.himma.app.domain.model.PreviousSetHint
 import com.himma.app.domain.model.SetType
 import com.himma.app.domain.model.WorkoutMath
@@ -22,6 +25,7 @@ data class SetCompletionResult(
     val isCompleted: Boolean,
     val shouldStartTimer: Boolean,
     val restSeconds: Int,
+    val isPr: Boolean = false,
 )
 
 interface WorkoutRepository {
@@ -81,6 +85,8 @@ interface WorkoutRepository {
 class RoomWorkoutRepository @Inject constructor(
     private val workoutDao: WorkoutDao,
     private val routineDao: RoutineDao,
+    private val analyticsDao: AnalyticsDao,
+    private val analyticsRepository: AnalyticsRepository,
 ) : WorkoutRepository {
 
     override fun observeActiveDraft(): Flow<WorkoutSession?> {
@@ -286,11 +292,33 @@ class RoomWorkoutRepository @Inject constructor(
                 }
             }
 
+            val isLivePr = if (nextCompleted) {
+                val existingPr = analyticsDao.getPersonalRecordForExercise(existing.exerciseId)?.let {
+                    PersonalRecord(
+                        id = it.id,
+                        exerciseId = it.exerciseId,
+                        maxWeightKg = it.maxWeightKg,
+                        maxVolumeSetKg = it.maxVolumeSetKg,
+                        estimated1rmKg = it.estimated1rmKg,
+                        achievedAt = it.achievedAt,
+                        workoutId = it.workoutId,
+                    )
+                }
+                BrzyckiMath.isSetPersonalRecord(
+                    weightKg = updatedWeight,
+                    reps = updatedReps,
+                    existingPr = existingPr,
+                )
+            } else {
+                false
+            }
+
             workoutDao.upsertSet(
                 existing.copy(
                     weightKg = updatedWeight,
                     reps = updatedReps,
                     isCompleted = nextCompleted,
+                    isPr = isLivePr,
                     completedAt = if (nextCompleted) System.currentTimeMillis() else null,
                 ),
             )
@@ -299,6 +327,7 @@ class RoomWorkoutRepository @Inject constructor(
                 isCompleted = nextCompleted,
                 shouldStartTimer = nextCompleted,
                 restSeconds = existing.restSeconds,
+                isPr = isLivePr,
             )
         }
 
@@ -342,12 +371,15 @@ class RoomWorkoutRepository @Inject constructor(
                 ),
             )
 
+            val newPrCount = analyticsRepository.evaluateAndPersistWorkoutPrs(workoutId)
+
             FinishedWorkoutSummary(
                 workoutId = domain.id,
                 title = domain.title,
                 durationSeconds = durationSeconds,
                 totalVolumeKg = totalVolumeKg,
                 completedSets = domain.completedSetsCount,
+                newPrCount = newPrCount,
             )
         }
 
