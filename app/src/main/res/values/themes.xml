@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Himma" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+
+    <style name="Theme.Himma.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#111816</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_himma_dumbbell</item>
+        <item name="postSplashScreenTheme">@style/Theme.Himma</item>
+    </style>
+</resources>

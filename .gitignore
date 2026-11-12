@@ -1,0 +1,25 @@
+# Gradle & Build
+.gradle/
+build/
+**/build/
+local.properties
+
+# Android Studio / IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Keystores & Signing
+*.jks
+*.keystore
+
+# macOS
+.DS_Store
+
+# Logs & Temp
+*.log
+captures/
+.cxx/
+.externalNativeBuild/

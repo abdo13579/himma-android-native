@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" width="100%" height="100%">
+  <!-- EXACT SAME DESIGN LANGUAGE AS himma-minimal-dark.svg BUT NO BACKGROUND -->
+  <g id="dumbbell" transform="translate(10, 10)">
+    <!-- Dumbbell Bar / Handle -->
+    <rect x="16" y="74" width="268" height="22" rx="11" fill="#16a34a"/>
+
+    <!-- Left Outer Collar -->
+    <rect x="0" y="68" width="16" height="34" rx="6" fill="#15803d"/>
+    <!-- Left Inner Weight Plate -->
+    <rect x="26" y="32" width="28" height="106" rx="12" fill="#22c55e"/>
+    <!-- Left Outer Weight Plate -->
+    <rect x="58" y="10" width="30" height="150" rx="14" fill="#16a34a"/>
+
+    <!-- Right Outer Weight Plate -->
+    <rect x="212" y="10" width="30" height="150" rx="14" fill="#16a34a"/>
+    <!-- Right Inner Weight Plate -->
+    <rect x="246" y="32" width="28" height="106" rx="12" fill="#22c55e"/>
+    <!-- Right Outer Collar -->
+    <rect x="284" y="68" width="16" height="34" rx="6" fill="#15803d"/>
+  </g>
+</svg>

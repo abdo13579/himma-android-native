@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 170" width="100%" height="100%">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@800;900&amp;family=Tajawal:wght@800;900&amp;family=Inter:wght@700;800&amp;display=swap');
+      
+      .ar-wordmark {
+        font-family: 'Cairo', 'Tajawal', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Geeza Pro', system-ui, sans-serif;
+        font-weight: 900;
+        font-size: 96px;
+        fill: #ffffff;
+        text-anchor: middle;
+        dominant-baseline: alphabetic;
+      }
+
+      .en-tagline {
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        font-weight: 800;
+        font-size: 20px;
+        fill: #22c55e;
+        letter-spacing: 12px;
+        text-anchor: middle;
+        dominant-baseline: alphabetic;
+      }
+    </style>
+  </defs>
+
+  <!-- Green Athletic Brand Accent Bar -->
+  <rect x="195" y="16" width="70" height="6" rx="3" fill="#22c55e" transform="rotate(-6 230 19)"/>
+
+  <!-- Arabic Typography "هِمّة" -->
+  <text x="230" y="105" class="ar-wordmark">هِمّة</text>
+
+  <!-- Latin Subtitle "HIMMA" -->
+  <text x="236" y="152" class="en-tagline">HIMMA</text>
+</svg>

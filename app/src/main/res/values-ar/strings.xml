@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">هِمّة</string>
+
+    <!-- Navigation Tabs -->
+    <string name="nav_today">اليوم</string>
+    <string name="nav_routines">الروتينات</string>
+    <string name="nav_exercises">التمارين</string>
+    <string name="nav_analytics">التحليلات</string>
+    <string name="nav_settings">الإعدادات</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_title">أهلاً بك في هِمّة</string>
+    <string name="onboarding_subtitle">تطبيق جيم محلي 100%، سريع ومصمم للتمرين. اضبط تفضيلاتك في ثوانٍ.</string>
+    <string name="onboarding_language_label">لغة التطبيق</string>
+    <string name="onboarding_unit_label">وحدة الوزن</string>
+    <string name="onboarding_name_label">الاسم (اختياري)</string>
+    <string name="onboarding_name_placeholder">مثال: عبده</string>
+    <string name="onboarding_body_weight_label">وزن الجسم (اختياري)</string>
+    <string name="onboarding_body_weight_placeholder">مثال: 75.0</string>
+    <string name="onboarding_rest_label">وقت الراحة الافتراضي</string>
+    <string name="onboarding_start_cta">ابدأ التمرين</string>
+    <string name="onboarding_local_badge">جميع بياناتك محفوظة محلياً على جهازك فقط</string>
+
+    <!-- Languages & Units -->
+    <string name="language_ar">العربية</string>
+    <string name="language_en">English</string>
+    <string name="unit_kg">كجم</string>
+    <string name="unit_lbs">رطل</string>
+    <string name="seconds_short">%1$d ثانية</string>
+
+    <!-- Today / Foundation Screens -->
+    <string name="today_greeting_named">جاهز للتمرين، %1$s</string>
+    <string name="today_greeting_default">جاهز للتمرين</string>
+    <string name="today_local_status">الوضع المحلي الكامل مفعّل</string>
+    <string name="today_summary_title">ملخص إعداداتك المحلية</string>
+    <string name="today_summary_unit">الوحدة المفضلة</string>
+    <string name="today_summary_rest">الراحة الافتراضية</string>
+    <string name="today_summary_body_weight">وزن الجسم</string>
+    <string name="today_summary_not_set">غير محدد</string>
+    <string name="today_quick_start_title">الأساس جاهز (Spec 1)</string>
+    <string name="today_quick_start_body">ثيم Material Design 3 وقاعدة بيانات Room وتفضيلات DataStore ودعم العربية RTL مفعّلة بنجاح. القادم: مكتبة التمارين (Spec 2) ومنشئ الروتينات (Spec 3).</string>
+
+    <string name="routines_title">روتيناتي</string>
+    <string name="routines_foundation_desc">ستظهر هنا روتيناتك التدريبية ومنشئ الروتين بالسحب والإفلات في Spec 3.</string>
+
+    <string name="exercises_title">مكتبة التمارين</string>
+    <string name="exercises_foundation_desc">ستظهر هنا أكثر من 100 تمرين محلي بالعربية والإنجليزية مع فلاتر العضلات والتمارين المخصصة في Spec 2.</string>
+
+    <string name="analytics_title">التحليلات والأرقام القياسية</string>
+    <string name="analytics_foundation_desc">سيظهر هنا سجل التمارين وحسابات 1RM والرسوم البيانية للأرقام القياسية في Spec 6.</string>
+
+    <!-- Settings -->
+    <string name="settings_title">الإعدادات</string>
+    <string name="settings_section_profile">الملف المحلي</string>
+    <string name="settings_section_preferences">تفضيلات التمرين</string>
+    <string name="settings_section_appearance">مظهر Material Design 3</string>
+    <string name="settings_section_storage">حالة التخزين المحلي</string>
+    <string name="settings_theme_label">وضع المظهر</string>
+    <string name="theme_amoled_dark">داكن AMOLED</string>
+    <string name="theme_dark">داكن</string>
+    <string name="theme_light">نهاري</string>
+    <string name="theme_system">النظام</string>
+    <string name="settings_dynamic_color">الألوان الديناميكية (Android 12+)</string>
+    <string name="settings_dynamic_color_desc">تكييف الألوان مع خلفية هاتفك</string>
+    <string name="settings_save_profile">حفظ الملف</string>
+    <string name="settings_profile_saved">تم حفظ الملف محلياً</string>
+    <string name="settings_storage_desc">قاعدة بيانات Room SQLite و Jetpack DataStore تعملان محلياً بالكامل بدون خوادم أو تسجيل دخول.</string>
+    <string name="settings_reset_onboarding">إعادة شاشة الإعداد الأولي</string>
+    <string name="validation_invalid_weight">أدخل وزناً صحيحاً أكبر من صفر</string>
+</resources>

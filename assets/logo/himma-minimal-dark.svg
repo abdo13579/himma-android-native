@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Simple Dark Background -->
+    <rect id="bg" width="512" height="512" rx="115" fill="#121815"/>
+
+    <!-- Soft Shadow -->
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="512" height="512" rx="115" fill="#111816"/>
+
+  <!-- SIMPLE FLAT GREEN DUMBBELL (Centered) -->
+  <g id="dumbbell" filter="url(#softShadow)">
+    <!-- Dumbbell Bar / Handle -->
+    <rect x="116" y="244" width="280" height="24" rx="12" fill="#16a34a"/>
+
+    <!-- Left Outer Collar -->
+    <rect x="100" y="238" width="16" height="36" rx="6" fill="#15803d"/>
+    <!-- Left Inner Weight Plate -->
+    <rect x="126" y="200" width="28" height="112" rx="12" fill="#22c55e"/>
+    <!-- Left Outer Weight Plate -->
+    <rect x="160" y="176" width="30" height="160" rx="14" fill="#16a34a"/>
+
+    <!-- Right Outer Weight Plate -->
+    <rect x="322" y="176" width="30" height="160" rx="14" fill="#16a34a"/>
+    <!-- Right Inner Weight Plate -->
+    <rect x="358" y="200" width="28" height="112" rx="12" fill="#22c55e"/>
+    <!-- Right Outer Collar -->
+    <rect x="396" y="238" width="16" height="36" rx="6" fill="#15803d"/>
+  </g>
+
+  <!-- ARABIC TEXT "هِمّة" IN FRONT OF DUMBBELL -->
+  <!-- Crisp white font with subtle dark outline for perfect separation -->
+  <g id="text-himma">
+    <text x="256" y="278" 
+          font-family="'Cairo', 'Tajawal', 'Almarai', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif" 
+          font-size="82" 
+          font-weight="800" 
+          text-anchor="middle" 
+          dominant-baseline="middle"
+          fill="#ffffff"
+          stroke="#111816"
+          stroke-width="12"
+          paint-order="stroke fill"
+          stroke-linejoin="round">هِمّة</text>
+  </g>
+</svg>

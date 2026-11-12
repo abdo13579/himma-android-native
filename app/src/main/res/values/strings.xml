@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Himma</string>
+
+    <!-- Navigation Tabs -->
+    <string name="nav_today">Today</string>
+    <string name="nav_routines">Routines</string>
+    <string name="nav_exercises">Exercises</string>
+    <string name="nav_analytics">Analytics</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_title">Welcome to Himma</string>
+    <string name="onboarding_subtitle">100% local, fast, and built for the gym. Set up your preferences in seconds.</string>
+    <string name="onboarding_language_label">App Language</string>
+    <string name="onboarding_unit_label">Weight Unit</string>
+    <string name="onboarding_name_label">Display Name (Optional)</string>
+    <string name="onboarding_name_placeholder">e.g. Abdo</string>
+    <string name="onboarding_body_weight_label">Body Weight (Optional)</string>
+    <string name="onboarding_body_weight_placeholder">e.g. 75.0</string>
+    <string name="onboarding_rest_label">Default Rest Timer</string>
+    <string name="onboarding_start_cta">Start Training</string>
+    <string name="onboarding_local_badge">All data stays 100% offline on your device</string>
+
+    <!-- Languages & Units -->
+    <string name="language_ar">العربية</string>
+    <string name="language_en">English</string>
+    <string name="unit_kg">kg</string>
+    <string name="unit_lbs">lbs</string>
+    <string name="seconds_short">%1$d sec</string>
+
+    <!-- Today / Foundation Screens -->
+    <string name="today_greeting_named">Ready to train, %1$s</string>
+    <string name="today_greeting_default">Ready to train</string>
+    <string name="today_local_status">Offline-First Mode Active</string>
+    <string name="today_summary_title">Your Local Setup</string>
+    <string name="today_summary_unit">Preferred Unit</string>
+    <string name="today_summary_rest">Default Rest</string>
+    <string name="today_summary_body_weight">Body Weight</string>
+    <string name="today_summary_not_set">Not set</string>
+    <string name="today_quick_start_title">Foundation Ready (Spec 1)</string>
+    <string name="today_quick_start_body">Material Design 3 theme, Room database, DataStore preferences, and RTL/LTR localization are active. Next up: Exercise Library (Spec 2) and Routine Builder (Spec 3).</string>
+
+    <string name="routines_title">My Routines</string>
+    <string name="routines_foundation_desc">Custom workout routines and drag-and-drop builder will appear here in Spec 3.</string>
+
+    <string name="exercises_title">Exercise Library</string>
+    <string name="exercises_foundation_desc">100+ local Arabic &amp; English exercises with muscle filters and custom exercises will appear here in Spec 2.</string>
+
+    <string name="analytics_title">Analytics &amp; PRs</string>
+    <string name="analytics_foundation_desc">Workout history, Brzycki 1RM estimates, and personal record charts will appear here in Spec 6.</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_section_profile">Local Profile</string>
+    <string name="settings_section_preferences">Training Preferences</string>
+    <string name="settings_section_appearance">Material Design 3 Appearance</string>
+    <string name="settings_section_storage">Local Storage Status</string>
+    <string name="settings_theme_label">Theme Mode</string>
+    <string name="theme_amoled_dark">AMOLED Dark</string>
+    <string name="theme_dark">Dark</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_system">System</string>
+    <string name="settings_dynamic_color">Dynamic Color (Android 12+)</string>
+    <string name="settings_dynamic_color_desc">Adapt colors from your device wallpaper</string>
+    <string name="settings_save_profile">Save Profile</string>
+    <string name="settings_profile_saved">Profile updated locally</string>
+    <string name="settings_storage_desc">Room SQLite + Jetpack DataStore active. Zero cloud servers or sign-in required.</string>
+    <string name="settings_reset_onboarding">Re-run Onboarding</string>
+    <string name="validation_invalid_weight">Enter a valid positive weight</string>
+</resources>
