@@ -59,25 +59,24 @@ class RoomExerciseRepository @Inject constructor(
         seedMutex.withLock {
             if (seededChecked) return
             withContext(Dispatchers.IO) {
-                if (exerciseDao.countSeedExercises() == 0) {
-                    val entities = seedLoader.loadSeedEntities()
+                val entities = seedLoader.loadSeedEntities()
+                if (exerciseDao.countSeedExercises() < entities.size) {
                     exerciseDao.insertAllIgnore(entities)
-                } else {
-                    val needingNormalization = exerciseDao.getExercisesNeedingNormalization()
-                    if (needingNormalization.isNotEmpty()) {
-                        val patched = needingNormalization.map { row ->
-                            val normalizedEquipment = when {
-                                row.id == "One-Arm_Kettlebell_Swings" -> EquipmentType.DUMBBELL.name
-                                row.equipment == EquipmentType.OTHER.name -> EquipmentType.BODYWEIGHT.name
-                                else -> row.equipment
-                            }
-                            row.copy(
-                                nameArNormalized = ArabicTextNormalizer.normalize(row.nameAr),
-                                equipment = normalizedEquipment,
-                            )
+                }
+                val needingNormalization = exerciseDao.getExercisesNeedingNormalization()
+                if (needingNormalization.isNotEmpty()) {
+                    val patched = needingNormalization.map { row ->
+                        val normalizedEquipment = when {
+                            row.id == "One-Arm_Kettlebell_Swings" -> EquipmentType.DUMBBELL.name
+                            row.equipment == EquipmentType.OTHER.name -> EquipmentType.BODYWEIGHT.name
+                            else -> row.equipment
                         }
-                        exerciseDao.upsertAll(patched)
+                        row.copy(
+                            nameArNormalized = ArabicTextNormalizer.normalize(row.nameAr),
+                            equipment = normalizedEquipment,
+                        )
                     }
+                    exerciseDao.upsertAll(patched)
                 }
             }
             seededChecked = true

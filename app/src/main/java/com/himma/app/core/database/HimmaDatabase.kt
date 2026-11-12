@@ -5,14 +5,19 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.himma.app.core.database.dao.ExerciseDao
+import com.himma.app.core.database.dao.RoutineDao
 import com.himma.app.core.database.dao.UserProfileDao
 import com.himma.app.core.database.entity.ExerciseEntity
+import com.himma.app.core.database.entity.RoutineEntity
+import com.himma.app.core.database.entity.RoutineExerciseEntity
 import com.himma.app.core.database.entity.UserProfileEntity
 
 @Database(
     entities = [
         UserProfileEntity::class,
         ExerciseEntity::class,
+        RoutineEntity::class,
+        RoutineExerciseEntity::class,
     ],
     version = HimmaDatabase.DATABASE_VERSION,
     exportSchema = true,
@@ -20,10 +25,11 @@ import com.himma.app.core.database.entity.UserProfileEntity
 abstract class HimmaDatabase : RoomDatabase() {
     abstract fun userProfileDao(): UserProfileDao
     abstract fun exerciseDao(): ExerciseDao
+    abstract fun routineDao(): RoutineDao
 
     companion object {
         const val DATABASE_NAME = "himma.db"
-        const val DATABASE_VERSION = 4
+        const val DATABASE_VERSION = 5
 
         val MIGRATION_1_2 = object : Migration(1, 2) {
             override fun migrate(db: SupportSQLiteDatabase) {
@@ -83,6 +89,51 @@ abstract class HimmaDatabase : RoomDatabase() {
             }
         }
 
+        val MIGRATION_4_5 = object : Migration(4, 5) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS `routines` (
+                        `id` TEXT NOT NULL,
+                        `title` TEXT NOT NULL,
+                        `notes` TEXT NOT NULL,
+                        `order_index` INTEGER NOT NULL,
+                        `created_at` INTEGER NOT NULL,
+                        `updated_at` INTEGER NOT NULL,
+                        `is_deleted` INTEGER NOT NULL,
+                        PRIMARY KEY(`id`)
+                    )
+                    """.trimIndent(),
+                )
+                db.execSQL(
+                    "CREATE INDEX IF NOT EXISTS `index_routines_is_deleted_order_index` ON `routines` (`is_deleted`, `order_index`)",
+                )
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS `routine_exercises` (
+                        `id` TEXT NOT NULL,
+                        `routine_id` TEXT NOT NULL,
+                        `exercise_id` TEXT NOT NULL,
+                        `order_index` INTEGER NOT NULL,
+                        `target_sets` INTEGER NOT NULL,
+                        `target_reps_min` INTEGER NOT NULL,
+                        `target_reps_max` INTEGER NOT NULL,
+                        `target_rest_seconds` INTEGER NOT NULL,
+                        PRIMARY KEY(`id`),
+                        FOREIGN KEY(`routine_id`) REFERENCES `routines`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE,
+                        FOREIGN KEY(`exercise_id`) REFERENCES `exercises`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE
+                    )
+                    """.trimIndent(),
+                )
+                db.execSQL(
+                    "CREATE INDEX IF NOT EXISTS `index_routine_exercises_routine_id_order_index` ON `routine_exercises` (`routine_id`, `order_index`)",
+                )
+                db.execSQL(
+                    "CREATE INDEX IF NOT EXISTS `index_routine_exercises_exercise_id` ON `routine_exercises` (`exercise_id`)",
+                )
+            }
+        }
+
         /**
          * Explicit migrations array; new specs append versioned migrations here
          * to guarantee zero data loss across updates.
@@ -91,6 +142,7 @@ abstract class HimmaDatabase : RoomDatabase() {
             MIGRATION_1_2,
             MIGRATION_2_3,
             MIGRATION_3_4,
+            MIGRATION_4_5,
         )
     }
 }

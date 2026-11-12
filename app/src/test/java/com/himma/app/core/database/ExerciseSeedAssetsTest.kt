@@ -24,7 +24,7 @@ class ExerciseSeedAssetsTest {
 
         val seedFile = File(assetsDir, ExerciseSeedLoader.SEED_ASSET_FILE)
         val entries = json.decodeFromString<List<SeedExerciseDto>>(seedFile.readText())
-        assertEquals(111, entries.size)
+        assertEquals(302, entries.size)
 
         entries.forEach { dto ->
             val muscle = MuscleGroup.fromNameOrNull(dto.primaryMuscle)

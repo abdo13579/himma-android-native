@@ -488,7 +488,7 @@
     "nameAr": "رفعة ميتة بالبار (Deadlift)",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
-      "CORE"
+      "ARMS"
     ],
     "equipment": "BARBELL",
     "instructionsEn": "Perform Deadlift through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
@@ -1483,7 +1483,9 @@
     "nameEn": "Hanging Leg Raise",
     "nameAr": "رفع الساقين معلقاً على العقلة",
     "primaryMuscle": "CORE",
-    "secondaryMuscles": [],
+    "secondaryMuscles": [
+      "ARMS"
+    ],
     "equipment": "BODYWEIGHT",
     "instructionsEn": "Perform Hanging Leg Raise through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
     "instructionsAr": "تعلق بالبار بثبات وبدون تأرجح.\nارفع الساقين للأمام والأعلى حتى مستوى الخصر أو أعلى.\nانزل بتحكم.",
@@ -1496,7 +1498,9 @@
     "nameEn": "Hanging Knee Raise",
     "nameAr": "رفع الركبتين معلقاً على العقلة",
     "primaryMuscle": "CORE",
-    "secondaryMuscles": [],
+    "secondaryMuscles": [
+      "ARMS"
+    ],
     "equipment": "BODYWEIGHT",
     "instructionsEn": "Perform Hanging Knee Raise through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
     "instructionsAr": "تعلق بالبار مع شد الأكتاف للأسفل.\nاسحب الركبتين نحو الصدر بتقويس طفيف في الحوض.\nاخفض بتحكم.",
@@ -1635,6 +1639,2892 @@
     "instructionsAr": "قف جانبياً وامسك المقبض أمام الصدر.\nادفع الذراعين للأمام مع مقاومة التفاف الجذع نحو الكابل.\nأرجع ببطء.",
     "localMediaKey": "pallof-press",
     "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "weighted-push-up",
+    "nameEn": "Weighted Push-up",
+    "nameAr": "ضغط بأوزان إضافية (Weighted Push-up)",
+    "primaryMuscle": "CHEST",
+    "secondaryMuscles": [
+      "ARMS",
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Weighted Push-up through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ضع وزناً آمناً أعلى الظهر في وضع الضغط.\nاخفض الصدر نحو الأرض بتحكم ثم ادفع بقوة للأعلى.",
+    "localMediaKey": "weighted-push-up",
+    "defaultRestSeconds": 90,
+    "isCustom": false
+  },
+  {
+    "id": "weighted-pull-up",
+    "nameEn": "Weighted Pull-up",
+    "nameAr": "عقلة بأوزان إضافية (Weighted Pull-up)",
+    "primaryMuscle": "BACK",
+    "secondaryMuscles": [
+      "ARMS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Weighted Pull-up through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ثبّت وزناً بحزام الوسط وامسك العقلة بقبضة أوسع من الكتفين.\nاسحب صدرك نحو البار بتحكم وانزل بامتداد كامل.",
+    "localMediaKey": "weighted-pull-up",
+    "defaultRestSeconds": 120,
+    "isCustom": false
+  },
+  {
+    "id": "assisted-dip",
+    "nameEn": "Assisted Dip",
+    "nameAr": "تغطيس على الجهاز المساعد (Assisted Dip)",
+    "primaryMuscle": "ARMS",
+    "secondaryMuscles": [
+      "CHEST"
+    ],
+    "equipment": "MACHINE",
+    "instructionsEn": "Perform Assisted Dip through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "اضبط وزن المساعدة وصعد ركبتيك على المسند.\nاخفض جسمك بثني المرفقين حتى زاوية 90 ثم ادفع للأعلى.",
+    "localMediaKey": "assisted-dip",
+    "defaultRestSeconds": 90,
+    "isCustom": false
+  },
+  {
+    "id": "running",
+    "nameEn": "Running",
+    "nameAr": "الجري (Running)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [],
+    "equipment": "MACHINE",
+    "instructionsEn": "Perform Running through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "حافظ على استقامة القامة وإرخاء الكتفين أثناء الجري.\nاضبط وتيرة التنفس مع خطوات متزنة على المشاية أو المضمار.",
+    "localMediaKey": "running",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "walking",
+    "nameEn": "Walking",
+    "nameAr": "المشي الرياضي (Walking)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [],
+    "equipment": "MACHINE",
+    "instructionsEn": "Perform Walking through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "سر بخطوات منتظمة مع تحريك الذراعين بانسيابية.\nحافظ على شد خفيف للبطن واستقامة الظهر.",
+    "localMediaKey": "walking",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "cycling",
+    "nameEn": "Cycling",
+    "nameAr": "ركوب الدراجة الثابتة (Cycling)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [],
+    "equipment": "MACHINE",
+    "instructionsEn": "Perform Cycling through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "اضبط ارتفاع المقعد ليبقى الركب مثنياً قليلاً في أسفل الدورة.\nحافظ على سرعة دوران ثابتة ومقاومة مناسبة.",
+    "localMediaKey": "cycling",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "rowing",
+    "nameEn": "Rowing",
+    "nameAr": "جهاز التجديف (Rowing Machine)",
+    "primaryMuscle": "BACK",
+    "secondaryMuscles": [
+      "LEGS"
+    ],
+    "equipment": "MACHINE",
+    "instructionsEn": "Perform Rowing through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ادفع بالساقين أولاً ثم أمل الجذع قليلاً واسحب المقبض نحو أسفل الصدر.\nأعد الذراعين ثم اثنِ الركبتين بالترتيب العكسي.",
+    "localMediaKey": "rowing",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "stair-climber",
+    "nameEn": "Stair Climber",
+    "nameAr": "جهاز صعود الدرج (Stair Climber)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [],
+    "equipment": "MACHINE",
+    "instructionsEn": "Perform Stair Climber through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ضع كامل القدم على الدرجة وتجنب الاتكاء الزائد على المقابض.\nاصعد بإيقاع ثابت مع تنفس منتظم.",
+    "localMediaKey": "stair-climber",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "weighted-dip",
+    "nameEn": "Weighted Dip",
+    "nameAr": "تغطيس بأوزان إضافية (Weighted Dip)",
+    "primaryMuscle": "ARMS",
+    "secondaryMuscles": [
+      "CHEST",
+      "SHOULDERS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Weighted Dip through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "علق وزناً على حزام الوسط وامسك المتوازي.\nاخفض جسمك بتحكم ثم ادفع للأعلى مع ثبات الجذع.",
+    "localMediaKey": "weighted-dip",
+    "defaultRestSeconds": 120,
+    "isCustom": false
+  },
+  {
+    "id": "plate-front-raise",
+    "nameEn": "Plate Front Raise",
+    "nameAr": "رفع أمامي بالقرص (Plate Front Raise)",
+    "primaryMuscle": "SHOULDERS",
+    "secondaryMuscles": [
+      "CHEST"
+    ],
+    "equipment": "BARBELL",
+    "instructionsEn": "Perform Plate Front Raise through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "امسك قرص الوزن من الجانبين أمام الفخذين.\nارفع القرص للأمام حتى مستوى الكتفين ثم اخفضه ببطء.",
+    "localMediaKey": "plate-front-raise",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "bent-over-rear-delt-raise",
+    "nameEn": "Bent-Over Rear Delt Raise",
+    "nameAr": "رفرفة خلفي بالدمبل مع الانحناء",
+    "primaryMuscle": "SHOULDERS",
+    "secondaryMuscles": [
+      "BACK"
+    ],
+    "equipment": "DUMBBELL",
+    "instructionsEn": "Perform Bent-Over Rear Delt Raise through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "انحنِ بجذعك للأمام مع استقامة الظهر وامسك الدمبلين.\nارفع الذراعين للجانبين لعصر الكتف الخلفي ثم أنزل بتحكم.",
+    "localMediaKey": "bent-over-rear-delt-raise",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "cable-rear-delt-fly",
+    "nameEn": "Cable Rear Delt Fly",
+    "nameAr": "تفتيح الكتف الخلفي بالكابل",
+    "primaryMuscle": "SHOULDERS",
+    "secondaryMuscles": [
+      "BACK"
+    ],
+    "equipment": "CABLE",
+    "instructionsEn": "Perform Cable Rear Delt Fly through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "امسك طرفي الكابل المتقاطعين بمستوى الصدر.\nافتح ذراعيك للخلف بزاوية واسعة واعصر الكتفين الخلفيين.",
+    "localMediaKey": "cable-rear-delt-fly",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "meadows-row",
+    "nameEn": "Meadows Row",
+    "nameAr": "سحب ميدوز بذراع واحدة (Meadows Row)",
+    "primaryMuscle": "BACK",
+    "secondaryMuscles": [
+      "ARMS",
+      "SHOULDERS"
+    ],
+    "equipment": "BARBELL",
+    "instructionsEn": "Perform Meadows Row through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "قف عمودياً بجانب طرف البار المائل في الزاوية.\nاسحب البار بيد واحدة نحو جانب الخصر مع عصر المجنص.",
+    "localMediaKey": "meadows-row",
+    "defaultRestSeconds": 90,
+    "isCustom": false
+  },
+  {
+    "id": "wide-grip-lat-pulldown",
+    "nameEn": "Wide-Grip Lat Pulldown",
+    "nameAr": "سحب علوي بقبضة واسعة",
+    "primaryMuscle": "BACK",
+    "secondaryMuscles": [
+      "ARMS"
+    ],
+    "equipment": "CABLE",
+    "instructionsEn": "Perform Wide-Grip Lat Pulldown through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "امسك البار بقبضة واسعة فوق الرأس.\nاسحب البار نحو أعلى الصدر مع سحب الكتفين للأسفل ثم أعده بتحكم.",
+    "localMediaKey": "wide-grip-lat-pulldown",
+    "defaultRestSeconds": 90,
+    "isCustom": false
+  },
+  {
+    "id": "neutral-grip-pull-up",
+    "nameEn": "Neutral-Grip Pull-up",
+    "nameAr": "عقلة بقبضة محايدة متقابلة",
+    "primaryMuscle": "BACK",
+    "secondaryMuscles": [
+      "ARMS",
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Neutral-Grip Pull-up through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "امسك المقبضين المتقابلين وراحة اليدين للداخل.\nاسحب صدرك للأعلى ثم انزل ببطء حتى امتداد الذراعين.",
+    "localMediaKey": "neutral-grip-pull-up",
+    "defaultRestSeconds": 120,
+    "isCustom": false
+  },
+  {
+    "id": "assisted-chin-up",
+    "nameEn": "Assisted Chin-up",
+    "nameAr": "تشن أب على الجهاز المساعد",
+    "primaryMuscle": "ARMS",
+    "secondaryMuscles": [
+      "BACK"
+    ],
+    "equipment": "MACHINE",
+    "instructionsEn": "Perform Assisted Chin-up through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "امسك المقابض بقبضة سفلية بمواجهة الوجه وضع الركبتين على المسند.\nاسحب للأعلى مع تركيز الشد على البايسبس والظهر.",
+    "localMediaKey": "assisted-chin-up",
+    "defaultRestSeconds": 90,
+    "isCustom": false
+  },
+  {
+    "id": "weighted-chin-up",
+    "nameEn": "Weighted Chin-up",
+    "nameAr": "تشن أب بأوزان إضافية",
+    "primaryMuscle": "ARMS",
+    "secondaryMuscles": [
+      "BACK"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Weighted Chin-up through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "علق وزناً في الخصر وامسك البار بقبضة سفلية بمستوى الكتفين.\nاسحب نفسك للأعلى ثم انزل بتحكم كامل.",
+    "localMediaKey": "weighted-chin-up",
+    "defaultRestSeconds": 120,
+    "isCustom": false
+  },
+  {
+    "id": "dumbbell-shrug",
+    "nameEn": "Dumbbell Shrug",
+    "nameAr": "هز الأكتاف بالدمبل (Dumbbell Shrug)",
+    "primaryMuscle": "BACK",
+    "secondaryMuscles": [
+      "ARMS"
+    ],
+    "equipment": "DUMBBELL",
+    "instructionsEn": "Perform Dumbbell Shrug through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "قف مستقيم القامة وامسك الدمبلين بجانب الجسم.\nارفع الكتفين نحو الأذنين واثبت لحظة قبل الإنزال البطيء.",
+    "localMediaKey": "dumbbell-shrug",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "belt-squat",
+    "nameEn": "Belt Squat",
+    "nameAr": "سكوات بالحزام على الجهاز (Belt Squat)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [],
+    "equipment": "MACHINE",
+    "instructionsEn": "Perform Belt Squat through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ثبّت حزام الوزن حول الورك وقف على المنصة.\nانزل بالوركين للأسفل بظهر مستقيم ثم ادفع بالقدمين للأعلى.",
+    "localMediaKey": "belt-squat",
+    "defaultRestSeconds": 120,
+    "isCustom": false
+  },
+  {
+    "id": "sumo-deadlift",
+    "nameEn": "Sumo Deadlift",
+    "nameAr": "رفعة ميتة سومو (Sumo Deadlift)",
+    "primaryMuscle": "BACK",
+    "secondaryMuscles": [
+      "LEGS"
+    ],
+    "equipment": "BARBELL",
+    "instructionsEn": "Perform Sumo Deadlift through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "قف بقدمين متباعدتين للأصابع للخارج وامسك البار بين الساقين.\nحافظ على استقامة الظهر وارفع الوزن بدفع الأرض والورك.",
+    "localMediaKey": "sumo-deadlift",
+    "defaultRestSeconds": 150,
+    "isCustom": false
+  },
+  {
+    "id": "trap-bar-deadlift",
+    "nameEn": "Trap Bar Deadlift",
+    "nameAr": "رفعة ميتة بالبار السداسي (Trap Bar)",
+    "primaryMuscle": "BACK",
+    "secondaryMuscles": [
+      "LEGS",
+      "ARMS"
+    ],
+    "equipment": "BARBELL",
+    "instructionsEn": "Perform Trap Bar Deadlift through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "قف داخل البار السداسي وامسك المقبضين الجانبيين.\nارفع جسمك بظهر مشدود وصدر مرفوع حتى الوقوف التام.",
+    "localMediaKey": "trap-bar-deadlift",
+    "defaultRestSeconds": 150,
+    "isCustom": false
+  },
+  {
+    "id": "nordic-hamstring-curl",
+    "nameEn": "Nordic Hamstring Curl",
+    "nameAr": "ثني الخلفي النوردي (Nordic Curl)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Nordic Hamstring Curl through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ثبّت الكاحلين خلف مسند واركع مع استقامة الورك.\nانزل بجسمك للأمام لأقصى تحكم ممكن ثم ادفع برفق للعودة.",
+    "localMediaKey": "nordic-hamstring-curl",
+    "defaultRestSeconds": 90,
+    "isCustom": false
+  },
+  {
+    "id": "single-leg-romanian-deadlift",
+    "nameEn": "Single-Leg Romanian Deadlift",
+    "nameAr": "رفعة رومانية بساق واحدة بالدمبل",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "DUMBBELL",
+    "instructionsEn": "Perform Single-Leg Romanian Deadlift through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "توازن على ساق واحدة وأرجع الأخرى للخلف مع إنزال الدمبل.\nحافظ على استقامة الورك وادفع للأعلى بشد العضلة الخلفية.",
+    "localMediaKey": "single-leg-romanian-deadlift",
+    "defaultRestSeconds": 90,
+    "isCustom": false
+  },
+  {
+    "id": "split-squat",
+    "nameEn": "Split Squat",
+    "nameAr": "سكوات متقسم بالدمبل (Split Squat)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "DUMBBELL",
+    "instructionsEn": "Perform Split Squat through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "خذ خطوة للأمام مع بقاء القدمين على الأرض.\nانزل عمودياً حتى تقارب الركبة الخلفية الأرض ثم ادفع للأعلى.",
+    "localMediaKey": "split-squat",
+    "defaultRestSeconds": 90,
+    "isCustom": false
+  },
+  {
+    "id": "single-leg-glute-bridge",
+    "nameEn": "Single-Leg Glute Bridge",
+    "nameAr": "جسر الأرداف بساق واحدة",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Single-Leg Glute Bridge through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "استلقِ واثنِ ركبة واحدة مع رفع الساق الأخرى ممدودة.\nادفع الورك للأعلى عبر الكعب واعصر الأرداف في القمة.",
+    "localMediaKey": "single-leg-glute-bridge",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "barbell-glute-bridge",
+    "nameEn": "Barbell Glute Bridge",
+    "nameAr": "جسر الأرداف بالبار",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "BARBELL",
+    "instructionsEn": "Perform Barbell Glute Bridge through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "استلقِ على الأرض وضع البار المبطن فوق الحوض.\nادفع الورك للأعلى حتى استقامة الجذع مع الفخذين ثم انزل بتحكم.",
+    "localMediaKey": "barbell-glute-bridge",
+    "defaultRestSeconds": 90,
+    "isCustom": false
+  },
+  {
+    "id": "dumbbell-glute-bridge",
+    "nameEn": "Dumbbell Glute Bridge",
+    "nameAr": "جسر الأرداف بالدمبل",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "DUMBBELL",
+    "instructionsEn": "Perform Dumbbell Glute Bridge through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "استلقِ وثبّت الدمبل فوق الحوض بكلتا اليدين.\nارفع الورك للأعلى واعصر الأرداف لثانية قبل النزول.",
+    "localMediaKey": "dumbbell-glute-bridge",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "dumbbell-hip-thrust",
+    "nameEn": "Dumbbell Hip Thrust",
+    "nameAr": "دفع الورك بالدمبل على البنش",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [],
+    "equipment": "DUMBBELL",
+    "instructionsEn": "Perform Dumbbell Hip Thrust through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "أسند أعلى الظهر على البنش وضع الدمبل فوق الحوض.\nارفع الحوض للأعلى حتى خط أفقي مع استقامة الساقين ثم انزل.",
+    "localMediaKey": "dumbbell-hip-thrust",
+    "defaultRestSeconds": 90,
+    "isCustom": false
+  },
+  {
+    "id": "smith-machine-hip-thrust",
+    "nameEn": "Smith Machine Hip Thrust",
+    "nameAr": "دفع الورك على جهاز السميث",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "MACHINE",
+    "instructionsEn": "Perform Smith Machine Hip Thrust through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "أسند ظهرك على البنش تحت بار السميث.\nفك القفل وادفع الورك للأعلى بعصر الأرداف ثم اخفض ببطء.",
+    "localMediaKey": "smith-machine-hip-thrust",
+    "defaultRestSeconds": 90,
+    "isCustom": false
+  },
+  {
+    "id": "smith-machine-romanian-deadlift",
+    "nameEn": "Smith Machine Romanian Deadlift",
+    "nameAr": "رفعة رومانية على جهاز السميث",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "BACK"
+    ],
+    "equipment": "MACHINE",
+    "instructionsEn": "Perform Smith Machine Romanian Deadlift through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "قف ممسكاً ببار السميث واثنِ الركبتين قليلاً.\nادفع الوركين للخلف مع إنزال البار بمحاذاة الساقين ثم ارفع.",
+    "localMediaKey": "smith-machine-romanian-deadlift",
+    "defaultRestSeconds": 90,
+    "isCustom": false
+  },
+  {
+    "id": "kettlebell-romanian-deadlift",
+    "nameEn": "Kettlebell Romanian Deadlift",
+    "nameAr": "رفعة رومانية بالكيتل بل",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "BACK"
+    ],
+    "equipment": "DUMBBELL",
+    "instructionsEn": "Perform Kettlebell Romanian Deadlift through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "امسك الكيتل بل بكلتا اليدين أمام الفخذين.\nانحنِ من مفصل الورك بظهر مستقيم حتى تشعر بشد الخلفيات ثم عد.",
+    "localMediaKey": "kettlebell-romanian-deadlift",
+    "defaultRestSeconds": 90,
+    "isCustom": false
+  },
+  {
+    "id": "cable-pull-through",
+    "nameEn": "Cable Pull-Through",
+    "nameAr": "سحب الكابل من بين الساقين (Pull-Through)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "BACK"
+    ],
+    "equipment": "CABLE",
+    "instructionsEn": "Perform Cable Pull-Through through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "قف بظهرك نحو الكابل السفلي وامسك الحبل بين الساقين.\nاثنِ الورك للخلف ثم ادفع الوركين للأمام بعصر الأرداف.",
+    "localMediaKey": "cable-pull-through",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "machine-glute-kickback",
+    "nameEn": "Machine Glute Kickback",
+    "nameAr": "ركل خلفي للأرداف على الجهاز",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [],
+    "equipment": "MACHINE",
+    "instructionsEn": "Perform Machine Glute Kickback through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ثبّت قدماً على الدواسة الخلفية وأمسك المقابض.\nادفع الساق للخلف للأعلى بتحكم دون تقوس أسفل الظهر.",
+    "localMediaKey": "machine-glute-kickback",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "cable-standing-hip-abduction",
+    "nameEn": "Cable Standing Hip Abduction",
+    "nameAr": "إبعاد الفخذ واقفاً بالكابل",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "CABLE",
+    "instructionsEn": "Perform Cable Standing Hip Abduction through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ثبّت سوار الكاحل في الساق البعيدة عن الكابل.\nارفع الساق جانبياً للخارج بتحكم ثم أعدها ببطء.",
+    "localMediaKey": "cable-standing-hip-abduction",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "cable-standing-hip-adduction",
+    "nameEn": "Cable Standing Hip Adduction",
+    "nameAr": "تقريب الفخذ واقفاً بالكابل",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "CABLE",
+    "instructionsEn": "Perform Cable Standing Hip Adduction through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ثبّت سوار الكاحل في الساق القريبة من الكابل.\nاسحب الساق للداخل أمام الساق الثابتة لشد العضلات الضامة.",
+    "localMediaKey": "cable-standing-hip-adduction",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "smith-machine-bulgarian-split-squat",
+    "nameEn": "Smith Machine Bulgarian Split Squat",
+    "nameAr": "سكوات بلغاري على جهاز السميث",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "MACHINE",
+    "instructionsEn": "Perform Smith Machine Bulgarian Split Squat through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ضع مشط القدم الخلفية على البنش وقف تحت بار السميث.\nانزل بالركبة للأسفل بتحكم ثم ادفع بالساق الأمامية.",
+    "localMediaKey": "smith-machine-bulgarian-split-squat",
+    "defaultRestSeconds": 90,
+    "isCustom": false
+  },
+  {
+    "id": "smith-machine-reverse-lunge",
+    "nameEn": "Smith Machine Reverse Lunge",
+    "nameAr": "طعن خلفي على جهاز السميث",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "MACHINE",
+    "instructionsEn": "Perform Smith Machine Reverse Lunge through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ضع بار السميث على الكتفين واخطُ بساق للخلف.\nاخفض الركبة الخلفية قرب الأرض ثم ادفع للأمام للعودة.",
+    "localMediaKey": "smith-machine-reverse-lunge",
+    "defaultRestSeconds": 90,
+    "isCustom": false
+  },
+  {
+    "id": "smith-machine-split-squat",
+    "nameEn": "Smith Machine Split Squat",
+    "nameAr": "سكوات متقسم على جهاز السميث",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "MACHINE",
+    "instructionsEn": "Perform Smith Machine Split Squat through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "خذ وضعية الخطوة الثابتة تحت بار السميث.\nانزل عمودياً بتوازن ثم ادفع للأعلى بقوة الساق الأمامية.",
+    "localMediaKey": "smith-machine-split-squat",
+    "defaultRestSeconds": 90,
+    "isCustom": false
+  },
+  {
+    "id": "heel-elevated-goblet-squat",
+    "nameEn": "Heel-Elevated Goblet Squat",
+    "nameAr": "جوبلت سكوات مع رفع الكعبين",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "DUMBBELL",
+    "instructionsEn": "Perform Heel-Elevated Goblet Squat through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ارفع الكعبين على قرص منخفض واحتضن الدمبل أمام الصدر.\nانزل بعمق مع استقامة الجذع للتركيز على الفخذ الأمامي.",
+    "localMediaKey": "heel-elevated-goblet-squat",
+    "defaultRestSeconds": 90,
+    "isCustom": false
+  },
+  {
+    "id": "dumbbell-sumo-squat",
+    "nameEn": "Dumbbell Sumo Squat",
+    "nameAr": "سكوات سومو بالدمبل",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [],
+    "equipment": "DUMBBELL",
+    "instructionsEn": "Perform Dumbbell Sumo Squat through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "باعد بين القدمين للخارج وامسك دمبلاً عمودياً بكلتا اليدين.\nانزل للأسفل باستقامة الظهر ثم ادفع للوقوف.",
+    "localMediaKey": "dumbbell-sumo-squat",
+    "defaultRestSeconds": 90,
+    "isCustom": false
+  },
+  {
+    "id": "dumbbell-sumo-deadlift",
+    "nameEn": "Dumbbell Sumo Deadlift",
+    "nameAr": "رفعة ميتة سومو بالدمبل",
+    "primaryMuscle": "BACK",
+    "secondaryMuscles": [
+      "LEGS"
+    ],
+    "equipment": "DUMBBELL",
+    "instructionsEn": "Perform Dumbbell Sumo Deadlift through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "قف بوقفة واسعة وامسك الدمبلين أمام الجسم.\nادفع الوركين للخلف وانزل بظهر مشدود ثم ارفع للأعلى.",
+    "localMediaKey": "dumbbell-sumo-deadlift",
+    "defaultRestSeconds": 90,
+    "isCustom": false
+  },
+  {
+    "id": "front-foot-elevated-split-squat",
+    "nameEn": "Front-Foot Elevated Split Squat",
+    "nameAr": "سكوات متقسم مع رفع القدم الأمامية",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "DUMBBELL",
+    "instructionsEn": "Perform Front-Foot Elevated Split Squat through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ضع القدم الأمامية على منصة منخفضة والأخرى للخلف.\nانزل بمدى حركي أعمق ثم ادفع بالكعب الأمامي للأعلى.",
+    "localMediaKey": "front-foot-elevated-split-squat",
+    "defaultRestSeconds": 90,
+    "isCustom": false
+  },
+  {
+    "id": "deficit-reverse-lunge",
+    "nameEn": "Deficit Reverse Lunge",
+    "nameAr": "طعن خلفي من على منصة (Deficit)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "DUMBBELL",
+    "instructionsEn": "Perform Deficit Reverse Lunge through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "قف على لوح أو منصة منخفضة واخطُ للخلف نحو الأرض.\nاخفض الركبة للأسفل بعمق إضافي ثم عد لوضع البداية.",
+    "localMediaKey": "deficit-reverse-lunge",
+    "defaultRestSeconds": 90,
+    "isCustom": false
+  },
+  {
+    "id": "dumbbell-lateral-lunge",
+    "nameEn": "Dumbbell Lateral Lunge",
+    "nameAr": "طعن جانبي بالدمبل (Lateral Lunge)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [],
+    "equipment": "DUMBBELL",
+    "instructionsEn": "Perform Dumbbell Lateral Lunge through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "اخطُ خطوة واسعة للجانب مع ثني ركبة الرجل المتقدمة.\nحافظ على استقامة الساق الأخرى ثم ادفع للعودة للمركز.",
+    "localMediaKey": "dumbbell-lateral-lunge",
+    "defaultRestSeconds": 90,
+    "isCustom": false
+  },
+  {
+    "id": "dumbbell-curtsy-lunge",
+    "nameEn": "Dumbbell Curtsy Lunge",
+    "nameAr": "طعن متقاطع خلفي بالدمبل",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "DUMBBELL",
+    "instructionsEn": "Perform Dumbbell Curtsy Lunge through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "اخطُ بساق واحدة قطرياً خلف الساق الأخرى مع الدمبلين.\nاخفض الوركين بثبات ثم ادفع بالساق الأمامية للأعلى.",
+    "localMediaKey": "dumbbell-curtsy-lunge",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "landmine-squat",
+    "nameEn": "Landmine Squat",
+    "nameAr": "سكوات اللاندماين (Landmine Squat)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "BARBELL",
+    "instructionsEn": "Perform Landmine Squat through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "امسك طرف البار المائل أمام الصدر بكلتا اليدين.\nانزل في السكوات بظهر مستقيم ثم ادفع للأعلى للأمام قليلاً.",
+    "localMediaKey": "landmine-squat",
+    "defaultRestSeconds": 90,
+    "isCustom": false
+  },
+  {
+    "id": "landmine-romanian-deadlift",
+    "nameEn": "Landmine Romanian Deadlift",
+    "nameAr": "رفعة رومانية على اللاندماين",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "BACK"
+    ],
+    "equipment": "BARBELL",
+    "instructionsEn": "Perform Landmine Romanian Deadlift through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "قف ممسكاً بطرف البار بكلتا اليدين.\nادفع الوركين للخلف مع إنزال الطرف أمامك ثم عد بشد الأرداف.",
+    "localMediaKey": "landmine-romanian-deadlift",
+    "defaultRestSeconds": 90,
+    "isCustom": false
+  },
+  {
+    "id": "kettlebell-swing",
+    "nameEn": "Kettlebell Swing",
+    "nameAr": "تأرجح الكيتل بل (Kettlebell Swing)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "DUMBBELL",
+    "instructionsEn": "Perform Kettlebell Swing through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "اثنِ الورك للخلف ومرجح الكيتل بل بين الساقين.\nانفجر بدفع الوركين للأمام لرفع الوزن بمستوى الصدر دون شد الذراعين.",
+    "localMediaKey": "kettlebell-swing",
+    "defaultRestSeconds": 90,
+    "isCustom": false
+  },
+  {
+    "id": "glute-focused-back-extension",
+    "nameEn": "Glute-Focused Back Extension",
+    "nameAr": "مد الظهر مع التركيز على الأرداف",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "BACK"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Glute-Focused Back Extension through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "اضبط المسند أسفل الورك ودوّر أعلى الظهر قليلاً.\nارفع الجذع بعصر الأرداف دون فرط تقوس أسفل الظهر.",
+    "localMediaKey": "glute-focused-back-extension",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "reverse-hyperextension",
+    "nameEn": "Reverse Hyperextension",
+    "nameAr": "رفع الساقين العكسي على الجهاز",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "BACK"
+    ],
+    "equipment": "MACHINE",
+    "instructionsEn": "Perform Reverse Hyperextension through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "استلقِ بصدرك وبطنك على الوسادة ممسكاً بالمقابض.\nارفع الساقين للخلف للأعلى بعصر الأرداف وأسفل الظهر.",
+    "localMediaKey": "reverse-hyperextension",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "donkey-calf-raise",
+    "nameEn": "Donkey Calf Raise",
+    "nameAr": "رفع السمانة بوضعية الانحناء",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [],
+    "equipment": "MACHINE",
+    "instructionsEn": "Perform Donkey Calf Raise through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "انحنِ للأمام على الجهاز مع وضع أطراف القدمين على الحافة.\nاخفض الكعبين للتمدد ثم ادفع للأعلى بقوة السمانة.",
+    "localMediaKey": "donkey-calf-raise",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "leg-press-calf-raise",
+    "nameEn": "Leg Press Calf Raise",
+    "nameAr": "رفع السمانة على جهاز دفع الأرجل",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [],
+    "equipment": "MACHINE",
+    "instructionsEn": "Perform Leg Press Calf Raise through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ضع مقدمة القدمين على الحافة السفلية لمنصة الدفع.\nادفع المنصة بأمشاط القدمين وأعدها ببطء للتمدد الكامل.",
+    "localMediaKey": "leg-press-calf-raise",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "wall-sit",
+    "nameEn": "Wall Sit",
+    "nameAr": "الجلوس الثابت على الحائط (Wall Sit)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Wall Sit through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "أسند ظهرك على الجدار وانزل حتى تصبح الفخذان موازيتين للأرض.\nاثبت في الوضع مع شد البطن والتنفس المنتظم.",
+    "localMediaKey": "wall-sit",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "jump-squat",
+    "nameEn": "Jump Squat",
+    "nameAr": "سكوات القفز (Jump Squat)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Jump Squat through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "انزل في وضع السكوات ثم اقفز للأعلى بقوة.\nاهبط بنعومة على مشط القدمين مع امتصاص الصدمة بالركبتين.",
+    "localMediaKey": "jump-squat",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "spider-curl",
+    "nameEn": "Spider Curl",
+    "nameAr": "بايسبس سبايدر على البنش المائل",
+    "primaryMuscle": "ARMS",
+    "secondaryMuscles": [],
+    "equipment": "DUMBBELL",
+    "instructionsEn": "Perform Spider Curl through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "استلقِ بصدرك على بنش مائل واخفض الذراعين عمودياً.\nاثنِ الدمبل للأعلى بعصر البايسبس ثم انزل ببطء.",
+    "localMediaKey": "spider-curl",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "drag-curl",
+    "nameEn": "Drag Curl",
+    "nameAr": "سحب البار بمحاذاة الجذع (Drag Curl)",
+    "primaryMuscle": "ARMS",
+    "secondaryMuscles": [],
+    "equipment": "BARBELL",
+    "instructionsEn": "Perform Drag Curl through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "امسك البار واسحبه عمودياً بملاصقة البطن والصدر.\nارجع المرفقين للخلف أثناء الصعود ثم انزل بتحكم.",
+    "localMediaKey": "drag-curl",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "dumbbell-skull-crusher",
+    "nameEn": "Two Dumbbell Skullcrusher",
+    "nameAr": "ترايسبس خلف الرأس بدمبلين (Skullcrusher)",
+    "primaryMuscle": "ARMS",
+    "secondaryMuscles": [
+      "SHOULDERS"
+    ],
+    "equipment": "DUMBBELL",
+    "instructionsEn": "Perform Two Dumbbell Skullcrusher through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "استلقِ وارفع الدمبلين فوق الصدر.\nاثنِ المرفقين لإنزال الدمبلين بجانب الرأس ثم افرد للأعلى.",
+    "localMediaKey": "dumbbell-skull-crusher",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "single-dumbbell-skullcrusher",
+    "nameEn": "Single Dumbbell Skullcrusher",
+    "nameAr": "ترايسبس بدمبل واحد مستلقياً",
+    "primaryMuscle": "ARMS",
+    "secondaryMuscles": [
+      "SHOULDERS"
+    ],
+    "equipment": "DUMBBELL",
+    "instructionsEn": "Perform Single Dumbbell Skullcrusher through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "استلقِ وامسك طرفي دمبل واحد فوق الرأس.\nاخفضه خلف الجبهة بثني المرفقين ثم ادفع للأعلى.",
+    "localMediaKey": "single-dumbbell-skullcrusher",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "single-arm-dumbbell-tricep-extension",
+    "nameEn": "Single Arm Dumbbell Tricep Extension",
+    "nameAr": "مد ترايسبس بدمبل واحد بذراع واحدة",
+    "primaryMuscle": "ARMS",
+    "secondaryMuscles": [
+      "SHOULDERS"
+    ],
+    "equipment": "DUMBBELL",
+    "instructionsEn": "Perform Single Arm Dumbbell Tricep Extension through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ارفع الدمبل بيد واحدة فوق الرأس.\nاخفضه خلف الرقبة بتحكم مع ثبات العضد ثم افرد للأعلى.",
+    "localMediaKey": "single-arm-dumbbell-tricep-extension",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "bench-dip",
+    "nameEn": "Bench Dip",
+    "nameAr": "تغطيس ترايسبس على البنش",
+    "primaryMuscle": "ARMS",
+    "secondaryMuscles": [
+      "CHEST",
+      "SHOULDERS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Bench Dip through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "أسند راحتي يديك على حافة البنش ومد ساقيك للأمام.\nاخفض الورك للأسفل ثم ادفع بقوة الترايسبس للأعلى.",
+    "localMediaKey": "bench-dip",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "wrist-extension",
+    "nameEn": "Wrist Extension",
+    "nameAr": "بسط المعصم بالدمبل للساعد الخارجي",
+    "primaryMuscle": "ARMS",
+    "secondaryMuscles": [],
+    "equipment": "DUMBBELL",
+    "instructionsEn": "Perform Wrist Extension through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "أسند ساعدك على الفخذ وراحة اليد للأسفل.\nارفع ظهر اليد بالدمبل للأعلى ثم اخفضه بتحكم.",
+    "localMediaKey": "wrist-extension",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "farmer-carry",
+    "nameEn": "Farmer Carry",
+    "nameAr": "مشي المزارع بالدمبل (Farmer Carry)",
+    "primaryMuscle": "ARMS",
+    "secondaryMuscles": [
+      "BACK",
+      "CORE"
+    ],
+    "equipment": "DUMBBELL",
+    "instructionsEn": "Perform Farmer Carry through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "امسك دمبلين ثقيلين بجانبيك وامشِ بخطوات ثابتة.\nحافظ على شد البطن والكتفين للخلف طوال المسافة.",
+    "localMediaKey": "farmer-carry",
+    "defaultRestSeconds": 90,
+    "isCustom": false
+  },
+  {
+    "id": "mountain-climber",
+    "nameEn": "Mountain Climber",
+    "nameAr": "تسلق الجبال (Mountain Climber)",
+    "primaryMuscle": "CORE",
+    "secondaryMuscles": [
+      "SHOULDERS",
+      "LEGS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Mountain Climber through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ابدأ بوضع البلانك العالي على اليدين.\nاسحب ركبة تلو الأخرى بسرعة وتحكم نحو الصدر مع ثبات الجذع.",
+    "localMediaKey": "mountain-climber",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "dead-bug",
+    "nameEn": "Dead Bug",
+    "nameAr": "تمرين الحشرة الميتة للبطن (Dead Bug)",
+    "primaryMuscle": "CORE",
+    "secondaryMuscles": [
+      "LEGS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Dead Bug through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "استلقِ وارفع الذراعين والساقين المثنية للأعلى.\nامدّد ذراعاً وساقاً متعاكستين نحو الأرض مع لصق أسفل الظهر بالأرض.",
+    "localMediaKey": "dead-bug",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "bird-dog",
+    "nameEn": "Bird Dog",
+    "nameAr": "تمديد الذراع والساق المتعاكسين (Bird Dog)",
+    "primaryMuscle": "CORE",
+    "secondaryMuscles": [
+      "LEGS",
+      "SHOULDERS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Bird Dog through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ارتكز على اليدين والركبتين بظهر مستوٍ.\nمد ذراعاً للأمام والساق المقابلة للخلف بتوازن ثم بدّل.",
+    "localMediaKey": "bird-dog",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "half-kneeling-pallof-press",
+    "nameEn": "Half-Kneeling Pallof Press",
+    "nameAr": "دفع بالوف نصف راكع بالكابل",
+    "primaryMuscle": "CORE",
+    "secondaryMuscles": [
+      "LEGS",
+      "SHOULDERS"
+    ],
+    "equipment": "CABLE",
+    "instructionsEn": "Perform Half-Kneeling Pallof Press through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "اجثُ بركبة واحدة جانبياً أمام الكابل.\nادفع المقبض للأمام مع منع الجذع من الالتفاف ثم أعده بتحكم.",
+    "localMediaKey": "half-kneeling-pallof-press",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "cable-pallof-hold",
+    "nameEn": "Cable Pallof Hold",
+    "nameAr": "ثبات بالوف ضد الدوران بالكابل",
+    "primaryMuscle": "CORE",
+    "secondaryMuscles": [
+      "LEGS",
+      "SHOULDERS"
+    ],
+    "equipment": "CABLE",
+    "instructionsEn": "Perform Cable Pallof Hold through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "قف جانبياً وامسك المقبض ممدوداً أمام الصدر.\nقاوم قوة شد الكابل وحافظ على استقامة الجذع للمدة المطلوبة.",
+    "localMediaKey": "cable-pallof-hold",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "weighted-crunch",
+    "nameEn": "Weighted Crunch",
+    "nameAr": "طحن البطن بوزن على الصدر",
+    "primaryMuscle": "CORE",
+    "secondaryMuscles": [],
+    "equipment": "BARBELL",
+    "instructionsEn": "Perform Weighted Crunch through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "استلقِ وثبّت قرص الوزن أو الدمبل على الصدر.\nارفع أعلى الظهر بعصر البطن ثم انزل ببطء دون إرخاء كامل.",
+    "localMediaKey": "weighted-crunch",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "weighted-russian-twist",
+    "nameEn": "Weighted Russian Twist",
+    "nameAr": "التفاف روسي بوزن للخصر",
+    "primaryMuscle": "CORE",
+    "secondaryMuscles": [
+      "SHOULDERS"
+    ],
+    "equipment": "DUMBBELL",
+    "instructionsEn": "Perform Weighted Russian Twist through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "اجلس مائلاً للخلف قليلاً حاملاً قرصاً أو دمبلاً.\nلف جذعك يميناً ويساراً بتحكم دون التواء سريع.",
+    "localMediaKey": "weighted-russian-twist",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "dumbbell-side-bend",
+    "nameEn": "Dumbbell Side Bend",
+    "nameAr": "انحناء جانبي بالدمبل للخصر",
+    "primaryMuscle": "CORE",
+    "secondaryMuscles": [
+      "ARMS"
+    ],
+    "equipment": "DUMBBELL",
+    "instructionsEn": "Perform Dumbbell Side Bend through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "قف مستقيم الظهر ممسكاً بدمبل في يد واحدة.\nأمل الجذع للجانب نحو الوزن ثم اسحب للأعلى بعضلة الخصر المقابلة.",
+    "localMediaKey": "dumbbell-side-bend",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "elliptical",
+    "nameEn": "Elliptical",
+    "nameAr": "جهاز الأوبتكال (Elliptical)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [],
+    "equipment": "MACHINE",
+    "instructionsEn": "Perform Elliptical through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ضع القدمين في الدواستين وأمسك الذراعين المتحركين.\nحرك الساقين والذراعين بإيقاع متناغم ومقاومة متدرجة.",
+    "localMediaKey": "elliptical",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "swimming",
+    "nameEn": "Swimming",
+    "nameAr": "السباحة (Swimming)",
+    "primaryMuscle": "BACK",
+    "secondaryMuscles": [
+      "SHOULDERS",
+      "LEGS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Swimming through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "حافظ على انسيابية الجسم في الماء وتنفس بإيقاع منتظم.\nنسّق ضربات الذراعين مع ركلات الساقين.",
+    "localMediaKey": "swimming",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "jump-rope",
+    "nameEn": "Jump Rope",
+    "nameAr": "نط الحبل (Jump Rope)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "SHOULDERS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Jump Rope through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "أمسك المقابض وأدر الحبل بحركة المعصمين.\nاقفز قفزات خفيفة على مقدمة القدمين مع إبقاء الركبتين مرنتين.",
+    "localMediaKey": "jump-rope",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "assault-bike",
+    "nameEn": "Assault Bike",
+    "nameAr": "الدراجة الهوائية (Assault Bike)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "SHOULDERS"
+    ],
+    "equipment": "MACHINE",
+    "instructionsEn": "Perform Assault Bike through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ادفع واسحب الذراعين بالتناغم مع تدوير البدالات بالقدمين.\nحافظ على وتيرة قوية وثابتة مع انتظام التنفس.",
+    "localMediaKey": "assault-bike",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "skierg",
+    "nameEn": "SkiErg",
+    "nameAr": "جهاز التزلج (SkiErg)",
+    "primaryMuscle": "BACK",
+    "secondaryMuscles": [
+      "ARMS",
+      "CORE",
+      "LEGS"
+    ],
+    "equipment": "MACHINE",
+    "instructionsEn": "Perform SkiErg through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "امسك المقبضين فوق الرأس وانزل بالجذع مع سحب الكابل للأسفل.\nافرد الجسم للعودة بوضع البداية وكرر بإيقاع قوي.",
+    "localMediaKey": "skierg",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "hiking",
+    "nameEn": "Hiking",
+    "nameAr": "المشي الجبلي / المرتفع (Hiking)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Hiking through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "سر بخطوات متزنة مع إمالة طفيفة للأمام عند الصعود.\nاحرص على تثبيت كامل القدم على المسار.",
+    "localMediaKey": "hiking",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "treadmill-incline-walk",
+    "nameEn": "Treadmill Incline Walk",
+    "nameAr": "المشي المائل على السير",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [],
+    "equipment": "MACHINE",
+    "instructionsEn": "Perform Treadmill Incline Walk through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ارفع ميل السير بين 8 إلى 12 درجة بسرعة معتدلة.\nامشِ باستقامة القامة دون التمسك الدائم بالمقابض.",
+    "localMediaKey": "treadmill-incline-walk",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "battle-ropes",
+    "nameEn": "Battle Ropes",
+    "nameAr": "حبال القتال (Battle Ropes)",
+    "primaryMuscle": "SHOULDERS",
+    "secondaryMuscles": [
+      "CORE",
+      "LEGS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Battle Ropes through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "اثنِ الركبتين قليلاً وامسك طرفي الحبل.\nاصنع موجات متتابعة أو متزامنة بسرعة مع شد الجذع.",
+    "localMediaKey": "battle-ropes",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "knee-push-up",
+    "nameEn": "Knee Push-up",
+    "nameAr": "ضغط على الركبتين (Knee Push-up)",
+    "primaryMuscle": "CHEST",
+    "secondaryMuscles": [
+      "ARMS",
+      "SHOULDERS",
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Knee Push-up through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ارتكز على الركبتين واليدين في خط مستقيم للظهر.\nاخفض الصدر نحو الأرض ثم ادفع للأعلى بتحكم.",
+    "localMediaKey": "knee-push-up",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "wide-push-up",
+    "nameEn": "Wide Push-up",
+    "nameAr": "ضغط بقبضة واسعة للصدر",
+    "primaryMuscle": "CHEST",
+    "secondaryMuscles": [
+      "SHOULDERS",
+      "ARMS",
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Wide Push-up through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ضع اليدين أوسع من مستوى الكتفين.\nاخفض الصدر قرب الأرض مع بقاء الجذع مشدوداً ثم ادفع للأعلى.",
+    "localMediaKey": "wide-push-up",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "pike-push-up",
+    "nameEn": "Pike Push-up",
+    "nameAr": "ضغط بايك للأكتاف (Pike Push-up)",
+    "primaryMuscle": "SHOULDERS",
+    "secondaryMuscles": [
+      "ARMS",
+      "CHEST",
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Pike Push-up through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ارفع الوركين للأعلى على شكل حرف V مقلوب.\nاخفض أعلى الرأس بين اليدين للأمام ثم ادفع للأعلى.",
+    "localMediaKey": "pike-push-up",
+    "defaultRestSeconds": 75,
+    "isCustom": false
+  },
+  {
+    "id": "feet-elevated-pike-push-up",
+    "nameEn": "Feet-Elevated Pike Push-up",
+    "nameAr": "ضغط بايك مع رفع القدمين",
+    "primaryMuscle": "SHOULDERS",
+    "secondaryMuscles": [
+      "ARMS",
+      "CHEST",
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Feet-Elevated Pike Push-up through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ضع القدمين على بنش أو صندوق مع رفع الوركين عمودياً.\nاخفض الرأس بتحكم نحو الأرض ثم ادفع بقوة الأكتاف.",
+    "localMediaKey": "feet-elevated-pike-push-up",
+    "defaultRestSeconds": 90,
+    "isCustom": false
+  },
+  {
+    "id": "archer-push-up",
+    "nameEn": "Archer Push-up",
+    "nameAr": "ضغط آرتشر بالتناوب (Archer Push-up)",
+    "primaryMuscle": "CHEST",
+    "secondaryMuscles": [
+      "ARMS",
+      "SHOULDERS",
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Archer Push-up through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "اتخذ وضع ضغط واسع جداً وانخفض نحو يد واحدة مع مد الأخرى.\nادفع للأعلى ثم بدّل على اليد المقابلة.",
+    "localMediaKey": "archer-push-up",
+    "defaultRestSeconds": 75,
+    "isCustom": false
+  },
+  {
+    "id": "typewriter-push-up",
+    "nameEn": "Typewriter Push-up",
+    "nameAr": "ضغط الآلة الكاتبة (Typewriter Push-up)",
+    "primaryMuscle": "CHEST",
+    "secondaryMuscles": [
+      "ARMS",
+      "SHOULDERS",
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Typewriter Push-up through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "انخفض لوضع ضغط واسع وانتقل أفقياً من جهة لأخرى.\nحافظ على انخفاض الصدر وشد الجذع أثناء الانتقال.",
+    "localMediaKey": "typewriter-push-up",
+    "defaultRestSeconds": 75,
+    "isCustom": false
+  },
+  {
+    "id": "explosive-push-up",
+    "nameEn": "Explosive Push-up",
+    "nameAr": "ضغط انفجاري (Explosive Push-up)",
+    "primaryMuscle": "CHEST",
+    "secondaryMuscles": [
+      "ARMS",
+      "SHOULDERS",
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Explosive Push-up through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "اخفض الصدر نحو الأرض ثم ادفع للأعلى بأقصى سرعة حتى ترتفع اليدان.\nاهبط بنعومة مع امتصاص الحركة.",
+    "localMediaKey": "explosive-push-up",
+    "defaultRestSeconds": 90,
+    "isCustom": false
+  },
+  {
+    "id": "hindu-push-up",
+    "nameEn": "Hindu Push-up",
+    "nameAr": "الضغط الهندي (Hindu Push-up)",
+    "primaryMuscle": "CHEST",
+    "secondaryMuscles": [
+      "SHOULDERS",
+      "ARMS",
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Hindu Push-up through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ابدأ بوركين مرتفعين ثم انزلق بالصدر قريباً من الأرض للأمام.\nادفع الصدر للأعلى مع تقوس لطيف ثم عد لوضع البداية.",
+    "localMediaKey": "hindu-push-up",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "scapular-push-up",
+    "nameEn": "Scapular Push-up",
+    "nameAr": "ضغط لوحي الكتف (Scapular Push-up)",
+    "primaryMuscle": "BACK",
+    "secondaryMuscles": [
+      "CHEST",
+      "SHOULDERS",
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Scapular Push-up through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "في وضع البلانك العالي دون ثني المرفقين، قرّب لوحي الكتف من بعضهما.\nادفع الأرض لإبعاد اللوحين عن بعضهما وكرر.",
+    "localMediaKey": "scapular-push-up",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "push-up-shoulder-tap",
+    "nameEn": "Push-up Shoulder Tap",
+    "nameAr": "ضغط مع لمس الكتف (Push-up Shoulder Tap)",
+    "primaryMuscle": "CORE",
+    "secondaryMuscles": [
+      "CHEST",
+      "SHOULDERS",
+      "ARMS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Push-up Shoulder Tap through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "نفّذ عدة ضغط كاملة وفي القمة المس كل كتف باليد المقابلة.\nتجنب تمايل الورك أثناء رفع اليد.",
+    "localMediaKey": "push-up-shoulder-tap",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "wall-push-up",
+    "nameEn": "Wall Push-up",
+    "nameAr": "ضغط على الحائط (Wall Push-up)",
+    "primaryMuscle": "CHEST",
+    "secondaryMuscles": [
+      "ARMS",
+      "SHOULDERS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Wall Push-up through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "قف أمام الجدار وضع راحتي اليدين بمستوى الكتفين.\nأمل جسمك نحو الجدار بثني المرفقين ثم ادفع للعودة.",
+    "localMediaKey": "wall-push-up",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "wall-walk",
+    "nameEn": "Wall Walk",
+    "nameAr": "المشي على الحائط (Wall Walk)",
+    "primaryMuscle": "SHOULDERS",
+    "secondaryMuscles": [
+      "CORE",
+      "CHEST",
+      "ARMS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Wall Walk through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ابدأ بوضع الضغط وقدماك عند الجدار.\nاصعد بقدميك للخلف مع تقريب يديك من الحائط حتى تصبح عمودياً ثم انزل.",
+    "localMediaKey": "wall-walk",
+    "defaultRestSeconds": 90,
+    "isCustom": false
+  },
+  {
+    "id": "wall-handstand-push-up",
+    "nameEn": "Wall Handstand Push-up",
+    "nameAr": "ضغط الوقوف على اليدين مستنداً للحائط",
+    "primaryMuscle": "SHOULDERS",
+    "secondaryMuscles": [
+      "ARMS",
+      "CORE",
+      "CHEST"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Wall Handstand Push-up through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "اثبت عمودياً وأسند كعبيك على الجدار.\nاخفض الرأس بتحكم نحو الأرض ثم ادفع بقوة الأكتاف للأعلى.",
+    "localMediaKey": "wall-handstand-push-up",
+    "defaultRestSeconds": 120,
+    "isCustom": false
+  },
+  {
+    "id": "handstand-push-up",
+    "nameEn": "Handstand Push-up",
+    "nameAr": "ضغط الوقوف على اليدين الحر",
+    "primaryMuscle": "SHOULDERS",
+    "secondaryMuscles": [
+      "ARMS",
+      "CORE",
+      "CHEST"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Handstand Push-up through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "اتزن في وضع الوقوف على اليدين بشد كامل للجسم.\nاخفض الجسد بثني المرفقين ثم ادفع للأعلى بثبات.",
+    "localMediaKey": "handstand-push-up",
+    "defaultRestSeconds": 120,
+    "isCustom": false
+  },
+  {
+    "id": "chair-dip",
+    "nameEn": "Chair Dip",
+    "nameAr": "تغطيس الترايسبس على الكرسي",
+    "primaryMuscle": "ARMS",
+    "secondaryMuscles": [
+      "CHEST",
+      "SHOULDERS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Chair Dip through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "أسند يديك على حافة كرسي ثابت ومد ساقيك.\nانزل بثني المرفقين حتى زاوية 90 ثم ادفع للأعلى.",
+    "localMediaKey": "chair-dip",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "doorway-row",
+    "nameEn": "Doorway Row",
+    "nameAr": "سحب الظهر على إطار الباب",
+    "primaryMuscle": "BACK",
+    "secondaryMuscles": [
+      "ARMS",
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Doorway Row through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "قف وأمسك جانبي إطار الباب بكلتا اليدين مع تقريب القدمين للإطار.\nأمل جسمك للخلف ثم اسحب صدرك نحو الإطار بشد الظهر.",
+    "localMediaKey": "doorway-row",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "towel-row",
+    "nameEn": "Towel Row",
+    "nameAr": "سحب الظهر بالمنشفة",
+    "primaryMuscle": "BACK",
+    "secondaryMuscles": [
+      "ARMS",
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Towel Row through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "لف منشفة متينة حول عمود ثابت وامسك طرفيها.\nأمل جسمك للخلف واسحب صدرك للأمام بعصر عضلات الظهر.",
+    "localMediaKey": "towel-row",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "prone-y-raise",
+    "nameEn": "Prone Y Raise",
+    "nameAr": "رفع الذراعين على شكل Y منبطحاً",
+    "primaryMuscle": "BACK",
+    "secondaryMuscles": [
+      "SHOULDERS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Prone Y Raise through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "استلقِ على البطن مع مد الذراعين للأمام بزاوية Y.\nارفع الذراعين للأعلى مع توجيه الإبهامين للسقف واعصر أعلى الظهر.",
+    "localMediaKey": "prone-y-raise",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "prone-t-raise",
+    "nameEn": "Prone T Raise",
+    "nameAr": "رفع الذراعين على شكل T منبطحاً",
+    "primaryMuscle": "BACK",
+    "secondaryMuscles": [
+      "SHOULDERS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Prone T Raise through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "استلقِ على البطن مع فرد الذراعين للجانبين.\nارفع الذراعين نحو السقف مع عصر لوحي الكتف للداخل.",
+    "localMediaKey": "prone-t-raise",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "superman",
+    "nameEn": "Superman",
+    "nameAr": "تمرين سوبرمان لأسفل الظهر (Superman)",
+    "primaryMuscle": "BACK",
+    "secondaryMuscles": [
+      "LEGS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Superman through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "استلقِ على بطنك ومد الذراعين للأمام والساقين للخلف.\nارفع الصدر والذراعين والساقين عن الأرض معاً لثانية ثم انزل.",
+    "localMediaKey": "superman",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "superman-hold",
+    "nameEn": "Superman Hold",
+    "nameAr": "ثبات سوبرمان لأسفل الظهر",
+    "primaryMuscle": "BACK",
+    "secondaryMuscles": [
+      "LEGS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Superman Hold through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ارفع الصدر والذراعين والساقين معاً أثناء الاستلقاء على البطن.\nحافظ على الثبات والشد اللطيف دون حبس النفس.",
+    "localMediaKey": "superman-hold",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "reverse-snow-angel",
+    "nameEn": "Reverse Snow Angel",
+    "nameAr": "ملاك الثلج العكسي (Reverse Snow Angel)",
+    "primaryMuscle": "BACK",
+    "secondaryMuscles": [
+      "SHOULDERS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Reverse Snow Angel through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "استلقِ على البطن وأبقِ ذراعيك مرفوعتين قليلاً عن الأرض.\nحرّك الذراعين في قوس واسع من الخلف إلى فوق الرأس وبالعكس.",
+    "localMediaKey": "reverse-snow-angel",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "dead-hang",
+    "nameEn": "Dead Hang",
+    "nameAr": "التعلق الحر على العقلة (Dead Hang)",
+    "primaryMuscle": "ARMS",
+    "secondaryMuscles": [
+      "BACK",
+      "SHOULDERS",
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Dead Hang through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "امسك البار بقبضة محكمة ودع جسمك يتدلى باسترخاء الكتفين.\nاثبت لتقوية القبضة وتمديد الظهر والكتفين.",
+    "localMediaKey": "dead-hang",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "active-hang",
+    "nameEn": "Active Hang",
+    "nameAr": "التعلق النشط على العقلة (Active Hang)",
+    "primaryMuscle": "BACK",
+    "secondaryMuscles": [
+      "ARMS",
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Active Hang through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "تعلق على البار ثم اسحب الكتفين للأسفل وللخلف بعيداً عن الأذنين.\nحافظ على استقامة الذراعين وشد اللوحين.",
+    "localMediaKey": "active-hang",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "scapular-pull-up",
+    "nameEn": "Scapular Pull-up",
+    "nameAr": "سحب لوحي الكتف على العقلة",
+    "primaryMuscle": "BACK",
+    "secondaryMuscles": [
+      "ARMS",
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Scapular Pull-up through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ابدأ من التعلق الكامل واسحب جسمك قليلاً بخفض لوحي الكتف فقط.\nتوقف لحظة في القمة دون ثني المرفقين ثم أرخِ بتحكم.",
+    "localMediaKey": "scapular-pull-up",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "negative-pull-up",
+    "nameEn": "Negative Pull-up",
+    "nameAr": "نزول عقلة بطيء (Negative Pull-up)",
+    "primaryMuscle": "BACK",
+    "secondaryMuscles": [
+      "ARMS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Negative Pull-up through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "اصعد لأعلى العقلة باستخدام صندوق أو قفزة خفيفة.\nاهبط ببطء وتحكم شديد لمدة 3 إلى 5 ثوانٍ حتى الامتداد الكامل.",
+    "localMediaKey": "negative-pull-up",
+    "defaultRestSeconds": 90,
+    "isCustom": false
+  },
+  {
+    "id": "commando-pull-up",
+    "nameEn": "Commando Pull-up",
+    "nameAr": "عقلة الكوماندو الجانبية",
+    "primaryMuscle": "BACK",
+    "secondaryMuscles": [
+      "ARMS",
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Commando Pull-up through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "امسك البار بقبضة متتابعة أمام بعضها وقف جانباً تحت البار.\nاسحب جسمك لملامسة الكتف للبار مع تبديل الجهة في كل عدة.",
+    "localMediaKey": "commando-pull-up",
+    "defaultRestSeconds": 90,
+    "isCustom": false
+  },
+  {
+    "id": "l-sit-pull-up",
+    "nameEn": "L-Sit Pull-up",
+    "nameAr": "عقلة مع رفع الساقين بزاوية L",
+    "primaryMuscle": "BACK",
+    "secondaryMuscles": [
+      "ARMS",
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform L-Sit Pull-up through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ارفع الساقين مستقيمتين للأمام بزاوية قائمة مع الجذع.\nحافظ على هذا الوضع أثناء سحب صدرك للعقلة.",
+    "localMediaKey": "l-sit-pull-up",
+    "defaultRestSeconds": 120,
+    "isCustom": false
+  },
+  {
+    "id": "towel-pull-up",
+    "nameEn": "Towel Pull-up",
+    "nameAr": "عقلة بالمنشفة لتقوية القبضة",
+    "primaryMuscle": "BACK",
+    "secondaryMuscles": [
+      "ARMS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Towel Pull-up through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "علق منشفتين فوق بار العقلة وامسك بهما بقوة.\nاسحب جسمك للأعلى بتحكم لتحدي الظهر وقوة الأصابع.",
+    "localMediaKey": "towel-pull-up",
+    "defaultRestSeconds": 120,
+    "isCustom": false
+  },
+  {
+    "id": "pistol-squat",
+    "nameEn": "Pistol Squat",
+    "nameAr": "سكوات المسدس بساق واحدة (Pistol Squat)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Pistol Squat through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "قف على ساق واحدة ومد الساق الأخرى مستقيمة للأمام.\nانزل بالكامل بتوازن ثم ادفع للوقوف دون لمس الأرض بالساق الممدودة.",
+    "localMediaKey": "pistol-squat",
+    "defaultRestSeconds": 90,
+    "isCustom": false
+  },
+  {
+    "id": "assisted-pistol-squat",
+    "nameEn": "Assisted Pistol Squat",
+    "nameAr": "سكوات بساق واحدة بمساعدة",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Assisted Pistol Squat through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "توازن على ساق واحدة وأمسك دعامة ثابتة بخفة.\nانزل للأسفل ومد الساق الحرة للأمام ثم ادفع للأعلى.",
+    "localMediaKey": "assisted-pistol-squat",
+    "defaultRestSeconds": 75,
+    "isCustom": false
+  },
+  {
+    "id": "shrimp-squat",
+    "nameEn": "Shrimp Squat",
+    "nameAr": "سكوات شريمب بساق واحدة (Shrimp Squat)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Shrimp Squat through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "اثنِ ساقاً واحدة للخلف مع الإمساك بالقدم أو إبقائها مرفوعة.\nانزل بالساق الواقفة حتى تقارب الركبة الخلفية الأرض ثم اصعد.",
+    "localMediaKey": "shrimp-squat",
+    "defaultRestSeconds": 90,
+    "isCustom": false
+  },
+  {
+    "id": "cossack-squat",
+    "nameEn": "Cossack Squat",
+    "nameAr": "سكوات القوزاق الجانبي (Cossack Squat)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Cossack Squat through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "قف بوقفة واسعة جداً وانقل وزنك لساق واحدة مع النزول الكامل.\nاترك الساق الأخرى ممدودة للجانب ثم عد للمركز وبدّل.",
+    "localMediaKey": "cossack-squat",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "sissy-squat",
+    "nameEn": "Sissy Squat",
+    "nameAr": "سيسي سكوات بوزن الجسم (Sissy Squat)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Sissy Squat through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ارفع الكعبين وأمل الجذع للخلف مع دفع الركبتين للأمام.\nانزل بتحكم ثم ارفع بتركيز عالٍ على عضلات الفخذ الأمامية.",
+    "localMediaKey": "sissy-squat",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "forward-lunge",
+    "nameEn": "Forward Lunge",
+    "nameAr": "طعن أمامي بوزن الجسم (Forward Lunge)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Forward Lunge through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "اخطُ خطوة ثابتة للأمام وانخفض حتى تتشكل زاوية 90 للركبتين.\nادفع بكعب القدم الأمامية للرجوع لوضع الوقوف.",
+    "localMediaKey": "forward-lunge",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "lateral-lunge",
+    "nameEn": "Lateral Lunge",
+    "nameAr": "طعن جانبي بوزن الجسم",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Lateral Lunge through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "خذ خطوة واسعة للجانب واثنِ ركبة واحدة مع إبقاء الأخرى ممدودة.\nادفع بالقدم للعودة وكرر على الجهة الأخرى.",
+    "localMediaKey": "lateral-lunge",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "curtsy-lunge",
+    "nameEn": "Curtsy Lunge",
+    "nameAr": "طعن متقاطع خلفي بوزن الجسم",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Curtsy Lunge through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "اخطُ بساق واحدة خلف الساق الأخرى قطرياً.\nاخفض الوركين بثبات ثم عد لوضع البداية وبدّل.",
+    "localMediaKey": "curtsy-lunge",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "skater-squat",
+    "nameEn": "Skater Squat",
+    "nameAr": "سكوات المتزلج بساق واحدة (Skater Squat)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Skater Squat through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "توازن على ساق واحدة واثنِ الركبة الأخرى للخلف دون لمس الأرض.\nانزل بالورك بتحكم مع إمالة خفيفة للجذع للأمام ثم اصعد.",
+    "localMediaKey": "skater-squat",
+    "defaultRestSeconds": 75,
+    "isCustom": false
+  },
+  {
+    "id": "single-leg-box-squat",
+    "nameEn": "Single-Leg Box Squat",
+    "nameAr": "سكوات بساق واحدة على الصندوق",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Single-Leg Box Squat through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "قف أمام صندوق على ساق واحدة واجلس عليه بتحكم.\nادفع بنفس الساق للوقوف دون التأرجح بالظهر.",
+    "localMediaKey": "single-leg-box-squat",
+    "defaultRestSeconds": 75,
+    "isCustom": false
+  },
+  {
+    "id": "step-down",
+    "nameEn": "Step-Down",
+    "nameAr": "نزول متحكم من الصندوق (Step-Down)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Step-Down through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "قف بساق واحدة على حافة صندوق واخفض كعب الأخرى نحو الأرض.\nالمس الأرض بخفة ثم اصعد بقوة الساق الثابتة.",
+    "localMediaKey": "step-down",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "calf-raise",
+    "nameEn": "Calf Raise",
+    "nameAr": "رفع السمانة بوزن الجسم",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Calf Raise through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "قف على حافة مرتفعة قليلاً وأرخِ الكعبين للأسفل.\nارتفع على أمشاط القدمين لأعلى مدى واثبت لحظة.",
+    "localMediaKey": "calf-raise",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "single-leg-calf-raise",
+    "nameEn": "Single-Leg Calf Raise",
+    "nameAr": "رفع السمانة بساق واحدة",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Single-Leg Calf Raise through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "توازن على حافة بساق واحدة مع الإمساك بخفة بدعامة.\nاخفض الكعب بالكامل ثم ادفع للأعلى بتحكم.",
+    "localMediaKey": "single-leg-calf-raise",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "glute-bridge-march",
+    "nameEn": "Glute Bridge March",
+    "nameAr": "مشي الجسر للأرداف (Glute Bridge March)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Glute Bridge March through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ارفع الورك في وضع جسر الأرداف وحافظ على ثبات الحوض.\nارفع ركبة واحدة نحو الصدر بالتناوب مع بقاء الورك مرتفعاً.",
+    "localMediaKey": "glute-bridge-march",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "frog-pump",
+    "nameEn": "Frog Pump",
+    "nameAr": "ضخ الضفدع للأرداف (Frog Pump)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Frog Pump through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "استلقِ وألصق باطني القدمين مع فتح الركبتين للجانبين.\nادفع الوركين للأعلى بعصر الأرداف لثانية ثم انزل.",
+    "localMediaKey": "frog-pump",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "donkey-kick",
+    "nameEn": "Donkey Kick",
+    "nameAr": "ركلة الحمار للأرداف (Donkey Kick)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Donkey Kick through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ارتكز على اليدين والركبتين بظهر مستوٍ.\nارفع ساقاً مثنية نحو السقف بعصر الأرداف دون تقوس الظهر.",
+    "localMediaKey": "donkey-kick",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "fire-hydrant",
+    "nameEn": "Fire Hydrant",
+    "nameAr": "فتح الورك الجانبي على أربع (Fire Hydrant)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Fire Hydrant through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "من وضع الارتكاز على اليدين والركبتين، ارفع الركبة جانبياً.\nتجنب إمالة الجذع للجهة المعاكسة وارجع بتحكم.",
+    "localMediaKey": "fire-hydrant",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "clamshell",
+    "nameEn": "Clamshell",
+    "nameAr": "تمرين المحارة للأرداف الجانبية (Clamshell)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Clamshell through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "استلقِ على جانبك مع ثني الركبتين وإبقاء القدمين متلامستين.\nافتح الركبة العلوية للأعلى بتحكم ثم أغلق ببطء.",
+    "localMediaKey": "clamshell",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "hip-airplane",
+    "nameEn": "Hip Airplane",
+    "nameAr": "تدوير الورك بساق واحدة (Hip Airplane)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Hip Airplane through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "انحنِ للأمام على ساق واحدة وأدر الحوض للخارج ثم للداخل.\nيساعد هذا التمرين على ثبات الورك وتوازن الأرداف.",
+    "localMediaKey": "hip-airplane",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "side-lying-hip-abduction",
+    "nameEn": "Side-Lying Hip Abduction",
+    "nameAr": "رفع الساق الجانبي مستلقياً",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Side-Lying Hip Abduction through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "استلقِ على جانبك مع فرد الساقين في خط مستقيم.\nارفع الساق العلوية للأعلى بتحكم دون تدوير الحوض للخلف.",
+    "localMediaKey": "side-lying-hip-abduction",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "side-lying-leg-raise",
+    "nameEn": "Side-Lying Leg Raise",
+    "nameAr": "رفع الساق الجانبي للخارج",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Side-Lying Leg Raise through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "استلقِ جانبياً وأبقِ مشط القدم موجهاً للأمام.\nارفع الساق ببطء لأعلى مدى مريح ثم اخفضها بتحكم.",
+    "localMediaKey": "side-lying-leg-raise",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "lying-hamstring-walkout",
+    "nameEn": "Lying Hamstring Walkout",
+    "nameAr": "مشي الكعبين للخلفيات مستلقياً",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Lying Hamstring Walkout through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ابدأ بوضع جسر الأرداف مع رفع الوركين.\nاخْطُ بالكعبين خطوات صغيرة للأمام حتى شبه استقامة الساقين ثم عد.",
+    "localMediaKey": "lying-hamstring-walkout",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "towel-hamstring-curl",
+    "nameEn": "Towel Hamstring Curl",
+    "nameAr": "ثني الخلفيات بالمنشفة على الأرض",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Towel Hamstring Curl through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "استلقِ وضع كعبيك على منشفة فوق أرضية ملساء مع رفع الورك.\nاسحب الكعبين نحو الأرداف ثم مد الساقين بتحكم.",
+    "localMediaKey": "towel-hamstring-curl",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "stability-ball-hamstring-curl",
+    "nameEn": "Stability Ball Hamstring Curl",
+    "nameAr": "ثني الخلفيات على كرة التوازن",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Stability Ball Hamstring Curl through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "استلقِ وضع كعبيك فوق الكرة مع رفع الحوض في خط مستقيم.\nاسحب الكرة نحو جسمك بثني الركبتين ثم أعدها ببطء.",
+    "localMediaKey": "stability-ball-hamstring-curl",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "banded-glute-bridge",
+    "nameEn": "Banded Glute Bridge",
+    "nameAr": "جسر الأرداف بحبل المقاومة",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "CABLE",
+    "instructionsEn": "Perform Banded Glute Bridge through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ضع حبل المقاومة فوق الركبتين واستلقِ بثني الساقين.\nارفع الورك وادفع الركبتين قليلاً للخارج لعصر الأرداف.",
+    "localMediaKey": "banded-glute-bridge",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "banded-hip-thrust",
+    "nameEn": "Banded Hip Thrust",
+    "nameAr": "دفع الورك على البنش بحبل المقاومة",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "CABLE",
+    "instructionsEn": "Perform Banded Hip Thrust through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "أسند أعلى الظهر على البنش مع ربط حبل المقاومة حول الفخذين.\nادفع الورك للأعلى وحافظ على شد الحبل للخارج.",
+    "localMediaKey": "banded-hip-thrust",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "banded-frog-pump",
+    "nameEn": "Banded Frog Pump",
+    "nameAr": "ضخ الضفدع بحبل المقاومة",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [],
+    "equipment": "CABLE",
+    "instructionsEn": "Perform Banded Frog Pump through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ألصق باطني القدمين مع وضع حبل المقاومة فوق الركبتين.\nارفع الوركين للأعلى بعصر قوي للأرداف.",
+    "localMediaKey": "banded-frog-pump",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "banded-clamshell",
+    "nameEn": "Banded Clamshell",
+    "nameAr": "تمرين المحارة بحبل المقاومة",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "CABLE",
+    "instructionsEn": "Perform Banded Clamshell through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "استلقِ على جانبك مع وضع حبل المقاومة حول الفخذين.\nافتح الركبة العلوية ضد شد الحبل ثم عد ببطء.",
+    "localMediaKey": "banded-clamshell",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "banded-lateral-walk",
+    "nameEn": "Banded Lateral Walk",
+    "nameAr": "المشي الجانبي بحبل المقاومة",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "CABLE",
+    "instructionsEn": "Perform Banded Lateral Walk through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ضع الحبل فوق الركبتين أو حول الكاحلين واثنِ الركبتين قليلاً.\nتحرك خطوات جانبية متتالية مع إبقاء التوتر مستمراً.",
+    "localMediaKey": "banded-lateral-walk",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "banded-monster-walk",
+    "nameEn": "Banded Monster Walk",
+    "nameAr": "مشي الوحش للأمام بحبل المقاومة",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "CABLE",
+    "instructionsEn": "Perform Banded Monster Walk through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ضع حبل المقاومة حول الساقين واخطُ قطرياً للأمام بتحكم.\nحافظ على انخفاض الوركين وثبات الركبتين للخارج.",
+    "localMediaKey": "banded-monster-walk",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "banded-squat",
+    "nameEn": "Banded Squat",
+    "nameAr": "سكوات بحبل المقاومة",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "CABLE",
+    "instructionsEn": "Perform Banded Squat through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ضع حبل المقاومة فوق الركبتين أو تحت القدمين.\nانزل في السكوات مع مقاومة اندفاع الركبتين للداخل ثم ادفع للأعلى.",
+    "localMediaKey": "banded-squat",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "banded-donkey-kick",
+    "nameEn": "Banded Donkey Kick",
+    "nameAr": "ركلة الحمار بحبل المقاومة",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "CABLE",
+    "instructionsEn": "Perform Banded Donkey Kick through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ثبّت الحبل حول القدم وارتكز على اليدين والركبتين.\nادفع الساق للخلف للأعلى ضد مقاومة الحبل ثم أرجعها ببطء.",
+    "localMediaKey": "banded-donkey-kick",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "banded-fire-hydrant",
+    "nameEn": "Banded Fire Hydrant",
+    "nameAr": "فتح الورك الجانبي بحبل المقاومة",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "CABLE",
+    "instructionsEn": "Perform Banded Fire Hydrant through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ضع الحبل فوق الركبتين وارتكز على أربع.\nافتح الركبة جانبياً ضد المقاومة مع ثبات الجذع.",
+    "localMediaKey": "banded-fire-hydrant",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "banded-kickback",
+    "nameEn": "Banded Kickback",
+    "nameAr": "ركل خلفي واقفاً بحبل المقاومة",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "CABLE",
+    "instructionsEn": "Perform Banded Kickback through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ثبّت الحبل في الكاحلين وأمسك بدعامة أمامك.\nادفع ساقاً مستقيمة للخلف بتحكم لعصر الأرداف.",
+    "localMediaKey": "banded-kickback",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "banded-standing-hip-abduction",
+    "nameEn": "Banded Standing Hip Abduction",
+    "nameAr": "إبعاد الفخذ واقفاً بحبل المقاومة",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "CABLE",
+    "instructionsEn": "Perform Banded Standing Hip Abduction through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "قف مستقيماً مع وضع الحبل حول الكاحلين.\nارفع ساقاً جانبياً للخارج دون إمالة الجذع ثم عد ببطء.",
+    "localMediaKey": "banded-standing-hip-abduction",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "banded-seated-hip-abduction",
+    "nameEn": "Banded Seated Hip Abduction",
+    "nameAr": "إبعاد الفخذين جالساً بحبل المقاومة",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "CABLE",
+    "instructionsEn": "Perform Banded Seated Hip Abduction through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "اجلس على البنش وضع الحبل فوق الركبتين.\nافتح الركبتين للخارج ضد الحبل واثبت لحظة ثم عد بتحكم.",
+    "localMediaKey": "banded-seated-hip-abduction",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "band-pull-apart",
+    "nameEn": "Band Pull-Apart",
+    "nameAr": "سحب حبل المقاومة أمام الصدر (Pull-Apart)",
+    "primaryMuscle": "BACK",
+    "secondaryMuscles": [
+      "SHOULDERS"
+    ],
+    "equipment": "CABLE",
+    "instructionsEn": "Perform Band Pull-Apart through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "امسك حبل المقاومة ممدوداً أمام الكتفين.\nافتح ذراعيك للجانبين بعصر لوحي الكتف ثم أعدهما ببطء.",
+    "localMediaKey": "band-pull-apart",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "banded-face-pull",
+    "nameEn": "Banded Face Pull",
+    "nameAr": "سحب للوجه بحبل المقاومة",
+    "primaryMuscle": "BACK",
+    "secondaryMuscles": [
+      "SHOULDERS"
+    ],
+    "equipment": "CABLE",
+    "instructionsEn": "Perform Banded Face Pull through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ثبّت الحبل بمستوى الوجه واسحبه نحو الجبهة.\nباعد بين اليدين في النهاية لعصر الكتف الخلفي.",
+    "localMediaKey": "banded-face-pull",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "banded-row",
+    "nameEn": "Banded Row",
+    "nameAr": "سحب الظهر جالساً بحبل المقاومة",
+    "primaryMuscle": "BACK",
+    "secondaryMuscles": [
+      "ARMS"
+    ],
+    "equipment": "CABLE",
+    "instructionsEn": "Perform Banded Row through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "اجلس ومد ساقيك ولف الحبل حول القدمين.\nاسحب الطرفين نحو الخصر مع عصر عضلات الظهر واستقامة الجذع.",
+    "localMediaKey": "banded-row",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "banded-lat-pulldown",
+    "nameEn": "Banded Lat Pulldown",
+    "nameAr": "سحب علوي بحبل المقاومة",
+    "primaryMuscle": "BACK",
+    "secondaryMuscles": [
+      "ARMS",
+      "CORE"
+    ],
+    "equipment": "CABLE",
+    "instructionsEn": "Perform Banded Lat Pulldown through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ثبّت الحبل في نقطة مرتفعة واركع أو اجلس.\nاسحب الطرفين للأسفل نحو الصدر بضم لوحي الكتف للأسفل.",
+    "localMediaKey": "banded-lat-pulldown",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "banded-pallof-press",
+    "nameEn": "Banded Pallof Press",
+    "nameAr": "دفع بالوف بحبل المقاومة",
+    "primaryMuscle": "CORE",
+    "secondaryMuscles": [
+      "LEGS",
+      "SHOULDERS"
+    ],
+    "equipment": "CABLE",
+    "instructionsEn": "Perform Banded Pallof Press through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ثبّت الحبل جانبياً بمستوى الصدر وامسكه بكلتا اليدين.\nادفع الذراعين للأمام مع مقاومة التفاف الجذع.",
+    "localMediaKey": "banded-pallof-press",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "banded-woodchop",
+    "nameEn": "Banded Woodchop",
+    "nameAr": "تدوير الخصر بحبل المقاومة",
+    "primaryMuscle": "CORE",
+    "secondaryMuscles": [
+      "SHOULDERS",
+      "LEGS"
+    ],
+    "equipment": "CABLE",
+    "instructionsEn": "Perform Banded Woodchop through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ثبّت الحبل منخفضاً أو مرتفعاً وقف جانبياً.\nلف الجذع قطرياً بسحب الحبل مع شد البطن والخصر.",
+    "localMediaKey": "banded-woodchop",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "banded-dead-bug",
+    "nameEn": "Banded Dead Bug",
+    "nameAr": "الحشرة الميتة بحبل المقاومة",
+    "primaryMuscle": "CORE",
+    "secondaryMuscles": [
+      "LEGS",
+      "SHOULDERS"
+    ],
+    "equipment": "CABLE",
+    "instructionsEn": "Perform Banded Dead Bug through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ثبّت الحبل خلف الرأس وامسكه بيديك فوق الصدر.\nبدّل مد الساقين نحو الأرض مع إبقاء أسفل الظهر ملامساً للأرض.",
+    "localMediaKey": "banded-dead-bug",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "hollow-body-hold",
+    "nameEn": "Hollow Body Hold",
+    "nameAr": "ثبات الجسم المجوف للبطن (Hollow Hold)",
+    "primaryMuscle": "CORE",
+    "secondaryMuscles": [
+      "LEGS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Hollow Body Hold through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "استلقِ على ظهرك وارفع الكتفين والساقين الممدودتين قليلاً.\nاضغط بأسفل الظهر على الأرض وحافظ على الثبات.",
+    "localMediaKey": "hollow-body-hold",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "hollow-rock",
+    "nameEn": "Hollow Rock",
+    "nameAr": "تأرجح الجسم المجوف للبطن (Hollow Rock)",
+    "primaryMuscle": "CORE",
+    "secondaryMuscles": [
+      "LEGS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Hollow Rock through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "اتخذ وضعية الجسم المجوف مع شد البطن بالكامل.\nتأرجح للخلف وللأمام بسلاسة مع الحفاظ على شكل الجسم الثابت.",
+    "localMediaKey": "hollow-rock",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "v-up",
+    "nameEn": "V-Up",
+    "nameAr": "تمرين V-Up للبطن",
+    "primaryMuscle": "CORE",
+    "secondaryMuscles": [
+      "LEGS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform V-Up through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "استلقِ ممدداً بالكامل وارفع الجذع والساقين في آنٍ واحد.\nالمس أطراف القدمين بيديك في القمة ثم انزل بتحكم.",
+    "localMediaKey": "v-up",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "flutter-kick",
+    "nameEn": "Flutter Kick",
+    "nameAr": "رفرفة الساقين للبطن (Flutter Kick)",
+    "primaryMuscle": "CORE",
+    "secondaryMuscles": [
+      "LEGS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Flutter Kick through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "استلقِ وضع اليدين تحت الحوض لحماية أسفل الظهر.\nبدّل رفع وإنزال الساقين الممدودتين بحركات سريعة ومتحكم بها.",
+    "localMediaKey": "flutter-kick",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "toe-touch",
+    "nameEn": "Toe Touch",
+    "nameAr": "لمس أطراف الأصابع للبطن (Toe Touch)",
+    "primaryMuscle": "CORE",
+    "secondaryMuscles": [],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Toe Touch through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "استلقِ وارفع الساقين عمودياً نحو السقف.\nارفع كتفيك للأمام للمس أصابع القدمين بعصر أعلى البطن.",
+    "localMediaKey": "toe-touch",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "heel-tap",
+    "nameEn": "Heel Tap",
+    "nameAr": "لمس الكعبين بالتناوب للخصر (Heel Tap)",
+    "primaryMuscle": "CORE",
+    "secondaryMuscles": [],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Heel Tap through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "استلقِ مع ثني الركبتين وارفع الكتفين قليلاً عن الأرض.\nأمل جذعك بالتناوب للمس الكعب الأيمن ثم الأيسر.",
+    "localMediaKey": "heel-tap",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "plank-shoulder-tap",
+    "nameEn": "Plank Shoulder Tap",
+    "nameAr": "بلانك مع لمس الكتف",
+    "primaryMuscle": "CORE",
+    "secondaryMuscles": [
+      "SHOULDERS",
+      "CHEST"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Plank Shoulder Tap through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "اثبت في وضع البلانك العالي مع فتح القدمين قليلاً للتوازن.\nالمس كل كتف باليد المقابلة ببطء مع منع تمايل الحوض.",
+    "localMediaKey": "plank-shoulder-tap",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "plank-jack",
+    "nameEn": "Plank Jack",
+    "nameAr": "بلانك مع القفز الجانبي للقدمين (Plank Jack)",
+    "primaryMuscle": "CORE",
+    "secondaryMuscles": [
+      "SHOULDERS",
+      "LEGS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Plank Jack through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "من وضع البلانك، اقفز بالقدمين للخارج وللداخل.\nحافظ على ثبات الكتفين واستقامة الظهر طوال الحركة.",
+    "localMediaKey": "plank-jack",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "bear-plank",
+    "nameEn": "Bear Plank",
+    "nameAr": "بلانك الدب (Bear Plank)",
+    "primaryMuscle": "CORE",
+    "secondaryMuscles": [
+      "LEGS",
+      "SHOULDERS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Bear Plank through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ارتكز على اليدين وأطراف الأصابع مع ثني الركبتين ورفعهما سنتيمترات عن الأرض.\nحافظ على استقامة الظهر وشد البطن.",
+    "localMediaKey": "bear-plank",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "bear-crawl",
+    "nameEn": "Bear Crawl",
+    "nameAr": "زحف الدب (Bear Crawl)",
+    "primaryMuscle": "CORE",
+    "secondaryMuscles": [
+      "SHOULDERS",
+      "LEGS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Bear Crawl through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "من وضع بلانك الدب، تحرك للأمام بتحريك اليد والقدم المتعاكستين.\nأبقِ الوركين منخفضين وبظهر مستوٍ.",
+    "localMediaKey": "bear-crawl",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "crab-walk",
+    "nameEn": "Crab Walk",
+    "nameAr": "مشي السلطعون (Crab Walk)",
+    "primaryMuscle": "ARMS",
+    "secondaryMuscles": [
+      "LEGS",
+      "CORE",
+      "SHOULDERS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Crab Walk through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "اجلس وأسند يديك خلفك مع ثني الركبتين وارفع الحوض.\nامشِ للأمام أو للخلف بالتناوب بين اليدين والقدمين.",
+    "localMediaKey": "crab-walk",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "inchworm",
+    "nameEn": "Inchworm",
+    "nameAr": "تمرين الدودة (Inchworm)",
+    "primaryMuscle": "CORE",
+    "secondaryMuscles": [
+      "SHOULDERS",
+      "LEGS",
+      "CHEST"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Inchworm through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "قف وانحنِ للمس الأرض بيديك ثم امشِ باليدين للأمام لوضع البلانك.\nتقدم بالقدمين أو ارجع باليدين للوقوف وكرر.",
+    "localMediaKey": "inchworm",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "l-sit-hold",
+    "nameEn": "L-Sit Hold",
+    "nameAr": "ثبات الجلوس بزاوية L (L-Sit)",
+    "primaryMuscle": "CORE",
+    "secondaryMuscles": [
+      "ARMS",
+      "LEGS",
+      "SHOULDERS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform L-Sit Hold through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "أسند راحتي يديك على الأرض أو المتوازي وارفع الورك والساقين مستقيمتين للأمام.\nادفع الكتفين للأسفل واثبت بشد البطن.",
+    "localMediaKey": "l-sit-hold",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "seated-knee-tuck",
+    "nameEn": "Seated Knee Tuck",
+    "nameAr": "ضم الركبتين جالساً على البنش",
+    "primaryMuscle": "CORE",
+    "secondaryMuscles": [
+      "LEGS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Seated Knee Tuck through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "اجلس على حافة البنش وأمسك الجانبين وأمل الجذع للخلف.\nاسحب الركبتين نحو الصدر ثم مد الساقين للأمام بتحكم.",
+    "localMediaKey": "seated-knee-tuck",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "side-plank-hip-dip",
+    "nameEn": "Side Plank Hip Dip",
+    "nameAr": "بلانك جانبي مع خفض ورفع الورك",
+    "primaryMuscle": "CORE",
+    "secondaryMuscles": [
+      "SHOULDERS",
+      "LEGS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Side Plank Hip Dip through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ارتكز في وضع البلانك الجانبي على الساعد.\nاخفض الورك برفق قرب الأرض ثم ارفعه للأعلى بعصر الخصر.",
+    "localMediaKey": "side-plank-hip-dip",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "copenhagen-plank",
+    "nameEn": "Copenhagen Plank",
+    "nameAr": "بلانك كوبنهاجن للعضلات الضامة",
+    "primaryMuscle": "CORE",
+    "secondaryMuscles": [
+      "LEGS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Copenhagen Plank through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "في وضع البلانك الجانبي، ضع الساق العلوية فوق بنش والأسفل معلقة.\nارفع الوركين في خط مستقيم واثبت لشد الضامة والخصر.",
+    "localMediaKey": "copenhagen-plank",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "dragon-flag",
+    "nameEn": "Dragon Flag",
+    "nameAr": "علم التنين للبطن (Dragon Flag)",
+    "primaryMuscle": "CORE",
+    "secondaryMuscles": [
+      "BACK",
+      "LEGS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Dragon Flag through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "استلقِ وأمسك حافة البنش خلف الرأس وارفع الجسم عمودياً على الكتفين.\nاخفض الجسم كقطعة واحدة مستقيمة ببطء ثم ارفعه مجدداً.",
+    "localMediaKey": "dragon-flag",
+    "defaultRestSeconds": 90,
+    "isCustom": false
+  },
+  {
+    "id": "burpee",
+    "nameEn": "Burpee",
+    "nameAr": "بيربي كامل (Burpee)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CHEST",
+      "SHOULDERS",
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Burpee through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "انزل لوضع القرفصاء وضع اليدين ثم اقفز بالقدمين للبلانك ونفذ ضغطاً.\nعد بالقدمين للأمام واقفز للأعلى بتمدد كامل.",
+    "localMediaKey": "burpee",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "half-burpee",
+    "nameEn": "Half Burpee",
+    "nameAr": "نصف بيربي بدون ضغط (Half Burpee)",
+    "primaryMuscle": "CORE",
+    "secondaryMuscles": [
+      "LEGS",
+      "SHOULDERS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Half Burpee through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ضع اليدين على الأرض واقفز بالقدمين للبلانك ثم عد للقفز واقفاً.\nحافظ على إيقاع سريع ومتوازن مع شد البطن.",
+    "localMediaKey": "half-burpee",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "squat-thrust",
+    "nameEn": "Squat Thrust",
+    "nameAr": "دفع السكوات للأمام (Squat Thrust)",
+    "primaryMuscle": "CORE",
+    "secondaryMuscles": [
+      "LEGS",
+      "SHOULDERS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Squat Thrust through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "من الوقوف، انزل بيديك على الأرض واقفز للخلف لوضع البلانك.\nارجع القدمين بسرعة بين اليدين وقف.",
+    "localMediaKey": "squat-thrust",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "high-knees",
+    "nameEn": "High Knees",
+    "nameAr": "رفع الركبتين عالياً في المكان",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform High Knees through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "اجرِ في مكانك مع رفع الركبتين لمستوى الورك بالتناوب السريع.\nحرّك الذراعين بتناغم وحافظ على استقامة الجذع.",
+    "localMediaKey": "high-knees",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "jumping-jack",
+    "nameEn": "Jumping Jack",
+    "nameAr": "قفز النجمة (Jumping Jack)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "SHOULDERS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Jumping Jack through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "اقفز مع فتح القدمين للجانبين ورفع الذراعين فوق الرأس.\nعد لوضع البداية بقدمين مضمومتين وخفض الذراعين.",
+    "localMediaKey": "jumping-jack",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "skater-hop",
+    "nameEn": "Skater Hop",
+    "nameAr": "قفزات المتزلج الجانبية (Skater Hop)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Skater Hop through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "اقفز جانبياً من ساق إلى أخرى مع تمرير الساق الحرة خلفك.\nثبّت التوازن لحظة على كل هبوط ثم اندفع للجهة المقابلة.",
+    "localMediaKey": "skater-hop",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "lateral-shuffle",
+    "nameEn": "Lateral Shuffle",
+    "nameAr": "الانزلاق الجانبي السريع (Lateral Shuffle)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Lateral Shuffle through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "اثنِ الركبتين قليلاً في وضع رياضي منخفض.\nتحرك جانبياً بخطوات سريعة متقاربة يميناً ثم يساراً.",
+    "localMediaKey": "lateral-shuffle",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "fast-feet",
+    "nameEn": "Fast Feet",
+    "nameAr": "خطوات القدم السريعة (Fast Feet)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Fast Feet through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "انخفض قليلاً على أمشاط القدمين وحرّك القدمين بأقصى سرعة في المكان.\nأبقِ البطن مشدوداً والذراعين متحركتين للتوازن.",
+    "localMediaKey": "fast-feet",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "sprawl",
+    "nameEn": "Sprawl",
+    "nameAr": "تمرين السبرول السريع (Sprawl)",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE",
+      "SHOULDERS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Sprawl through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "انزل بسرعة لوضع البلانك مع إبقاء الوركين منخفضين دون ملامسة الأرض.\nارتد للوقوف السريع في وضع استعداد رياضي.",
+    "localMediaKey": "sprawl",
+    "defaultRestSeconds": 60,
+    "isCustom": false
+  },
+  {
+    "id": "seal-jack",
+    "nameEn": "Seal Jack",
+    "nameAr": "قفز الفقمات (Seal Jack)",
+    "primaryMuscle": "CHEST",
+    "secondaryMuscles": [
+      "SHOULDERS",
+      "LEGS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Seal Jack through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "اقفز مع فتح الساقين والذراعين أفقياً للجانبين بمستوى الصدر.\nأغلق اليدين والساقين في القفزة التالية بإيقاع متواصل.",
+    "localMediaKey": "seal-jack",
+    "defaultRestSeconds": 45,
+    "isCustom": false
+  },
+  {
+    "id": "cat-cow-stretch",
+    "nameEn": "Cat-Cow Stretch",
+    "nameAr": "إطالة القطة والبقرة للظهر",
+    "primaryMuscle": "CORE",
+    "secondaryMuscles": [
+      "BACK"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Cat-Cow Stretch through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ارتكز على اليدين والركبتين.\nقوّس الظهر للأعلى مع الزفير، ثم اخفض البطن وارفع الصدر مع الشهيق.",
+    "localMediaKey": "cat-cow-stretch",
+    "defaultRestSeconds": 30,
+    "isCustom": false
+  },
+  {
+    "id": "arm-circles",
+    "nameEn": "Arm Circles",
+    "nameAr": "تدوير الذراعين للإحماء (Arm Circles)",
+    "primaryMuscle": "SHOULDERS",
+    "secondaryMuscles": [
+      "CHEST",
+      "BACK",
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Arm Circles through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "افرد الذراعين للجانبين وأدرهما في دوائر صغيرة ثم واسعة.\nبدّل اتجاه الدوران للأمام وللخلف لإحماء الكتفين.",
+    "localMediaKey": "arm-circles",
+    "defaultRestSeconds": 30,
+    "isCustom": false
+  },
+  {
+    "id": "worlds-greatest-stretch",
+    "nameEn": "World's Greatest Stretch",
+    "nameAr": "أعظم إطالة شاملة للجسم",
+    "primaryMuscle": "CORE",
+    "secondaryMuscles": [
+      "LEGS",
+      "BACK"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform World's Greatest Stretch through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "من خطوة طعن عميقة، ضع يداً على الأرض وأدر الجذع برفع اليد الأخرى للسقف.\nبدّل بين الساقين لفتح الوركين والعمود الفقري.",
+    "localMediaKey": "worlds-greatest-stretch",
+    "defaultRestSeconds": 30,
+    "isCustom": false
+  },
+  {
+    "id": "leg-swings-stretch",
+    "nameEn": "Leg Swings",
+    "nameAr": "تأرجح الساقين لإحماء الورك",
+    "primaryMuscle": "CORE",
+    "secondaryMuscles": [
+      "LEGS"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Leg Swings through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "أمسك بدعامة جانبية وحرّك ساقاً مستقيمة للأمام والخلف بانسيابية.\nكرر للحركة الجانبية ثم بدّل الساق.",
+    "localMediaKey": "leg-swings-stretch",
+    "defaultRestSeconds": 30,
+    "isCustom": false
+  },
+  {
+    "id": "torso-twist-stretch",
+    "nameEn": "Torso Twists",
+    "nameAr": "تدوير الجذع لإحماء العمود الفقري",
+    "primaryMuscle": "CORE",
+    "secondaryMuscles": [
+      "BACK"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Torso Twists through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "قف بقدمين بمستوى الكتفين وأدر جذعك وذراعيك بلطف يميناً ويساراً.\nحافظ على تنفس هادئ وحركة مرنة.",
+    "localMediaKey": "torso-twist-stretch",
+    "defaultRestSeconds": 30,
+    "isCustom": false
+  },
+  {
+    "id": "doorway-chest-stretch",
+    "nameEn": "Doorway Chest Stretch",
+    "nameAr": "إطالة الصدر على إطار الباب",
+    "primaryMuscle": "CHEST",
+    "secondaryMuscles": [
+      "SHOULDERS",
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Doorway Chest Stretch through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "ضع الساعدين على جانبي إطار الباب بزاوية 90 درجة.\nتقدّم خطوة لطيفة للأمام حتى تشعر بتمدد مريح في الصدر والكتفين.",
+    "localMediaKey": "doorway-chest-stretch",
+    "defaultRestSeconds": 30,
+    "isCustom": false
+  },
+  {
+    "id": "childs-pose",
+    "nameEn": "Child's Pose",
+    "nameAr": "وضعية الطفل لإطالة الظهر",
+    "primaryMuscle": "BACK",
+    "secondaryMuscles": [
+      "SHOULDERS",
+      "LEGS",
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Child's Pose through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "اركع واجلس بالوركين نحو الكعبين مع مد الذراعين للأمام على الأرض.\nاسترخِ وتنفس بعمق لتمديد أسفل الظهر والأكتاف.",
+    "localMediaKey": "childs-pose",
+    "defaultRestSeconds": 30,
+    "isCustom": false
+  },
+  {
+    "id": "kneeling-hip-flexor-stretch",
+    "nameEn": "Kneeling Hip Flexor Stretch",
+    "nameAr": "إطالة عضلة الحوض المثنية راكعاً",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Kneeling Hip Flexor Stretch through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "اجثُ على ركبة واحدة وضع القدم الأخرى أمامك.\nادفع الوركين للأمام برفق مع شد الأرداف للشعور بتمدد مقدمة الورك.",
+    "localMediaKey": "kneeling-hip-flexor-stretch",
+    "defaultRestSeconds": 30,
+    "isCustom": false
+  },
+  {
+    "id": "hamstring-stretch",
+    "nameEn": "Hamstring Stretch",
+    "nameAr": "إطالة العضلة الخلفية للفخذ",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Hamstring Stretch through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "قدّم قدماً للأمام مع إبقاء الركبة مستقيمة وإمالة الجذع بظهر مستوٍ.\nاثبت عند أول شد لطيف ثم بدّل الساق.",
+    "localMediaKey": "hamstring-stretch",
+    "defaultRestSeconds": 30,
+    "isCustom": false
+  },
+  {
+    "id": "standing-quad-stretch",
+    "nameEn": "Standing Quad Stretch",
+    "nameAr": "إطالة الفخذ الأمامي واقفاً",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Standing Quad Stretch through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "قف بتوازن واسحب مشط قدم واحدة بيدك نحو الأرداف.\nحافظ على تقارب الركبتين واستقامة الظهر ثم بدّل.",
+    "localMediaKey": "standing-quad-stretch",
+    "defaultRestSeconds": 30,
+    "isCustom": false
+  },
+  {
+    "id": "seated-forward-fold-stretch",
+    "nameEn": "Seated Forward Fold",
+    "nameAr": "الثني للأمام جالساً لإطالة الخلفيات",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "BACK",
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Seated Forward Fold through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "اجلس ومد الساقين مستقيمتين للأمام.\nأمل الجذع من مفصل الورك نحو القدمين بظهر مفرود قدر الإمكان.",
+    "localMediaKey": "seated-forward-fold-stretch",
+    "defaultRestSeconds": 30,
+    "isCustom": false
+  },
+  {
+    "id": "cross-body-shoulder-stretch",
+    "nameEn": "Cross-Body Shoulder Stretch",
+    "nameAr": "إطالة الكتف بعرض الصدر",
+    "primaryMuscle": "SHOULDERS",
+    "secondaryMuscles": [
+      "BACK",
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Cross-Body Shoulder Stretch through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "مرّر ذراعاً واحدة أفقياً أمام الصدر واسحبها برفق باليد الأخرى.\nحافظ على خفض الكتف وتنفس بهدوء ثم بدّل.",
+    "localMediaKey": "cross-body-shoulder-stretch",
+    "defaultRestSeconds": 30,
+    "isCustom": false
+  },
+  {
+    "id": "wall-calf-stretch",
+    "nameEn": "Wall Calf Stretch",
+    "nameAr": "إطالة السمانة على الحائط",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Wall Calf Stretch through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "أسند يديك على الحائط وأرجع قدماً مستقيمة للخلف مع لصق الكعب بالأرض.\nتقدم بالورك للأمام حتى تشعر بإطالة السمانة ثم بدّل.",
+    "localMediaKey": "wall-calf-stretch",
+    "defaultRestSeconds": 30,
+    "isCustom": false
+  },
+  {
+    "id": "butterfly-stretch",
+    "nameEn": "Butterfly Stretch",
+    "nameAr": "إطالة الفراشة للورك والضامة",
+    "primaryMuscle": "LEGS",
+    "secondaryMuscles": [
+      "CORE"
+    ],
+    "equipment": "BODYWEIGHT",
+    "instructionsEn": "Perform Butterfly Stretch through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
+    "instructionsAr": "اجلس وألصق باطني القدمين مع تقريب الكعبين من الجسم.\nاخفض الركبتين برفق نحو الأرض بظهر مستقيم وتنفس بهدوء.",
+    "localMediaKey": "butterfly-stretch",
+    "defaultRestSeconds": 30,
     "isCustom": false
   }
 ]

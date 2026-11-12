@@ -134,4 +134,47 @@
     <string name="custom_exercise_name_required">Enter at least an Arabic or English exercise name</string>
     <string name="custom_exercise_saved_msg">Exercise saved locally</string>
     <string name="custom_exercise_deleted_msg">Custom exercise deleted</string>
+
+    <!-- Routine Builder (Spec 3) -->
+    <string name="routines_create">New Routine</string>
+    <string name="routines_empty_title">No routines yet</string>
+    <string name="routines_empty_subtitle">Create unlimited workout routines (Push, Pull, Legs, Upper/Lower) and organize your exercises locally.</string>
+    <string name="routines_exercise_count">%1$d exercises</string>
+    <string name="routines_sets_count">%1$d sets</string>
+    <string name="routines_no_exercises">No exercises yet</string>
+    <string name="routines_start_workout">Start</string>
+    <string name="routines_start_spec4_msg">Active workout sessions arrive in Spec 4 — \"%1$s\" is ready!</string>
+    <string name="routines_edit">Edit</string>
+    <string name="routines_duplicate">Duplicate</string>
+    <string name="routines_copy_suffix"> (Copy)</string>
+    <string name="routines_duplicated_msg">Routine duplicated locally</string>
+    <string name="routines_delete">Delete</string>
+    <string name="routines_deleted_msg">Deleted \"%1$s\"</string>
+    <string name="routines_undo">Undo</string>
+    <string name="routines_more_actions">Routine actions</string>
+
+    <string name="routine_editor_create_title">New Routine</string>
+    <string name="routine_editor_edit_title">Edit Routine</string>
+    <string name="routine_editor_save">Save</string>
+    <string name="routine_editor_title_label">Routine Name</string>
+    <string name="routine_editor_title_placeholder">e.g. Push Day</string>
+    <string name="routine_editor_title_required">Please enter a routine name</string>
+    <string name="routine_editor_notes_label">Notes (Optional)</string>
+    <string name="routine_editor_notes_placeholder">e.g. Controlled eccentric, 2 min rest on compounds</string>
+    <string name="routine_editor_exercises_header">Routine Exercises (%1$d)</string>
+    <string name="routine_editor_add_exercise">Add Exercise</string>
+    <string name="routine_editor_empty_exercises">Add exercises from the library, drag handles to reorder, and configure target sets, reps, and rest.</string>
+    <string name="routine_editor_drag_handle">Drag to reorder</string>
+    <string name="routine_editor_move_up">Move up</string>
+    <string name="routine_editor_move_down">Move down</string>
+    <string name="routine_editor_remove_exercise">Remove exercise</string>
+    <string name="routine_editor_sets_label">Sets</string>
+    <string name="routine_editor_reps_min_label">Min Reps</string>
+    <string name="routine_editor_reps_max_label">Max Reps</string>
+    <string name="routine_editor_rest_label">Rest</string>
+    <string name="routine_editor_saved_msg">Routine saved locally</string>
+
+    <string name="routine_picker_title">Pick Exercises</string>
+    <string name="routine_picker_done">Done (%1$d)</string>
+    <string name="routine_picker_added">Added</string>
 </resources>

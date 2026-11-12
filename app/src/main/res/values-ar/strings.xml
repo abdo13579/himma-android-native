@@ -134,4 +134,47 @@
     <string name="custom_exercise_name_required">أدخل اسم التمرين بالعربية أو الإنجليزية على الأقل</string>
     <string name="custom_exercise_saved_msg">تم حفظ التمرين محلياً</string>
     <string name="custom_exercise_deleted_msg">تم حذف التمرين المخصص</string>
+
+    <!-- Routine Builder (Spec 3) -->
+    <string name="routines_create">روتين جديد</string>
+    <string name="routines_empty_title">لا توجد روتينات بعد</string>
+    <string name="routines_empty_subtitle">أنشئ روتيناتك التدريبية بلا حدود (مثل يوم الدفع أو السحب أو الأرجل) ونظّم تمارينك محلياً.</string>
+    <string name="routines_exercise_count">%1$d تمرين</string>
+    <string name="routines_sets_count">%1$d مجموعة</string>
+    <string name="routines_no_exercises">بدون تمارين بعد</string>
+    <string name="routines_start_workout">ابدأ</string>
+    <string name="routines_start_spec4_msg">ستتوفر جلسات التمرين النشطة في المرحلة القادمة (Spec 4) — روتين «%1$s» جاهز!</string>
+    <string name="routines_edit">تعديل</string>
+    <string name="routines_duplicate">استنساخ</string>
+    <string name="routines_copy_suffix"> (نسخة)</string>
+    <string name="routines_duplicated_msg">تم استنساخ الروتين محلياً</string>
+    <string name="routines_delete">حذف</string>
+    <string name="routines_deleted_msg">تم حذف «%1$s»</string>
+    <string name="routines_undo">تراجع</string>
+    <string name="routines_more_actions">خيارات الروتين</string>
+
+    <string name="routine_editor_create_title">روتين جديد</string>
+    <string name="routine_editor_edit_title">تعديل الروتين</string>
+    <string name="routine_editor_save">حفظ</string>
+    <string name="routine_editor_title_label">اسم الروتين</string>
+    <string name="routine_editor_title_placeholder">مثال: يوم الدفع (Push Day)</string>
+    <string name="routine_editor_title_required">أدخل اسم الروتين أولاً</string>
+    <string name="routine_editor_notes_label">ملاحظات (اختياري)</string>
+    <string name="routine_editor_notes_placeholder">مثال: التركيز على التحكم في النزول وراحة دقيقتين للتمارين المركبة</string>
+    <string name="routine_editor_exercises_header">تمارين الروتين (%1$d)</string>
+    <string name="routine_editor_add_exercise">إضافة تمرين</string>
+    <string name="routine_editor_empty_exercises">أضف تمارين من المكتبة، واسحب من المقبض لإعادة الترتيب، واضبط المجموعات والعدات والراحة.</string>
+    <string name="routine_editor_drag_handle">اسحب لإعادة الترتيب</string>
+    <string name="routine_editor_move_up">تحريك للأعلى</string>
+    <string name="routine_editor_move_down">تحريك للأسفل</string>
+    <string name="routine_editor_remove_exercise">إزالة التمرين</string>
+    <string name="routine_editor_sets_label">المجموعات</string>
+    <string name="routine_editor_reps_min_label">أقل عدات</string>
+    <string name="routine_editor_reps_max_label">أكثر عدات</string>
+    <string name="routine_editor_rest_label">الراحة</string>
+    <string name="routine_editor_saved_msg">تم حفظ الروتين محلياً</string>
+
+    <string name="routine_picker_title">اختر تمارين للروتين</string>
+    <string name="routine_picker_done">تم (%1$d)</string>
+    <string name="routine_picker_added">مضاف</string>
 </resources>
