@@ -7,9 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [1.0.0] — 2026-11-12
+## [0.1.0-beta] — 2026-11-12
 
-### 🎉 Initial Public Release
+### 🎉 Initial Public Beta Release
 
 Himma (هِمّة) is a 100% offline, privacy-first, free native Android gym workout logger and progressive overload companion built with modern Jetpack Compose and Material Design 3.
 

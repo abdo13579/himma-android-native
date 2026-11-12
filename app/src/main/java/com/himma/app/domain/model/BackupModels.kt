@@ -25,7 +25,7 @@ data class HimmaBackupDocument(
     val format: String = FORMAT_ID,
     val schemaVersion: Int = CURRENT_SCHEMA_VERSION,
     val exportedAt: Long = 0L,
-    val appVersion: String = "1.0.0",
+    val appVersion: String = "0.1.0-beta",
     val profile: BackupProfile? = null,
     val preferences: BackupPreferences? = null,
     val customExercises: List<BackupExercise> = emptyList(),

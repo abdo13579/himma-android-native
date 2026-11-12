@@ -165,7 +165,7 @@ private class FakeBackupRepository : BackupRepository {
 
     private val sampleDoc = HimmaBackupDocument(
         exportedAt = 1_700_000_000_000L,
-        appVersion = "1.0.0",
+        appVersion = "0.1.0-beta",
     )
 
     override suspend fun createBackupJson(): String = BackupSerializer.encode(sampleDoc)
