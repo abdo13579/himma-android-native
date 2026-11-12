@@ -122,6 +122,31 @@ class FakeUserPreferencesRepository : UserPreferencesRepository {
     override suspend fun setOnboardingCompleted(completed: Boolean) {
         state.value = state.value.copy(onboardingCompleted = completed)
     }
+
+    override suspend fun setAutoBackupEnabled(enabled: Boolean) {
+        state.value = state.value.copy(autoBackupEnabled = enabled)
+    }
+
+    override suspend fun setLastAutoBackupAt(timestampMillis: Long?) {
+        state.value = state.value.copy(lastAutoBackupAt = timestampMillis)
+    }
+
+    override suspend fun restorePreferences(
+        language: AppLanguage,
+        weightUnit: WeightUnit,
+        defaultRestSeconds: Int,
+        themeMode: ThemeMode,
+        useDynamicColor: Boolean,
+    ) {
+        state.value = state.value.copy(
+            language = language,
+            weightUnit = weightUnit,
+            defaultRestSeconds = defaultRestSeconds,
+            themeMode = themeMode,
+            useDynamicColor = useDynamicColor,
+            onboardingCompleted = true,
+        )
+    }
 }
 
 class FakeUserProfileRepository : UserProfileRepository {

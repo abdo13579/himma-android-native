@@ -16,4 +16,7 @@ interface UserProfileDao {
 
     @Upsert
     suspend fun upsertProfile(profile: UserProfileEntity)
+
+    @Query("DELETE FROM user_profile")
+    suspend fun deleteProfile()
 }

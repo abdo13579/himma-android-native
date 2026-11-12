@@ -226,4 +226,32 @@
     <string name="rest_notif_ongoing_body">المتبقي: %1$s</string>
     <string name="rest_notif_done_title">انتهت الراحة!</string>
     <string name="rest_notif_done_body">حان وقت المجموعة التالية — %1$s</string>
+
+    <string name="settings_section_backup">النسخ الاحتياطي والاستعادة وتصدير البيانات</string>
+    <string name="settings_backup_desc">احفظ نسخة احتياطية كاملة بصيغة JSON مفتوحة (.himma.json) أو صدّر سجل تمارينك بصيغة CSV في أي مجلد على جهازك.</string>
+    <string name="backup_export_json">تصدير نسخة احتياطية (.himma.json)</string>
+    <string name="backup_restore_json">استعادة نسخة احتياطية</string>
+    <string name="backup_export_csv">تصدير سجل التمارين (.csv)</string>
+    <string name="backup_auto_snapshot_title">نسخ احتياطي محلي تلقائي (يومياً)</string>
+    <string name="backup_auto_snapshot_desc">يحفظ نسخة استرداد محلية دورية داخل التخزين المحلي للجهاز كل 24 ساعة.</string>
+    <string name="backup_last_snapshot">آخر نسخة محلية: %1$s</string>
+    <string name="backup_no_snapshot_yet">لم تُؤخذ نسخة تلقائية محلية بعد</string>
+    <string name="backup_take_snapshot_now">أخذ نسخة الآن</string>
+    <string name="backup_restore_snapshot">استعادة التلقائية</string>
+    <string name="backup_restore_dialog_title">استعادة النسخة الاحتياطية</string>
+    <string name="backup_restore_dialog_meta">تاريخ التصدير: %1$s • الإصدار %2$s (v%3$d)</string>
+    <string name="backup_restore_dialog_counts">تمارين مخصصة: %1$d • روتينات: %2$d • جلسات: %3$d • مجموعات: %4$d</string>
+    <string name="backup_restore_dialog_hint">اختر الدمج الذكي لإضافة البيانات الناقصة دون تكرار، أو استبدال البيانات الحالية بالكامل بهذه النسخة.</string>
+    <string name="backup_restore_merge">دمج ذكي (بدون تكرار)</string>
+    <string name="backup_restore_replace">استبدال البيانات بالكامل</string>
+    <string name="backup_export_json_success">تم تصدير النسخة الاحتياطية الكاملة بنجاح</string>
+    <string name="backup_export_csv_success">تم تصدير سجل التمارين (.csv) بنجاح</string>
+    <string name="backup_snapshot_success">تم حفظ النسخة التلقائية محلياً</string>
+    <string name="backup_restore_success">تمت الاستعادة: %1$d تمرين مخصص، %2$d روتين، %3$d جلسة (%4$d مجموعة)</string>
+    <string name="backup_error_empty">ملف النسخة الاحتياطية فارغ أو غير موجود</string>
+    <string name="backup_error_invalid_json">الملف المحدد ليس بصيغة JSON صالحة</string>
+    <string name="backup_error_unsupported_format">هذا الملف ليس نسخة احتياطية صالحة لتطبيق هِمّة</string>
+    <string name="backup_error_unsupported_version">يتطلب إصدار هذه النسخة تحديثاً أحدث من تطبيق هِمّة</string>
+    <string name="backup_error_corrupt">فشل التحقق من سلامة النسخة الاحتياطية — لم تتغير بياناتك</string>
+    <string name="backup_error_io">تعذر قراءة أو كتابة الملف المحدد</string>
 </resources>

@@ -11,6 +11,8 @@ data class UserPreferences(
     val themeMode: ThemeMode = ThemeMode.AMOLED_DARK,
     val useDynamicColor: Boolean = false,
     val onboardingCompleted: Boolean = false,
+    val autoBackupEnabled: Boolean = true,
+    val lastAutoBackupAt: Long? = null,
 ) {
     companion object {
         const val DEFAULT_REST_SECONDS = 90

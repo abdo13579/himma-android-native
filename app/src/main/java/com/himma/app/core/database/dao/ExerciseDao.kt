@@ -44,6 +44,15 @@ interface ExerciseDao {
     @Query("SELECT COUNT(*) FROM exercises WHERE is_custom = 0")
     suspend fun countSeedExercises(): Int
 
+    @Query("SELECT * FROM exercises WHERE is_custom = 1 ORDER BY created_at ASC")
+    suspend fun getCustomExercisesOnce(): List<ExerciseEntity>
+
+    @Query("SELECT id FROM exercises")
+    suspend fun getAllExerciseIdsOnce(): List<String>
+
+    @Query("DELETE FROM exercises WHERE is_custom = 1")
+    suspend fun deleteAllCustomExercises()
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAllIgnore(exercises: List<ExerciseEntity>)
 

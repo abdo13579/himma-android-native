@@ -89,6 +89,22 @@ interface WorkoutDao {
     @Query("SELECT * FROM workout_sets WHERE id = :setId LIMIT 1")
     suspend fun getSetByIdOnce(setId: String): WorkoutSetEntity?
 
+    @Query("SELECT * FROM workouts ORDER BY start_time ASC")
+    suspend fun getAllWorkoutsOnce(): List<WorkoutEntity>
+
+    @Query("SELECT * FROM workout_sets ORDER BY workout_id ASC, exercise_order ASC, set_index ASC")
+    suspend fun getAllWorkoutSetsOnce(): List<WorkoutSetEntity>
+
+    @Transaction
+    @Query("SELECT * FROM workouts WHERE is_completed = 1 ORDER BY start_time DESC")
+    suspend fun getCompletedWorkoutsWithSetsOnce(): List<WorkoutWithSets>
+
+    @Upsert
+    suspend fun upsertWorkouts(workouts: List<WorkoutEntity>)
+
+    @Query("DELETE FROM workouts")
+    suspend fun deleteAllWorkouts()
+
     @Query("SELECT COALESCE(MAX(exercise_order), -1) FROM workout_sets WHERE workout_id = :workoutId")
     suspend fun getMaxExerciseOrder(workoutId: String): Int
 

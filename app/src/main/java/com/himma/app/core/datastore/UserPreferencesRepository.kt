@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.himma.app.domain.model.AppLanguage
 import com.himma.app.domain.model.ThemeMode
@@ -32,6 +33,15 @@ interface UserPreferencesRepository {
     suspend fun setThemeMode(themeMode: ThemeMode)
     suspend fun setUseDynamicColor(enabled: Boolean)
     suspend fun setOnboardingCompleted(completed: Boolean)
+    suspend fun setAutoBackupEnabled(enabled: Boolean)
+    suspend fun setLastAutoBackupAt(timestampMillis: Long?)
+    suspend fun restorePreferences(
+        language: AppLanguage,
+        weightUnit: WeightUnit,
+        defaultRestSeconds: Int,
+        themeMode: ThemeMode,
+        useDynamicColor: Boolean,
+    )
 }
 
 @Singleton
@@ -46,6 +56,8 @@ class DataStoreUserPreferencesRepository @Inject constructor(
         val THEME_MODE = stringPreferencesKey("theme_mode")
         val USE_DYNAMIC_COLOR = booleanPreferencesKey("use_dynamic_color")
         val ONBOARDING_COMPLETED = booleanPreferencesKey("onboarding_completed")
+        val AUTO_BACKUP_ENABLED = booleanPreferencesKey("auto_backup_enabled")
+        val LAST_AUTO_BACKUP_AT = longPreferencesKey("last_auto_backup_at")
     }
 
     override val preferences: Flow<UserPreferences> = dataStore.data
@@ -65,6 +77,8 @@ class DataStoreUserPreferencesRepository @Inject constructor(
                 themeMode = ThemeMode.fromKey(prefs[Keys.THEME_MODE]),
                 useDynamicColor = prefs[Keys.USE_DYNAMIC_COLOR] ?: false,
                 onboardingCompleted = prefs[Keys.ONBOARDING_COMPLETED] ?: false,
+                autoBackupEnabled = prefs[Keys.AUTO_BACKUP_ENABLED] ?: true,
+                lastAutoBackupAt = prefs[Keys.LAST_AUTO_BACKUP_AT],
             )
         }
 
@@ -103,5 +117,36 @@ class DataStoreUserPreferencesRepository @Inject constructor(
 
     override suspend fun setOnboardingCompleted(completed: Boolean) {
         dataStore.edit { it[Keys.ONBOARDING_COMPLETED] = completed }
+    }
+
+    override suspend fun setAutoBackupEnabled(enabled: Boolean) {
+        dataStore.edit { it[Keys.AUTO_BACKUP_ENABLED] = enabled }
+    }
+
+    override suspend fun setLastAutoBackupAt(timestampMillis: Long?) {
+        dataStore.edit { prefs ->
+            if (timestampMillis == null) {
+                prefs.remove(Keys.LAST_AUTO_BACKUP_AT)
+            } else {
+                prefs[Keys.LAST_AUTO_BACKUP_AT] = timestampMillis
+            }
+        }
+    }
+
+    override suspend fun restorePreferences(
+        language: AppLanguage,
+        weightUnit: WeightUnit,
+        defaultRestSeconds: Int,
+        themeMode: ThemeMode,
+        useDynamicColor: Boolean,
+    ) {
+        dataStore.edit { prefs ->
+            prefs[Keys.LANGUAGE] = language.tag
+            prefs[Keys.WEIGHT_UNIT] = weightUnit.code
+            prefs[Keys.DEFAULT_REST_SECONDS] = defaultRestSeconds.coerceIn(15, 600)
+            prefs[Keys.THEME_MODE] = themeMode.key
+            prefs[Keys.USE_DYNAMIC_COLOR] = useDynamicColor
+            prefs[Keys.ONBOARDING_COMPLETED] = true
+        }
     }
 }

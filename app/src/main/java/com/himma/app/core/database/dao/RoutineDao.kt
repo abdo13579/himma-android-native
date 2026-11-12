@@ -79,6 +79,18 @@ interface RoutineDao {
     @Query("SELECT COALESCE(MAX(order_index), -1) FROM routines WHERE is_deleted = 0")
     suspend fun getMaxOrderIndex(): Int
 
+    @Query("SELECT * FROM routines ORDER BY order_index ASC, created_at ASC")
+    suspend fun getAllRoutinesOnce(): List<RoutineEntity>
+
+    @Query("SELECT * FROM routine_exercises ORDER BY routine_id ASC, order_index ASC")
+    suspend fun getAllRoutineExercisesOnce(): List<RoutineExerciseEntity>
+
+    @Upsert
+    suspend fun upsertRoutines(routines: List<RoutineEntity>)
+
+    @Query("DELETE FROM routines")
+    suspend fun deleteAllRoutines()
+
     @Upsert
     suspend fun upsertRoutine(routine: RoutineEntity)
 

@@ -226,4 +226,32 @@
     <string name="rest_notif_ongoing_body">Remaining: %1$s</string>
     <string name="rest_notif_done_title">Rest Complete!</string>
     <string name="rest_notif_done_body">Time for your next set — %1$s</string>
+
+    <string name="settings_section_backup">Backup, Restore &amp; Data Portability</string>
+    <string name="settings_backup_desc">Save a full offline JSON backup (.himma.json) or export your workout log as CSV to your device storage.</string>
+    <string name="backup_export_json">Export Full Backup (.himma.json)</string>
+    <string name="backup_restore_json">Restore from Backup</string>
+    <string name="backup_export_csv">Export Workout History (.csv)</string>
+    <string name="backup_auto_snapshot_title">Auto Local Snapshot (Daily)</string>
+    <string name="backup_auto_snapshot_desc">Saves an automatic local recovery snapshot on-device every 24 hours.</string>
+    <string name="backup_last_snapshot">Last local snapshot: %1$s</string>
+    <string name="backup_no_snapshot_yet">No local snapshot created yet</string>
+    <string name="backup_take_snapshot_now">Snapshot Now</string>
+    <string name="backup_restore_snapshot">Restore Snapshot</string>
+    <string name="backup_restore_dialog_title">Restore Backup</string>
+    <string name="backup_restore_dialog_meta">Exported: %1$s • App v%2$s (Schema v%3$d)</string>
+    <string name="backup_restore_dialog_counts">Custom exercises: %1$d • Routines: %2$d • Workouts: %3$d • Sets: %4$d</string>
+    <string name="backup_restore_dialog_hint">Choose Smart Merge to keep existing data and add missing entries, or Replace All to overwrite local data.</string>
+    <string name="backup_restore_merge">Smart Merge</string>
+    <string name="backup_restore_replace">Replace All Data</string>
+    <string name="backup_export_json_success">Full backup exported successfully</string>
+    <string name="backup_export_csv_success">Workout history CSV exported successfully</string>
+    <string name="backup_snapshot_success">Local snapshot created successfully</string>
+    <string name="backup_restore_success">Restored %1$d custom exercises, %2$d routines, %3$d workouts (%4$d sets)</string>
+    <string name="backup_error_empty">The selected backup file is empty or missing</string>
+    <string name="backup_error_invalid_json">The selected file is not valid JSON</string>
+    <string name="backup_error_unsupported_format">This file is not a valid Himma backup (.himma.json)</string>
+    <string name="backup_error_unsupported_version">This backup schema version requires a newer Himma version</string>
+    <string name="backup_error_corrupt">Backup validation failed — existing data was untouched</string>
+    <string name="backup_error_io">Could not access the selected file</string>
 </resources>
