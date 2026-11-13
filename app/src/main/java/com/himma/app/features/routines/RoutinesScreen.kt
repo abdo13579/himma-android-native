@@ -15,6 +15,8 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -94,9 +96,9 @@ fun RoutinesScreen(
                         start = 16.dp,
                         end = 16.dp,
                         top = 12.dp,
-                        bottom = 96.dp,
+                        bottom = 120.dp,
                     ),
-                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalArrangement = Arrangement.spacedBy(14.dp),
                 ) {
                     items(
                         items = state.routines,
@@ -129,16 +131,22 @@ fun RoutinesScreen(
 
         ExtendedFloatingActionButton(
             onClick = onCreateRoutineClick,
+            shape = RoundedCornerShape(20.dp),
             icon = {
                 Icon(
                     imageVector = Icons.Rounded.Add,
                     contentDescription = null,
                 )
             },
-            text = { Text(stringResource(id = R.string.routines_create)) },
+            text = {
+                Text(
+                    text = stringResource(id = R.string.routines_create),
+                    fontWeight = FontWeight.Bold,
+                )
+            },
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(16.dp),
+                .padding(end = 16.dp, bottom = 88.dp),
         )
     }
 }
@@ -157,6 +165,7 @@ private fun RoutineCard(
 
     ElevatedCard(
         onClick = onEditClick,
+        shape = RoundedCornerShape(24.dp),
         modifier = Modifier.fillMaxWidth(),
     ) {
         Column(
@@ -341,6 +350,7 @@ private fun RoutineCard(
 
                 FilledTonalButton(
                     onClick = onStartClick,
+                    shape = RoundedCornerShape(16.dp),
                     modifier = Modifier.heightIn(min = 48.dp),
                 ) {
                     Icon(
@@ -349,7 +359,10 @@ private fun RoutineCard(
                         modifier = Modifier.size(18.dp),
                     )
                     Spacer(modifier = Modifier.width(6.dp))
-                    Text(stringResource(id = R.string.routines_start_workout))
+                    Text(
+                        text = stringResource(id = R.string.routines_start_workout),
+                        fontWeight = FontWeight.SemiBold,
+                    )
                 }
             }
         }
