@@ -495,6 +495,36 @@ fun SettingsScreen(
                         )
                     }
                 }
+
+                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f))
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .heightIn(min = 48.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(end = 12.dp),
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.settings_animations_label),
+                            style = MaterialTheme.typography.bodyLarge,
+                        )
+                        Text(
+                            text = stringResource(id = R.string.settings_animations_desc),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
+                    Switch(
+                        checked = state.preferences.animationsEnabled,
+                        onCheckedChange = viewModel::setAnimationsEnabled,
+                    )
+                }
             }
         }
 
@@ -571,34 +601,6 @@ fun SettingsScreen(
                         modifier = Modifier.padding(end = 8.dp),
                     )
                     Text(stringResource(id = R.string.backup_export_csv))
-                }
-            }
-        }
-
-        // Local Storage & Testing Card
-        ElevatedCard(modifier = Modifier.fillMaxWidth()) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp),
-            ) {
-                Text(
-                    text = stringResource(id = R.string.settings_section_storage),
-                    style = MaterialTheme.typography.titleMedium,
-                )
-                Text(
-                    text = stringResource(id = R.string.settings_storage_desc),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-                OutlinedButton(
-                    onClick = viewModel::resetOnboarding,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .heightIn(min = 48.dp),
-                ) {
-                    Text(stringResource(id = R.string.settings_reset_onboarding))
                 }
             }
         }

@@ -36,6 +36,7 @@ interface UserPreferencesRepository {
     suspend fun setAutoBackupEnabled(enabled: Boolean)
     suspend fun setLastAutoBackupAt(timestampMillis: Long?)
     suspend fun setAutoCheckUpdates(enabled: Boolean)
+    suspend fun setAnimationsEnabled(enabled: Boolean)
     suspend fun restorePreferences(
         language: AppLanguage,
         weightUnit: WeightUnit,
@@ -60,6 +61,7 @@ class DataStoreUserPreferencesRepository @Inject constructor(
         val AUTO_BACKUP_ENABLED = booleanPreferencesKey("auto_backup_enabled")
         val LAST_AUTO_BACKUP_AT = longPreferencesKey("last_auto_backup_at")
         val AUTO_CHECK_UPDATES = booleanPreferencesKey("auto_check_updates")
+        val ANIMATIONS_ENABLED = booleanPreferencesKey("animations_enabled")
     }
 
     override val preferences: Flow<UserPreferences> = dataStore.data
@@ -82,6 +84,7 @@ class DataStoreUserPreferencesRepository @Inject constructor(
                 autoBackupEnabled = prefs[Keys.AUTO_BACKUP_ENABLED] ?: true,
                 lastAutoBackupAt = prefs[Keys.LAST_AUTO_BACKUP_AT],
                 autoCheckUpdates = prefs[Keys.AUTO_CHECK_UPDATES] ?: true,
+                animationsEnabled = prefs[Keys.ANIMATIONS_ENABLED] ?: false,
             )
         }
 
@@ -138,6 +141,10 @@ class DataStoreUserPreferencesRepository @Inject constructor(
 
     override suspend fun setAutoCheckUpdates(enabled: Boolean) {
         dataStore.edit { it[Keys.AUTO_CHECK_UPDATES] = enabled }
+    }
+
+    override suspend fun setAnimationsEnabled(enabled: Boolean) {
+        dataStore.edit { it[Keys.ANIMATIONS_ENABLED] = enabled }
     }
 
     override suspend fun restorePreferences(

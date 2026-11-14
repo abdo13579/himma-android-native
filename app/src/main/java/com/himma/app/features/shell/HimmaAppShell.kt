@@ -4,6 +4,8 @@ import android.net.Uri
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.Crossfade
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.LinearOutSlowInEasing
@@ -32,6 +34,7 @@ import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -98,15 +101,26 @@ private val TopLevelRoutes = setOf(
 @Composable
 fun HimmaRootNavHost(
     onboardingCompleted: Boolean,
+    animationsEnabled: Boolean = false,
 ) {
-    Crossfade(
-        targetState = onboardingCompleted,
-        label = "RootOnboardingTransition",
-    ) { isCompleted ->
-        if (!isCompleted) {
-            OnboardingScreen()
+    CompositionLocalProvider(LocalAnimationsEnabled provides animationsEnabled) {
+        if (animationsEnabled) {
+            Crossfade(
+                targetState = onboardingCompleted,
+                label = "RootOnboardingTransition",
+            ) { isCompleted ->
+                if (!isCompleted) {
+                    OnboardingScreen()
+                } else {
+                    HimmaAppShell(animationsEnabled = animationsEnabled)
+                }
+            }
         } else {
-            HimmaAppShell()
+            if (!onboardingCompleted) {
+                OnboardingScreen()
+            } else {
+                HimmaAppShell(animationsEnabled = animationsEnabled)
+            }
         }
     }
 }
@@ -114,6 +128,7 @@ fun HimmaRootNavHost(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HimmaAppShell(
+    animationsEnabled: Boolean = false,
     workoutLauncherViewModel: WorkoutLauncherViewModel = hiltViewModel(),
 ) {
     val navController = rememberNavController()
@@ -146,20 +161,31 @@ fun HimmaAppShell(
                 val topTab = activeTab ?: HimmaDestination.TODAY
                 CenterAlignedTopAppBar(
                     title = {
-                        AnimatedContent(
-                            targetState = topTab,
-                            transitionSpec = {
-                                (fadeIn(animationSpec = tween(durationMillis = 200, delayMillis = 50, easing = LinearOutSlowInEasing)) +
-                                    scaleIn(initialScale = 0.94f, animationSpec = tween(durationMillis = 200, delayMillis = 50, easing = LinearOutSlowInEasing)))
-                                    .togetherWith(
-                                        fadeOut(animationSpec = tween(durationMillis = 80, easing = FastOutLinearInEasing)) +
-                                            scaleOut(targetScale = 0.96f, animationSpec = tween(durationMillis = 80, easing = FastOutLinearInEasing))
-                                    )
-                            },
-                            label = "TopAppBarTitleAnimation",
-                        ) { currentTab ->
+                        if (animationsEnabled) {
+                            AnimatedContent(
+                                targetState = topTab,
+                                transitionSpec = {
+                                    (fadeIn(animationSpec = tween(durationMillis = 200, delayMillis = 50, easing = LinearOutSlowInEasing)) +
+                                        scaleIn(initialScale = 0.94f, animationSpec = tween(durationMillis = 200, delayMillis = 50, easing = LinearOutSlowInEasing)))
+                                        .togetherWith(
+                                            fadeOut(animationSpec = tween(durationMillis = 80, easing = FastOutLinearInEasing)) +
+                                                scaleOut(targetScale = 0.96f, animationSpec = tween(durationMillis = 80, easing = FastOutLinearInEasing))
+                                        )
+                                },
+                                label = "TopAppBarTitleAnimation",
+                            ) { currentTab ->
+                                Text(
+                                    text = stringResource(id = currentTab.titleRes),
+                                    style = MaterialTheme.typography.titleLarge.copy(
+                                        fontWeight = FontWeight.Bold,
+                                    ),
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis,
+                                )
+                            }
+                        } else {
                             Text(
-                                text = stringResource(id = currentTab.titleRes),
+                                text = stringResource(id = topTab.titleRes),
                                 style = MaterialTheme.typography.titleLarge.copy(
                                     fontWeight = FontWeight.Bold,
                                 ),
@@ -200,6 +226,7 @@ fun HimmaAppShell(
             startDestination = HimmaDestination.TODAY.route,
             modifier = if (showShellChrome) Modifier.padding(innerPadding) else Modifier,
             enterTransition = {
+                if (!animationsEnabled) return@NavHost EnterTransition.None
                 val target = targetState.destination.route
                 val initial = initialState.destination.route
                 if (target == WorkoutRoutes.ACTIVE) {
@@ -219,6 +246,7 @@ fun HimmaAppShell(
                 }
             },
             exitTransition = {
+                if (!animationsEnabled) return@NavHost ExitTransition.None
                 val target = targetState.destination.route
                 val initial = initialState.destination.route
                 if (initial == WorkoutRoutes.ACTIVE) {
@@ -244,6 +272,7 @@ fun HimmaAppShell(
                 }
             },
             popEnterTransition = {
+                if (!animationsEnabled) return@NavHost EnterTransition.None
                 val target = targetState.destination.route
                 val initial = initialState.destination.route
                 if (initial == WorkoutRoutes.ACTIVE) {
@@ -264,6 +293,7 @@ fun HimmaAppShell(
                 }
             },
             popExitTransition = {
+                if (!animationsEnabled) return@NavHost ExitTransition.None
                 val target = targetState.destination.route
                 val initial = initialState.destination.route
                 if (initial == WorkoutRoutes.ACTIVE) {
@@ -284,7 +314,7 @@ fun HimmaAppShell(
             },
         ) {
             composable(HimmaDestination.TODAY.route) {
-                PageContentEntrance {
+                PageContentEntrance(enabled = animationsEnabled) {
                     TodayFoundationScreen(
                         onResumeActiveWorkout = { workoutId ->
                             navController.navigate(WorkoutRoutes.active(workoutId))
@@ -306,7 +336,7 @@ fun HimmaAppShell(
                 }
             }
             composable(HimmaDestination.ROUTINES.route) {
-                PageContentEntrance {
+                PageContentEntrance(enabled = animationsEnabled) {
                     RoutinesScreen(
                         onCreateRoutineClick = {
                             navController.navigate(RoutineRoutes.create())
@@ -345,7 +375,7 @@ fun HimmaAppShell(
                 }
             }
             composable(HimmaDestination.EXERCISES.route) {
-                PageContentEntrance {
+                PageContentEntrance(enabled = animationsEnabled) {
                     ExerciseLibraryScreen(
                         onExerciseClick = { exerciseId ->
                             navController.navigate(ExerciseRoutes.detail(exerciseId))
@@ -357,7 +387,7 @@ fun HimmaAppShell(
                 }
             }
             composable(HimmaDestination.ANALYTICS.route) {
-                PageContentEntrance {
+                PageContentEntrance(enabled = animationsEnabled) {
                     AnalyticsScreen(
                         onShowMessage = { msg ->
                             coroutineScope.launch {
@@ -368,7 +398,7 @@ fun HimmaAppShell(
                 }
             }
             composable(HimmaDestination.SETTINGS.route) {
-                PageContentEntrance {
+                PageContentEntrance(enabled = animationsEnabled) {
                     SettingsScreen(
                         onShowMessage = { msg ->
                             coroutineScope.launch {
@@ -385,7 +415,7 @@ fun HimmaAppShell(
                     navArgument("exerciseId") { type = NavType.StringType },
                 ),
             ) {
-                PageContentEntrance(delayMillis = 150) {
+                PageContentEntrance(enabled = animationsEnabled, delayMillis = 150) {
                     ExerciseDetailScreen(
                         onBackClick = { navController.popBackStack() },
                         onEditCustomClick = { id ->
@@ -411,7 +441,7 @@ fun HimmaAppShell(
                     },
                 ),
             ) {
-                PageContentEntrance(delayMillis = 150) {
+                PageContentEntrance(enabled = animationsEnabled, delayMillis = 150) {
                     CustomExerciseScreen(
                         onBackClick = { navController.popBackStack() },
                         onSaved = {
@@ -434,7 +464,7 @@ fun HimmaAppShell(
                     },
                 ),
             ) {
-                PageContentEntrance(delayMillis = 150) {
+                PageContentEntrance(enabled = animationsEnabled, delayMillis = 150) {
                     RoutineEditorScreen(
                         onBackClick = { navController.popBackStack() },
                         onSaved = {
@@ -453,7 +483,7 @@ fun HimmaAppShell(
                     navArgument("workoutId") { type = NavType.StringType },
                 ),
             ) {
-                PageContentEntrance(delayMillis = 150) {
+                PageContentEntrance(enabled = animationsEnabled, delayMillis = 150) {
                     ActiveWorkoutScreen(
                         onBackClick = { navController.popBackStack() },
                         onWorkoutFinished = { summary ->

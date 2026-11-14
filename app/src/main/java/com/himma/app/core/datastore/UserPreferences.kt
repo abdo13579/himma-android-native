@@ -14,6 +14,7 @@ data class UserPreferences(
     val autoBackupEnabled: Boolean = true,
     val lastAutoBackupAt: Long? = null,
     val autoCheckUpdates: Boolean = true,
+    val animationsEnabled: Boolean = false,
 ) {
     companion object {
         const val DEFAULT_REST_SECONDS = 90

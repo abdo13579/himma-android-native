@@ -2,6 +2,7 @@ package com.himma.app.features.shell
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -106,6 +107,15 @@ private fun FloatingNavigationItem(
     modifier: Modifier = Modifier,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
+    val animationsEnabled = LocalAnimationsEnabled.current
+    val colorSpec = if (animationsEnabled) {
+        tween<Color>(
+            durationMillis = 180,
+            easing = FastOutSlowInEasing,
+        )
+    } else {
+        snap()
+    }
 
     val pillColor by animateColorAsState(
         targetValue = if (isSelected) {
@@ -113,10 +123,7 @@ private fun FloatingNavigationItem(
         } else {
             Color.Transparent
         },
-        animationSpec = tween(
-            durationMillis = 180,
-            easing = FastOutSlowInEasing,
-        ),
+        animationSpec = colorSpec,
         label = "PillContainerColor",
     )
 
@@ -126,10 +133,7 @@ private fun FloatingNavigationItem(
         } else {
             MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.75f)
         },
-        animationSpec = tween(
-            durationMillis = 180,
-            easing = FastOutSlowInEasing,
-        ),
+        animationSpec = colorSpec,
         label = "PillIconColor",
     )
 
@@ -139,10 +143,7 @@ private fun FloatingNavigationItem(
         } else {
             MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.75f)
         },
-        animationSpec = tween(
-            durationMillis = 180,
-            easing = FastOutSlowInEasing,
-        ),
+        animationSpec = colorSpec,
         label = "PillTextColor",
     )
 

@@ -62,6 +62,8 @@
     <string name="theme_light">نهاري</string>
     <string name="theme_system">النظام</string>
     <string name="theme_frost">ثلجي</string>
+    <string name="settings_animations_label">المؤثرات الحركية</string>
+    <string name="settings_animations_desc">تفعيل حركات التنقل وظهور محتوى الصفحات (يُفضل إيقافها للأجهزة الضعيفة والاستجابة الفورية)</string>
     <string name="settings_dynamic_color">الألوان الديناميكية (Android 12+)</string>
     <string name="settings_dynamic_color_desc">تكييف الألوان مع خلفية هاتفك</string>
     <string name="settings_save_profile">حفظ الملف</string>

@@ -1,5 +1,6 @@
 package com.himma.app
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -28,6 +29,12 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            display?.supportedModes?.maxByOrNull { it.refreshRate }?.let { maxMode ->
+                window.attributes.preferredDisplayModeId = maxMode.modeId
+            }
+        }
+
         var isReady by mutableStateOf(false)
         splashScreen.setKeepOnScreenCondition { !isReady }
 
@@ -50,6 +57,7 @@ class MainActivity : AppCompatActivity() {
                 ) {
                     HimmaRootNavHost(
                         onboardingCompleted = currentPrefs.onboardingCompleted,
+                        animationsEnabled = currentPrefs.animationsEnabled,
                     )
                 }
             }

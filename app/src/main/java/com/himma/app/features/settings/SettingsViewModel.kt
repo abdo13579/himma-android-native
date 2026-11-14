@@ -308,6 +308,12 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
+    fun setAnimationsEnabled(enabled: Boolean) {
+        viewModelScope.launch {
+            preferencesRepository.setAnimationsEnabled(enabled)
+        }
+    }
+
     fun resetOnboarding() {
         viewModelScope.launch {
             preferencesRepository.setOnboardingCompleted(false)

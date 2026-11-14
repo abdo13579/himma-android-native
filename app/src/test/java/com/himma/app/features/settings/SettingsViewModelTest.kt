@@ -154,6 +154,35 @@ class SettingsViewModelTest {
     }
 
     @Test
+    fun `animations toggle updates preferences cleanly`() = runTest {
+        val viewModel = SettingsViewModel(
+            fakePrefsRepo,
+            fakeProfileRepo,
+            fakeBackupRepo,
+            fakeScheduler,
+            fakeUpdateRepo,
+        )
+        val collector = backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) {
+            viewModel.uiState.collect()
+        }
+        advanceUntilIdle()
+
+        assertFalse(viewModel.uiState.value.preferences.animationsEnabled)
+
+        viewModel.setAnimationsEnabled(true)
+        advanceUntilIdle()
+        assertTrue(viewModel.uiState.value.preferences.animationsEnabled)
+        assertTrue(fakePrefsRepo.preferences.first().animationsEnabled)
+
+        viewModel.setAnimationsEnabled(false)
+        advanceUntilIdle()
+        assertFalse(viewModel.uiState.value.preferences.animationsEnabled)
+        assertFalse(fakePrefsRepo.preferences.first().animationsEnabled)
+
+        collector.cancel()
+    }
+
+    @Test
     fun `check for updates and download flow works properly`() = runTest {
         val viewModel = SettingsViewModel(
             fakePrefsRepo,

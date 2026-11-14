@@ -62,6 +62,8 @@
     <string name="theme_light">Light</string>
     <string name="theme_system">System</string>
     <string name="theme_frost">Frost</string>
+    <string name="settings_animations_label">UI Animations</string>
+    <string name="settings_animations_desc">Enable page transitions and content reveal motion (turn off for instant response and low-end devices)</string>
     <string name="settings_dynamic_color">Dynamic Color (Android 12+)</string>
     <string name="settings_dynamic_color_desc">Adapt colors from your device wallpaper</string>
     <string name="settings_save_profile">Save Profile</string>

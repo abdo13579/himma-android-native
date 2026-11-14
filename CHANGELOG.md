@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.0] — 2026-11-14
+
+### 🎉 First Official Stable Release — هِمّة | Himma
+
+This milestone marks the first official stable release of **هِمّة (Himma)** — the 100% offline, privacy-first, free native Android gym companion.
+
+#### Added
+- **UI Animation Toggle for Low-End Devices:**
+  - Added user preference switch under Appearance settings to enable or disable all interface and navigation animations.
+  - Disabled by default for maximum raw speed and instant response on lower-end devices; activates full choreographed Material 3 motion on demand.
+  - Zero-overhead execution: when disabled, page transitions and content rendering occur instantly without GPU layer or coroutine scheduling overhead.
+
+#### Refined
+- **Production Cleanliness:**
+  - Completely removed developer-only onboarding reset and local storage status cards from Settings for a polished, production-ready interface.
+
+---
+
 ## [0.2.1-beta] — 2026-11-14
 
 ### 🎭 Choreographed M3 Motion, Frost Theme & Performance Overhaul

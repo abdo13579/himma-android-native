@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
@@ -14,6 +15,8 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
+
+val LocalAnimationsEnabled = compositionLocalOf { false }
 
 /**
  * Material 3 Choreographed Page Content Entrance.
@@ -25,11 +28,19 @@ import kotlinx.coroutines.delay
 @Composable
 fun PageContentEntrance(
     modifier: Modifier = Modifier,
+    enabled: Boolean = LocalAnimationsEnabled.current,
     delayMillis: Int = 100,
     durationMillis: Int = 280,
     slideDistance: Dp = 32.dp,
     content: @Composable () -> Unit,
 ) {
+    if (!enabled) {
+        Box(modifier = modifier.fillMaxSize()) {
+            content()
+        }
+        return
+    }
+
     val progress = remember { Animatable(0f) }
     val density = LocalDensity.current
     val slideDistancePx = with(density) { slideDistance.toPx() }

@@ -135,6 +135,10 @@ class FakeUserPreferencesRepository : UserPreferencesRepository {
         state.value = state.value.copy(autoCheckUpdates = enabled)
     }
 
+    override suspend fun setAnimationsEnabled(enabled: Boolean) {
+        state.value = state.value.copy(animationsEnabled = enabled)
+    }
+
     override suspend fun restorePreferences(
         language: AppLanguage,
         weightUnit: WeightUnit,
