@@ -1,6 +1,8 @@
 package com.himma.app.features.exercises
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -189,7 +191,7 @@ fun ExerciseLibraryScreen(
                             start = 16.dp,
                             end = 16.dp,
                             top = 4.dp,
-                            bottom = 96.dp,
+                            bottom = 120.dp,
                         ),
                         verticalArrangement = Arrangement.spacedBy(10.dp),
                     ) {
@@ -210,16 +212,22 @@ fun ExerciseLibraryScreen(
 
         ExtendedFloatingActionButton(
             onClick = onCreateCustomClick,
+            shape = RoundedCornerShape(20.dp),
             icon = {
                 Icon(
                     imageVector = Icons.Rounded.Add,
                     contentDescription = null,
                 )
             },
-            text = { Text(stringResource(id = R.string.exercises_add_custom)) },
+            text = {
+                Text(
+                    text = stringResource(id = R.string.exercises_add_custom),
+                    fontWeight = FontWeight.Bold,
+                )
+            },
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(16.dp),
+                .padding(end = 16.dp, bottom = 88.dp),
         )
     }
 }
@@ -235,6 +243,7 @@ private fun ExerciseListItemCard(
 
     ElevatedCard(
         onClick = onClick,
+        shape = RoundedCornerShape(20.dp),
         modifier = Modifier.fillMaxWidth(),
     ) {
         Row(
@@ -246,7 +255,7 @@ private fun ExerciseListItemCard(
             Box(
                 modifier = Modifier
                     .size(64.dp)
-                    .clip(RoundedCornerShape(12.dp))
+                    .clip(RoundedCornerShape(16.dp))
                     .background(
                         if (thumbUri != null) {
                             Color(0xFF0A110E)
