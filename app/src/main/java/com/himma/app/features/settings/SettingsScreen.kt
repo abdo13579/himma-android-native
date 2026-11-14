@@ -19,11 +19,18 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Backup
-import androidx.compose.material.icons.outlined.Download
 import androidx.compose.material.icons.outlined.Restore
 import androidx.compose.material.icons.outlined.TableChart
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.rounded.CloudSync
+import androidx.compose.material.icons.rounded.Security
+import androidx.compose.material.icons.rounded.SystemUpdate
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.FilterChip
@@ -36,22 +43,33 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.himma.app.BuildConfig
 import com.himma.app.R
+import com.himma.app.core.updater.AppInstallerHelper
+import com.himma.app.core.updater.AppUpdateInfo
+import com.himma.app.core.updater.UpdateCheckUiState
+import com.himma.app.core.updater.UpdateDownloadState
+import java.io.File
 import com.himma.app.core.datastore.UserPreferences
 import com.himma.app.domain.model.AppLanguage
 import com.himma.app.domain.model.BackupValidationError
@@ -72,7 +90,25 @@ fun SettingsScreen(
     viewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val updateCheckState by viewModel.updateCheckState.collectAsStateWithLifecycle()
+    val downloadState by viewModel.downloadState.collectAsStateWithLifecycle()
+    val showUpdateDialog by viewModel.showUpdateDialog.collectAsStateWithLifecycle()
     val context = LocalContext.current
+
+    var showPermissionDialog by remember { mutableStateOf(false) }
+    var pendingInstallFile by remember { mutableStateOf<File?>(null) }
+
+    LaunchedEffect(downloadState) {
+        if (downloadState is UpdateDownloadState.Completed) {
+            val apkFile = (downloadState as UpdateDownloadState.Completed).apkFile
+            pendingInstallFile = apkFile
+            if (AppInstallerHelper.canInstallPackages(context)) {
+                AppInstallerHelper.startApkInstallation(context, apkFile)
+            } else {
+                showPermissionDialog = true
+            }
+        }
+    }
 
     val exportJsonLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.CreateDocument("application/json"),
@@ -193,6 +229,64 @@ fun SettingsScreen(
                     Text(stringResource(id = R.string.exercise_cancel))
                 }
             },
+        )
+    }
+
+    if (showPermissionDialog) {
+        AlertDialog(
+            onDismissRequest = { showPermissionDialog = false },
+            icon = {
+                Icon(
+                    imageVector = Icons.Rounded.Security,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.primary,
+                )
+            },
+            title = {
+                Text(
+                    text = stringResource(id = R.string.update_permission_required_title),
+                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                )
+            },
+            text = {
+                Text(
+                    text = stringResource(id = R.string.update_permission_required_desc),
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        showPermissionDialog = false
+                        context.startActivity(AppInstallerHelper.createPermissionSettingsIntent(context))
+                    },
+                ) {
+                    Text(stringResource(id = R.string.update_permission_grant))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showPermissionDialog = false }) {
+                    Text(stringResource(id = R.string.exercise_cancel))
+                }
+            },
+        )
+    }
+
+    if (showUpdateDialog && updateCheckState is UpdateCheckUiState.UpdateAvailable) {
+        val info = (updateCheckState as UpdateCheckUiState.UpdateAvailable).info
+        AppUpdateDialog(
+            info = info,
+            downloadState = downloadState,
+            onDownloadClick = { viewModel.startDownload(info) },
+            onInstallClick = { file ->
+                if (AppInstallerHelper.canInstallPackages(context)) {
+                    AppInstallerHelper.startApkInstallation(context, file)
+                } else {
+                    pendingInstallFile = file
+                    showPermissionDialog = true
+                }
+            },
+            onDismiss = viewModel::dismissUpdateDialog,
         )
     }
 
@@ -508,76 +602,6 @@ fun SettingsScreen(
                     )
                     Text(stringResource(id = R.string.backup_export_csv))
                 }
-
-                HorizontalDivider()
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .heightIn(min = 48.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                ) {
-                    Column(
-                        modifier = Modifier
-                            .weight(1f)
-                            .padding(end = 12.dp),
-                    ) {
-                        Text(
-                            text = stringResource(id = R.string.backup_auto_snapshot_title),
-                            style = MaterialTheme.typography.bodyLarge,
-                        )
-                        Text(
-                            text = stringResource(id = R.string.backup_auto_snapshot_desc),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                    }
-                    Switch(
-                        checked = state.preferences.autoBackupEnabled,
-                        onCheckedChange = viewModel::setAutoBackupEnabled,
-                    )
-                }
-
-                val lastSnapshotText = state.preferences.lastAutoBackupAt?.let { timestamp ->
-                    stringResource(id = R.string.backup_last_snapshot, formatTimestamp(timestamp))
-                } ?: stringResource(id = R.string.backup_no_snapshot_yet)
-                Text(
-                    text = lastSnapshotText,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                ) {
-                    FilledTonalButton(
-                        onClick = viewModel::triggerManualAutoSnapshot,
-                        enabled = !state.isBackupBusy,
-                        modifier = Modifier
-                            .weight(1f)
-                            .heightIn(min = 48.dp),
-                    ) {
-                        Icon(
-                            imageVector = Icons.Outlined.Download,
-                            contentDescription = null,
-                            modifier = Modifier.padding(end = 6.dp),
-                        )
-                        Text(stringResource(id = R.string.backup_take_snapshot_now))
-                    }
-                    if (state.hasLocalAutoSnapshot) {
-                        OutlinedButton(
-                            onClick = viewModel::inspectAutoSnapshotForRestore,
-                            enabled = !state.isBackupBusy,
-                            modifier = Modifier
-                                .weight(1f)
-                                .heightIn(min = 48.dp),
-                        ) {
-                            Text(stringResource(id = R.string.backup_restore_snapshot))
-                        }
-                    }
-                }
             }
         }
 
@@ -609,8 +633,272 @@ fun SettingsScreen(
             }
         }
 
+        // App Updates Card
+        ElevatedCard(modifier = Modifier.fillMaxWidth()) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(10.dp),
+                    ) {
+                        Icon(
+                            imageVector = Icons.Rounded.SystemUpdate,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary,
+                        )
+                        Text(
+                            text = stringResource(id = R.string.settings_updates_title),
+                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                        )
+                    }
+
+                    Surface(
+                        shape = RoundedCornerShape(12.dp),
+                        color = MaterialTheme.colorScheme.surfaceContainerHigh,
+                    ) {
+                        Text(
+                            text = "v${BuildConfig.VERSION_NAME}",
+                            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                            color = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                        )
+                    }
+                }
+
+                Text(
+                    text = stringResource(id = R.string.settings_updates_desc),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+
+                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f))
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = stringResource(id = R.string.settings_auto_check_updates),
+                            style = MaterialTheme.typography.titleSmall,
+                        )
+                        Text(
+                            text = stringResource(id = R.string.settings_auto_check_updates_desc),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
+                    Switch(
+                        checked = state.preferences.autoCheckUpdates,
+                        onCheckedChange = viewModel::setAutoCheckUpdates,
+                    )
+                }
+
+                FilledTonalButton(
+                    onClick = viewModel::checkForUpdates,
+                    enabled = updateCheckState !is UpdateCheckUiState.Checking,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .heightIn(min = 48.dp),
+                ) {
+                    if (updateCheckState is UpdateCheckUiState.Checking) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(20.dp),
+                            strokeWidth = 2.dp,
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(stringResource(id = R.string.settings_checking_updates))
+                    } else {
+                        Icon(
+                            imageVector = Icons.Rounded.CloudSync,
+                            contentDescription = null,
+                            modifier = Modifier.size(18.dp),
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(stringResource(id = R.string.settings_check_updates))
+                    }
+                }
+
+                when (val check = updateCheckState) {
+                    is UpdateCheckUiState.UpToDate -> {
+                        Text(
+                            text = stringResource(id = R.string.settings_up_to_date, check.currentVersion),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.primary,
+                        )
+                    }
+                    is UpdateCheckUiState.UpdateAvailable -> {
+                        Text(
+                            text = stringResource(id = R.string.settings_update_available, check.info.remoteVersion),
+                            style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold),
+                            color = MaterialTheme.colorScheme.primary,
+                        )
+                    }
+                    is UpdateCheckUiState.Error -> {
+                        Text(
+                            text = check.message,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.error,
+                        )
+                    }
+                    else -> Unit
+                }
+            }
+        }
+
         Spacer(modifier = Modifier.height(16.dp))
     }
+}
+
+@Composable
+private fun AppUpdateDialog(
+    info: AppUpdateInfo,
+    downloadState: UpdateDownloadState,
+    onDownloadClick: () -> Unit,
+    onInstallClick: (File) -> Unit,
+    onDismiss: () -> Unit,
+) {
+    AlertDialog(
+        onDismissRequest = {
+            if (downloadState !is UpdateDownloadState.Downloading) {
+                onDismiss()
+            }
+        },
+        icon = {
+            Icon(
+                imageVector = Icons.Rounded.SystemUpdate,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.primary,
+            )
+        },
+        title = {
+            Text(
+                text = stringResource(id = R.string.update_dialog_title, info.remoteVersion),
+                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+            )
+        },
+        text = {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
+                if (info.releaseTitle.isNotBlank()) {
+                    Text(
+                        text = info.releaseTitle,
+                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
+                    )
+                }
+
+                if (info.releaseNotes.isNotBlank()) {
+                    Surface(
+                        shape = RoundedCornerShape(12.dp),
+                        color = MaterialTheme.colorScheme.surfaceContainerHigh,
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        Text(
+                            text = info.releaseNotes,
+                            style = MaterialTheme.typography.bodySmall,
+                            modifier = Modifier.padding(12.dp),
+                        )
+                    }
+                }
+
+                val sizeMb = info.apkSizeBytes / (1024.0 * 1024.0)
+                if (sizeMb > 0) {
+                    Text(
+                        text = "الحجم: %.1f ميجابايت".format(java.util.Locale.US, sizeMb),
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+
+                when (downloadState) {
+                    is UpdateDownloadState.Downloading -> {
+                        Column(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalArrangement = Arrangement.spacedBy(6.dp),
+                        ) {
+                            Text(
+                                text = stringResource(id = R.string.update_downloading),
+                                style = MaterialTheme.typography.labelSmall,
+                            )
+                            LinearProgressIndicator(
+                                progress = { downloadState.progressPercent / 100f },
+                                modifier = Modifier.fillMaxWidth(),
+                            )
+                            val downloadedMb = downloadState.downloadedBytes / (1024.0 * 1024.0)
+                            val totalMb = downloadState.totalBytes / (1024.0 * 1024.0)
+                            Text(
+                                text = "%.1f / %.1f MB (%d%%)".format(
+                                    java.util.Locale.US,
+                                    downloadedMb,
+                                    totalMb,
+                                    downloadState.progressPercent,
+                                ),
+                                style = MaterialTheme.typography.labelSmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                        }
+                    }
+                    is UpdateDownloadState.Error -> {
+                        Text(
+                            text = stringResource(id = R.string.update_download_failed),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.error,
+                        )
+                    }
+                    is UpdateDownloadState.Completed -> {
+                        Text(
+                            text = "اكتمل التنزيل بنجاح، يمكنك التثبيت الآن.",
+                            style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold),
+                            color = MaterialTheme.colorScheme.primary,
+                        )
+                    }
+                    UpdateDownloadState.Idle -> Unit
+                }
+            }
+        },
+        confirmButton = {
+            when (downloadState) {
+                is UpdateDownloadState.Completed -> {
+                    Button(
+                        onClick = { onInstallClick(downloadState.apkFile) },
+                    ) {
+                        Text(stringResource(id = R.string.update_dialog_action_install))
+                    }
+                }
+                is UpdateDownloadState.Downloading -> {
+                    // Downloading in progress
+                }
+                else -> {
+                    Button(
+                        onClick = onDownloadClick,
+                    ) {
+                        Text(stringResource(id = R.string.update_dialog_action_download))
+                    }
+                }
+            }
+        },
+        dismissButton = {
+            if (downloadState !is UpdateDownloadState.Downloading) {
+                TextButton(onClick = onDismiss) {
+                    Text(stringResource(id = R.string.update_dialog_action_later))
+                }
+            }
+        },
+    )
 }
 
 private fun formatTimestamp(epochMillis: Long): String {

@@ -5,6 +5,10 @@ import com.himma.app.core.backup.AutoBackupScheduler
 import com.himma.app.core.backup.BackupInspection
 import com.himma.app.core.backup.BackupRepository
 import com.himma.app.core.backup.BackupSerializer
+import com.himma.app.core.updater.AppUpdateInfo
+import com.himma.app.core.updater.AppUpdateRepository
+import com.himma.app.core.updater.UpdateCheckUiState
+import com.himma.app.core.updater.UpdateDownloadState
 import com.himma.app.domain.model.AppLanguage
 import com.himma.app.domain.model.BackupPreview
 import com.himma.app.domain.model.BackupValidationError
@@ -44,6 +48,7 @@ class SettingsViewModelTest {
     private lateinit var fakeProfileRepo: FakeUserProfileRepository
     private lateinit var fakeBackupRepo: FakeBackupRepository
     private lateinit var fakeScheduler: FakeAutoBackupScheduler
+    private lateinit var fakeUpdateRepo: FakeAppUpdateRepository
 
     @Before
     fun setup() {
@@ -52,6 +57,7 @@ class SettingsViewModelTest {
         fakeProfileRepo = FakeUserProfileRepository()
         fakeBackupRepo = FakeBackupRepository()
         fakeScheduler = FakeAutoBackupScheduler()
+        fakeUpdateRepo = FakeAppUpdateRepository()
     }
 
     @After
@@ -66,6 +72,7 @@ class SettingsViewModelTest {
             fakeProfileRepo,
             fakeBackupRepo,
             fakeScheduler,
+            fakeUpdateRepo,
         )
         val collector = backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) {
             viewModel.uiState.collect()
@@ -106,6 +113,7 @@ class SettingsViewModelTest {
             fakeProfileRepo,
             fakeBackupRepo,
             fakeScheduler,
+            fakeUpdateRepo,
         )
         val collector = backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) {
             viewModel.uiState.collect()
@@ -143,6 +151,39 @@ class SettingsViewModelTest {
 
         collector.cancel()
         eventCollector.cancel()
+    }
+
+    @Test
+    fun `check for updates and download flow works properly`() = runTest {
+        val viewModel = SettingsViewModel(
+            fakePrefsRepo,
+            fakeProfileRepo,
+            fakeBackupRepo,
+            fakeScheduler,
+            fakeUpdateRepo,
+        )
+
+        advanceUntilIdle()
+        viewModel.checkForUpdates()
+        advanceUntilIdle()
+
+        val checkState = viewModel.updateCheckState.value
+        assertTrue(checkState is UpdateCheckUiState.UpdateAvailable)
+        assertTrue(viewModel.showUpdateDialog.value)
+
+        val info = (checkState as UpdateCheckUiState.UpdateAvailable).info
+        viewModel.startDownload(info)
+        advanceUntilIdle()
+
+        val dlState = viewModel.downloadState.value
+        assertTrue(dlState is UpdateDownloadState.Completed)
+
+        viewModel.dismissUpdateDialog()
+        assertFalse(viewModel.showUpdateDialog.value)
+
+        viewModel.setAutoCheckUpdates(false)
+        advanceUntilIdle()
+        assertFalse(fakePrefsRepo.preferences.first().autoCheckUpdates)
     }
 }
 
@@ -235,4 +276,30 @@ private class FakeBackupRepository : BackupRepository {
     }
 
     override fun hasLocalAutoSnapshot(): Boolean = snapshotExists
+}
+
+class FakeAppUpdateRepository(
+    var updateInfoResult: Result<AppUpdateInfo> = Result.success(
+        AppUpdateInfo(
+            remoteVersion = "0.1.2-beta",
+            releaseTitle = "v0.1.2-beta",
+            releaseNotes = "Awesome new features",
+            apkDownloadUrl = "https://example.com/himma-0.1.2-beta.apk",
+            apkSizeBytes = 25_000_000L,
+            isUpdateAvailable = true,
+        )
+    ),
+    var downloadResult: Result<java.io.File> = Result.success(java.io.File("dummy.apk")),
+) : AppUpdateRepository {
+    override suspend fun checkForUpdate(): Result<AppUpdateInfo> = updateInfoResult
+
+    override suspend fun downloadUpdate(
+        downloadUrl: String,
+        fileName: String,
+        onProgress: (progressPercent: Int, downloadedBytes: Long, totalBytes: Long) -> Unit,
+    ): Result<java.io.File> {
+        onProgress(50, 12_500_000L, 25_000_000L)
+        onProgress(100, 25_000_000L, 25_000_000L)
+        return downloadResult
+    }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Himma</string>
+    <string name="app_name">همة</string>
 
     <!-- Navigation Tabs -->
     <string name="nav_today">Today</string>
@@ -281,4 +281,26 @@
     <string name="analytics_insights_title">Progression Insights &amp; Hints</string>
     <string name="analytics_sets_count">%1$d sets</string>
     <string name="analytics_body_weight_current">Latest Body Weight</string>
+
+    <!-- App Updates -->
+    <string name="settings_updates_title">App Updates</string>
+    <string name="settings_updates_desc">Check for newest releases and update directly from within the app</string>
+    <string name="settings_check_updates">Check for Updates</string>
+    <string name="settings_checking_updates">Checking for updates...</string>
+    <string name="settings_up_to_date">You are already using the latest version (%s)</string>
+    <string name="settings_update_available">New version available: %s</string>
+    <string name="settings_auto_check_updates">Auto-check on Launch</string>
+    <string name="settings_auto_check_updates_desc">Check for updates in the background and notify when a new version is available</string>
+    <string name="update_dialog_title">New Update Available (%s)</string>
+    <string name="update_dialog_action_download">Download &amp; Install Now</string>
+    <string name="update_dialog_action_install">Install Update Now</string>
+    <string name="update_dialog_action_later">Later</string>
+    <string name="update_downloading">Downloading update...</string>
+    <string name="update_download_progress">%1$s of %2$s (%3$d%%)</string>
+    <string name="update_download_failed">Failed to download update, please check your connection and try again</string>
+    <string name="update_permission_required_title">Install Permission Required</string>
+    <string name="update_permission_required_desc">Please enable \'Allow from this source\' to upgrade the app seamlessly without losing your data.</string>
+    <string name="update_permission_grant">Open Settings</string>
+    <string name="update_banner_available">A new version of Himma is available (%s)</string>
+    <string name="update_banner_action">View</string>
 </resources>

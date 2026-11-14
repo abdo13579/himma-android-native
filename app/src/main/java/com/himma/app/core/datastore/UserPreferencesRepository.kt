@@ -35,6 +35,7 @@ interface UserPreferencesRepository {
     suspend fun setOnboardingCompleted(completed: Boolean)
     suspend fun setAutoBackupEnabled(enabled: Boolean)
     suspend fun setLastAutoBackupAt(timestampMillis: Long?)
+    suspend fun setAutoCheckUpdates(enabled: Boolean)
     suspend fun restorePreferences(
         language: AppLanguage,
         weightUnit: WeightUnit,
@@ -58,6 +59,7 @@ class DataStoreUserPreferencesRepository @Inject constructor(
         val ONBOARDING_COMPLETED = booleanPreferencesKey("onboarding_completed")
         val AUTO_BACKUP_ENABLED = booleanPreferencesKey("auto_backup_enabled")
         val LAST_AUTO_BACKUP_AT = longPreferencesKey("last_auto_backup_at")
+        val AUTO_CHECK_UPDATES = booleanPreferencesKey("auto_check_updates")
     }
 
     override val preferences: Flow<UserPreferences> = dataStore.data
@@ -79,6 +81,7 @@ class DataStoreUserPreferencesRepository @Inject constructor(
                 onboardingCompleted = prefs[Keys.ONBOARDING_COMPLETED] ?: false,
                 autoBackupEnabled = prefs[Keys.AUTO_BACKUP_ENABLED] ?: true,
                 lastAutoBackupAt = prefs[Keys.LAST_AUTO_BACKUP_AT],
+                autoCheckUpdates = prefs[Keys.AUTO_CHECK_UPDATES] ?: true,
             )
         }
 
@@ -131,6 +134,10 @@ class DataStoreUserPreferencesRepository @Inject constructor(
                 prefs[Keys.LAST_AUTO_BACKUP_AT] = timestampMillis
             }
         }
+    }
+
+    override suspend fun setAutoCheckUpdates(enabled: Boolean) {
+        dataStore.edit { it[Keys.AUTO_CHECK_UPDATES] = enabled }
     }
 
     override suspend fun restorePreferences(

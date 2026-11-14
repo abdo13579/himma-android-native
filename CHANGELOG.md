@@ -7,6 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.2.0] — 2026-11-14
+
+### 🚀 In-App Updates & UI Refinements
+
+This release introduces direct in-app update checks and installations via GitHub Releases, an RTL-native analytics tab underline indicator, and streamlined Today and Settings screens.
+
+#### Added
+- **In-App Updater:**
+  - Automated and manual update checking directly against GitHub Releases (`/releases/latest`).
+  - Background APK download with SHA-256 integrity verification.
+  - Seamless package installer intent integration via `FileProvider`.
+  - Notification badge and dialog in Settings when a new update is available.
+- **Localized Launcher Name:**
+  - App launcher title on home screen now displays in Arabic as «همة».
+
+#### Fixed & Refined
+- **Analytics Tab Bar RTL Alignment:**
+  - Replaced default Material 3 indicator offset with an RTL-aware animated underline.
+  - Thin, elegant 3dp emerald underline accurately centered under the active tab label with smooth spring transitions.
+- **Streamlined Today Screen:**
+  - Removed redundant setup summary cards, prioritizing immediate workout starting and core metrics.
+- **Simplified Backup Settings:**
+  - Retained essential manual JSON backup, CSV workout history export, and JSON restore actions while decluttering automated snapshot controls.
+
+---
+
 ## [0.1.1-beta] — 2026-11-14
 
 ### 🚀 UI Refresh & Floating Navigation

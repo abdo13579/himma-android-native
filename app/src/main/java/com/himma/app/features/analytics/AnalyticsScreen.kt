@@ -1,5 +1,10 @@
 package com.himma.app.features.analytics
 
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.spring
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -18,6 +23,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -42,11 +48,12 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.PrimaryScrollableTabRow
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Tab
+import androidx.compose.material3.TabPosition
+import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -56,13 +63,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -142,9 +154,55 @@ fun AnalyticsScreen(
     }
 
     Column(modifier = modifier.fillMaxSize()) {
-        PrimaryScrollableTabRow(
+        TabRow(
             selectedTabIndex = state.selectedTab.ordinal,
-            edgePadding = 12.dp,
+            containerColor = MaterialTheme.colorScheme.surface,
+            contentColor = MaterialTheme.colorScheme.onSurface,
+            indicator = { tabPositions ->
+                if (state.selectedTab.ordinal in tabPositions.indices) {
+                    val currentTab = tabPositions[state.selectedTab.ordinal]
+                    val isRtl = LocalLayoutDirection.current == LayoutDirection.Rtl
+                    val contentWidth = if (currentTab.contentWidth > 0.dp) currentTab.contentWidth else (currentTab.width * 0.6f)
+                    val wordOffset = ((currentTab.width - contentWidth) / 2).coerceAtLeast(0.dp)
+
+                    val animatedOffset by animateDpAsState(
+                        targetValue = currentTab.left + wordOffset,
+                        animationSpec = spring(stiffness = Spring.StiffnessMediumLow),
+                        label = "tabIndicatorOffset",
+                    )
+                    val animatedWidth by animateDpAsState(
+                        targetValue = contentWidth,
+                        animationSpec = spring(stiffness = Spring.StiffnessMediumLow),
+                        label = "tabIndicatorWidth",
+                    )
+                    val primaryColor = MaterialTheme.colorScheme.primary
+
+                    Canvas(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(3.dp)
+                    ) {
+                        val widthPx = animatedWidth.toPx()
+                        val offsetPx = animatedOffset.toPx()
+                        val drawX = if (isRtl) {
+                            size.width - offsetPx - widthPx
+                        } else {
+                            offsetPx
+                        }
+                        val lineHeightPx = 3.dp.toPx()
+                        val lineY = size.height - lineHeightPx
+                        drawRoundRect(
+                            color = primaryColor,
+                            topLeft = Offset(x = drawX, y = lineY),
+                            size = Size(width = widthPx, height = lineHeightPx),
+                            cornerRadius = CornerRadius(x = 1.5.dp.toPx(), y = 1.5.dp.toPx()),
+                        )
+                    }
+                }
+            },
+            divider = {
+                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
+            },
         ) {
             AnalyticsTab.entries.forEach { tab ->
                 val labelRes = when (tab) {
@@ -156,10 +214,16 @@ fun AnalyticsScreen(
                 Tab(
                     selected = state.selectedTab == tab,
                     onClick = { viewModel.selectTab(tab) },
+                    selectedContentColor = MaterialTheme.colorScheme.primary,
+                    unselectedContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
                     text = {
                         Text(
                             text = stringResource(id = labelRes),
-                            maxLines = 1,
+                            maxLines = 2,
+                            textAlign = TextAlign.Center,
+                            style = MaterialTheme.typography.labelLarge.copy(
+                                fontWeight = if (state.selectedTab == tab) FontWeight.Bold else FontWeight.Medium,
+                            ),
                         )
                     },
                     modifier = Modifier.heightIn(min = 48.dp),

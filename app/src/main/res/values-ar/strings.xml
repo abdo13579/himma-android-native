@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">هِمّة</string>
+    <string name="app_name">همة</string>
 
     <!-- Navigation Tabs -->
     <string name="nav_today">اليوم</string>
@@ -281,4 +281,26 @@
     <string name="analytics_insights_title">توصيات وتحليلات التقدم التدريبي</string>
     <string name="analytics_sets_count">%1$d مجموعات</string>
     <string name="analytics_body_weight_current">آخر قياس لوزن الجسم</string>
+
+    <!-- App Updates -->
+    <string name="settings_updates_title">تحديثات التطبيق</string>
+    <string name="settings_updates_desc">التحقق من أحدث الإصدارات وتحديث التطبيق من داخله مباشرة</string>
+    <string name="settings_check_updates">التحقق من وجود تحديثات</string>
+    <string name="settings_checking_updates">جارٍ التحقق من التحديثات...</string>
+    <string name="settings_up_to_date">أنت تستخدم أحدث إصدار بالفعل (%s)</string>
+    <string name="settings_update_available">يتوفر إصدار جديد: %s</string>
+    <string name="settings_auto_check_updates">التحقق التلقائي عند الفتح</string>
+    <string name="settings_auto_check_updates_desc">فحص التحديثات في الخلفية وإشعارك عند توفر إصدار جديد</string>
+    <string name="update_dialog_title">تحديث جديد متاح (%s)</string>
+    <string name="update_dialog_action_download">تنزيل وتثبيت الآن</string>
+    <string name="update_dialog_action_install">تثبيت التحديث الآن</string>
+    <string name="update_dialog_action_later">لاحقاً</string>
+    <string name="update_downloading">جارٍ تنزيل التحديث...</string>
+    <string name="update_download_progress">%1$s من %2$s (%3$d%%)</string>
+    <string name="update_download_failed">فشل تنزيل التحديث، يرجى التحقق من اتصال الإنترنت والمحاولة مجدداً</string>
+    <string name="update_permission_required_title">إذن تثبيت التحديثات</string>
+    <string name="update_permission_required_desc">يرجى تفعيل خيار «السماح بتثبيت التطبيقات من هذا المصدر» لمتابعة ترقية التطبيق دون فقدان بياناتك.</string>
+    <string name="update_permission_grant">فتح الإعدادات</string>
+    <string name="update_banner_available">يتوفر إصدار جديد من هِمّة (%s)</string>
+    <string name="update_banner_action">عرض</string>
 </resources>

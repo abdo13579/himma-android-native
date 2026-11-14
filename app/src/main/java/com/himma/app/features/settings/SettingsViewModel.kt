@@ -9,6 +9,10 @@ import com.himma.app.core.backup.BackupRepository
 import com.himma.app.core.database.UserProfileRepository
 import com.himma.app.core.datastore.UserPreferences
 import com.himma.app.core.datastore.UserPreferencesRepository
+import com.himma.app.core.updater.AppUpdateInfo
+import com.himma.app.core.updater.AppUpdateRepository
+import com.himma.app.core.updater.UpdateCheckUiState
+import com.himma.app.core.updater.UpdateDownloadState
 import com.himma.app.domain.model.AppLanguage
 import com.himma.app.domain.model.BackupValidationError
 import com.himma.app.domain.model.BackupValidationException
@@ -56,7 +60,17 @@ class SettingsViewModel @Inject constructor(
     private val profileRepository: UserProfileRepository,
     private val backupRepository: BackupRepository,
     private val autoBackupScheduler: AutoBackupScheduler,
+    private val appUpdateRepository: AppUpdateRepository,
 ) : ViewModel() {
+
+    private val _updateCheckState = MutableStateFlow<UpdateCheckUiState>(UpdateCheckUiState.Idle)
+    val updateCheckState: StateFlow<UpdateCheckUiState> = _updateCheckState
+
+    private val _downloadState = MutableStateFlow<UpdateDownloadState>(UpdateDownloadState.Idle)
+    val downloadState: StateFlow<UpdateDownloadState> = _downloadState
+
+    private val _showUpdateDialog = MutableStateFlow(false)
+    val showUpdateDialog: StateFlow<Boolean> = _showUpdateDialog
 
     private data class DraftInputs(
         val displayName: String? = null,
@@ -240,6 +254,57 @@ class SettingsViewModel @Inject constructor(
                     _events.emit(SettingsEvent.SnapshotCreated)
                 }
                 .onFailure { emitError(it) }
+        }
+    }
+
+    fun checkForUpdates() {
+        viewModelScope.launch {
+            _updateCheckState.value = UpdateCheckUiState.Checking
+            appUpdateRepository.checkForUpdate()
+                .onSuccess { info ->
+                    if (info.isUpdateAvailable) {
+                        _updateCheckState.value = UpdateCheckUiState.UpdateAvailable(info)
+                        _showUpdateDialog.value = true
+                    } else {
+                        _updateCheckState.value = UpdateCheckUiState.UpToDate(info.remoteVersion)
+                    }
+                }
+                .onFailure { error ->
+                    _updateCheckState.value = UpdateCheckUiState.Error(
+                        error.message ?: "Failed to check for updates"
+                    )
+                }
+        }
+    }
+
+    fun startDownload(updateInfo: AppUpdateInfo) {
+        val fileName = "himma-v${updateInfo.remoteVersion}.apk"
+        viewModelScope.launch {
+            _downloadState.value = UpdateDownloadState.Downloading(0, 0, updateInfo.apkSizeBytes)
+            appUpdateRepository.downloadUpdate(
+                downloadUrl = updateInfo.apkDownloadUrl,
+                fileName = fileName,
+                onProgress = { percent, downloaded, total ->
+                    _downloadState.value = UpdateDownloadState.Downloading(percent, downloaded, total)
+                },
+            ).onSuccess { file ->
+                _downloadState.value = UpdateDownloadState.Completed(file)
+            }.onFailure { error ->
+                _downloadState.value = UpdateDownloadState.Error(
+                    error.message ?: "Download failed"
+                )
+            }
+        }
+    }
+
+    fun dismissUpdateDialog() {
+        _showUpdateDialog.value = false
+        _downloadState.value = UpdateDownloadState.Idle
+    }
+
+    fun setAutoCheckUpdates(enabled: Boolean) {
+        viewModelScope.launch {
+            preferencesRepository.setAutoCheckUpdates(enabled)
         }
     }
 

@@ -131,6 +131,10 @@ class FakeUserPreferencesRepository : UserPreferencesRepository {
         state.value = state.value.copy(lastAutoBackupAt = timestampMillis)
     }
 
+    override suspend fun setAutoCheckUpdates(enabled: Boolean) {
+        state.value = state.value.copy(autoCheckUpdates = enabled)
+    }
+
     override suspend fun restorePreferences(
         language: AppLanguage,
         weightUnit: WeightUnit,

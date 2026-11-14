@@ -183,6 +183,9 @@ fun HimmaAppShell(
                             navController.navigate(WorkoutRoutes.active(id))
                         }
                     },
+                    onNavigateToSettings = {
+                        navController.navigate(HimmaDestination.SETTINGS.route)
+                    },
                 )
             }
             composable(HimmaDestination.ROUTINES.route) {
