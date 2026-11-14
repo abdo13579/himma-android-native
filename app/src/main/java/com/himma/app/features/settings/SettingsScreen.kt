@@ -487,41 +487,11 @@ fun SettingsScreen(
                                     ThemeMode.DARK -> R.string.theme_dark
                                     ThemeMode.LIGHT -> R.string.theme_light
                                     ThemeMode.SYSTEM -> R.string.theme_system
+                                    ThemeMode.FROST -> R.string.theme_frost
                                 }
                                 Text(stringResource(id = labelRes))
                             },
                             modifier = Modifier.heightIn(min = 48.dp),
-                        )
-                    }
-                }
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                    HorizontalDivider()
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .heightIn(min = 48.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                    ) {
-                        Column(
-                            modifier = Modifier
-                                .weight(1f)
-                                .padding(end = 12.dp),
-                        ) {
-                            Text(
-                                text = stringResource(id = R.string.settings_dynamic_color),
-                                style = MaterialTheme.typography.bodyLarge,
-                            )
-                            Text(
-                                text = stringResource(id = R.string.settings_dynamic_color_desc),
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            )
-                        }
-                        Switch(
-                            checked = state.preferences.useDynamicColor,
-                            onCheckedChange = viewModel::setUseDynamicColor,
                         )
                     }
                 }

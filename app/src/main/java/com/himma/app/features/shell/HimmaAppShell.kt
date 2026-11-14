@@ -1,7 +1,18 @@
 package com.himma.app.features.shell
 
 import android.net.Uri
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.FastOutLinearInEasing
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -76,6 +87,14 @@ private object WorkoutRoutes {
     fun active(workoutId: String): String = "active_workout/${Uri.encode(workoutId)}"
 }
 
+private val TopLevelRoutes = setOf(
+    HimmaDestination.TODAY.route,
+    HimmaDestination.ROUTINES.route,
+    HimmaDestination.EXERCISES.route,
+    HimmaDestination.ANALYTICS.route,
+    HimmaDestination.SETTINGS.route,
+)
+
 @Composable
 fun HimmaRootNavHost(
     onboardingCompleted: Boolean,
@@ -127,14 +146,27 @@ fun HimmaAppShell(
                 val topTab = activeTab ?: HimmaDestination.TODAY
                 CenterAlignedTopAppBar(
                     title = {
-                        Text(
-                            text = stringResource(id = topTab.titleRes),
-                            style = MaterialTheme.typography.titleLarge.copy(
-                                fontWeight = FontWeight.Bold,
-                            ),
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                        )
+                        AnimatedContent(
+                            targetState = topTab,
+                            transitionSpec = {
+                                (fadeIn(animationSpec = tween(durationMillis = 200, delayMillis = 50, easing = LinearOutSlowInEasing)) +
+                                    scaleIn(initialScale = 0.94f, animationSpec = tween(durationMillis = 200, delayMillis = 50, easing = LinearOutSlowInEasing)))
+                                    .togetherWith(
+                                        fadeOut(animationSpec = tween(durationMillis = 80, easing = FastOutLinearInEasing)) +
+                                            scaleOut(targetScale = 0.96f, animationSpec = tween(durationMillis = 80, easing = FastOutLinearInEasing))
+                                    )
+                            },
+                            label = "TopAppBarTitleAnimation",
+                        ) { currentTab ->
+                            Text(
+                                text = stringResource(id = currentTab.titleRes),
+                                style = MaterialTheme.typography.titleLarge.copy(
+                                    fontWeight = FontWeight.Bold,
+                                ),
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                            )
+                        }
                     },
                 )
             }
@@ -167,91 +199,184 @@ fun HimmaAppShell(
             navController = navController,
             startDestination = HimmaDestination.TODAY.route,
             modifier = if (showShellChrome) Modifier.padding(innerPadding) else Modifier,
+            enterTransition = {
+                val target = targetState.destination.route
+                val initial = initialState.destination.route
+                if (target == WorkoutRoutes.ACTIVE) {
+                    slideIntoContainer(
+                        towards = AnimatedContentTransitionScope.SlideDirection.Up,
+                        animationSpec = tween(durationMillis = 380, easing = FastOutSlowInEasing),
+                    ) + fadeIn(animationSpec = tween(durationMillis = 250, easing = FastOutSlowInEasing))
+                } else if (initial in TopLevelRoutes && target in TopLevelRoutes) {
+                    fadeIn(
+                        animationSpec = tween(durationMillis = 200, easing = FastOutSlowInEasing),
+                    )
+                } else {
+                    slideIntoContainer(
+                        towards = AnimatedContentTransitionScope.SlideDirection.Start,
+                        animationSpec = tween(durationMillis = 350, easing = FastOutSlowInEasing),
+                    ) + fadeIn(animationSpec = tween(durationMillis = 250, easing = FastOutSlowInEasing))
+                }
+            },
+            exitTransition = {
+                val target = targetState.destination.route
+                val initial = initialState.destination.route
+                if (initial == WorkoutRoutes.ACTIVE) {
+                    slideOutOfContainer(
+                        towards = AnimatedContentTransitionScope.SlideDirection.Down,
+                        animationSpec = tween(durationMillis = 300, easing = FastOutSlowInEasing),
+                    ) + fadeOut(animationSpec = tween(durationMillis = 200, easing = FastOutSlowInEasing))
+                } else if (target == WorkoutRoutes.ACTIVE) {
+                    scaleOut(
+                        targetScale = 0.94f,
+                        animationSpec = tween(durationMillis = 350, easing = FastOutSlowInEasing),
+                    ) + fadeOut(animationSpec = tween(durationMillis = 200, easing = FastOutSlowInEasing))
+                } else if (initial in TopLevelRoutes && target in TopLevelRoutes) {
+                    fadeOut(
+                        animationSpec = tween(durationMillis = 150, easing = FastOutSlowInEasing),
+                    )
+                } else {
+                    slideOutOfContainer(
+                        towards = AnimatedContentTransitionScope.SlideDirection.Start,
+                        targetOffset = { it / 4 },
+                        animationSpec = tween(durationMillis = 350, easing = FastOutSlowInEasing),
+                    ) + fadeOut(animationSpec = tween(durationMillis = 250, easing = FastOutSlowInEasing))
+                }
+            },
+            popEnterTransition = {
+                val target = targetState.destination.route
+                val initial = initialState.destination.route
+                if (initial == WorkoutRoutes.ACTIVE) {
+                    scaleIn(
+                        initialScale = 0.94f,
+                        animationSpec = tween(durationMillis = 300, easing = FastOutSlowInEasing),
+                    ) + fadeIn(animationSpec = tween(durationMillis = 250, easing = FastOutSlowInEasing))
+                } else if (initial in TopLevelRoutes && target in TopLevelRoutes) {
+                    fadeIn(
+                        animationSpec = tween(durationMillis = 200, easing = FastOutSlowInEasing),
+                    )
+                } else {
+                    slideIntoContainer(
+                        towards = AnimatedContentTransitionScope.SlideDirection.End,
+                        initialOffset = { -it / 4 },
+                        animationSpec = tween(durationMillis = 300, easing = FastOutSlowInEasing),
+                    ) + fadeIn(animationSpec = tween(durationMillis = 250, easing = FastOutSlowInEasing))
+                }
+            },
+            popExitTransition = {
+                val target = targetState.destination.route
+                val initial = initialState.destination.route
+                if (initial == WorkoutRoutes.ACTIVE) {
+                    slideOutOfContainer(
+                        towards = AnimatedContentTransitionScope.SlideDirection.Down,
+                        animationSpec = tween(durationMillis = 300, easing = FastOutSlowInEasing),
+                    ) + fadeOut(animationSpec = tween(durationMillis = 200, easing = FastOutSlowInEasing))
+                } else if (initial in TopLevelRoutes && target in TopLevelRoutes) {
+                    fadeOut(
+                        animationSpec = tween(durationMillis = 150, easing = FastOutSlowInEasing),
+                    )
+                } else {
+                    slideOutOfContainer(
+                        towards = AnimatedContentTransitionScope.SlideDirection.End,
+                        animationSpec = tween(durationMillis = 300, easing = FastOutSlowInEasing),
+                    ) + fadeOut(animationSpec = tween(durationMillis = 200, easing = FastOutSlowInEasing))
+                }
+            },
         ) {
             composable(HimmaDestination.TODAY.route) {
-                TodayFoundationScreen(
-                    onResumeActiveWorkout = { workoutId ->
-                        navController.navigate(WorkoutRoutes.active(workoutId))
-                    },
-                    onStartFreeWorkout = {
-                        workoutLauncherViewModel.requestStartFreeWorkout(freeWorkoutDefaultTitle) { id ->
-                            navController.navigate(WorkoutRoutes.active(id))
-                        }
-                    },
-                    onStartRoutine = { routine ->
-                        workoutLauncherViewModel.requestStartFromRoutine(routine) { id ->
-                            navController.navigate(WorkoutRoutes.active(id))
-                        }
-                    },
-                    onNavigateToSettings = {
-                        navController.navigate(HimmaDestination.SETTINGS.route)
-                    },
-                )
+                PageContentEntrance {
+                    TodayFoundationScreen(
+                        onResumeActiveWorkout = { workoutId ->
+                            navController.navigate(WorkoutRoutes.active(workoutId))
+                        },
+                        onStartFreeWorkout = {
+                            workoutLauncherViewModel.requestStartFreeWorkout(freeWorkoutDefaultTitle) { id ->
+                                navController.navigate(WorkoutRoutes.active(id))
+                            }
+                        },
+                        onStartRoutine = { routine ->
+                            workoutLauncherViewModel.requestStartFromRoutine(routine) { id ->
+                                navController.navigate(WorkoutRoutes.active(id))
+                            }
+                        },
+                        onNavigateToSettings = {
+                            navController.navigate(HimmaDestination.SETTINGS.route)
+                        },
+                    )
+                }
             }
             composable(HimmaDestination.ROUTINES.route) {
-                RoutinesScreen(
-                    onCreateRoutineClick = {
-                        navController.navigate(RoutineRoutes.create())
-                    },
-                    onEditRoutineClick = { routineId ->
-                        navController.navigate(RoutineRoutes.edit(routineId))
-                    },
-                    onStartRoutineClick = { routine ->
-                        workoutLauncherViewModel.requestStartFromRoutine(routine) { id ->
-                            navController.navigate(WorkoutRoutes.active(id))
-                        }
-                    },
-                    onShowDuplicatedMessage = {
-                        coroutineScope.launch {
-                            snackbarHostState.currentSnackbarData?.dismiss()
-                            snackbarHostState.showSnackbar(duplicatedRoutineMsg)
-                        }
-                    },
-                    onShowDeletedUndo = { routine, onUndo ->
-                        coroutineScope.launch {
-                            snackbarHostState.currentSnackbarData?.dismiss()
-                            val result = snackbarHostState.showSnackbar(
-                                message = context.getString(
-                                    R.string.routines_deleted_msg,
-                                    routine.title,
-                                ),
-                                actionLabel = undoLabel,
-                                duration = SnackbarDuration.Short,
-                            )
-                            if (result == SnackbarResult.ActionPerformed) {
-                                onUndo()
+                PageContentEntrance {
+                    RoutinesScreen(
+                        onCreateRoutineClick = {
+                            navController.navigate(RoutineRoutes.create())
+                        },
+                        onEditRoutineClick = { routineId ->
+                            navController.navigate(RoutineRoutes.edit(routineId))
+                        },
+                        onStartRoutineClick = { routine ->
+                            workoutLauncherViewModel.requestStartFromRoutine(routine) { id ->
+                                navController.navigate(WorkoutRoutes.active(id))
                             }
-                        }
-                    },
-                )
+                        },
+                        onShowDuplicatedMessage = {
+                            coroutineScope.launch {
+                                snackbarHostState.currentSnackbarData?.dismiss()
+                                snackbarHostState.showSnackbar(duplicatedRoutineMsg)
+                            }
+                        },
+                        onShowDeletedUndo = { routine, onUndo ->
+                            coroutineScope.launch {
+                                snackbarHostState.currentSnackbarData?.dismiss()
+                                val result = snackbarHostState.showSnackbar(
+                                    message = context.getString(
+                                        R.string.routines_deleted_msg,
+                                        routine.title,
+                                    ),
+                                    actionLabel = undoLabel,
+                                    duration = SnackbarDuration.Short,
+                                )
+                                if (result == SnackbarResult.ActionPerformed) {
+                                    onUndo()
+                                }
+                            }
+                        },
+                    )
+                }
             }
             composable(HimmaDestination.EXERCISES.route) {
-                ExerciseLibraryScreen(
-                    onExerciseClick = { exerciseId ->
-                        navController.navigate(ExerciseRoutes.detail(exerciseId))
-                    },
-                    onCreateCustomClick = {
-                        navController.navigate(ExerciseRoutes.createCustom())
-                    },
-                )
+                PageContentEntrance {
+                    ExerciseLibraryScreen(
+                        onExerciseClick = { exerciseId ->
+                            navController.navigate(ExerciseRoutes.detail(exerciseId))
+                        },
+                        onCreateCustomClick = {
+                            navController.navigate(ExerciseRoutes.createCustom())
+                        },
+                    )
+                }
             }
             composable(HimmaDestination.ANALYTICS.route) {
-                AnalyticsScreen(
-                    onShowMessage = { msg ->
-                        coroutineScope.launch {
-                            snackbarHostState.showSnackbar(msg)
-                        }
-                    },
-                )
+                PageContentEntrance {
+                    AnalyticsScreen(
+                        onShowMessage = { msg ->
+                            coroutineScope.launch {
+                                snackbarHostState.showSnackbar(msg)
+                            }
+                        },
+                    )
+                }
             }
             composable(HimmaDestination.SETTINGS.route) {
-                SettingsScreen(
-                    onShowMessage = { msg ->
-                        coroutineScope.launch {
-                            snackbarHostState.showSnackbar(msg)
-                        }
-                    },
-                )
+                PageContentEntrance {
+                    SettingsScreen(
+                        onShowMessage = { msg ->
+                            coroutineScope.launch {
+                                snackbarHostState.showSnackbar(msg)
+                            }
+                        },
+                    )
+                }
             }
 
             composable(
@@ -260,18 +385,20 @@ fun HimmaAppShell(
                     navArgument("exerciseId") { type = NavType.StringType },
                 ),
             ) {
-                ExerciseDetailScreen(
-                    onBackClick = { navController.popBackStack() },
-                    onEditCustomClick = { id ->
-                        navController.navigate(ExerciseRoutes.editCustom(id))
-                    },
-                    onDeleted = {
-                        navController.popBackStack()
-                        coroutineScope.launch {
-                            snackbarHostState.showSnackbar(deletedExerciseMsg)
-                        }
-                    },
-                )
+                PageContentEntrance(delayMillis = 150) {
+                    ExerciseDetailScreen(
+                        onBackClick = { navController.popBackStack() },
+                        onEditCustomClick = { id ->
+                            navController.navigate(ExerciseRoutes.editCustom(id))
+                        },
+                        onDeleted = {
+                            navController.popBackStack()
+                            coroutineScope.launch {
+                                snackbarHostState.showSnackbar(deletedExerciseMsg)
+                            }
+                        },
+                    )
+                }
             }
 
             composable(
@@ -284,15 +411,17 @@ fun HimmaAppShell(
                     },
                 ),
             ) {
-                CustomExerciseScreen(
-                    onBackClick = { navController.popBackStack() },
-                    onSaved = {
-                        navController.popBackStack()
-                        coroutineScope.launch {
-                            snackbarHostState.showSnackbar(savedExerciseMsg)
-                        }
-                    },
-                )
+                PageContentEntrance(delayMillis = 150) {
+                    CustomExerciseScreen(
+                        onBackClick = { navController.popBackStack() },
+                        onSaved = {
+                            navController.popBackStack()
+                            coroutineScope.launch {
+                                snackbarHostState.showSnackbar(savedExerciseMsg)
+                            }
+                        },
+                    )
+                }
             }
 
             composable(
@@ -305,15 +434,17 @@ fun HimmaAppShell(
                     },
                 ),
             ) {
-                RoutineEditorScreen(
-                    onBackClick = { navController.popBackStack() },
-                    onSaved = {
-                        navController.popBackStack()
-                        coroutineScope.launch {
-                            snackbarHostState.showSnackbar(savedRoutineMsg)
-                        }
-                    },
-                )
+                PageContentEntrance(delayMillis = 150) {
+                    RoutineEditorScreen(
+                        onBackClick = { navController.popBackStack() },
+                        onSaved = {
+                            navController.popBackStack()
+                            coroutineScope.launch {
+                                snackbarHostState.showSnackbar(savedRoutineMsg)
+                            }
+                        },
+                    )
+                }
             }
 
             composable(
@@ -322,35 +453,37 @@ fun HimmaAppShell(
                     navArgument("workoutId") { type = NavType.StringType },
                 ),
             ) {
-                ActiveWorkoutScreen(
-                    onBackClick = { navController.popBackStack() },
-                    onWorkoutFinished = { summary ->
-                        navController.popBackStack()
-                        val displayVolume = WeightUnit.toDisplayWeight(summary.totalVolumeKg, preferredUnit)
-                        val volStr = if (displayVolume % 1.0 == 0.0) {
-                            displayVolume.toInt().toString()
-                        } else {
-                            "%.1f".format(java.util.Locale.US, displayVolume)
-                        }
-                        val unitStr = context.getString(
-                            if (preferredUnit == WeightUnit.KG) R.string.unit_kg else R.string.unit_lbs,
-                        )
-                        val durStr = WorkoutMath.formatTimer(summary.durationSeconds)
-                        val baseMsg = context.getString(R.string.workout_finished_msg, volStr, unitStr, durStr)
-                        val finalMsg = if (summary.newPrCount > 0) {
-                            "$baseMsg • ${context.getString(R.string.analytics_pr_badge, summary.newPrCount)}"
-                        } else {
-                            baseMsg
-                        }
-                        coroutineScope.launch {
-                            snackbarHostState.currentSnackbarData?.dismiss()
-                            snackbarHostState.showSnackbar(finalMsg)
-                        }
-                    },
-                    onWorkoutDiscarded = {
-                        navController.popBackStack()
-                    },
-                )
+                PageContentEntrance(delayMillis = 150) {
+                    ActiveWorkoutScreen(
+                        onBackClick = { navController.popBackStack() },
+                        onWorkoutFinished = { summary ->
+                            navController.popBackStack()
+                            val displayVolume = WeightUnit.toDisplayWeight(summary.totalVolumeKg, preferredUnit)
+                            val volStr = if (displayVolume % 1.0 == 0.0) {
+                                displayVolume.toInt().toString()
+                            } else {
+                                "%.1f".format(java.util.Locale.US, displayVolume)
+                            }
+                            val unitStr = context.getString(
+                                if (preferredUnit == WeightUnit.KG) R.string.unit_kg else R.string.unit_lbs,
+                            )
+                            val durStr = WorkoutMath.formatTimer(summary.durationSeconds)
+                            val baseMsg = context.getString(R.string.workout_finished_msg, volStr, unitStr, durStr)
+                            val finalMsg = if (summary.newPrCount > 0) {
+                                "$baseMsg • ${context.getString(R.string.analytics_pr_badge, summary.newPrCount)}"
+                            } else {
+                                baseMsg
+                            }
+                            coroutineScope.launch {
+                                snackbarHostState.currentSnackbarData?.dismiss()
+                                snackbarHostState.showSnackbar(finalMsg)
+                            }
+                        },
+                        onWorkoutDiscarded = {
+                            navController.popBackStack()
+                        },
+                    )
+                }
             }
         }
     }

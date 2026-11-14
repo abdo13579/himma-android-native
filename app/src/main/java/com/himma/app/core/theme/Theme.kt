@@ -26,7 +26,7 @@ fun HimmaTheme(
 ) {
     val systemDark = isSystemInDarkTheme()
     val isDark = when (themeMode) {
-        ThemeMode.AMOLED_DARK, ThemeMode.DARK -> true
+        ThemeMode.AMOLED_DARK, ThemeMode.DARK, ThemeMode.FROST -> true
         ThemeMode.LIGHT -> false
         ThemeMode.SYSTEM -> systemDark
     }
@@ -41,6 +41,7 @@ fun HimmaTheme(
                 base
             }
         }
+        themeMode == ThemeMode.FROST -> HimmaFrostColorScheme
         themeMode == ThemeMode.AMOLED_DARK -> HimmaAmoledDarkColorScheme
         isDark -> HimmaDarkColorScheme
         else -> HimmaLightColorScheme

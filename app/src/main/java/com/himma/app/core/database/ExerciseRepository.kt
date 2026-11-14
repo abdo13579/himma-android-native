@@ -59,8 +59,9 @@ class RoomExerciseRepository @Inject constructor(
         seedMutex.withLock {
             if (seededChecked) return
             withContext(Dispatchers.IO) {
-                val entities = seedLoader.loadSeedEntities()
-                if (exerciseDao.countSeedExercises() < entities.size) {
+                val currentCount = exerciseDao.countSeedExercises()
+                if (currentCount == 0) {
+                    val entities = seedLoader.loadSeedEntities()
                     exerciseDao.insertAllIgnore(entities)
                 }
                 val needingNormalization = exerciseDao.getExercisesNeedingNormalization()

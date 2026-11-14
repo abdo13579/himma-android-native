@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
 import com.himma.app.core.backup.AutoBackupScheduler
+import com.himma.app.core.database.ExerciseRepository
 import com.himma.app.core.datastore.UserPreferencesRepository
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
@@ -25,6 +26,9 @@ class HimmaApplication : Application(), Configuration.Provider {
     @Inject
     lateinit var autoBackupScheduler: AutoBackupScheduler
 
+    @Inject
+    lateinit var exerciseRepository: ExerciseRepository
+
     private val appScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     override val workManagerConfiguration: Configuration
@@ -34,6 +38,9 @@ class HimmaApplication : Application(), Configuration.Provider {
 
     override fun onCreate() {
         super.onCreate()
+        appScope.launch {
+            exerciseRepository.ensureSeeded()
+        }
         appScope.launch {
             if (preferencesRepository.preferences.first().autoBackupEnabled) {
                 autoBackupScheduler.scheduleDailySnapshot()

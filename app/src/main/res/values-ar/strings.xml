@@ -54,13 +54,14 @@
     <string name="settings_title">الإعدادات</string>
     <string name="settings_section_profile">الملف المحلي</string>
     <string name="settings_section_preferences">تفضيلات التمرين</string>
-    <string name="settings_section_appearance">مظهر Material Design 3</string>
+    <string name="settings_section_appearance">المظهر</string>
     <string name="settings_section_storage">حالة التخزين المحلي</string>
     <string name="settings_theme_label">وضع المظهر</string>
     <string name="theme_amoled_dark">داكن AMOLED</string>
     <string name="theme_dark">داكن</string>
     <string name="theme_light">نهاري</string>
     <string name="theme_system">النظام</string>
+    <string name="theme_frost">ثلجي</string>
     <string name="settings_dynamic_color">الألوان الديناميكية (Android 12+)</string>
     <string name="settings_dynamic_color_desc">تكييف الألوان مع خلفية هاتفك</string>
     <string name="settings_save_profile">حفظ الملف</string>

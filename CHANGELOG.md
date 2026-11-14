@@ -7,6 +7,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.2.1-beta] — 2026-11-14
+
+### 🎭 Choreographed M3 Motion, Frost Theme & Performance Overhaul
+
+This release introduces a two-stage choreographed navigation and content reveal motion across all pages, the brand-new Frost («ثلجي») theme, a zero-lag performance overhaul for the exercise library, and streamlined appearance settings.
+
+#### Added
+- **Two-Stage Choreographed Page Motion:**
+  - Fluid Material 3 Fade Through and Shared-Axis page transitions across all app destinations.
+  - Expressive, GPU-accelerated secondary content reveal animation (`PageContentEntrance`) that smoothly translates (`+28dp`), scales (`0.97 -> 1.0`), and fades in page content once navigation settles.
+  - Animated crossfade for the top app bar title when switching between primary tabs.
+  - RTL-native directional slide transitions for drill-down/editor screens and modal upward presentation for active workout sessions.
+- **Frost Theme («ثلجي»):**
+  - Brand-new premium theme featuring icy cyan (`#38BDF8`), radiant teal (`#2DD4BF`), and subtle indigo accents on deep dark oceanic frosted glass surfaces (`#060B12`).
+  - Added seamless backwards compatibility for existing theme preferences.
+
+#### Performance & Optimization
+- **Exercise Library Zero-Lag Architecture:**
+  - Pre-warmed exercise catalog database seeding in the background on app startup (`HimmaApplication.onCreate`).
+  - Replaced redundant 200KB JSON asset parsing with instant SQLite record count verification.
+  - Converted exercise library state flow to persistent lazy sharing (`SharingStarted.Lazily`), eliminating loading spinner flicker and list rebuild frame drops during tab navigation.
+  - Replaced heavy expanding search bar with a lightweight, ergonomic Material 3 rounded search field.
+  - Eliminated nested `LazyRow` subcomposition overhead by switching muscle and equipment filters to single-pass scrollable rows.
+  - Memoized Coil image requests and pruned unnecessary crossfade passes on local bundled WebP assets.
+
+#### Refined
+- **Streamlined Appearance Settings:**
+  - Simplified the section title to clean **"Appearance"** («المظهر»).
+  - Removed the Android 12+ dynamic color toggle for a consistent, hand-crafted AMOLED aesthetic.
+  - Pruned unused experimental theme codes and resources.
+
+---
+
 ## [0.2.0-beta] — 2026-11-14
 
 ### 🚀 In-App Updates & UI Refinements

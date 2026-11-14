@@ -2,6 +2,8 @@ package com.himma.app.features.exercises
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,7 +18,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -33,12 +34,13 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.SearchBar
-import androidx.compose.material3.SearchBarDefaults
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -70,64 +72,63 @@ fun ExerciseLibraryScreen(
 
     Box(modifier = modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxSize()) {
-            // Material 3 SearchBar (non-expanding inline mode for instant filtering)
-            SearchBar(
-                inputField = {
-                    SearchBarDefaults.InputField(
-                        query = state.query,
-                        onQueryChange = viewModel::updateQuery,
-                        onSearch = {},
-                        expanded = false,
-                        onExpandedChange = {},
-                        placeholder = {
-                            Text(
-                                text = stringResource(id = R.string.exercises_search_placeholder),
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis,
-                            )
-                        },
-                        leadingIcon = {
-                            Icon(
-                                imageVector = Icons.Rounded.Search,
-                                contentDescription = null,
-                            )
-                        },
-                        trailingIcon = {
-                            if (state.query.isNotEmpty()) {
-                                IconButton(
-                                    onClick = { viewModel.updateQuery("") },
-                                    modifier = Modifier.size(48.dp),
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Rounded.Clear,
-                                        contentDescription = stringResource(id = R.string.exercises_clear_search),
-                                    )
-                                }
-                            }
-                        },
-                    )
-                },
-                expanded = false,
-                onExpandedChange = {},
+            OutlinedTextField(
+                value = state.query,
+                onValueChange = viewModel::updateQuery,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp),
-            ) {}
+                shape = RoundedCornerShape(28.dp),
+                placeholder = {
+                    Text(
+                        text = stringResource(id = R.string.exercises_search_placeholder),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                },
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Rounded.Search,
+                        contentDescription = null,
+                    )
+                },
+                trailingIcon = {
+                    if (state.query.isNotEmpty()) {
+                        IconButton(
+                            onClick = { viewModel.updateQuery("") },
+                            modifier = Modifier.size(48.dp),
+                        ) {
+                            Icon(
+                                imageVector = Icons.Rounded.Clear,
+                                contentDescription = stringResource(id = R.string.exercises_clear_search),
+                            )
+                        }
+                    }
+                },
+                singleLine = true,
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+                    unfocusedContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+                    focusedBorderColor = MaterialTheme.colorScheme.primary,
+                    unfocusedBorderColor = Color.Transparent,
+                ),
+            )
 
             // Muscle Group FilterChips
-            LazyRow(
-                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .horizontalScroll(rememberScrollState())
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                item {
-                    FilterChip(
-                        selected = state.selectedMuscle == null,
-                        onClick = { viewModel.selectMuscle(null) },
-                        label = { Text(stringResource(id = R.string.exercises_filter_all)) },
-                        modifier = Modifier.heightIn(min = 48.dp),
-                    )
-                }
-                items(MuscleGroup.entries) { muscle ->
+                FilterChip(
+                    selected = state.selectedMuscle == null,
+                    onClick = { viewModel.selectMuscle(null) },
+                    label = { Text(stringResource(id = R.string.exercises_filter_all)) },
+                    modifier = Modifier.heightIn(min = 48.dp),
+                )
+                MuscleGroup.entries.forEach { muscle ->
                     FilterChip(
                         selected = state.selectedMuscle == muscle,
                         onClick = { viewModel.selectMuscle(muscle) },
@@ -138,19 +139,20 @@ fun ExerciseLibraryScreen(
             }
 
             // Equipment FilterChips
-            LazyRow(
-                contentPadding = PaddingValues(horizontal = 16.dp),
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .horizontalScroll(rememberScrollState())
+                    .padding(horizontal = 16.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                item {
-                    FilterChip(
-                        selected = state.selectedEquipment == null,
-                        onClick = { viewModel.selectEquipment(null) },
-                        label = { Text(stringResource(id = R.string.exercises_filter_all)) },
-                        modifier = Modifier.heightIn(min = 48.dp),
-                    )
-                }
-                items(EquipmentType.coreTypes) { equip ->
+                FilterChip(
+                    selected = state.selectedEquipment == null,
+                    onClick = { viewModel.selectEquipment(null) },
+                    label = { Text(stringResource(id = R.string.exercises_filter_all)) },
+                    modifier = Modifier.heightIn(min = 48.dp),
+                )
+                EquipmentType.coreTypes.forEach { equip ->
                     FilterChip(
                         selected = state.selectedEquipment == equip,
                         onClick = { viewModel.selectEquipment(equip) },
@@ -198,6 +200,7 @@ fun ExerciseLibraryScreen(
                         items(
                             items = state.exercises,
                             key = { it.id },
+                            contentType = { "exercise" },
                         ) { exercise ->
                             ExerciseListItemCard(
                                 exercise = exercise,
@@ -239,7 +242,15 @@ private fun ExerciseListItemCard(
     onClick: () -> Unit,
 ) {
     val context = LocalContext.current
-    val thumbUri = exercise.frameAssetUri(0)
+    val thumbUri = remember(exercise.id, exercise.localMediaKey) { exercise.frameAssetUri(0) }
+    val imageRequest = remember(thumbUri, context) {
+        thumbUri?.let {
+            ImageRequest.Builder(context)
+                .data(it)
+                .crossfade(false)
+                .build()
+        }
+    }
 
     ElevatedCard(
         onClick = onClick,
@@ -265,12 +276,9 @@ private fun ExerciseListItemCard(
                     ),
                 contentAlignment = Alignment.Center,
             ) {
-                if (thumbUri != null) {
+                if (imageRequest != null) {
                     AsyncImage(
-                        model = ImageRequest.Builder(context)
-                            .data(thumbUri)
-                            .crossfade(true)
-                            .build(),
+                        model = imageRequest,
                         contentDescription = exercise.primaryDisplayName(language),
                         contentScale = ContentScale.Fit,
                         modifier = Modifier

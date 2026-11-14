@@ -54,13 +54,14 @@
     <string name="settings_title">Settings</string>
     <string name="settings_section_profile">Local Profile</string>
     <string name="settings_section_preferences">Training Preferences</string>
-    <string name="settings_section_appearance">Material Design 3 Appearance</string>
+    <string name="settings_section_appearance">Appearance</string>
     <string name="settings_section_storage">Local Storage Status</string>
     <string name="settings_theme_label">Theme Mode</string>
     <string name="theme_amoled_dark">AMOLED Dark</string>
     <string name="theme_dark">Dark</string>
     <string name="theme_light">Light</string>
     <string name="theme_system">System</string>
+    <string name="theme_frost">Frost</string>
     <string name="settings_dynamic_color">Dynamic Color (Android 12+)</string>
     <string name="settings_dynamic_color_desc">Adapt colors from your device wallpaper</string>
     <string name="settings_save_profile">Save Profile</string>

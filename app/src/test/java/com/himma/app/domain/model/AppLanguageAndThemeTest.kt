@@ -20,5 +20,7 @@ class AppLanguageAndThemeTest {
         assertEquals(ThemeMode.LIGHT, ThemeMode.fromKey("light"))
         assertEquals(ThemeMode.DARK, ThemeMode.fromKey("dark"))
         assertEquals(ThemeMode.SYSTEM, ThemeMode.fromKey("system"))
+        assertEquals(ThemeMode.FROST, ThemeMode.fromKey("frost"))
+        assertEquals(ThemeMode.FROST, ThemeMode.fromKey("liquid_glass"))
     }
 }
