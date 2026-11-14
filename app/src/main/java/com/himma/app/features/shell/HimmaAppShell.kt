@@ -145,6 +145,9 @@ fun HimmaAppShell(
                     destinations = HimmaDestination.entries,
                     currentDestination = currentDestination,
                     onNavigate = { destination ->
+                        if (currentDestination?.hierarchy?.any { it.route == destination.route } == true) {
+                            return@HimmaFloatingNavigationBar
+                        }
                         navController.navigate(destination.route) {
                             popUpTo(navController.graph.findStartDestination().id) {
                                 saveState = true

@@ -27,7 +27,7 @@ class BackupSerializerAndCsvTest {
     fun `backup encode and decode round-trips complete document with preview counts`() {
         val doc = HimmaBackupDocument(
             exportedAt = 1_731_000_000_000L,
-            appVersion = "0.1.0-beta",
+            appVersion = "0.1.1-beta",
             profile = BackupProfile(
                 displayName = "عبده",
                 bodyWeightKg = 80.5,

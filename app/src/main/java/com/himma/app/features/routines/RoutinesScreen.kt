@@ -96,7 +96,7 @@ fun RoutinesScreen(
                         start = 16.dp,
                         end = 16.dp,
                         top = 12.dp,
-                        bottom = 120.dp,
+                        bottom = 80.dp,
                     ),
                     verticalArrangement = Arrangement.spacedBy(14.dp),
                 ) {
@@ -146,7 +146,7 @@ fun RoutinesScreen(
             },
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(end = 16.dp, bottom = 88.dp),
+                .padding(16.dp),
         )
     }
 }

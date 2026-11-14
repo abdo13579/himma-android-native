@@ -191,7 +191,7 @@ fun ExerciseLibraryScreen(
                             start = 16.dp,
                             end = 16.dp,
                             top = 4.dp,
-                            bottom = 120.dp,
+                            bottom = 80.dp,
                         ),
                         verticalArrangement = Arrangement.spacedBy(10.dp),
                     ) {
@@ -227,7 +227,7 @@ fun ExerciseLibraryScreen(
             },
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(end = 16.dp, bottom = 88.dp),
+                .padding(16.dp),
         )
     }
 }

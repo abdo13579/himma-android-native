@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.1.1-beta] — 2026-11-14
+
+### 🚀 UI Refresh & Floating Navigation
+
+This release introduces an expressive floating navigation bar, refreshed Today screen layout, and refined Material Design 3 card shapes.
+
+#### Added
+- **Material 3 Expressive Floating Navigation Bar:**
+  - Modern capsule pill floating container with AMOLED dark surface styling, subtle elevation, and rounded corners (`RoundedCornerShape(28.dp)`).
+  - Smooth active capsule indicator behind the selected tab with instant, responsive transitions.
+- **Enhanced Today Screen Cards:**
+  - Hero Quick Workout card with one-tap access to start empty workout sessions.
+  - Expressive quick metrics row displaying current body weight, default rest interval, and routines count.
+
+#### Changed
+- **Modernized Card Shapes:**
+  - Refined theme corner radiuses in `HimmaShapes` for a more expressive, cohesive Material Design 3 aesthetic.
+
+#### Community
+- Merged community contribution from @biZenX (PR #1).
+
+---
+
 ## [0.1.0-beta] — 2026-11-12
 
 ### 🎉 Initial Public Beta Release
