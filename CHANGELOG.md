@@ -1,4 +1,4 @@
-# Changelog — هِمّة | Himma
+# Changelog — Himma
 
 All notable changes to this project are documented in this file.
 
@@ -33,15 +33,22 @@ This update brings first-class support for time/duration-based exercises across 
   - Pre-fills the search query automatically when creating from a search that yielded no existing exercises.
   - Saves to the local catalog and automatically adds the newly created custom exercise into the active routine in one tap.
 
+#### Packaging
+- **Official Production APK Packaging:**
+  - Shipped signed production release APK (`android:debuggable="false"`), unlocking full ART AOT/JIT optimizations and eliminating debug overhead.
+
 ---
 
 ## [1.0.0] — 2026-11-14
 
-### 🎉 First Official Stable Release — هِمّة | Himma
+### 🎉 First Official Stable Release — Himma
 
-This milestone marks the first official stable release of **هِمّة (Himma)** — the 100% offline, privacy-first, free native Android gym companion.
+This milestone marks the first official stable release of **Himma** — the 100% offline, privacy-first, free native Android gym companion.
 
 #### Added
+- **Official Production APK Packaging:**
+  - Official signed production release APK (`android:debuggable="false"`).
+  - Fully enabled Android Runtime (ART) Ahead-Of-Time (AOT) and Just-In-Time (JIT) compiler optimizations and stripped Jetpack Compose debug inspection overhead for peak runtime performance.
 - **UI Animation Toggle for Low-End Devices:**
   - Added user preference switch under Appearance settings to enable or disable all interface and navigation animations.
   - Disabled by default for maximum raw speed and instant response on lower-end devices; activates full choreographed Material 3 motion on demand.
@@ -57,7 +64,7 @@ This milestone marks the first official stable release of **هِمّة (Himma)**
 
 ### 🎭 Choreographed M3 Motion, Frost Theme & Performance Overhaul
 
-This release introduces a two-stage choreographed navigation and content reveal motion across all pages, the brand-new Frost («ثلجي») theme, a zero-lag performance overhaul for the exercise library, and streamlined appearance settings.
+This release introduces a two-stage choreographed navigation and content reveal motion across all pages, the brand-new Frost theme, a zero-lag performance overhaul for the exercise library, and streamlined appearance settings.
 
 #### Added
 - **Two-Stage Choreographed Page Motion:**
@@ -65,7 +72,7 @@ This release introduces a two-stage choreographed navigation and content reveal 
   - Expressive, GPU-accelerated secondary content reveal animation (`PageContentEntrance`) that smoothly translates (`+28dp`), scales (`0.97 -> 1.0`), and fades in page content once navigation settles.
   - Animated crossfade for the top app bar title when switching between primary tabs.
   - RTL-native directional slide transitions for drill-down/editor screens and modal upward presentation for active workout sessions.
-- **Frost Theme («ثلجي»):**
+- **Frost Theme:**
   - Brand-new premium theme featuring icy cyan (`#38BDF8`), radiant teal (`#2DD4BF`), and subtle indigo accents on deep dark oceanic frosted glass surfaces (`#060B12`).
   - Added seamless backwards compatibility for existing theme preferences.
 
@@ -80,7 +87,7 @@ This release introduces a two-stage choreographed navigation and content reveal 
 
 #### Refined
 - **Streamlined Appearance Settings:**
-  - Simplified the section title to clean **"Appearance"** («المظهر»).
+  - Simplified the section title to clean **"Appearance"**.
   - Removed the Android 12+ dynamic color toggle for a consistent, hand-crafted AMOLED aesthetic.
   - Pruned unused experimental theme codes and resources.
 
@@ -99,7 +106,7 @@ This release introduces direct in-app update checks and installations via GitHub
   - Seamless package installer intent integration via `FileProvider`.
   - Notification badge and dialog in Settings when a new update is available.
 - **Localized Launcher Name:**
-  - App launcher title on home screen now displays in Arabic as «همة».
+  - App launcher title on home screen now displays in Arabic as localized Himma.
 
 #### Fixed & Refined
 - **Analytics Tab Bar RTL Alignment:**
@@ -139,7 +146,7 @@ This release introduces an expressive floating navigation bar, refreshed Today s
 
 ### 🎉 Initial Public Beta Release
 
-Himma (هِمّة) is a 100% offline, privacy-first, free native Android gym workout logger and progressive overload companion built with modern Jetpack Compose and Material Design 3.
+Himma is a 100% offline, privacy-first, free native Android gym workout logger and progressive overload companion built with modern Jetpack Compose and Material Design 3.
 
 #### Added
 - **Material Design 3 AMOLED Architecture:**
