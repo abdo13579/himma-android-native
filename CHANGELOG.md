@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.1.0] — 2026-11-16
+
+### ⏱️ Time-Based Exercises, Routine Exercise Previews & Inline Custom Exercise Creation
+
+This update brings first-class support for time/duration-based exercises across workouts and routines, bottom-sheet exercise detail previews while building routines, and seamless inline custom exercise creation.
+
+#### Added
+- **Time/Duration Based Exercises Support:**
+  - Full support for exercises tracked by time/duration (Running, Treadmill, Cycling, Plank, Jump Rope, Rowing, Stair Climber, Elliptical, etc.) instead of weight & reps.
+  - 36 cardio and endurance exercises updated across the local bundled catalog with `TIME` exercise type.
+  - Ergonomic time input UI in active workouts (`ActiveWorkoutScreen`) with Minutes/Seconds pickers, quick-add preset duration chips (`+15s`, `+30s`, `+1m`, `+2m`, `+5m`), and previous duration memory.
+  - Target duration configuration stepper in routine builder (`RoutineEditorScreen`).
+  - Exercise type selector (`REPS` vs `TIME`) in custom exercise creation (`CustomExerciseScreen`) allowing users to create their own custom duration exercises.
+  - Exercise type badges displayed across the exercise catalog, routine cards, and detail sheets.
+  - Local database schema upgraded (Room Migration 7 → 8).
+  - Full data portability with time duration support in JSON Backup/Restore and CSV export.
+- **Exercise Detail Bottom Sheet in Routine Builder:**
+  - Tapping any exercise image in the routine editor or exercise picker opens a Material 3 bottom sheet (`ExerciseDetailBottomSheet`).
+  - Displays the 2-frame animated demonstration, dual Arabic/English names, exercise type & equipment badges, muscle targets, and step-by-step instructions.
+  - Smoothly dismisses with a single downward swipe, returning to routine construction with state fully preserved.
+- **In-Context Custom Exercise Creation in Routine Builder:**
+  - Create new custom exercises directly from the routine builder via `CustomExerciseBottomSheet` without leaving the routine editor.
+  - Prominent access via dedicated `+ Custom Exercise` button in the routine editor header alongside `+ Add Exercises`, plus top action card and empty-state prompt in the exercise picker.
+  - Pre-fills the search query automatically when creating from a search that yielded no existing exercises.
+  - Saves to the local catalog and automatically adds the newly created custom exercise into the active routine in one tap.
+
+---
+
 ## [1.0.0] — 2026-11-14
 
 ### 🎉 First Official Stable Release — هِمّة | Himma

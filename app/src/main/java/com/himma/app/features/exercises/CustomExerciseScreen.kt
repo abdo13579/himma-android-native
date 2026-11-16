@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
@@ -15,6 +17,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DropdownMenuItem
@@ -27,17 +30,21 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MenuAnchorType
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -46,9 +53,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.himma.app.R
 import com.himma.app.core.datastore.UserPreferences
 import com.himma.app.domain.model.EquipmentType
+import com.himma.app.domain.model.ExerciseType
 import com.himma.app.domain.model.MuscleGroup
+import java.util.UUID
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomExerciseScreen(
     onBackClick: () -> Unit,
@@ -56,8 +65,6 @@ fun CustomExerciseScreen(
     viewModel: CustomExerciseViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
-    var muscleDropdownExpanded by remember { mutableStateOf(false) }
-    var equipmentDropdownExpanded by remember { mutableStateOf(false) }
 
     LaunchedEffect(viewModel) {
         viewModel.events.collect { event ->
@@ -106,169 +113,18 @@ fun CustomExerciseScreen(
                 .padding(horizontal = 16.dp, vertical = 12.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            ElevatedCard(modifier = Modifier.fillMaxWidth()) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(14.dp),
-                ) {
-                    OutlinedTextField(
-                        value = state.nameAr,
-                        onValueChange = viewModel::updateNameAr,
-                        label = { Text(stringResource(id = R.string.custom_exercise_name_ar_label)) },
-                        placeholder = { Text(stringResource(id = R.string.custom_exercise_name_ar_placeholder)) },
-                        isError = state.nameError,
-                        supportingText = if (state.nameError) {
-                            { Text(stringResource(id = R.string.custom_exercise_name_required)) }
-                        } else {
-                            null
-                        },
-                        singleLine = true,
-                        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-                        modifier = Modifier.fillMaxWidth(),
-                    )
-
-                    OutlinedTextField(
-                        value = state.nameEn,
-                        onValueChange = viewModel::updateNameEn,
-                        label = { Text(stringResource(id = R.string.custom_exercise_name_en_label)) },
-                        placeholder = { Text(stringResource(id = R.string.custom_exercise_name_en_placeholder)) },
-                        isError = state.nameError,
-                        singleLine = true,
-                        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-                        modifier = Modifier.fillMaxWidth(),
-                    )
-
-                    // Primary Muscle ExposedDropdownMenuBox
-                    ExposedDropdownMenuBox(
-                        expanded = muscleDropdownExpanded,
-                        onExpandedChange = { muscleDropdownExpanded = it },
-                    ) {
-                        OutlinedTextField(
-                            value = stringResource(id = state.primaryMuscle.labelRes()),
-                            onValueChange = {},
-                            readOnly = true,
-                            label = { Text(stringResource(id = R.string.custom_exercise_muscle_label)) },
-                            trailingIcon = {
-                                ExposedDropdownMenuDefaults.TrailingIcon(expanded = muscleDropdownExpanded)
-                            },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .menuAnchor(MenuAnchorType.PrimaryNotEditable),
-                        )
-                        ExposedDropdownMenu(
-                            expanded = muscleDropdownExpanded,
-                            onDismissRequest = { muscleDropdownExpanded = false },
-                        ) {
-                            MuscleGroup.entries.forEach { muscle ->
-                                DropdownMenuItem(
-                                    text = { Text(stringResource(id = muscle.labelRes())) },
-                                    onClick = {
-                                        viewModel.selectPrimaryMuscle(muscle)
-                                        muscleDropdownExpanded = false
-                                    },
-                                )
-                            }
-                        }
-                    }
-
-                    // Equipment ExposedDropdownMenuBox
-                    ExposedDropdownMenuBox(
-                        expanded = equipmentDropdownExpanded,
-                        onExpandedChange = { equipmentDropdownExpanded = it },
-                    ) {
-                        OutlinedTextField(
-                            value = stringResource(id = state.equipment.labelRes()),
-                            onValueChange = {},
-                            readOnly = true,
-                            label = { Text(stringResource(id = R.string.custom_exercise_equipment_label)) },
-                            trailingIcon = {
-                                ExposedDropdownMenuDefaults.TrailingIcon(expanded = equipmentDropdownExpanded)
-                            },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .menuAnchor(MenuAnchorType.PrimaryNotEditable),
-                        )
-                        ExposedDropdownMenu(
-                            expanded = equipmentDropdownExpanded,
-                            onDismissRequest = { equipmentDropdownExpanded = false },
-                        ) {
-                            EquipmentType.coreTypes.forEach { equip ->
-                                DropdownMenuItem(
-                                    text = { Text(stringResource(id = equip.labelRes())) },
-                                    onClick = {
-                                        viewModel.selectEquipment(equip)
-                                        equipmentDropdownExpanded = false
-                                    },
-                                )
-                            }
-                        }
-                    }
-
-                    // Secondary Muscles
-                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Text(
-                            text = stringResource(id = R.string.custom_exercise_secondary_label),
-                            style = MaterialTheme.typography.titleSmall,
-                        )
-                        FlowRow(
-                            horizontalArrangement = Arrangement.spacedBy(8.dp),
-                            verticalArrangement = Arrangement.spacedBy(8.dp),
-                        ) {
-                            MuscleGroup.entries
-                                .filter { it != state.primaryMuscle }
-                                .forEach { muscle ->
-                                    FilterChip(
-                                        selected = muscle in state.secondaryMuscles,
-                                        onClick = { viewModel.toggleSecondaryMuscle(muscle) },
-                                        label = { Text(stringResource(id = muscle.labelRes())) },
-                                        modifier = Modifier.heightIn(min = 48.dp),
-                                    )
-                                }
-                        }
-                    }
-
-                    // Default Rest Timer
-                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Text(
-                            text = stringResource(id = R.string.custom_exercise_rest_label),
-                            style = MaterialTheme.typography.titleSmall,
-                        )
-                        FlowRow(
-                            horizontalArrangement = Arrangement.spacedBy(8.dp),
-                            verticalArrangement = Arrangement.spacedBy(8.dp),
-                        ) {
-                            UserPreferences.REST_PRESETS.forEach { preset ->
-                                FilterChip(
-                                    selected = state.defaultRestSeconds == preset,
-                                    onClick = { viewModel.selectRestSeconds(preset) },
-                                    label = { Text(stringResource(id = R.string.seconds_short, preset)) },
-                                    modifier = Modifier.heightIn(min = 48.dp),
-                                )
-                            }
-                        }
-                    }
-
-                    OutlinedTextField(
-                        value = state.instructionsAr,
-                        onValueChange = viewModel::updateInstructionsAr,
-                        label = { Text(stringResource(id = R.string.custom_exercise_instructions_ar_label)) },
-                        minLines = 3,
-                        maxLines = 6,
-                        modifier = Modifier.fillMaxWidth(),
-                    )
-
-                    OutlinedTextField(
-                        value = state.instructionsEn,
-                        onValueChange = viewModel::updateInstructionsEn,
-                        label = { Text(stringResource(id = R.string.custom_exercise_instructions_en_label)) },
-                        minLines = 3,
-                        maxLines = 6,
-                        modifier = Modifier.fillMaxWidth(),
-                    )
-                }
-            }
+            CustomExerciseFormFields(
+                state = state,
+                onNameArChange = viewModel::updateNameAr,
+                onNameEnChange = viewModel::updateNameEn,
+                onExerciseTypeChange = viewModel::selectExerciseType,
+                onPrimaryMuscleChange = viewModel::selectPrimaryMuscle,
+                onToggleSecondaryMuscle = viewModel::toggleSecondaryMuscle,
+                onEquipmentChange = viewModel::selectEquipment,
+                onRestSecondsChange = viewModel::selectRestSeconds,
+                onInstructionsArChange = viewModel::updateInstructionsAr,
+                onInstructionsEnChange = viewModel::updateInstructionsEn,
+            )
 
             Button(
                 onClick = viewModel::saveExercise,
@@ -282,6 +138,302 @@ fun CustomExerciseScreen(
                     style = MaterialTheme.typography.titleMedium,
                 )
             }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun CustomExerciseBottomSheet(
+    onDismiss: () -> Unit,
+    onSaved: (String) -> Unit,
+    initialName: String = "",
+    viewModel: CustomExerciseViewModel = hiltViewModel(key = remember { UUID.randomUUID().toString() }),
+) {
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+
+    LaunchedEffect(initialName) {
+        if (initialName.isNotBlank() && state.nameAr.isBlank()) {
+            viewModel.updateNameAr(initialName)
+        }
+    }
+
+    LaunchedEffect(viewModel) {
+        viewModel.events.collect { event ->
+            when (event) {
+                is CustomExerciseEvent.Saved -> onSaved(event.exerciseId)
+            }
+        }
+    }
+
+    ModalBottomSheet(
+        onDismissRequest = onDismiss,
+        sheetState = sheetState,
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.92f)
+                .imePadding()
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 16.dp)
+                .padding(bottom = 32.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    text = stringResource(id = R.string.custom_exercise_create_title),
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold,
+                )
+                IconButton(
+                    onClick = onDismiss,
+                    modifier = Modifier.size(48.dp),
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.Close,
+                        contentDescription = stringResource(id = R.string.workout_remove_set),
+                    )
+                }
+            }
+
+            CustomExerciseFormFields(
+                state = state,
+                onNameArChange = viewModel::updateNameAr,
+                onNameEnChange = viewModel::updateNameEn,
+                onExerciseTypeChange = viewModel::selectExerciseType,
+                onPrimaryMuscleChange = viewModel::selectPrimaryMuscle,
+                onToggleSecondaryMuscle = viewModel::toggleSecondaryMuscle,
+                onEquipmentChange = viewModel::selectEquipment,
+                onRestSecondsChange = viewModel::selectRestSeconds,
+                onInstructionsArChange = viewModel::updateInstructionsAr,
+                onInstructionsEnChange = viewModel::updateInstructionsEn,
+            )
+
+            Button(
+                onClick = viewModel::saveExercise,
+                enabled = !state.isSaving,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = 54.dp),
+            ) {
+                Text(
+                    text = stringResource(id = R.string.routine_picker_create_and_add),
+                    style = MaterialTheme.typography.titleMedium,
+                )
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
+@Composable
+fun CustomExerciseFormFields(
+    state: CustomExerciseUiState,
+    onNameArChange: (String) -> Unit,
+    onNameEnChange: (String) -> Unit,
+    onExerciseTypeChange: (ExerciseType) -> Unit,
+    onPrimaryMuscleChange: (MuscleGroup) -> Unit,
+    onToggleSecondaryMuscle: (MuscleGroup) -> Unit,
+    onEquipmentChange: (EquipmentType) -> Unit,
+    onRestSecondsChange: (Int) -> Unit,
+    onInstructionsArChange: (String) -> Unit,
+    onInstructionsEnChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    var muscleDropdownExpanded by remember { mutableStateOf(false) }
+    var equipmentDropdownExpanded by remember { mutableStateOf(false) }
+
+    ElevatedCard(modifier = modifier.fillMaxWidth()) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(14.dp),
+        ) {
+            OutlinedTextField(
+                value = state.nameAr,
+                onValueChange = onNameArChange,
+                label = { Text(stringResource(id = R.string.custom_exercise_name_ar_label)) },
+                placeholder = { Text(stringResource(id = R.string.custom_exercise_name_ar_placeholder)) },
+                isError = state.nameError,
+                supportingText = if (state.nameError) {
+                    { Text(stringResource(id = R.string.custom_exercise_name_required)) }
+                } else {
+                    null
+                },
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                modifier = Modifier.fillMaxWidth(),
+            )
+
+            OutlinedTextField(
+                value = state.nameEn,
+                onValueChange = onNameEnChange,
+                label = { Text(stringResource(id = R.string.custom_exercise_name_en_label)) },
+                placeholder = { Text(stringResource(id = R.string.custom_exercise_name_en_placeholder)) },
+                isError = state.nameError,
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                modifier = Modifier.fillMaxWidth(),
+            )
+
+            Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                Text(
+                    text = stringResource(id = R.string.exercise_type_label),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    ExerciseType.entries.forEach { type ->
+                        val selected = state.exerciseType == type
+                        FilterChip(
+                            selected = selected,
+                            onClick = { onExerciseTypeChange(type) },
+                            label = { Text(stringResource(id = type.labelRes())) },
+                            modifier = Modifier
+                                .weight(1f)
+                                .heightIn(min = 48.dp),
+                        )
+                    }
+                }
+            }
+
+            // Primary Muscle ExposedDropdownMenuBox
+            ExposedDropdownMenuBox(
+                expanded = muscleDropdownExpanded,
+                onExpandedChange = { muscleDropdownExpanded = it },
+            ) {
+                OutlinedTextField(
+                    value = stringResource(id = state.primaryMuscle.labelRes()),
+                    onValueChange = {},
+                    readOnly = true,
+                    label = { Text(stringResource(id = R.string.custom_exercise_muscle_label)) },
+                    trailingIcon = {
+                        ExposedDropdownMenuDefaults.TrailingIcon(expanded = muscleDropdownExpanded)
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .menuAnchor(MenuAnchorType.PrimaryNotEditable),
+                )
+                ExposedDropdownMenu(
+                    expanded = muscleDropdownExpanded,
+                    onDismissRequest = { muscleDropdownExpanded = false },
+                ) {
+                    MuscleGroup.entries.forEach { muscle ->
+                        DropdownMenuItem(
+                            text = { Text(stringResource(id = muscle.labelRes())) },
+                            onClick = {
+                                onPrimaryMuscleChange(muscle)
+                                muscleDropdownExpanded = false
+                            },
+                        )
+                    }
+                }
+            }
+
+            // Equipment ExposedDropdownMenuBox
+            ExposedDropdownMenuBox(
+                expanded = equipmentDropdownExpanded,
+                onExpandedChange = { equipmentDropdownExpanded = it },
+            ) {
+                OutlinedTextField(
+                    value = stringResource(id = state.equipment.labelRes()),
+                    onValueChange = {},
+                    readOnly = true,
+                    label = { Text(stringResource(id = R.string.custom_exercise_equipment_label)) },
+                    trailingIcon = {
+                        ExposedDropdownMenuDefaults.TrailingIcon(expanded = equipmentDropdownExpanded)
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .menuAnchor(MenuAnchorType.PrimaryNotEditable),
+                )
+                ExposedDropdownMenu(
+                    expanded = equipmentDropdownExpanded,
+                    onDismissRequest = { equipmentDropdownExpanded = false },
+                ) {
+                    EquipmentType.coreTypes.forEach { equip ->
+                        DropdownMenuItem(
+                            text = { Text(stringResource(id = equip.labelRes())) },
+                            onClick = {
+                                onEquipmentChange(equip)
+                                equipmentDropdownExpanded = false
+                            },
+                        )
+                    }
+                }
+            }
+
+            // Secondary Muscles
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text(
+                    text = stringResource(id = R.string.custom_exercise_secondary_label),
+                    style = MaterialTheme.typography.titleSmall,
+                )
+                FlowRow(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    MuscleGroup.entries
+                        .filter { it != state.primaryMuscle }
+                        .forEach { muscle ->
+                            FilterChip(
+                                selected = muscle in state.secondaryMuscles,
+                                onClick = { onToggleSecondaryMuscle(muscle) },
+                                label = { Text(stringResource(id = muscle.labelRes())) },
+                                modifier = Modifier.heightIn(min = 48.dp),
+                            )
+                        }
+                }
+            }
+
+            // Default Rest Timer
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text(
+                    text = stringResource(id = R.string.custom_exercise_rest_label),
+                    style = MaterialTheme.typography.titleSmall,
+                )
+                FlowRow(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    UserPreferences.REST_PRESETS.forEach { preset ->
+                        FilterChip(
+                            selected = state.defaultRestSeconds == preset,
+                            onClick = { onRestSecondsChange(preset) },
+                            label = { Text(stringResource(id = R.string.seconds_short, preset)) },
+                            modifier = Modifier.heightIn(min = 48.dp),
+                        )
+                    }
+                }
+            }
+
+            OutlinedTextField(
+                value = state.instructionsAr,
+                onValueChange = onInstructionsArChange,
+                label = { Text(stringResource(id = R.string.custom_exercise_instructions_ar_label)) },
+                minLines = 3,
+                maxLines = 6,
+                modifier = Modifier.fillMaxWidth(),
+            )
+
+            OutlinedTextField(
+                value = state.instructionsEn,
+                onValueChange = onInstructionsEnChange,
+                label = { Text(stringResource(id = R.string.custom_exercise_instructions_en_label)) },
+                minLines = 3,
+                maxLines = 6,
+                modifier = Modifier.fillMaxWidth(),
+            )
         }
     }
 }

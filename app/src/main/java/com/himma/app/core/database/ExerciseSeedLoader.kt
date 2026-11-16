@@ -22,6 +22,7 @@ data class SeedExerciseDto(
     val localMediaKey: String? = null,
     val defaultRestSeconds: Int = 90,
     val isCustom: Boolean = false,
+    val exerciseType: String = "REPS",
 )
 
 @Singleton
@@ -49,6 +50,7 @@ class ExerciseSeedLoader @Inject constructor(
                 isCustom = dto.isCustom,
                 createdAt = nowMs,
                 updatedAt = nowMs,
+                exerciseType = dto.exerciseType,
             )
         }
     }

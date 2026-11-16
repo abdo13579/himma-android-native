@@ -118,6 +118,7 @@ class RoutineEditorViewModel @Inject constructor(
                                     targetRepsMin = item.targetRepsMin,
                                     targetRepsMax = item.targetRepsMax,
                                     targetRestSeconds = item.targetRestSeconds,
+                                    targetDurationSeconds = item.targetDurationSeconds,
                                 )
                             },
                         )
@@ -176,6 +177,24 @@ class RoutineEditorViewModel @Inject constructor(
         }
     }
 
+    fun addCustomExerciseById(exerciseId: String) {
+        viewModelScope.launch {
+            val exercise = exerciseRepository.getExerciseById(exerciseId) ?: return@launch
+            formState.update { current ->
+                if (current.exercises.none { it.exercise.id == exercise.id }) {
+                    current.copy(
+                        exercises = current.exercises + RoutineExerciseDraft(
+                            itemId = UUID.randomUUID().toString(),
+                            exercise = exercise,
+                        ),
+                    )
+                } else {
+                    current
+                }
+            }
+        }
+    }
+
     fun moveExercise(fromIndex: Int, toIndex: Int) {
         formState.update { current ->
             val list = current.exercises
@@ -229,6 +248,17 @@ class RoutineEditorViewModel @Inject constructor(
     fun adjustRestSeconds(itemId: String, deltaSeconds: Int) {
         updateExerciseItem(itemId) { draft ->
             draft.copy(targetRestSeconds = draft.targetRestSeconds + deltaSeconds)
+        }
+    }
+
+    fun adjustDurationSeconds(itemId: String, deltaSeconds: Int) {
+        updateExerciseItem(itemId) { draft ->
+            val current = draft.targetDurationSeconds ?: 60
+            val next = (current + deltaSeconds).coerceIn(
+                RoutineExercise.MIN_DURATION_SECONDS,
+                RoutineExercise.MAX_DURATION_SECONDS,
+            )
+            draft.copy(targetDurationSeconds = next)
         }
     }
 

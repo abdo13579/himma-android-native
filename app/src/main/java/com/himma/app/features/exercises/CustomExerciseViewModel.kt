@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.himma.app.core.database.ExerciseRepository
 import com.himma.app.core.datastore.UserPreferences
 import com.himma.app.domain.model.EquipmentType
+import com.himma.app.domain.model.ExerciseType
 import com.himma.app.domain.model.MuscleGroup
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -28,6 +29,7 @@ data class CustomExerciseUiState(
     val defaultRestSeconds: Int = UserPreferences.DEFAULT_REST_SECONDS,
     val instructionsAr: String = "",
     val instructionsEn: String = "",
+    val exerciseType: ExerciseType = ExerciseType.REPS,
     val nameError: Boolean = false,
     val isSaving: Boolean = false,
 )
@@ -67,11 +69,16 @@ class CustomExerciseViewModel @Inject constructor(
                             defaultRestSeconds = existing.defaultRestSeconds,
                             instructionsAr = existing.instructionsAr,
                             instructionsEn = existing.instructionsEn,
+                            exerciseType = existing.exerciseType,
                         )
                     }
                 }
             }
         }
+    }
+
+    fun reset(initialName: String = "") {
+        _uiState.value = CustomExerciseUiState(nameAr = initialName)
     }
 
     fun updateNameAr(value: String) {
@@ -107,6 +114,10 @@ class CustomExerciseViewModel @Inject constructor(
         _uiState.update { it.copy(equipment = equipment) }
     }
 
+    fun selectExerciseType(type: ExerciseType) {
+        _uiState.update { it.copy(exerciseType = type) }
+    }
+
     fun selectRestSeconds(seconds: Int) {
         _uiState.update { it.copy(defaultRestSeconds = seconds) }
     }
@@ -139,6 +150,7 @@ class CustomExerciseViewModel @Inject constructor(
                 defaultRestSeconds = state.defaultRestSeconds,
                 instructionsAr = state.instructionsAr,
                 instructionsEn = state.instructionsEn,
+                exerciseType = state.exerciseType,
             )
             _uiState.update { it.copy(isSaving = false) }
             _events.emit(CustomExerciseEvent.Saved(savedId))

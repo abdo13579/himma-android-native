@@ -133,6 +133,7 @@ class ActiveWorkoutViewModel @Inject constructor(
                 setId = set.id,
                 weightKg = weightKg,
                 reps = set.reps,
+                durationSeconds = set.durationSeconds,
                 setType = set.setType,
                 rpe = set.rpe,
             )
@@ -149,6 +150,7 @@ class ActiveWorkoutViewModel @Inject constructor(
                 setId = set.id,
                 weightKg = nextKg,
                 reps = set.reps,
+                durationSeconds = set.durationSeconds,
                 setType = set.setType,
                 rpe = set.rpe,
             )
@@ -162,6 +164,36 @@ class ActiveWorkoutViewModel @Inject constructor(
                 setId = set.id,
                 weightKg = set.weightKg,
                 reps = parsedReps,
+                durationSeconds = set.durationSeconds,
+                setType = set.setType,
+                rpe = set.rpe,
+            )
+        }
+    }
+
+    fun updateDurationSeconds(set: WorkoutSet, seconds: Int?) {
+        val clamped = seconds?.coerceIn(0, 86400)
+        viewModelScope.launch {
+            workoutRepository.updateSetValues(
+                setId = set.id,
+                weightKg = set.weightKg,
+                reps = set.reps,
+                durationSeconds = clamped,
+                setType = set.setType,
+                rpe = set.rpe,
+            )
+        }
+    }
+
+    fun quickIncrementDuration(set: WorkoutSet, deltaSeconds: Int) {
+        val current = set.durationSeconds ?: 0
+        val next = (current + deltaSeconds).coerceIn(0, 86400)
+        viewModelScope.launch {
+            workoutRepository.updateSetValues(
+                setId = set.id,
+                weightKg = set.weightKg,
+                reps = set.reps,
+                durationSeconds = next,
                 setType = set.setType,
                 rpe = set.rpe,
             )
@@ -174,6 +206,7 @@ class ActiveWorkoutViewModel @Inject constructor(
                 setId = set.id,
                 weightKg = set.weightKg,
                 reps = set.reps,
+                durationSeconds = set.durationSeconds,
                 setType = setType,
                 rpe = set.rpe,
             )

@@ -56,6 +56,7 @@ data class RoutineWithExercises(
                     targetRepsMin = relation.item.targetRepsMin,
                     targetRepsMax = relation.item.targetRepsMax,
                     targetRestSeconds = relation.item.targetRestSeconds,
+                    targetDurationSeconds = relation.item.targetDurationSeconds,
                 )
             },
     )

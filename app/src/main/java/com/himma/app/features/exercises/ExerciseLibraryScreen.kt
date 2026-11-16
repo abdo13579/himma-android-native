@@ -58,6 +58,7 @@ import com.himma.app.R
 import com.himma.app.domain.model.AppLanguage
 import com.himma.app.domain.model.EquipmentType
 import com.himma.app.domain.model.Exercise
+import com.himma.app.domain.model.ExerciseType
 import com.himma.app.domain.model.MuscleGroup
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -322,6 +323,12 @@ private fun ExerciseListItemCard(
                 ) {
                     MetadataPill(text = stringResource(id = exercise.primaryMuscle.labelRes()))
                     MetadataPill(text = stringResource(id = exercise.equipment.labelRes()))
+                    if (exercise.exerciseType == ExerciseType.TIME) {
+                        MetadataPill(
+                            text = stringResource(id = R.string.exercise_type_time),
+                            highlighted = true,
+                        )
+                    }
                     if (exercise.isCustom) {
                         MetadataPill(
                             text = stringResource(id = R.string.exercises_custom_badge),

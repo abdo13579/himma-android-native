@@ -88,6 +88,7 @@ class RoomRoutineRepository @Inject constructor(
                 targetRepsMin = draft.targetRepsMin,
                 targetRepsMax = draft.targetRepsMax,
                 targetRestSeconds = draft.targetRestSeconds,
+                targetDurationSeconds = draft.targetDurationSeconds,
             )
         }
 
@@ -126,6 +127,7 @@ class RoomRoutineRepository @Inject constructor(
                     targetRepsMin = relation.item.targetRepsMin,
                     targetRepsMax = relation.item.targetRepsMax,
                     targetRestSeconds = relation.item.targetRestSeconds,
+                    targetDurationSeconds = relation.item.targetDurationSeconds,
                 )
             }
 

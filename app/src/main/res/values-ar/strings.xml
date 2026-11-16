@@ -306,4 +306,20 @@
     <string name="update_permission_grant">فتح الإعدادات</string>
     <string name="update_banner_available">يتوفر إصدار جديد من هِمّة (%s)</string>
     <string name="update_banner_action">عرض</string>
+
+    <!-- Exercise Type & Duration -->
+    <string name="exercise_type_label">نوع التمرين</string>
+    <string name="exercise_type_reps">تكرار وعدّات</string>
+    <string name="exercise_type_time">مدة زمنية</string>
+    <string name="workout_duration_label">المدة</string>
+    <string name="workout_minutes_label">دقيقة</string>
+    <string name="workout_seconds_label">ثانية</string>
+    <string name="routine_editor_duration_label">المدة المستهدفة</string>
+    <string name="workout_previous_time_hint">السابق: %1$s</string>
+    <string name="routine_editor_create_custom_exercise">تمرين مخصص</string>
+    <string name="routine_picker_create_custom">إنشاء تمرين مخصص</string>
+    <string name="routine_picker_create_custom_desc">أضف تمريناً جديداً لروتينك وقاعدة تمارينك المحلية</string>
+    <string name="routine_picker_create_and_add">حفظ وإضافة للروتين</string>
+    <string name="routine_picker_empty_with_custom">لم يتم العثور على تمارين مطابقة. هل تود إنشاء تمرين مخصص؟</string>
+    <string name="routine_picker_create_named_custom">إنشاء \"%1$s\" كتمرين مخصص</string>
 </resources>

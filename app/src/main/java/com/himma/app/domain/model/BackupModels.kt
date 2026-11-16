@@ -74,6 +74,7 @@ data class BackupExercise(
     val isCustom: Boolean = true,
     val createdAt: Long = 0L,
     val updatedAt: Long = 0L,
+    val exerciseType: String = "REPS",
 )
 
 @Serializable
@@ -97,6 +98,7 @@ data class BackupRoutineExercise(
     val targetRepsMin: Int = 8,
     val targetRepsMax: Int = 12,
     val targetRestSeconds: Int = 90,
+    val targetDurationSeconds: Int? = null,
 )
 
 @Serializable
@@ -122,6 +124,7 @@ data class BackupWorkoutSet(
     val restSeconds: Int = 90,
     val weightKg: Double? = null,
     val reps: Int? = null,
+    val durationSeconds: Int? = null,
     val rpe: Double? = null,
     val setType: String = SetType.NORMAL.name,
     val isCompleted: Boolean = false,

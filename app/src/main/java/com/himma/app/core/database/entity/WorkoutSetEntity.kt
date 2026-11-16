@@ -45,6 +45,8 @@ data class WorkoutSetEntity(
     @ColumnInfo(name = "weight_kg")
     val weightKg: Double?,
     val reps: Int?,
+    @ColumnInfo(name = "duration_seconds")
+    val durationSeconds: Int? = null,
     val rpe: Double?,
     @ColumnInfo(name = "set_type")
     val setType: String,
@@ -64,6 +66,7 @@ data class WorkoutSetEntity(
         restSeconds = restSeconds,
         weightKg = weightKg,
         reps = reps,
+        durationSeconds = durationSeconds,
         rpe = rpe,
         setType = SetType.fromNameOrDefault(setType),
         isCompleted = isCompleted,

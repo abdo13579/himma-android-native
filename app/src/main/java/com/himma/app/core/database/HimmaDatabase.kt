@@ -41,7 +41,7 @@ abstract class HimmaDatabase : RoomDatabase() {
 
     companion object {
         const val DATABASE_NAME = "himma.db"
-        const val DATABASE_VERSION = 7
+        const val DATABASE_VERSION = 8
 
         val MIGRATION_1_2 = object : Migration(1, 2) {
             override fun migrate(db: SupportSQLiteDatabase) {
@@ -246,6 +246,28 @@ abstract class HimmaDatabase : RoomDatabase() {
             }
         }
 
+        val MIGRATION_7_8 = object : Migration(7, 8) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE `exercises` ADD COLUMN `exercise_type` TEXT NOT NULL DEFAULT 'REPS'")
+                db.execSQL("ALTER TABLE `routine_exercises` ADD COLUMN `target_duration_seconds` INTEGER")
+                db.execSQL("ALTER TABLE `workout_sets` ADD COLUMN `duration_seconds` INTEGER")
+
+                val timeIds = listOf(
+                    "running", "walking", "cycling", "rowing", "stair-climber", "elliptical",
+                    "assault-bike", "treadmill-incline-walk", "jump-rope", "battle-ropes",
+                    "high-knees", "jumping-jack", "seal-jack", "lateral-shuffle",
+                    "plank", "side-plank", "bear-plank", "copenhagen-plank", "wall-sit",
+                    "dead-hang", "active-hang", "hollow-body-hold", "superman-hold", "l-sit-hold",
+                    "cable-pallof-hold", "cat-cow-stretch", "doorway-chest-stretch",
+                    "kneeling-hip-flexor-stretch", "hamstring-stretch", "standing-quad-stretch",
+                    "cross-body-shoulder-stretch", "wall-calf-stretch", "butterfly-stretch",
+                    "worlds-greatest-stretch", "childs-pose", "seated-forward-fold-stretch",
+                )
+                val inClause = timeIds.joinToString("','", "'", "'")
+                db.execSQL("UPDATE `exercises` SET `exercise_type` = 'TIME' WHERE `id` IN ($inClause)")
+            }
+        }
+
         /**
          * Explicit migrations array; new specs append versioned migrations here
          * to guarantee zero data loss across updates.
@@ -257,6 +279,7 @@ abstract class HimmaDatabase : RoomDatabase() {
             MIGRATION_4_5,
             MIGRATION_5_6,
             MIGRATION_6_7,
+            MIGRATION_7_8,
         )
     }
 }

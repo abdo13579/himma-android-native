@@ -55,7 +55,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.himma.app.R
 import com.himma.app.domain.model.AppLanguage
+import com.himma.app.domain.model.ExerciseType
 import com.himma.app.domain.model.Routine
+import com.himma.app.domain.model.WorkoutMath
 import com.himma.app.features.exercises.labelRes
 
 @Composable
@@ -272,8 +274,15 @@ private fun RoutineCard(
                                 modifier = Modifier.weight(1f),
                             )
                             Spacer(modifier = Modifier.width(8.dp))
+                            val targetSummary = if (item.exercise.exerciseType == ExerciseType.TIME) {
+                                val dur = item.targetDurationSeconds ?: 60
+                                val durStr = WorkoutMath.formatTimer(dur)
+                                if (item.targetSets > 1) "${item.targetSets} × $durStr" else durStr
+                            } else {
+                                "${item.targetSets} × ${item.formattedRepsRange()}"
+                            }
                             Text(
-                                text = "${item.targetSets} × ${item.formattedRepsRange()}",
+                                text = targetSummary,
                                 style = MaterialTheme.typography.labelMedium,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                             )

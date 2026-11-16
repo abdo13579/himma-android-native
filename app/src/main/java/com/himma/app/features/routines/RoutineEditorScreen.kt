@@ -1,6 +1,7 @@
 package com.himma.app.features.routines
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -31,8 +32,10 @@ import androidx.compose.material.icons.rounded.CheckCircle
 import androidx.compose.material.icons.rounded.Clear
 import androidx.compose.material.icons.rounded.DeleteOutline
 import androidx.compose.material.icons.rounded.DragHandle
+import androidx.compose.material.icons.rounded.FitnessCenter
 import androidx.compose.material.icons.rounded.Remove
 import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedCard
@@ -83,9 +86,13 @@ import com.himma.app.R
 import com.himma.app.domain.model.AppLanguage
 import com.himma.app.domain.model.EquipmentType
 import com.himma.app.domain.model.Exercise
+import com.himma.app.domain.model.ExerciseType
 import com.himma.app.domain.model.MuscleGroup
 import com.himma.app.domain.model.RoutineExercise
 import com.himma.app.domain.model.RoutineExerciseDraft
+import com.himma.app.domain.model.WorkoutMath
+import com.himma.app.features.exercises.CustomExerciseBottomSheet
+import com.himma.app.features.exercises.ExerciseDetailBottomSheet
 import com.himma.app.features.exercises.icon
 import com.himma.app.features.exercises.labelRes
 
@@ -108,6 +115,9 @@ fun RoutineEditorScreen(
 
     var draggingItemId by remember { mutableStateOf<String?>(null) }
     var draggingOffsetY by remember { mutableFloatStateOf(0f) }
+    var inspectingExercise by remember { mutableStateOf<Exercise?>(null) }
+    var showCreateCustomExercise by remember { mutableStateOf(false) }
+    var customExerciseInitialName by remember { mutableStateOf("") }
 
     val currentExercises by rememberUpdatedState(form.exercises)
     val onMoveCallback by rememberUpdatedState(viewModel::moveExercise)
@@ -181,6 +191,10 @@ fun RoutineEditorScreen(
                         onTitleChange = viewModel::updateTitle,
                         onNotesChange = viewModel::updateNotes,
                         onAddExerciseClick = { viewModel.setPickerOpen(true) },
+                        onCreateCustomExerciseClick = {
+                            customExerciseInitialName = ""
+                            showCreateCustomExercise = true
+                        },
                     )
                 }
 
@@ -240,7 +254,9 @@ fun RoutineEditorScreen(
                             onAdjustSets = { delta -> viewModel.adjustSets(draft.itemId, delta) },
                             onAdjustRepsMin = { delta -> viewModel.adjustRepsMin(draft.itemId, delta) },
                             onAdjustRepsMax = { delta -> viewModel.adjustRepsMax(draft.itemId, delta) },
+                            onAdjustDuration = { delta -> viewModel.adjustDurationSeconds(draft.itemId, delta) },
                             onAdjustRest = { delta -> viewModel.adjustRestSeconds(draft.itemId, delta) },
+                            onExerciseClick = { inspectingExercise = draft.exercise },
                         )
                     }
                 }
@@ -261,7 +277,35 @@ fun RoutineEditorScreen(
             onSelectEquipment = viewModel::selectPickerEquipment,
             onClearFilters = viewModel::clearPickerFilters,
             onToggleExercise = viewModel::toggleExerciseFromPicker,
+            onExerciseClick = { inspectingExercise = it },
+            onCreateCustomExercise = { initialName ->
+                customExerciseInitialName = initialName
+                showCreateCustomExercise = true
+            },
             onDismiss = { viewModel.setPickerOpen(false) },
+        )
+    }
+
+    inspectingExercise?.let { exercise ->
+        ExerciseDetailBottomSheet(
+            exercise = exercise,
+            language = state.language,
+            onDismiss = { inspectingExercise = null },
+        )
+    }
+
+    if (showCreateCustomExercise) {
+        CustomExerciseBottomSheet(
+            initialName = customExerciseInitialName,
+            onDismiss = {
+                showCreateCustomExercise = false
+                customExerciseInitialName = ""
+            },
+            onSaved = { newExerciseId ->
+                showCreateCustomExercise = false
+                customExerciseInitialName = ""
+                viewModel.addCustomExerciseById(newExerciseId)
+            },
         )
     }
 }
@@ -314,6 +358,7 @@ private fun RoutineHeaderFields(
     onTitleChange: (String) -> Unit,
     onNotesChange: (String) -> Unit,
     onAddExerciseClick: () -> Unit,
+    onCreateCustomExerciseClick: () -> Unit,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         OutlinedTextField(
@@ -341,12 +386,11 @@ private fun RoutineHeaderFields(
             modifier = Modifier.fillMaxWidth(),
         )
 
-        Row(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 4.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
+            verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             Text(
                 text = stringResource(id = R.string.routine_editor_exercises_header, exerciseCount),
@@ -354,17 +398,47 @@ private fun RoutineHeaderFields(
                 fontWeight = FontWeight.SemiBold,
             )
 
-            FilledTonalButton(
-                onClick = onAddExerciseClick,
-                modifier = Modifier.heightIn(min = 48.dp),
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                Icon(
-                    imageVector = Icons.Rounded.Add,
-                    contentDescription = null,
-                    modifier = Modifier.size(18.dp),
-                )
-                Spacer(modifier = Modifier.width(6.dp))
-                Text(stringResource(id = R.string.routine_editor_add_exercise))
+                FilledTonalButton(
+                    onClick = onAddExerciseClick,
+                    modifier = Modifier
+                        .weight(1f)
+                        .heightIn(min = 48.dp),
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.Add,
+                        contentDescription = null,
+                        modifier = Modifier.size(18.dp),
+                    )
+                    Spacer(modifier = Modifier.width(6.dp))
+                    Text(
+                        text = stringResource(id = R.string.routine_editor_add_exercise),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                }
+
+                OutlinedButton(
+                    onClick = onCreateCustomExerciseClick,
+                    modifier = Modifier
+                        .weight(1f)
+                        .heightIn(min = 48.dp),
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.FitnessCenter,
+                        contentDescription = null,
+                        modifier = Modifier.size(18.dp),
+                    )
+                    Spacer(modifier = Modifier.width(6.dp))
+                    Text(
+                        text = stringResource(id = R.string.routine_editor_create_custom_exercise),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                }
             }
         }
     }
@@ -383,7 +457,9 @@ private fun RoutineExerciseEditorCard(
     onAdjustSets: (Int) -> Unit,
     onAdjustRepsMin: (Int) -> Unit,
     onAdjustRepsMax: (Int) -> Unit,
+    onAdjustDuration: (Int) -> Unit,
     onAdjustRest: (Int) -> Unit,
+    onExerciseClick: () -> Unit,
 ) {
     val context = LocalContext.current
     val thumbUri = draft.exercise.frameAssetUri(0)
@@ -447,7 +523,8 @@ private fun RoutineExerciseEditorCard(
                             } else {
                                 MaterialTheme.colorScheme.primaryContainer
                             },
-                        ),
+                        )
+                        .clickable { onExerciseClick() },
                     contentAlignment = Alignment.Center,
                 ) {
                     if (thumbUri != null) {
@@ -515,23 +592,41 @@ private fun RoutineExerciseEditorCard(
                 onIncrease = { onAdjustSets(1) },
             )
 
-            StepperSettingRow(
-                label = stringResource(id = R.string.routine_editor_reps_min_label),
-                valueText = draft.targetRepsMin.toString(),
-                canDecrease = draft.targetRepsMin > RoutineExercise.MIN_REPS,
-                canIncrease = draft.targetRepsMin < RoutineExercise.MAX_REPS,
-                onDecrease = { onAdjustRepsMin(-1) },
-                onIncrease = { onAdjustRepsMin(1) },
-            )
+            if (draft.exercise.exerciseType == ExerciseType.TIME) {
+                val duration = draft.targetDurationSeconds ?: 60
+                StepperSettingRow(
+                    label = stringResource(id = R.string.routine_editor_duration_label),
+                    valueText = WorkoutMath.formatTimer(duration),
+                    canDecrease = duration > RoutineExercise.MIN_DURATION_SECONDS,
+                    canIncrease = duration < RoutineExercise.MAX_DURATION_SECONDS,
+                    onDecrease = {
+                        val step = if (duration > 60) -60 else -15
+                        onAdjustDuration(step)
+                    },
+                    onIncrease = {
+                        val step = if (duration >= 60) 60 else 15
+                        onAdjustDuration(step)
+                    },
+                )
+            } else {
+                StepperSettingRow(
+                    label = stringResource(id = R.string.routine_editor_reps_min_label),
+                    valueText = draft.targetRepsMin.toString(),
+                    canDecrease = draft.targetRepsMin > RoutineExercise.MIN_REPS,
+                    canIncrease = draft.targetRepsMin < RoutineExercise.MAX_REPS,
+                    onDecrease = { onAdjustRepsMin(-1) },
+                    onIncrease = { onAdjustRepsMin(1) },
+                )
 
-            StepperSettingRow(
-                label = stringResource(id = R.string.routine_editor_reps_max_label),
-                valueText = draft.targetRepsMax.toString(),
-                canDecrease = draft.targetRepsMax > RoutineExercise.MIN_REPS,
-                canIncrease = draft.targetRepsMax < RoutineExercise.MAX_REPS,
-                onDecrease = { onAdjustRepsMax(-1) },
-                onIncrease = { onAdjustRepsMax(1) },
-            )
+                StepperSettingRow(
+                    label = stringResource(id = R.string.routine_editor_reps_max_label),
+                    valueText = draft.targetRepsMax.toString(),
+                    canDecrease = draft.targetRepsMax > RoutineExercise.MIN_REPS,
+                    canIncrease = draft.targetRepsMax < RoutineExercise.MAX_REPS,
+                    onDecrease = { onAdjustRepsMax(-1) },
+                    onIncrease = { onAdjustRepsMax(1) },
+                )
+            }
 
             StepperSettingRow(
                 label = stringResource(id = R.string.routine_editor_rest_label),
@@ -617,6 +712,8 @@ private fun ExercisePickerBottomSheet(
     onSelectEquipment: (EquipmentType?) -> Unit,
     onClearFilters: () -> Unit,
     onToggleExercise: (Exercise) -> Unit,
+    onExerciseClick: (Exercise) -> Unit,
+    onCreateCustomExercise: (String) -> Unit,
     onDismiss: () -> Unit,
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -745,16 +842,41 @@ private fun ExercisePickerBottomSheet(
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     Text(
-                        text = stringResource(id = R.string.exercises_empty_title),
+                        text = if (filter.query.isNotBlank()) {
+                            stringResource(id = R.string.routine_picker_empty_with_custom)
+                        } else {
+                            stringResource(id = R.string.exercises_empty_title)
+                        },
                         style = MaterialTheme.typography.titleMedium,
                         textAlign = TextAlign.Center,
                     )
-                    Spacer(modifier = Modifier.height(12.dp))
-                    OutlinedButton(
-                        onClick = onClearFilters,
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Button(
+                        onClick = { onCreateCustomExercise(filter.query) },
                         modifier = Modifier.heightIn(min = 48.dp),
                     ) {
-                        Text(stringResource(id = R.string.exercises_reset_filters))
+                        Icon(
+                            imageVector = Icons.Rounded.Add,
+                            contentDescription = null,
+                            modifier = Modifier.size(18.dp),
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = if (filter.query.isNotBlank()) {
+                                stringResource(id = R.string.routine_picker_create_named_custom, filter.query)
+                            } else {
+                                stringResource(id = R.string.routine_picker_create_custom)
+                            },
+                        )
+                    }
+                    if (filter.selectedMuscle != null || filter.selectedEquipment != null || filter.query.isNotEmpty()) {
+                        Spacer(modifier = Modifier.height(8.dp))
+                        OutlinedButton(
+                            onClick = onClearFilters,
+                            modifier = Modifier.heightIn(min = 48.dp),
+                        ) {
+                            Text(stringResource(id = R.string.exercises_reset_filters))
+                        }
                     }
                 }
             } else {
@@ -763,6 +885,55 @@ private fun ExercisePickerBottomSheet(
                     contentPadding = PaddingValues(16.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
+                    item(key = "create_custom_action_card") {
+                        Surface(
+                            onClick = { onCreateCustomExercise(filter.query) },
+                            color = MaterialTheme.colorScheme.surfaceContainerHigh,
+                            shape = MaterialTheme.shapes.medium,
+                            modifier = Modifier.fillMaxWidth(),
+                        ) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .heightIn(min = 52.dp)
+                                    .padding(horizontal = 14.dp, vertical = 8.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(40.dp)
+                                        .clip(RoundedCornerShape(10.dp))
+                                        .background(MaterialTheme.colorScheme.primaryContainer),
+                                    contentAlignment = Alignment.Center,
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Rounded.Add,
+                                        contentDescription = null,
+                                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                                    )
+                                }
+                                Spacer(modifier = Modifier.width(12.dp))
+                                Column(modifier = Modifier.weight(1f)) {
+                                    Text(
+                                        text = if (filter.query.isNotBlank()) {
+                                            stringResource(id = R.string.routine_picker_create_named_custom, filter.query)
+                                        } else {
+                                            stringResource(id = R.string.routine_picker_create_custom)
+                                        },
+                                        style = MaterialTheme.typography.titleSmall,
+                                        fontWeight = FontWeight.SemiBold,
+                                        color = MaterialTheme.colorScheme.primary,
+                                    )
+                                    Text(
+                                        text = stringResource(id = R.string.routine_picker_create_custom_desc),
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    )
+                                }
+                            }
+                        }
+                    }
+
                     items(
                         items = exercises,
                         key = { it.id },
@@ -796,7 +967,8 @@ private fun ExercisePickerBottomSheet(
                                             } else {
                                                 MaterialTheme.colorScheme.primaryContainer
                                             },
-                                        ),
+                                        )
+                                        .clickable { onExerciseClick(exercise) },
                                     contentAlignment = Alignment.Center,
                                 ) {
                                     if (thumbUri != null) {

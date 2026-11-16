@@ -7,6 +7,7 @@ import com.himma.app.core.database.entity.WorkoutEntity
 import com.himma.app.core.database.entity.WorkoutSetEntity
 import com.himma.app.domain.model.BrzyckiMath
 import com.himma.app.domain.model.Exercise
+import com.himma.app.domain.model.ExerciseType
 import com.himma.app.domain.model.FinishedWorkoutSummary
 import com.himma.app.domain.model.PersonalRecord
 import com.himma.app.domain.model.PreviousSetHint
@@ -68,6 +69,7 @@ interface WorkoutRepository {
         setId: String,
         weightKg: Double?,
         reps: Int?,
+        durationSeconds: Int? = null,
         setType: SetType,
         rpe: Double? = null,
     )
@@ -131,6 +133,11 @@ class RoomWorkoutRepository @Inject constructor(
                     userDefaultRestSeconds = userDefaultRestSeconds,
                 )
                 val setsCount = routineEx.targetSets.coerceIn(1, 20)
+                val initialDuration = if (routineEx.exercise.exerciseType == ExerciseType.TIME) {
+                    routineEx.targetDurationSeconds ?: 60
+                } else {
+                    null
+                }
                 repeat(setsCount) { setIdx ->
                     add(
                         WorkoutSetEntity(
@@ -142,6 +149,7 @@ class RoomWorkoutRepository @Inject constructor(
                             restSeconds = resolvedRest,
                             weightKg = null,
                             reps = null,
+                            durationSeconds = initialDuration,
                             rpe = null,
                             setType = SetType.NORMAL.name,
                             isCompleted = false,
@@ -190,7 +198,9 @@ class RoomWorkoutRepository @Inject constructor(
     ) {
         withContext(Dispatchers.IO) {
             val nextOrder = workoutDao.getMaxExerciseOrder(workoutId) + 1
-            val sets = (0 until targetSets.coerceIn(1, 10)).map { setIdx ->
+            val duration = if (exercise.exerciseType == ExerciseType.TIME) 60 else null
+            val setsCount = if (exercise.exerciseType == ExerciseType.TIME) 1 else targetSets.coerceIn(1, 10)
+            val sets = (0 until setsCount).map { setIdx ->
                 WorkoutSetEntity(
                     id = UUID.randomUUID().toString(),
                     workoutId = workoutId,
@@ -200,6 +210,7 @@ class RoomWorkoutRepository @Inject constructor(
                     restSeconds = restSeconds.coerceIn(15, 600),
                     weightKg = null,
                     reps = null,
+                    durationSeconds = duration,
                     rpe = null,
                     setType = SetType.NORMAL.name,
                     isCompleted = false,
@@ -219,6 +230,8 @@ class RoomWorkoutRepository @Inject constructor(
     ) {
         withContext(Dispatchers.IO) {
             val nextSetIdx = workoutDao.getMaxSetIndexForExercise(workoutId, exerciseId) + 1
+            val workout = workoutDao.getWorkoutByIdOnce(workoutId)
+            val prevSet = workout?.sets?.map { it.set }?.filter { it.exerciseId == exerciseId }?.lastOrNull()
             workoutDao.upsertSet(
                 WorkoutSetEntity(
                     id = UUID.randomUUID().toString(),
@@ -229,6 +242,7 @@ class RoomWorkoutRepository @Inject constructor(
                     restSeconds = restSeconds.coerceIn(15, 600),
                     weightKg = null,
                     reps = null,
+                    durationSeconds = prevSet?.durationSeconds,
                     rpe = null,
                     setType = SetType.NORMAL.name,
                     isCompleted = false,
@@ -255,6 +269,7 @@ class RoomWorkoutRepository @Inject constructor(
         setId: String,
         weightKg: Double?,
         reps: Int?,
+        durationSeconds: Int?,
         setType: SetType,
         rpe: Double?,
     ) {
@@ -264,6 +279,7 @@ class RoomWorkoutRepository @Inject constructor(
                 existing.copy(
                     weightKg = weightKg,
                     reps = reps,
+                    durationSeconds = durationSeconds,
                     setType = setType.name,
                     rpe = rpe,
                 ),
@@ -279,9 +295,10 @@ class RoomWorkoutRepository @Inject constructor(
             val nextCompleted = !existing.isCompleted
             var updatedWeight = existing.weightKg
             var updatedReps = existing.reps
+            var updatedDuration = existing.durationSeconds
 
             // Auto-fill from previous session's completed set at the same setIndex if blank.
-            if (nextCompleted && (updatedWeight == null || updatedReps == null)) {
+            if (nextCompleted && (updatedWeight == null || updatedReps == null || updatedDuration == null)) {
                 val previous = workoutDao.getPreviousCompletedSet(
                     exerciseId = existing.exerciseId,
                     setIndex = existing.setIndex,
@@ -289,6 +306,7 @@ class RoomWorkoutRepository @Inject constructor(
                 if (previous != null) {
                     if (updatedWeight == null) updatedWeight = previous.weightKg
                     if (updatedReps == null) updatedReps = previous.reps
+                    if (updatedDuration == null) updatedDuration = previous.durationSeconds
                 }
             }
 
@@ -317,6 +335,7 @@ class RoomWorkoutRepository @Inject constructor(
                 existing.copy(
                     weightKg = updatedWeight,
                     reps = updatedReps,
+                    durationSeconds = updatedDuration,
                     isCompleted = nextCompleted,
                     isPr = isLivePr,
                     completedAt = if (nextCompleted) System.currentTimeMillis() else null,
@@ -346,6 +365,7 @@ class RoomWorkoutRepository @Inject constructor(
                         setIndex = row.setIndex,
                         weightKg = row.weightKg,
                         reps = row.reps,
+                        durationSeconds = row.durationSeconds,
                     )
                 }
             }

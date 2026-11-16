@@ -141,6 +141,7 @@ class LocalBackupRepository @Inject constructor(
                     targetRepsMin = it.targetRepsMin,
                     targetRepsMax = it.targetRepsMax,
                     targetRestSeconds = it.targetRestSeconds,
+                    targetDurationSeconds = it.targetDurationSeconds,
                 )
             },
             workouts = workouts.map {
@@ -166,6 +167,7 @@ class LocalBackupRepository @Inject constructor(
                     restSeconds = it.restSeconds,
                     weightKg = it.weightKg,
                     reps = it.reps,
+                    durationSeconds = it.durationSeconds,
                     rpe = it.rpe,
                     setType = it.setType,
                     isCompleted = it.isCompleted,
@@ -534,6 +536,7 @@ class LocalBackupRepository @Inject constructor(
         isCustom = isCustom,
         createdAt = createdAt,
         updatedAt = updatedAt,
+        exerciseType = exerciseType,
     )
 
     private fun BackupExercise.toEntity(): ExerciseEntity {
@@ -558,6 +561,7 @@ class LocalBackupRepository @Inject constructor(
             isCustom = true,
             createdAt = createdAt,
             updatedAt = updatedAt,
+            exerciseType = exerciseType,
         )
     }
 
@@ -580,6 +584,7 @@ class LocalBackupRepository @Inject constructor(
         targetRepsMin = targetRepsMin.coerceAtLeast(1),
         targetRepsMax = targetRepsMax.coerceAtLeast(targetRepsMin.coerceAtLeast(1)),
         targetRestSeconds = targetRestSeconds.coerceIn(15, 600),
+        targetDurationSeconds = targetDurationSeconds,
     )
 
     private fun BackupWorkout.toEntity(validRoutineIds: Set<String>): WorkoutEntity = WorkoutEntity(
@@ -603,6 +608,7 @@ class LocalBackupRepository @Inject constructor(
         restSeconds = restSeconds.coerceIn(15, 600),
         weightKg = weightKg,
         reps = reps,
+        durationSeconds = durationSeconds,
         rpe = rpe,
         setType = SetType.fromNameOrDefault(setType).name,
         isCompleted = isCompleted,

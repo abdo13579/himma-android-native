@@ -3,6 +3,7 @@ package com.himma.app.features.exercises
 import com.himma.app.core.database.ExerciseRepository
 import com.himma.app.domain.model.EquipmentType
 import com.himma.app.domain.model.Exercise
+import com.himma.app.domain.model.ExerciseType
 import com.himma.app.domain.model.MuscleGroup
 import com.himma.app.domain.text.ArabicTextNormalizer
 import com.himma.app.features.onboarding.FakeUserPreferencesRepository
@@ -176,6 +177,7 @@ class FakeExerciseRepository : ExerciseRepository {
         defaultRestSeconds: Int,
         instructionsAr: String,
         instructionsEn: String,
+        exerciseType: ExerciseType,
     ): String {
         val id = existingId ?: "custom_1"
         val resolvedAr = nameAr.trim().ifEmpty { nameEn.trim() }
@@ -194,6 +196,7 @@ class FakeExerciseRepository : ExerciseRepository {
             isCustom = true,
             createdAt = 10L,
             updatedAt = 20L,
+            exerciseType = exerciseType,
         )
         items.value = items.value.filterNot { it.id == id } + created
         return id

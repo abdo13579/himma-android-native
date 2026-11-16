@@ -18,6 +18,7 @@ data class PreviousSetHint(
     val setIndex: Int,
     val weightKg: Double?,
     val reps: Int?,
+    val durationSeconds: Int? = null,
 )
 
 data class WorkoutSet(
@@ -29,6 +30,7 @@ data class WorkoutSet(
     val restSeconds: Int,
     val weightKg: Double?,
     val reps: Int?,
+    val durationSeconds: Int? = null,
     val rpe: Double? = null,
     val setType: SetType = SetType.NORMAL,
     val isCompleted: Boolean = false,

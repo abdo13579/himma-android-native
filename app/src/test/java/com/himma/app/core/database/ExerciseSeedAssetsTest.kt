@@ -37,11 +37,38 @@ class ExerciseSeedAssetsTest {
                 equipment in EquipmentType.coreTypes,
             )
 
+            assertTrue("Invalid exerciseType for ${dto.id}", dto.exerciseType in listOf("REPS", "TIME"))
+
             assertFalse("Missing localMediaKey for ${dto.id}", dto.localMediaKey.isNullOrBlank())
             val frame0 = File(assetsDir, "exercises/${dto.localMediaKey}/0.webp")
             val frame1 = File(assetsDir, "exercises/${dto.localMediaKey}/1.webp")
             assertTrue("Missing 0.webp for ${dto.id}", frame0.exists() && frame0.length() > 0L)
             assertTrue("Missing 1.webp for ${dto.id}", frame1.exists() && frame1.length() > 0L)
         }
+    }
+
+    @Test
+    fun `cardio and hold exercises are configured as TIME type`() {
+        val assetsDir = listOf(
+            File("src/main/assets"),
+            File("app/src/main/assets"),
+        ).firstOrNull { File(it, ExerciseSeedLoader.SEED_ASSET_FILE).exists() }
+            ?: error("Unable to locate assets directory")
+
+        val seedFile = File(assetsDir, ExerciseSeedLoader.SEED_ASSET_FILE)
+        val entries = json.decodeFromString<List<SeedExerciseDto>>(seedFile.readText())
+
+        val byId = entries.associateBy { it.id }
+        assertEquals("TIME", byId["running"]?.exerciseType)
+        assertEquals("TIME", byId["cycling"]?.exerciseType)
+        assertEquals("TIME", byId["walking"]?.exerciseType)
+        assertEquals("TIME", byId["rowing"]?.exerciseType)
+        assertEquals("TIME", byId["plank"]?.exerciseType)
+        assertEquals("TIME", byId["side-plank"]?.exerciseType)
+        assertEquals("TIME", byId["dead-hang"]?.exerciseType)
+
+        assertEquals("REPS", byId["bench-press"]?.exerciseType)
+        assertEquals("REPS", byId["squat"]?.exerciseType)
+        assertEquals("REPS", byId["deadlift"]?.exerciseType)
     }
 }

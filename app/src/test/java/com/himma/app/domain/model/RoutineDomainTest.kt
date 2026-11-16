@@ -88,4 +88,36 @@ class RoutineDomainTest {
         assertEquals(listOf(MuscleGroup.CHEST, MuscleGroup.ARMS), routine.primaryMuscles)
         assertEquals("6–8", routine.exercises.first().formattedRepsRange())
     }
+
+    @Test
+    fun `time-based exercise in draft normalizes duration`() {
+        val timeEx = Exercise(
+            id = "running",
+            nameEn = "Running",
+            nameAr = "الجري",
+            primaryMuscle = MuscleGroup.LEGS,
+            secondaryMuscles = emptyList(),
+            equipment = EquipmentType.MACHINE,
+            instructionsEn = "",
+            instructionsAr = "",
+            localMediaKey = "running",
+            defaultRestSeconds = 60,
+            isCustom = false,
+            createdAt = 1L,
+            updatedAt = 1L,
+            exerciseType = ExerciseType.TIME,
+        )
+
+        val draft = RoutineExerciseDraft(
+            itemId = "item-time",
+            exercise = timeEx,
+            targetDurationSeconds = 1200,
+        )
+
+        assertEquals(1, draft.targetSets)
+        assertEquals(1200, draft.targetDurationSeconds)
+
+        val normalized = draft.copy(targetDurationSeconds = 99999).normalized()
+        assertEquals(RoutineExercise.MAX_DURATION_SECONDS, normalized.targetDurationSeconds)
+    }
 }

@@ -1,6 +1,8 @@
 package com.himma.app.features.routines
 
 import androidx.lifecycle.SavedStateHandle
+import com.himma.app.domain.model.EquipmentType
+import com.himma.app.domain.model.ExerciseType
 import com.himma.app.domain.model.MuscleGroup
 import com.himma.app.features.exercises.FakeExerciseRepository
 import com.himma.app.features.onboarding.FakeUserPreferencesRepository
@@ -108,6 +110,52 @@ class RoutineEditorViewModelTest {
         assertEquals(6, persisted.exercises[0].targetRepsMin)
         assertEquals(8, persisted.exercises[0].targetRepsMax)
         assertEquals(180, persisted.exercises[0].targetRestSeconds)
+
+        collector.cancel()
+    }
+
+    @Test
+    fun `editor adds custom exercise directly into routine when created during routine building`() = runTest {
+        val viewModel = RoutineEditorViewModel(
+            savedStateHandle = SavedStateHandle(),
+            routineRepository = fakeRoutineRepo,
+            exerciseRepository = fakeExerciseRepo,
+            userPreferencesRepository = fakePrefsRepo,
+        )
+        val collector = backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) {
+            viewModel.uiState.collect()
+        }
+        advanceUntilIdle()
+
+        // Create a custom exercise in fake repo
+        val customId = fakeExerciseRepo.saveCustomExercise(
+            existingId = null,
+            nameAr = "تمرين مخصص جديد",
+            nameEn = "New Custom Exercise",
+            primaryMuscle = MuscleGroup.CHEST,
+            secondaryMuscles = emptyList(),
+            equipment = EquipmentType.DUMBBELL,
+            defaultRestSeconds = 90,
+            instructionsAr = "",
+            instructionsEn = "",
+            exerciseType = ExerciseType.REPS,
+        )
+        advanceUntilIdle()
+
+        // Call addCustomExerciseById
+        viewModel.addCustomExerciseById(customId)
+        advanceUntilIdle()
+
+        val exercises = viewModel.uiState.value.form.exercises
+        assertEquals(1, exercises.size)
+        assertEquals(customId, exercises[0].exercise.id)
+        assertEquals("تمرين مخصص جديد", exercises[0].exercise.nameAr)
+        assertEquals(90, exercises[0].targetRestSeconds)
+
+        // Adding it again should be idempotent (no duplicate)
+        viewModel.addCustomExerciseById(customId)
+        advanceUntilIdle()
+        assertEquals(1, viewModel.uiState.value.form.exercises.size)
 
         collector.cancel()
     }

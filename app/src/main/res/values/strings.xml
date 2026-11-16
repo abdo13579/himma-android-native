@@ -306,4 +306,20 @@
     <string name="update_permission_grant">Open Settings</string>
     <string name="update_banner_available">A new version of Himma is available (%s)</string>
     <string name="update_banner_action">View</string>
+
+    <!-- Exercise Type & Duration -->
+    <string name="exercise_type_label">Exercise Type</string>
+    <string name="exercise_type_reps">Reps &amp; Sets</string>
+    <string name="exercise_type_time">Duration (Time)</string>
+    <string name="workout_duration_label">Duration</string>
+    <string name="workout_minutes_label">Min</string>
+    <string name="workout_seconds_label">Sec</string>
+    <string name="routine_editor_duration_label">Target Duration</string>
+    <string name="workout_previous_time_hint">Prev: %1$s</string>
+    <string name="routine_editor_create_custom_exercise">Custom Exercise</string>
+    <string name="routine_picker_create_custom">Create Custom Exercise</string>
+    <string name="routine_picker_create_custom_desc">Add a new exercise to your routine and local catalog</string>
+    <string name="routine_picker_create_and_add">Save &amp; Add to Routine</string>
+    <string name="routine_picker_empty_with_custom">No matching exercises found. Would you like to create a custom exercise?</string>
+    <string name="routine_picker_create_named_custom">Create \"%1$s\" as Custom Exercise</string>
 </resources>

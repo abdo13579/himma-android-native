@@ -226,13 +226,13 @@ class FakeWorkoutRepository : WorkoutRepository {
 
     override suspend fun removeExerciseFromWorkout(workoutId: String, exerciseId: String) {}
 
-    override suspend fun updateSetValues(setId: String, weightKg: Double?, reps: Int?, setType: SetType, rpe: Double?) {
+    override suspend fun updateSetValues(setId: String, weightKg: Double?, reps: Int?, durationSeconds: Int?, setType: SetType, rpe: Double?) {
         sessionFlow.value = sessionFlow.value?.let { current ->
             current.copy(
                 exercises = current.exercises.map { group ->
                     group.copy(
                         sets = group.sets.map { s ->
-                            if (s.id == setId) s.copy(weightKg = weightKg, reps = reps, setType = setType, rpe = rpe) else s
+                            if (s.id == setId) s.copy(weightKg = weightKg, reps = reps, durationSeconds = durationSeconds, setType = setType, rpe = rpe) else s
                         },
                     )
                 },

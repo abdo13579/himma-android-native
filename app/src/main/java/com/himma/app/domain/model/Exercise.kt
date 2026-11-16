@@ -38,6 +38,17 @@ enum class EquipmentType {
     }
 }
 
+enum class ExerciseType {
+    REPS,
+    TIME;
+
+    companion object {
+        fun fromNameOrDefault(raw: String?): ExerciseType {
+            return entries.firstOrNull { it.name.equals(raw?.trim(), ignoreCase = true) } ?: REPS
+        }
+    }
+}
+
 data class Exercise(
     val id: String,
     val nameEn: String,
@@ -52,6 +63,7 @@ data class Exercise(
     val isCustom: Boolean,
     val createdAt: Long,
     val updatedAt: Long,
+    val exerciseType: ExerciseType = ExerciseType.REPS,
 ) {
     fun primaryDisplayName(language: AppLanguage): String = when (language) {
         AppLanguage.ARABIC -> nameAr.ifBlank { nameEn }

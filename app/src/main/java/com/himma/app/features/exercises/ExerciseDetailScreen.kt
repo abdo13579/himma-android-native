@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -23,10 +24,13 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Edit
+import androidx.compose.material.icons.rounded.FitnessCenter
 import androidx.compose.material.icons.rounded.Pause
 import androidx.compose.material.icons.rounded.PlayArrow
+import androidx.compose.material.icons.rounded.Timer
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -38,6 +42,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
@@ -45,6 +50,7 @@ import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -59,6 +65,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -67,7 +74,9 @@ import coil.compose.AsyncImage
 import coil.imageLoader
 import coil.request.ImageRequest
 import com.himma.app.R
+import com.himma.app.domain.model.AppLanguage
 import com.himma.app.domain.model.Exercise
+import com.himma.app.domain.model.ExerciseType
 import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
@@ -160,196 +169,15 @@ fun ExerciseDetailScreen(
                 }
             }
             else -> {
-                Column(
+                ExerciseDetailContent(
+                    exercise = exercise,
+                    language = state.language,
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(innerPadding)
                         .verticalScroll(rememberScrollState())
                         .padding(horizontal = 16.dp, vertical = 12.dp),
-                    verticalArrangement = Arrangement.spacedBy(16.dp),
-                ) {
-                    // Local 2-frame (Start / End) open-source WebP demonstration (omitted for custom exercises)
-                    val frame0Uri = exercise.frameAssetUri(0)
-                    val frame1Uri = exercise.frameAssetUri(1)
-                    if (frame0Uri != null && frame1Uri != null) {
-                        ExerciseMediaShowcaseCard(
-                            exerciseId = exercise.id,
-                            frame0Uri = frame0Uri,
-                            frame1Uri = frame1Uri,
-                            title = exercise.primaryDisplayName(state.language),
-                        )
-                    }
-
-                    exercise.secondaryDisplayName(state.language)?.let { altName ->
-                        Text(
-                            text = altName,
-                            style = MaterialTheme.typography.titleSmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                    }
-
-                    // Target Muscles, Equipment & Default Rest Card
-                    ElevatedCard(modifier = Modifier.fillMaxWidth()) {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(16.dp),
-                            verticalArrangement = Arrangement.spacedBy(12.dp),
-                        ) {
-                            // Stylized Material 3 Equipment Icon Badge
-                            Surface(
-                                shape = RoundedCornerShape(12.dp),
-                                color = if (exercise.isCustom) {
-                                    MaterialTheme.colorScheme.primaryContainer
-                                } else {
-                                    MaterialTheme.colorScheme.secondaryContainer
-                                },
-                            ) {
-                                Row(
-                                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
-                                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                                    verticalAlignment = Alignment.CenterVertically,
-                                ) {
-                                    Surface(
-                                        shape = CircleShape,
-                                        color = if (exercise.isCustom) {
-                                            MaterialTheme.colorScheme.primary
-                                        } else {
-                                            MaterialTheme.colorScheme.secondary
-                                        },
-                                        modifier = Modifier.size(28.dp),
-                                    ) {
-                                        Box(contentAlignment = Alignment.Center) {
-                                            Icon(
-                                                imageVector = exercise.equipment.icon(),
-                                                contentDescription = null,
-                                                tint = if (exercise.isCustom) {
-                                                    MaterialTheme.colorScheme.onPrimary
-                                                } else {
-                                                    MaterialTheme.colorScheme.onSecondary
-                                                },
-                                                modifier = Modifier.size(16.dp),
-                                            )
-                                        }
-                                    }
-                                    Column {
-                                        Text(
-                                            text = stringResource(id = exercise.equipment.labelRes()),
-                                            style = MaterialTheme.typography.labelLarge,
-                                            color = if (exercise.isCustom) {
-                                                MaterialTheme.colorScheme.onPrimaryContainer
-                                            } else {
-                                                MaterialTheme.colorScheme.onSecondaryContainer
-                                            },
-                                        )
-                                        if (exercise.isCustom) {
-                                            Text(
-                                                text = stringResource(id = R.string.exercises_custom_badge),
-                                                style = MaterialTheme.typography.labelSmall,
-                                                color = MaterialTheme.colorScheme.primary,
-                                            )
-                                        }
-                                    }
-                                }
-                            }
-
-                            Text(
-                                text = stringResource(id = R.string.exercise_detail_primary_muscle),
-                                style = MaterialTheme.typography.titleSmall,
-                            )
-                            FlowRow(
-                                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                                verticalArrangement = Arrangement.spacedBy(8.dp),
-                            ) {
-                                AssistChip(
-                                    onClick = {},
-                                    label = { Text(stringResource(id = exercise.primaryMuscle.labelRes())) },
-                                )
-                                AssistChip(
-                                    onClick = {},
-                                    label = {
-                                        Text(
-                                            "${stringResource(id = R.string.exercise_detail_rest)}: " +
-                                                stringResource(
-                                                    id = R.string.seconds_short,
-                                                    exercise.defaultRestSeconds,
-                                                ),
-                                        )
-                                    },
-                                )
-                            }
-
-                            if (exercise.secondaryMuscles.isNotEmpty()) {
-                                HorizontalDivider()
-                                Text(
-                                    text = stringResource(id = R.string.exercise_detail_secondary_muscles),
-                                    style = MaterialTheme.typography.titleSmall,
-                                )
-                                FlowRow(
-                                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                                ) {
-                                    exercise.secondaryMuscles.forEach { secondary ->
-                                        AssistChip(
-                                            onClick = {},
-                                            label = { Text(stringResource(id = secondary.labelRes())) },
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    // Execution Steps Card
-                    ElevatedCard(modifier = Modifier.fillMaxWidth()) {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(16.dp),
-                            verticalArrangement = Arrangement.spacedBy(12.dp),
-                        ) {
-                            Text(
-                                text = stringResource(id = R.string.exercise_detail_instructions),
-                                style = MaterialTheme.typography.titleMedium,
-                            )
-                            val steps = exercise.instructionsList(state.language)
-                            if (steps.isEmpty()) {
-                                Text(
-                                    text = stringResource(id = R.string.exercise_detail_no_instructions),
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                )
-                            } else {
-                                steps.forEachIndexed { index, stepText ->
-                                    Row(
-                                        modifier = Modifier.fillMaxWidth(),
-                                        horizontalArrangement = Arrangement.spacedBy(10.dp),
-                                        verticalAlignment = Alignment.Top,
-                                    ) {
-                                        Surface(
-                                            shape = RoundedCornerShape(10.dp),
-                                            color = MaterialTheme.colorScheme.primaryContainer,
-                                        ) {
-                                            Text(
-                                                text = "${index + 1}",
-                                                style = MaterialTheme.typography.labelLarge,
-                                                color = MaterialTheme.colorScheme.onPrimaryContainer,
-                                                modifier = Modifier.padding(horizontal = 9.dp, vertical = 4.dp),
-                                            )
-                                        }
-                                        Text(
-                                            text = stepText,
-                                            style = MaterialTheme.typography.bodyMedium,
-                                            modifier = Modifier.weight(1f),
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    Spacer(modifier = Modifier.height(8.dp))
-                }
+                )
             }
         }
     }
@@ -378,6 +206,292 @@ fun ExerciseDetailScreen(
                 }
             },
         )
+    }
+}
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+fun ExerciseDetailContent(
+    exercise: Exercise,
+    language: AppLanguage,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+        val frame0Uri = exercise.frameAssetUri(0)
+        val frame1Uri = exercise.frameAssetUri(1)
+        if (frame0Uri != null && frame1Uri != null) {
+            ExerciseMediaShowcaseCard(
+                exerciseId = exercise.id,
+                frame0Uri = frame0Uri,
+                frame1Uri = frame1Uri,
+                title = exercise.primaryDisplayName(language),
+            )
+        }
+
+        exercise.secondaryDisplayName(language)?.let { altName ->
+            Text(
+                text = altName,
+                style = MaterialTheme.typography.titleSmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+
+        // Target Muscles, Equipment & Default Rest Card
+        ElevatedCard(modifier = Modifier.fillMaxWidth()) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
+                // Stylized Material 3 Equipment & Exercise Type Badges
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Surface(
+                        shape = RoundedCornerShape(12.dp),
+                        color = if (exercise.isCustom) {
+                            MaterialTheme.colorScheme.primaryContainer
+                        } else {
+                            MaterialTheme.colorScheme.secondaryContainer
+                        },
+                        modifier = Modifier.weight(1f),
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Surface(
+                                shape = CircleShape,
+                                color = if (exercise.isCustom) {
+                                    MaterialTheme.colorScheme.primary
+                                } else {
+                                    MaterialTheme.colorScheme.secondary
+                                },
+                                modifier = Modifier.size(28.dp),
+                            ) {
+                                Box(contentAlignment = Alignment.Center) {
+                                    Icon(
+                                        imageVector = exercise.equipment.icon(),
+                                        contentDescription = null,
+                                        tint = if (exercise.isCustom) {
+                                            MaterialTheme.colorScheme.onPrimary
+                                        } else {
+                                            MaterialTheme.colorScheme.onSecondary
+                                        },
+                                        modifier = Modifier.size(16.dp),
+                                    )
+                                }
+                            }
+                            Column {
+                                Text(
+                                    text = stringResource(id = exercise.equipment.labelRes()),
+                                    style = MaterialTheme.typography.labelLarge,
+                                    color = if (exercise.isCustom) {
+                                        MaterialTheme.colorScheme.onPrimaryContainer
+                                    } else {
+                                        MaterialTheme.colorScheme.onSecondaryContainer
+                                    },
+                                )
+                                if (exercise.isCustom) {
+                                    Text(
+                                        text = stringResource(id = R.string.exercises_custom_badge),
+                                        style = MaterialTheme.typography.labelSmall,
+                                        color = MaterialTheme.colorScheme.primary,
+                                    )
+                                }
+                            }
+                        }
+                    }
+
+                    Surface(
+                        shape = RoundedCornerShape(12.dp),
+                        color = MaterialTheme.colorScheme.surfaceContainerHigh,
+                        modifier = Modifier.weight(1f),
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Surface(
+                                shape = CircleShape,
+                                color = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier.size(28.dp),
+                            ) {
+                                Box(contentAlignment = Alignment.Center) {
+                                    Icon(
+                                        imageVector = if (exercise.exerciseType == ExerciseType.TIME) Icons.Rounded.Timer else Icons.Rounded.FitnessCenter,
+                                        contentDescription = null,
+                                        tint = MaterialTheme.colorScheme.onPrimary,
+                                        modifier = Modifier.size(16.dp),
+                                    )
+                                }
+                            }
+                            Text(
+                                text = stringResource(id = exercise.exerciseType.labelRes()),
+                                style = MaterialTheme.typography.labelLarge,
+                                color = MaterialTheme.colorScheme.onSurface,
+                            )
+                        }
+                    }
+                }
+
+                Text(
+                    text = stringResource(id = R.string.exercise_detail_primary_muscle),
+                    style = MaterialTheme.typography.titleSmall,
+                )
+                FlowRow(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    AssistChip(
+                        onClick = {},
+                        label = { Text(stringResource(id = exercise.primaryMuscle.labelRes())) },
+                    )
+                    AssistChip(
+                        onClick = {},
+                        label = {
+                            Text(
+                                "${stringResource(id = R.string.exercise_detail_rest)}: " +
+                                    stringResource(
+                                        id = R.string.seconds_short,
+                                        exercise.defaultRestSeconds,
+                                    ),
+                            )
+                        },
+                    )
+                }
+
+                if (exercise.secondaryMuscles.isNotEmpty()) {
+                    HorizontalDivider()
+                    Text(
+                        text = stringResource(id = R.string.exercise_detail_secondary_muscles),
+                        style = MaterialTheme.typography.titleSmall,
+                    )
+                    FlowRow(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                    ) {
+                        exercise.secondaryMuscles.forEach { secondary ->
+                            AssistChip(
+                                onClick = {},
+                                label = { Text(stringResource(id = secondary.labelRes())) },
+                            )
+                        }
+                    }
+                }
+            }
+        }
+
+        // Execution Steps Card
+        ElevatedCard(modifier = Modifier.fillMaxWidth()) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
+                Text(
+                    text = stringResource(id = R.string.exercise_detail_instructions),
+                    style = MaterialTheme.typography.titleMedium,
+                )
+                val steps = exercise.instructionsList(language)
+                if (steps.isEmpty()) {
+                    Text(
+                        text = stringResource(id = R.string.exercise_detail_no_instructions),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                } else {
+                    steps.forEachIndexed { index, stepText ->
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(10.dp),
+                            verticalAlignment = Alignment.Top,
+                        ) {
+                            Surface(
+                                shape = RoundedCornerShape(10.dp),
+                                color = MaterialTheme.colorScheme.primaryContainer,
+                            ) {
+                                Text(
+                                    text = "${index + 1}",
+                                    style = MaterialTheme.typography.labelLarge,
+                                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                                    modifier = Modifier.padding(horizontal = 9.dp, vertical = 4.dp),
+                                )
+                            }
+                            Text(
+                                text = stepText,
+                                style = MaterialTheme.typography.bodyMedium,
+                                modifier = Modifier.weight(1f),
+                            )
+                        }
+                    }
+                }
+            }
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ExerciseDetailBottomSheet(
+    exercise: Exercise,
+    language: AppLanguage,
+    onDismiss: () -> Unit,
+) {
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    ModalBottomSheet(
+        onDismissRequest = onDismiss,
+        sheetState = sheetState,
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.9f)
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 16.dp)
+                .padding(bottom = 32.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    text = exercise.primaryDisplayName(language),
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.weight(1f),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+                IconButton(
+                    onClick = onDismiss,
+                    modifier = Modifier.size(48.dp),
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.Close,
+                        contentDescription = stringResource(id = R.string.workout_remove_set),
+                    )
+                }
+            }
+
+            ExerciseDetailContent(
+                exercise = exercise,
+                language = language,
+            )
+        }
     }
 }
 

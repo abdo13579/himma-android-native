@@ -15,12 +15,13 @@ class WorkoutDomainTest {
     }
 
     @Test
-    fun `calculateTotalVolumeKg sums only completed sets with positive values`() {
+    fun `calculateTotalVolumeKg sums only completed sets with positive values and ignores time sets`() {
         val sets = listOf(
             WorkoutSet("1", "w1", "bench", 0, 0, 90, 60.0, 10, isCompleted = true),
             WorkoutSet("2", "w1", "bench", 0, 1, 90, 70.0, 8, isCompleted = true),
             WorkoutSet("3", "w1", "bench", 0, 2, 90, 80.0, 6, isCompleted = false),
             WorkoutSet("4", "w1", "bench", 0, 3, 90, null, 12, isCompleted = true),
+            WorkoutSet("5", "w1", "running", 1, 0, 60, weightKg = null, reps = null, durationSeconds = 1200, isCompleted = true),
         )
 
         assertEquals(1160.0, WorkoutMath.calculateTotalVolumeKg(sets), 0.001)

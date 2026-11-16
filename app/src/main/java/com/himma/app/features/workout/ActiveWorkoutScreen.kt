@@ -100,6 +100,7 @@ import com.himma.app.R
 import com.himma.app.domain.model.AppLanguage
 import com.himma.app.domain.model.EquipmentType
 import com.himma.app.domain.model.Exercise
+import com.himma.app.domain.model.ExerciseType
 import com.himma.app.domain.model.FinishedWorkoutSummary
 import com.himma.app.domain.model.MuscleGroup
 import com.himma.app.domain.model.PreviousSetHint
@@ -351,8 +352,14 @@ fun ActiveWorkoutScreen(
                                 onQuickIncrement = { set, delta ->
                                     viewModel.quickIncrementWeight(set, delta)
                                 },
+                                onQuickIncrementDuration = { set, deltaSeconds ->
+                                    viewModel.quickIncrementDuration(set, deltaSeconds)
+                                },
                                 onRepsChange = { set, input ->
                                     viewModel.updateRepsFromInput(set, input)
+                                },
+                                onDurationChange = { set, seconds ->
+                                    viewModel.updateDurationSeconds(set, seconds)
                                 },
                                 onSetTypeChange = { set, type ->
                                     viewModel.updateSetType(set, type)
@@ -487,7 +494,9 @@ private fun WorkoutExerciseCard(
     previousHints: Map<Pair<String, Int>, PreviousSetHint>,
     onWeightChange: (WorkoutSet, String) -> Unit,
     onQuickIncrement: (WorkoutSet, Double) -> Unit,
+    onQuickIncrementDuration: (WorkoutSet, Int) -> Unit,
     onRepsChange: (WorkoutSet, String) -> Unit,
+    onDurationChange: (WorkoutSet, Int?) -> Unit,
     onSetTypeChange: (WorkoutSet, SetType) -> Unit,
     onToggleComplete: (WorkoutSet) -> Unit,
     onRemoveSet: (WorkoutSet) -> Unit,
@@ -586,14 +595,24 @@ private fun WorkoutExerciseCard(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    listOf(1.0, 2.5, 5.0).forEach { delta ->
-                        AssistChip(
-                            onClick = { onQuickIncrement(activeTargetSet, delta) },
-                            label = {
-                                Text("+${formatCleanNumber(delta)} $unitLabel")
-                            },
-                            modifier = Modifier.heightIn(min = 48.dp),
-                        )
+                    if (group.exercise.exerciseType == ExerciseType.TIME) {
+                        listOf(30 to "+30s", 60 to "+1m", 300 to "+5m").forEach { (delta, chipLabel) ->
+                            AssistChip(
+                                onClick = { onQuickIncrementDuration(activeTargetSet, delta) },
+                                label = { Text(chipLabel) },
+                                modifier = Modifier.heightIn(min = 48.dp),
+                            )
+                        }
+                    } else {
+                        listOf(1.0, 2.5, 5.0).forEach { delta ->
+                            AssistChip(
+                                onClick = { onQuickIncrement(activeTargetSet, delta) },
+                                label = {
+                                    Text("+${formatCleanNumber(delta)} $unitLabel")
+                                },
+                                modifier = Modifier.heightIn(min = 48.dp),
+                            )
+                        }
                     }
                 }
             }
@@ -604,6 +623,7 @@ private fun WorkoutExerciseCard(
                 val prevHint = previousHints[set.exerciseId to set.setIndex]
                 WorkoutSetRow(
                     set = set,
+                    exerciseType = group.exercise.exerciseType,
                     weightUnit = weightUnit,
                     unitLabel = unitLabel,
                     previousHint = prevHint,
@@ -611,6 +631,7 @@ private fun WorkoutExerciseCard(
                     onFocusSet = { selectedSetIdForIncrement = set.id },
                     onWeightChange = { onWeightChange(set, it) },
                     onRepsChange = { onRepsChange(set, it) },
+                    onDurationChange = { onDurationChange(set, it) },
                     onSetTypeChange = { onSetTypeChange(set, it) },
                     onToggleComplete = { onToggleComplete(set) },
                     onRemoveSet = { onRemoveSet(set) },
@@ -638,6 +659,7 @@ private fun WorkoutExerciseCard(
 @Composable
 private fun WorkoutSetRow(
     set: WorkoutSet,
+    exerciseType: ExerciseType = ExerciseType.REPS,
     weightUnit: WeightUnit,
     unitLabel: String,
     previousHint: PreviousSetHint?,
@@ -645,12 +667,15 @@ private fun WorkoutSetRow(
     onFocusSet: () -> Unit,
     onWeightChange: (String) -> Unit,
     onRepsChange: (String) -> Unit,
+    onDurationChange: (Int?) -> Unit,
     onSetTypeChange: (SetType) -> Unit,
     onToggleComplete: () -> Unit,
     onRemoveSet: () -> Unit,
 ) {
     var isWeightFocused by remember { mutableStateOf(false) }
     var isRepsFocused by remember { mutableStateOf(false) }
+    var isMinFocused by remember { mutableStateOf(false) }
+    var isSecFocused by remember { mutableStateOf(false) }
 
     val formattedExternalWeight = remember(set.weightKg, weightUnit) {
         set.weightKg?.let { kg ->
@@ -671,6 +696,23 @@ private fun WorkoutSetRow(
     LaunchedEffect(formattedExternalReps, isRepsFocused) {
         if (!isRepsFocused && repsText != formattedExternalReps) {
             repsText = formattedExternalReps
+        }
+    }
+
+    val formattedMin = set.durationSeconds?.let { (it / 60).toString() }.orEmpty()
+    val formattedSec = set.durationSeconds?.let { (it % 60).toString() }.orEmpty()
+
+    var minText by remember(set.id) { mutableStateOf(formattedMin) }
+    var secText by remember(set.id) { mutableStateOf(formattedSec) }
+
+    LaunchedEffect(formattedMin, isMinFocused) {
+        if (!isMinFocused && minText != formattedMin) {
+            minText = formattedMin
+        }
+    }
+    LaunchedEffect(formattedSec, isSecFocused) {
+        if (!isSecFocused && secText != formattedSec) {
+            secText = formattedSec
         }
     }
 
@@ -747,17 +789,28 @@ private fun WorkoutSetRow(
                     }
                 }
 
-                val prevText = if (previousHint?.weightKg != null || previousHint?.reps != null) {
-                    val prevWeight = previousHint.weightKg?.let {
-                        formatCleanNumber(WeightUnit.toDisplayWeight(it, weightUnit))
-                    } ?: "0"
-                    val prevReps = previousHint.reps?.toString() ?: "0"
-                    stringResource(
-                        id = R.string.workout_previous_hint,
-                        "$prevWeight $unitLabel × $prevReps",
-                    )
+                val prevText = if (exerciseType == ExerciseType.TIME) {
+                    if (previousHint?.durationSeconds != null) {
+                        stringResource(
+                            id = R.string.workout_previous_time_hint,
+                            WorkoutMath.formatTimer(previousHint.durationSeconds),
+                        )
+                    } else {
+                        stringResource(id = R.string.workout_previous_none)
+                    }
                 } else {
-                    stringResource(id = R.string.workout_previous_none)
+                    if (previousHint?.weightKg != null || previousHint?.reps != null) {
+                        val prevWeight = previousHint.weightKg?.let {
+                            formatCleanNumber(WeightUnit.toDisplayWeight(it, weightUnit))
+                        } ?: "0"
+                        val prevReps = previousHint.reps?.toString() ?: "0"
+                        stringResource(
+                            id = R.string.workout_previous_hint,
+                            "$prevWeight $unitLabel × $prevReps",
+                        )
+                    } else {
+                        stringResource(id = R.string.workout_previous_none)
+                    }
                 }
 
                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -787,51 +840,111 @@ private fun WorkoutSetRow(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                OutlinedTextField(
-                    value = weightText,
-                    onValueChange = {
-                        weightText = it
-                        onWeightChange(it)
-                    },
-                    label = {
-                        Text(
-                            text = stringResource(id = R.string.workout_weight_label, unitLabel),
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                        )
-                    },
-                    singleLine = true,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-                    modifier = Modifier
-                        .weight(1f)
-                        .onFocusChanged { focusState ->
-                            isWeightFocused = focusState.isFocused
-                            if (focusState.isFocused) onFocusSet()
+                if (exerciseType == ExerciseType.TIME) {
+                    OutlinedTextField(
+                        value = minText,
+                        onValueChange = {
+                            minText = it
+                            val m = it.trim().toIntOrNull()
+                            val s = secText.trim().toIntOrNull()
+                            if (m == null && s == null) {
+                                onDurationChange(null)
+                            } else {
+                                onDurationChange(((m ?: 0) * 60 + (s ?: 0)).coerceIn(0, 86400))
+                            }
                         },
-                )
+                        label = {
+                            Text(
+                                text = stringResource(id = R.string.workout_minutes_label),
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                            )
+                        },
+                        singleLine = true,
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        modifier = Modifier
+                            .weight(1f)
+                            .onFocusChanged { focusState ->
+                                isMinFocused = focusState.isFocused
+                                if (focusState.isFocused) onFocusSet()
+                            },
+                    )
 
-                OutlinedTextField(
-                    value = repsText,
-                    onValueChange = {
-                        repsText = it
-                        onRepsChange(it)
-                    },
-                    label = {
-                        Text(
-                            text = stringResource(id = R.string.workout_reps_label),
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                        )
-                    },
-                    singleLine = true,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                    modifier = Modifier
-                        .weight(0.85f)
-                        .onFocusChanged { focusState ->
-                            isRepsFocused = focusState.isFocused
-                            if (focusState.isFocused) onFocusSet()
+                    OutlinedTextField(
+                        value = secText,
+                        onValueChange = {
+                            secText = it
+                            val m = minText.trim().toIntOrNull()
+                            val s = it.trim().toIntOrNull()
+                            if (m == null && s == null) {
+                                onDurationChange(null)
+                            } else {
+                                onDurationChange(((m ?: 0) * 60 + (s ?: 0)).coerceIn(0, 86400))
+                            }
                         },
-                )
+                        label = {
+                            Text(
+                                text = stringResource(id = R.string.workout_seconds_label),
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                            )
+                        },
+                        singleLine = true,
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        modifier = Modifier
+                            .weight(1f)
+                            .onFocusChanged { focusState ->
+                                isSecFocused = focusState.isFocused
+                                if (focusState.isFocused) onFocusSet()
+                            },
+                    )
+                } else {
+                    OutlinedTextField(
+                        value = weightText,
+                        onValueChange = {
+                            weightText = it
+                            onWeightChange(it)
+                        },
+                        label = {
+                            Text(
+                                text = stringResource(id = R.string.workout_weight_label, unitLabel),
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                            )
+                        },
+                        singleLine = true,
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+                        modifier = Modifier
+                            .weight(1f)
+                            .onFocusChanged { focusState ->
+                                isWeightFocused = focusState.isFocused
+                                if (focusState.isFocused) onFocusSet()
+                            },
+                    )
+
+                    OutlinedTextField(
+                        value = repsText,
+                        onValueChange = {
+                            repsText = it
+                            onRepsChange(it)
+                        },
+                        label = {
+                            Text(
+                                text = stringResource(id = R.string.workout_reps_label),
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                            )
+                        },
+                        singleLine = true,
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        modifier = Modifier
+                            .weight(0.85f)
+                            .onFocusChanged { focusState ->
+                                isRepsFocused = focusState.isFocused
+                                if (focusState.isFocused) onFocusSet()
+                            },
+                    )
+                }
 
                 FilledTonalIconToggleButton(
                     checked = set.isCompleted,

@@ -44,4 +44,6 @@ data class RoutineExerciseEntity(
     val targetRepsMax: Int,
     @ColumnInfo(name = "target_rest_seconds")
     val targetRestSeconds: Int,
+    @ColumnInfo(name = "target_duration_seconds")
+    val targetDurationSeconds: Int? = null,
 )

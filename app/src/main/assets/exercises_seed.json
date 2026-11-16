@@ -13,7 +13,8 @@
     "instructionsAr": "استلقِ على المقعد المستوي وثبّت قدميك على الأرض.\nامسك البار بقبضة أوسع قليلاً من الكتفين واخفضه بتحكم إلى منتصف الصدر.\nادفع البار للأعلى مع الزفير دون قفل المرفقين.",
     "localMediaKey": "bench-press",
     "defaultRestSeconds": 120,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "incline-bench-press",
@@ -29,7 +30,8 @@
     "instructionsAr": "اضبط المقعد بزاوية 30 إلى 45 درجة للأعلى.\nاخفض البار بتحكم نحو أعلى الصدر مع بقاء المرفقين بزاوية 45 درجة.\nادفع للأعلى بسلاسة واعصر أعلى الصدر.",
     "localMediaKey": "incline-bench-press",
     "defaultRestSeconds": 120,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "decline-bench-press",
@@ -45,7 +47,8 @@
     "instructionsAr": "ثبّت ساقيك في مسند المقعد المائل للأسفل.\nاخفض البار بتحكم إلى أسفل الصدر.\nادفع للأعلى بقوة حتى استقامة الذراعين.",
     "localMediaKey": "decline-bench-press",
     "defaultRestSeconds": 120,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "dumbbell-bench-press",
@@ -61,7 +64,8 @@
     "instructionsAr": "استلقِ على المقعد المستوي وارفع الدمبلين فوق الصدر.\nاخفضهما للجانبين بعمق مريح مع شد الكتفين للخلف.\nادفع للالتقاء فوق منتصف الصدر.",
     "localMediaKey": "dumbbell-bench-press",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "incline-dumbbell-press",
@@ -77,7 +81,8 @@
     "instructionsAr": "اجلس على مقعد مائل للأعلى وابدأ بالدمبلين بمستوى الكتفين.\nادفع الدمبلين للأعلى مع تقاربهما في القمة.\nاخفض بتحكم للشعور بتمدد أعلى الصدر.",
     "localMediaKey": "incline-dumbbell-press",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "decline-dumbbell-press",
@@ -93,7 +98,8 @@
     "instructionsAr": "استلقِ على المقعد المائل للأسفل وثبّت القدمين.\nاخفض الدمبلين بجانب أسفل الصدر بتحكم.\nادفع للأعلى مع التركيز على الجزء السفلي للصدر.",
     "localMediaKey": "decline-dumbbell-press",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "machine-chest-press",
@@ -109,7 +115,8 @@
     "instructionsAr": "اضبط ارتفاع المقعد بحيث تكون المقابض بمستوى منتصف الصدر.\nادفع للأمام مع الزفير دون قفل المرفقين.\nارجع ببطء قبل تلامس الأوزان.",
     "localMediaKey": "machine-chest-press",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "smith-machine-bench-press",
@@ -125,7 +132,8 @@
     "instructionsAr": "استلقِ بحيث يكون البار فوق منتصف الصدر.\nفك القفل واخفض البار بتحكم نحو الصدر.\nادفع للأعلى بثبات حتى قمة الحركة.",
     "localMediaKey": "smith-machine-bench-press",
     "defaultRestSeconds": 120,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "pec-deck",
@@ -140,7 +148,8 @@
     "instructionsAr": "اضبط المقعد وضع ساعديك أو يديك على المقابض.\nضم الذراعين للأمام واعصر عضلات الصدر لثانية.\nافتح الذراعين ببطء للشعور بتمدد الصدر.",
     "localMediaKey": "pec-deck",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "cable-fly",
@@ -155,7 +164,8 @@
     "instructionsAr": "قف في منتصف جهاز الكابل وتقدم خطوة للأمام.\nاثنِ المرفقين قليلاً واجمع المقبضين أمام الصدر.\nارجع بتحكم إلى مستوى الكتفين.",
     "localMediaKey": "cable-fly",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "incline-cable-fly",
@@ -170,7 +180,8 @@
     "instructionsAr": "ضع البكرات في الوضع السفلي وامسك المقبضين.\nاسحب للداخل والأعلى حتى مستوى أعلى الصدر.\nاخفض ببطء مع الحفاظ على ثني خفيف بالمرفق.",
     "localMediaKey": "incline-cable-fly",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "dumbbell-fly",
@@ -185,7 +196,8 @@
     "instructionsAr": "استلقِ على مقعد مستوٍ وارفع الدمبلين فوق الصدر.\nافتح الذراعين للجانبين بقوس واسع وثني بسيط في المرفق.\nاضغط بالصدر لإعادة الدمبلين للأعلى.",
     "localMediaKey": "dumbbell-fly",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "push-up",
@@ -201,7 +213,8 @@
     "instructionsAr": "ضع اليدين أعرض قليلاً من الكتفين وحافظ على استقامة الجسم.\nاخفض الصدر نحو الأرض مع بقاء المرفقين للخلف قليلاً.\nادفع الأرض بقوة للعودة لوضع البداية.",
     "localMediaKey": "push-up",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "incline-push-up",
@@ -218,7 +231,8 @@
     "instructionsAr": "ضع يديك على مقعد أو سطح مرتفع مع شد الجذع.\nاخفض الصدر نحو الحافة بتحكم.\nادفع للأعلى بثبات.",
     "localMediaKey": "incline-push-up",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "decline-push-up",
@@ -235,7 +249,8 @@
     "instructionsAr": "ارفع قدميك على مقعد وضع يديك على الأرض.\nاخفض الصدر ببطء نحو الأرض مع شد البطن.\nادفع للأعلى بقوة للتركيز على أعلى الصدر.",
     "localMediaKey": "decline-push-up",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "chest-dip",
@@ -251,7 +266,8 @@
     "instructionsAr": "امسك قضبان المتوازي ومِل بجذعك للأمام قليلاً.\nانزل حتى تصل المرفقين لزاوية 90 درجة مع فتح خفيف.\nادفع للأعلى دون إقفال المرفقين بالكامل.",
     "localMediaKey": "chest-dip",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "overhead-press",
@@ -266,7 +282,8 @@
     "instructionsAr": "قف بثبات واحمل البار أمام أعلى الصدر.\nشد البطن والأرداف وادفع البار عمودياً فوق الرأس.\nاخفضه بتحكم إلى وضع البداية.",
     "localMediaKey": "overhead-press",
     "defaultRestSeconds": 120,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "seated-dumbbell-press",
@@ -281,7 +298,8 @@
     "instructionsAr": "اجلس بظهر مستقيم وارفع الدمبلين بمستوى الأذنين.\nادفعهما للأعلى حتى يقتربا فوق الرأس.\nاخفض ببطء مع تجنب تقوس أسفل الظهر.",
     "localMediaKey": "seated-dumbbell-press",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "standing-dumbbell-press",
@@ -297,7 +315,8 @@
     "instructionsAr": "قف بعرض الكتفين مع شد الجذع.\nادفع الدمبلين للأعلى عمودياً فوق الكتفين.\nاخفضهما بتحكم إلى مستوى الكتف.",
     "localMediaKey": "standing-dumbbell-press",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "arnold-press",
@@ -312,7 +331,8 @@
     "instructionsAr": "ابدأ والدمبلان أمام الكتفين مع توجيه راحتي اليدين نحوك.\nأثناء الدفع للأعلى لف المعصمين للخارج.\nاعكس الحركة أثناء النزول بتحكم.",
     "localMediaKey": "arnold-press",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "machine-shoulder-press",
@@ -327,7 +347,8 @@
     "instructionsAr": "اضبط المقعد بحيث تكون المقابض بمستوى الكتفين.\nادفع للأعلى بسلاسة مع الزفير.\nاخفض ببطء دون إراحة الأوزان.",
     "localMediaKey": "machine-shoulder-press",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "push-press",
@@ -343,7 +364,8 @@
     "instructionsAr": "اثنِ ركبتيك قليلاً ثم اندفع للأعلى لدفع البار فوق الرأس.\nثبّت البار في القمة واخفضه بتحكم للكتفين.",
     "localMediaKey": "push-press",
     "defaultRestSeconds": 120,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "landmine-press",
@@ -359,7 +381,8 @@
     "instructionsAr": "امسك طرف البار أمام الكتف بيد واحدة.\nادفع للأعلى والأمام بزاوية مائلة مع شد الجذع.\nاخفض بتحكم وبدّل الذراع.",
     "localMediaKey": "landmine-press",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "lateral-raise",
@@ -374,7 +397,8 @@
     "instructionsAr": "امسك دمبلين بجانبيك مع ثني خفيف في المرفقين.\nارفع الذراعين للجانبين حتى مستوى الكتفين.\nاخفض ببطء لمدة ثانيتين.",
     "localMediaKey": "lateral-raise",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "cable-lateral-raise",
@@ -389,7 +413,8 @@
     "instructionsAr": "امسك المقبض باليد البعيدة عن البكرة السفلية.\nارفع الذراع جانبياً حتى مستوى الكتف مع ثبات الجذع.\nعد ببطء مع الحفاظ على التوتر.",
     "localMediaKey": "cable-lateral-raise",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "machine-lateral-raise",
@@ -404,7 +429,8 @@
     "instructionsAr": "اجلس وثبّت ساعديك على الوسادات الجانبية.\nارفع المرفقين للجانبين حتى مستوى الكتفين.\nاخفض ببطء دون إسقاط الوزن.",
     "localMediaKey": "machine-lateral-raise",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "front-raise",
@@ -419,7 +445,8 @@
     "instructionsAr": "قف مستقيماً وارفع الدمبلين للأمام بالتبادل أو معاً حتى مستوى الكتف.\nاخفضهما بتحكم دون أرجحة الجسم.",
     "localMediaKey": "front-raise",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "cable-front-raise",
@@ -434,7 +461,8 @@
     "instructionsAr": "قف وظهرك للبكرة السفلية وامسك المقبض.\nارفع الذراع للأمام حتى مستوى العينين.\nاخفض ببطء مع ثبات الكتفين.",
     "localMediaKey": "cable-front-raise",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "upright-row",
@@ -450,7 +478,8 @@
     "instructionsAr": "امسك البار بقبضة بعرض الكتفين تقريباً.\nاسحب المرفقين للأعلى حتى مستوى الصدر العلوي.\nاخفض البار ببطء وبدون هز الظهر.",
     "localMediaKey": "upright-row",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "rear-delt-fly",
@@ -465,7 +494,8 @@
     "instructionsAr": "انحنِ للأمام بظهر مستقيم وامسك الدمبلين أسفل الصدر.\nافتح الذراعين للجانبين مع عصر الكتف الخلفي.\nاخفض بتحكم.",
     "localMediaKey": "rear-delt-fly",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "reverse-pec-deck",
@@ -480,7 +510,8 @@
     "instructionsAr": "اجلس مواجهاً للجهاز وامسك المقابض الأفقية.\nاسحب الذراعين للخلف بعصر عضلات الكتف الخلفي.\nارجع ببطء لوضع البداية.",
     "localMediaKey": "reverse-pec-deck",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "deadlift",
@@ -495,7 +526,8 @@
     "instructionsAr": "قف والبار فوق منتصف القدمين وأمسكه خارج الركبتين.\nافرد الصدر وشد الظهر ثم ادفع الأرض بقدميك لرفع البار.\nاخفضه بدفع الورك للخلف مع بقاء البار ملاصقاً للجسم.",
     "localMediaKey": "deadlift",
     "defaultRestSeconds": 150,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "rack-pull",
@@ -510,7 +542,8 @@
     "instructionsAr": "اضبط مساند الحامل عند مستوى الركبة وامسك البار بقوة.\nارفع الأوزان بفرد الوركين والكتفين للخلف.\nاخفض البار بتحكم للحامل.",
     "localMediaKey": "rack-pull",
     "defaultRestSeconds": 150,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "barbell-row",
@@ -526,7 +559,8 @@
     "instructionsAr": "انحنِ للأمام بزاوية 45 درجة مع استقامة الظهر.\nاسحب البار نحو أسفل البطن بعصر لوحي الكتف.\nاخفضه بتحكم حتى استقامة الذراعين.",
     "localMediaKey": "barbell-row",
     "defaultRestSeconds": 120,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "pendlay-row",
@@ -542,7 +576,8 @@
     "instructionsAr": "حافظ على موازاة الجذع للأرض تقريباً.\nاسحب البار بقوة من الأرض نحو أسفل الصدر.\nأعده للأرض بتحكم في كل عدة.",
     "localMediaKey": "pendlay-row",
     "defaultRestSeconds": 120,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "t-bar-row",
@@ -558,7 +593,8 @@
     "instructionsAr": "اثنِ ركبتيك قليلاً وحافظ على استقامة الظهر.\nاسحب المقبض نحو الصدر بضم لوحي الكتف.\nاخفض الوزن ببطء لتمديد الظهر.",
     "localMediaKey": "t-bar-row",
     "defaultRestSeconds": 120,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "dumbbell-bent-over-row",
@@ -574,7 +610,8 @@
     "instructionsAr": "انحنِ للأمام بظهر مستقيم وامسك دمبلين.\nاسحب المرفقين للأعلى بمحاذاة الجذع.\nاخفض الدمبلين بتحكم.",
     "localMediaKey": "dumbbell-bent-over-row",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "one-arm-dumbbell-row",
@@ -589,7 +626,8 @@
     "instructionsAr": "ارتكز بيد وركبة على المقعد وحافظ على استقامة الظهر.\nاسحب الدمبل نحو الورك مع رفع المرفق للخلف.\nاخفضه ببطء لتمديد المجنص.",
     "localMediaKey": "one-arm-dumbbell-row",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "chest-supported-row",
@@ -605,7 +643,8 @@
     "instructionsAr": "اسند صدرك على المقعد أو الجهاز لحماية أسفل الظهر.\nاسحب المقابض للخلف مع عصر منتصف الظهر.\nارجع ببطء لوضع البداية.",
     "localMediaKey": "chest-supported-row",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "seated-row",
@@ -621,7 +660,8 @@
     "instructionsAr": "اجلس مستقيم الظهر وثبّت قدميك على المسند.\nاسحب المقبض نحو البطن مع ضم لوحي الكتف.\nأرجع الذراعين ببطء للأمام دون تقوس الظهر.",
     "localMediaKey": "seated-row",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "machine-row",
@@ -636,7 +676,8 @@
     "instructionsAr": "ثبّت صدرك على الوسادة وامسك المقابض.\nاسحب للخلف مع الحفاظ على الكتفين منخفضين.\nعد ببطء للأمام.",
     "localMediaKey": "machine-row",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "single-arm-cable-row",
@@ -652,7 +693,8 @@
     "instructionsAr": "امسك المقبض بيد واحدة واجلس أو قف بثبات.\nاسحب المرفق للخلف بمحاذاة الجذع.\nارجع ببطء لمد عضلات الظهر.",
     "localMediaKey": "single-arm-cable-row",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "lat-pulldown",
@@ -667,7 +709,8 @@
     "instructionsAr": "امسك البار بقبضة واسعة وثبّت الفخذين تحت المسند.\nاسحب البار نحو أعلى الصدر بخفض الكتفين للأسفل.\nارتفع بتحكم حتى التمدد الكامل.",
     "localMediaKey": "lat-pulldown",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "close-grip-lat-pulldown",
@@ -682,7 +725,8 @@
     "instructionsAr": "ركّب المقبض الضيق أو اسحب راحتي اليدين متقابلتين.\nاسحب نحو أعلى الصدر مع عصر عضلات المجنص.\nعد للأعلى بتحكم.",
     "localMediaKey": "close-grip-lat-pulldown",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "straight-arm-pulldown",
@@ -697,7 +741,8 @@
     "instructionsAr": "قف أمام الكابل العالي بظهر مائل قليلاً.\nاسحب البار للأسفل نحو الفخذين مع إبقاء الذراعين مفرودتين.\nعد للأعلى بتحكم.",
     "localMediaKey": "straight-arm-pulldown",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "pull-up",
@@ -713,7 +758,8 @@
     "instructionsAr": "تعلق بالبار بقبضة أوسع من الكتفين مع شد البطن.\nاسحب جسمك للأعلى حتى يتجاوز الذقن مستوى البار.\nانزل بتحكم إلى وضع التمدد.",
     "localMediaKey": "pull-up",
     "defaultRestSeconds": 120,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "assisted-pull-up",
@@ -728,7 +774,8 @@
     "instructionsAr": "ضع ركبتيك على منصة المساعدة.\nاسحب جسمك للأعلى بالتركيز على عضلات الظهر.\nاهبط ببطء وتحكم.",
     "localMediaKey": "assisted-pull-up",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "inverted-row",
@@ -744,7 +791,8 @@
     "instructionsAr": "تمدد أسفل بار منخفض وامسك به بقبضة واسعة.\nاسحب صدرك نحو البار مع بقاء الجسم مستقيماً.\nانزل بتحكم.",
     "localMediaKey": "inverted-row",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "face-pull",
@@ -759,7 +807,8 @@
     "instructionsAr": "اضبط البكرة بمستوى الوجه واسحب الحبل نحو الجبهة.\nباعد بين طرفي الحبل مع تدوير الكتفين للخارج.\nارجع للأمام ببطء.",
     "localMediaKey": "face-pull",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "shrug",
@@ -774,7 +823,8 @@
     "instructionsAr": "امسك البار أمام الفخذين بذراعين مستقيمتين.\nارفع كتفيك عمودياً للأعلى نحو الأذنين واثبت لثانية.\nاخفضهما ببطء.",
     "localMediaKey": "shrug",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "back-extension",
@@ -789,7 +839,8 @@
     "instructionsAr": "ثبّت فخذيك على الجهاز مع ثني الجذع للأسفل.\nارفع جذعك حتى يستقيم الظهر على خط واحد مع الساقين.\nاخفض بتحكم دون زيادة تقوس.",
     "localMediaKey": "back-extension",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "squat",
@@ -804,7 +855,8 @@
     "instructionsAr": "ضع البار على أعلى الظهر واثبت بقدمين بعرض الكتفين.\nادفع الورك للخلف وانزل حتى توازي الفخذان الأرض.\nادفع الأرض بقدميك للعودة للأعلى.",
     "localMediaKey": "squat",
     "defaultRestSeconds": 150,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "front-squat",
@@ -819,7 +871,8 @@
     "instructionsAr": "اسند البار على الكتفين الأماميين مع رفع المرفقين.\nانزل بظهر منتصب بعمق كامل مريح.\nاصعد بقوة للأعلى.",
     "localMediaKey": "front-squat",
     "defaultRestSeconds": 150,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "goblet-squat",
@@ -834,7 +887,8 @@
     "instructionsAr": "احمل دمبلاً عمودياً أمام الصدر بكلتا اليدين.\nانزل بين الركبتين مع إبقاء الصدر مرفوعاً.\nاصعد بالضغط من كعبي القدمين.",
     "localMediaKey": "goblet-squat",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "smith-machine-squat",
@@ -849,7 +903,8 @@
     "instructionsAr": "ضع قدميك للأمام قليلاً عن خط البار.\nانزل بتحكم حتى زاوية 90 درجة أو أعمق.\nادفع للأعلى بسلاسة.",
     "localMediaKey": "smith-machine-squat",
     "defaultRestSeconds": 120,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "hack-squat",
@@ -862,7 +917,8 @@
     "instructionsAr": "اسند ظهرك بالكامل على المسند وثبّت القدمين على المنصة.\nانزل بأقصى مدى مريح دون رفع أسفل الظهر.\nادفع للأعلى دون إقفال الركبتين.",
     "localMediaKey": "hack-squat",
     "defaultRestSeconds": 120,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "leg-press",
@@ -875,7 +931,8 @@
     "instructionsAr": "ضع قدميك بعرض الكتفين في منتصف المنصة.\nاخفض المنصة بتحكم نحو الصدر مع ثبات الورك.\nادفع للأعلى دون إقفال الركبتين بالكامل.",
     "localMediaKey": "leg-press",
     "defaultRestSeconds": 120,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "bulgarian-split-squat",
@@ -890,7 +947,8 @@
     "instructionsAr": "ضع مشط قدمك الخلفية على المقعد خلفك.\nاخفض الركبة الخلفية نحو الأرض مع ميل خفيف للأمام.\nادفع بالقدم الأمامية للصعود.",
     "localMediaKey": "bulgarian-split-squat",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "walking-lunge",
@@ -903,7 +961,8 @@
     "instructionsAr": "اخطُ للأمام واخفض كلتا الركبتين لزاوية 90 درجة.\nادفع بالقدم الأمامية للانتقال للخطوة التالية.\nحافظ على استقامة الجذع.",
     "localMediaKey": "walking-lunge",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "reverse-lunge",
@@ -916,7 +975,8 @@
     "instructionsAr": "اخطُ بساق واحدة للخلف واخفض الركبة نحو الأرض.\nادفع بالقدم الأمامية للعودة لوضع الوقوف.\nبدّل الساقين.",
     "localMediaKey": "reverse-lunge",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "step-up",
@@ -929,7 +989,8 @@
     "instructionsAr": "ضع قدماً بالكامل على صندوق ثابت.\nادفع بهذه الساق لرفع الجسم للأعلى دون قفز بالساق الخلفية.\nانزل بتحكم.",
     "localMediaKey": "step-up",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "bodyweight-squat",
@@ -944,7 +1005,8 @@
     "instructionsAr": "قف بقدمين بعرض الكتفين ومد ذراعيك للتوازن.\nانزل للأسفل بدفع الورك للخلف وإبقاء الصدر مرفوعاً.\nاصعد للأعلى بثبات.",
     "localMediaKey": "bodyweight-squat",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "leg-extension",
@@ -957,7 +1019,8 @@
     "instructionsAr": "اضبط المسند بحيث يستقر عند الكاحلين وتكون الركبتان بمحاذاة المحور.\nافرد ساقيك للأعلى واعصر الفخذ الأمامي لثانية.\nانزل ببطء.",
     "localMediaKey": "leg-extension",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "romanian-deadlift",
@@ -972,7 +1035,8 @@
     "instructionsAr": "قف والبار أمام الفخذين مع ثني طفيف ثابت في الركبتين.\nادفع الورك للخلف وانزل البار بمحاذاة الساقين حتى تمدد الخلفيات.\nعُد للأعلى بعصر الأرداف.",
     "localMediaKey": "romanian-deadlift",
     "defaultRestSeconds": 120,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "dumbbell-romanian-deadlift",
@@ -987,7 +1051,8 @@
     "instructionsAr": "امسك الدمبلين أمام الفخذين وادفع الورك للخلف بظهر مستقيم.\nتوقف عندما تشعر بتمدد واضح في الفخذ الخلفي.\nعد للأعلى بعصر الأرداف.",
     "localMediaKey": "dumbbell-romanian-deadlift",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "leg-curl",
@@ -1000,7 +1065,8 @@
     "instructionsAr": "ثبّت الركبتين أسفل محور الدوران.\nاسحب المسند نحو الأرداف بتحكم.\nارجع ببطء دون ارتداد الوزن.",
     "localMediaKey": "leg-curl",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "lying-leg-curl",
@@ -1013,7 +1079,8 @@
     "instructionsAr": "استلقِ على البطن وثبّت الكاحلين تحت الوسادة.\nاثنِ الركبتين لسحب الوسادة نحو الأرداف.\nانزل ببطء حتى التمدد.",
     "localMediaKey": "lying-leg-curl",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "seated-leg-curl",
@@ -1026,7 +1093,8 @@
     "instructionsAr": "اضبط مسند الفخذين بإحكام فوق الركبتين.\nاسحب ساقيك للأسفل والخلف بعصر الفخذ الخلفي.\nارجع بتحكم للأمام.",
     "localMediaKey": "seated-leg-curl",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "good-morning",
@@ -1041,7 +1109,8 @@
     "instructionsAr": "ضع البار على أعلى الظهر واثنِ الركبتين قليلاً.\nانحنِ من مفصل الورك للأمام مع إبقاء الظهر مستقيماً.\nارجع للوقوف بعصر الأرداف والخلفيات.",
     "localMediaKey": "good-morning",
     "defaultRestSeconds": 120,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "hip-thrust",
@@ -1054,7 +1123,8 @@
     "instructionsAr": "اسند أعلى ظهرك على المقعد وضع البار فوق الورك مع وسادة.\nادفع الحوض للأعلى حتى يتوازى الجذع مع الأرض واثبت لثانية.\nانزل بتحكم.",
     "localMediaKey": "hip-thrust",
     "defaultRestSeconds": 120,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "glute-bridge",
@@ -1067,7 +1137,8 @@
     "instructionsAr": "استلقِ على ظهرك مع ثني الركبتين وتثبيت القدمين.\nارفع الحوض للأعلى بعصر الأرداف.\nاخفضه ببطء قبل لمس الأرض.",
     "localMediaKey": "glute-bridge",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "cable-kickback",
@@ -1080,7 +1151,8 @@
     "instructionsAr": "اربط الكاحل بالكابل السفلي ومِل قليلاً للأمام.\nادفع الساق للخلف والأعلى مع شد الأرداف.\nارجع بتحكم.",
     "localMediaKey": "cable-kickback",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "hip-abduction-machine",
@@ -1095,7 +1167,8 @@
     "instructionsAr": "اجلس مع إسناد الجزء الخارجي للركبتين على الوسادتين.\nادفع الساقين للخارج واثبت لثانية.\nأغلق ببطء.",
     "localMediaKey": "hip-abduction-machine",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "hip-adduction-machine",
@@ -1110,7 +1183,8 @@
     "instructionsAr": "اجلس وضع الوسادتين على الجانب الداخلي للركبتين.\nاضغط الساقين للداخل مع التحكم.\nافتح ببطء.",
     "localMediaKey": "hip-adduction-machine",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "standing-calf-raise",
@@ -1123,7 +1197,8 @@
     "instructionsAr": "قف بأمشاط القدمين على الحافة واخفض الكعبين لتمديد كامل.\nارتفع لأعلى نقطة على أطراف الأصابع واثبت لثانية.\nانزل ببطء.",
     "localMediaKey": "standing-calf-raise",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "seated-calf-raise",
@@ -1136,7 +1211,8 @@
     "instructionsAr": "ثبّت وسادة الجهاز فوق الفخذين.\nاخفض الكعبين ببطء للأسفل ثم ارفع لأعلى مدى.\nكرر بإيقاع متحكم.",
     "localMediaKey": "seated-calf-raise",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "bicep-curl",
@@ -1149,7 +1225,8 @@
     "instructionsAr": "قف ومرفقاك ثابتان بجانب الجذع.\nارفع الدمبلين للأعلى بتدوير الراحتين للأعلى.\nاخفض ببطء حتى التمدد الكامل.",
     "localMediaKey": "bicep-curl",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "ez-bar-curl",
@@ -1162,7 +1239,8 @@
     "instructionsAr": "امسك البار المتعرج بقبضة مريحة للمعصمين.\nارفع البار للأعلى دون تحريك المرفقين للأمام.\nاخفضه بتحكم لثانيتين.",
     "localMediaKey": "ez-bar-curl",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "hammer-curl",
@@ -1175,7 +1253,8 @@
     "instructionsAr": "امسك الدمبلين وراحتا اليدين متجهتان نحو الجسم.\nارفع الدمبلين للأعلى مع ثبات المرفقين.\nاخفضهما ببطء.",
     "localMediaKey": "hammer-curl",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "incline-dumbbell-curl",
@@ -1188,7 +1267,8 @@
     "instructionsAr": "استلقِ على مقعد مائل للخلف واترك الذراعين متدليتين عمودياً.\nارفع الدمبلين بعصر البايسبس دون سحب الكتف للأمام.\nاخفض حتى تمدد كامل.",
     "localMediaKey": "incline-dumbbell-curl",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "preacher-curl",
@@ -1201,7 +1281,8 @@
     "instructionsAr": "ثبّت الذراعين فوق المسند لتثبيت الكتف.\nارفع الوزن للأعلى حتى القمة واخفضه ببطء دون إرخاء كامل للمرفق.",
     "localMediaKey": "preacher-curl",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "concentration-curl",
@@ -1214,7 +1295,8 @@
     "instructionsAr": "اجلس وأسند ظهر الذراع على الجزء الداخلي للفخذ.\nارفع الدمبل نحو الكتف واعصر البايسبس.\nانزل ببطء.",
     "localMediaKey": "concentration-curl",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "cable-curl",
@@ -1227,7 +1309,8 @@
     "instructionsAr": "امسك بار الكابل السفلي بقبضة سفلية.\nارفع نحو الكتفين مع ثبات المرفقين بجانبيك.\nاخفض ببطء مع الحفاظ على الشد.",
     "localMediaKey": "cable-curl",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "rope-hammer-curl",
@@ -1240,7 +1323,8 @@
     "instructionsAr": "اربط الحبل بالبكرة السفلية وامسك الطرفين.\nارفع للأعلى مع توجيه الإبهامين للأعلى.\nاخفض ببطء.",
     "localMediaKey": "rope-hammer-curl",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "chin-up",
@@ -1255,7 +1339,8 @@
     "instructionsAr": "امسك البار براحتي اليدين نحوك وبعرض الكتفين.\nاسحب جسمك للأعلى مع التركيز على البايسبس والمجنص.\nاهبط بتحكم.",
     "localMediaKey": "chin-up",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "reverse-curl",
@@ -1268,7 +1353,8 @@
     "instructionsAr": "امسك البار براحتي اليدين للأسفل وبعرض الكتفين.\nارفع البار للأعلى مع ثبات المرفقين.\nاخفض ببطء لتقوية الساعدين.",
     "localMediaKey": "reverse-curl",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "wrist-curl",
@@ -1281,7 +1367,8 @@
     "instructionsAr": "اسند الساعدين على مقعد مع تدلي اليدين للأمام.\nاثنِ المعصمين للأعلى بتحكم ثم اخفض ببطء.",
     "localMediaKey": "wrist-curl",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "tricep-pushdown",
@@ -1296,7 +1383,8 @@
     "instructionsAr": "ثبّت المرفقين بجانب الجذع وامسك البار العلوي.\nادفع البار للأسفل حتى استقامة الذراعين تماماً.\nاصعد ببطء حتى زاوية 90 درجة.",
     "localMediaKey": "tricep-pushdown",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "rope-tricep-pushdown",
@@ -1311,7 +1399,8 @@
     "instructionsAr": "اسحب الحبل للأسفل وافصل طرفيه عند القاع لعصر الترايسبس.\nارجع للأعلى بتحكم دون رفع المرفقين.",
     "localMediaKey": "rope-tricep-pushdown",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "overhead-tricep-extension",
@@ -1326,7 +1415,8 @@
     "instructionsAr": "استدر عن الكابل وارفع الحبل فوق الرأس مرفقاً مثنياً.\nادفع للأمام والأعلى حتى فرد الذراعين.\nارجع بتحكم للشعور بتمدد الرأس الطويل للترايسبس.",
     "localMediaKey": "overhead-tricep-extension",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "dumbbell-overhead-tricep-extension",
@@ -1341,7 +1431,8 @@
     "instructionsAr": "اجلس وارفع دمبلاً بكلتا اليدين خلف الرأس.\nمد الساعدين للأعلى مع ثبات المرفقين للأمام.\nاخفض ببطء.",
     "localMediaKey": "dumbbell-overhead-tricep-extension",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "skull-crusher",
@@ -1356,7 +1447,8 @@
     "instructionsAr": "استلقِ على مقعد مستوٍ وارفع البار فوق الصدر.\nاثنِ المرفقين واخفض البار نحو الجبهة بتحكم.\nادفع للأعلى بعصر الترايسبس.",
     "localMediaKey": "skull-crusher",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "close-grip-bench-press",
@@ -1372,7 +1464,8 @@
     "instructionsAr": "امسك البار بقبضة بعرض الكتفين أو أضيق قليلاً.\nاخفض البار مع إبقاء المرفقين قريبين من الجذع.\nادفع للأعلى بقوة.",
     "localMediaKey": "close-grip-bench-press",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "dip",
@@ -1388,7 +1481,8 @@
     "instructionsAr": "حافظ على استقامة الجذع عمودياً مع بقاء المرفقين للخلف.\nانزل حتى زاوية 90 درجة.\nادفع للأعلى حتى التمدد.",
     "localMediaKey": "dip",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "tricep-kickback",
@@ -1403,7 +1497,8 @@
     "instructionsAr": "انحنِ للأمام مع رفع العضد موازياً للجذع.\nافرد الساعد للخلف بالكامل واعصر الترايسبس.\nارجع بتحكم.",
     "localMediaKey": "tricep-kickback",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "diamond-push-up",
@@ -1420,7 +1515,8 @@
     "instructionsAr": "ضع اليدين متقاربتين على شكل مثلث أسفل الصدر.\nاخفض الجسم مع ضم المرفقين للداخل.\nادفع للأعلى بعصر الترايسبس.",
     "localMediaKey": "diamond-push-up",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "crunch",
@@ -1433,7 +1529,8 @@
     "instructionsAr": "استلقِ على ظهرك مع ثني الركبتين ووضع اليدين خلف الأذنين.\nارفع أعلى الكتفين عن الأرض بعصر عضلات البطن مع الزفير.\nاخفض ببطء دون إرخاء التوتر.",
     "localMediaKey": "crunch",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "decline-sit-up",
@@ -1448,7 +1545,8 @@
     "instructionsAr": "ثبّت القدمين على المقعد المائل.\nانزل للخلف بتحكم ثم اصعد بعصر البطن دون شد الرقبة.",
     "localMediaKey": "decline-sit-up",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "reverse-crunch",
@@ -1461,7 +1559,8 @@
     "instructionsAr": "استلقِ على ظهرك واثنِ الركبتين للأعلى.\nارفع الحوض عن الأرض بتقريب الركبتين من الصدر.\nانزل ببطء وتحكم.",
     "localMediaKey": "reverse-crunch",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "lying-leg-raise",
@@ -1476,7 +1575,8 @@
     "instructionsAr": "استلقِ على ظهرك وضع يديك بجانبك أو أسفل الأرداف.\nارفع الساقين للأعلى حتى زاوية قائمة مع تثبيت أسفل الظهر.\nاخفضهما ببطء قبل لمس الأرض.",
     "localMediaKey": "lying-leg-raise",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "hanging-leg-raise",
@@ -1491,7 +1591,8 @@
     "instructionsAr": "تعلق بالبار بثبات وبدون تأرجح.\nارفع الساقين للأمام والأعلى حتى مستوى الخصر أو أعلى.\nانزل بتحكم.",
     "localMediaKey": "hanging-leg-raise",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "hanging-knee-raise",
@@ -1506,7 +1607,8 @@
     "instructionsAr": "تعلق بالبار مع شد الأكتاف للأسفل.\nاسحب الركبتين نحو الصدر بتقويس طفيف في الحوض.\nاخفض بتحكم.",
     "localMediaKey": "hanging-knee-raise",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "captains-chair-knee-raise",
@@ -1521,7 +1623,8 @@
     "instructionsAr": "أسند ظهرك وساعديك على المساند.\nارفع الركبتين للأعلى بعصر أسفل البطن.\nانزل ببطء دون تأرجح.",
     "localMediaKey": "captains-chair-knee-raise",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "cable-crunch",
@@ -1534,7 +1637,8 @@
     "instructionsAr": "اركع أمام الكابل العلوي وامسك الحبل بجانب الرأس.\nاقبض البطن للأسفل مع تقريب المرفقين من الفخذين.\nاصعد ببطء مع إبقاء التوتر.",
     "localMediaKey": "cable-crunch",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "plank",
@@ -1549,7 +1653,8 @@
     "instructionsAr": "ارتكز على الساعدين وأطراف الأصابع في خط مستقيم.\nشد البطن والأرداف وتنفس بانتظام دون هبوط الحوض.\nحافظ على الثبات للمدة المحددة.",
     "localMediaKey": "plank",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   },
   {
     "id": "side-plank",
@@ -1564,7 +1669,8 @@
     "instructionsAr": "ارتكز على ساعد واحد وجانب القدم مع رفع الورك.\nحافظ على خط مستقيم للجسم وشد عضلات الخصر الجانبية.\nبدّل الجانبين.",
     "localMediaKey": "side-plank",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   },
   {
     "id": "ab-wheel",
@@ -1579,7 +1685,8 @@
     "instructionsAr": "اركع وامسك مقابض العجلة تحت الكتفين.\nدحرج العجلة للأمام بتحكم مع شد البطن ومنع تقوس أسفل الظهر.\nاسحب للخلف للعودة لوضع البداية.",
     "localMediaKey": "ab-wheel",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "russian-twist",
@@ -1594,7 +1701,8 @@
     "instructionsAr": "اجلس مع إمالة الجذع للخلف 45 درجة وثني الركبتين.\nلف الجذع يميناً ويساراً بتحكم دون تقوس الظهر.",
     "localMediaKey": "russian-twist",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "bicycle-crunch",
@@ -1609,7 +1717,8 @@
     "instructionsAr": "استلقِ وارفع الساقين بالتناوب مع تدوير الجذع.\nوجّه المرفق نحو الركبة المقابلة مع مد الساق الأخرى بتحكم.",
     "localMediaKey": "bicycle-crunch",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "cable-woodchop",
@@ -1624,7 +1733,8 @@
     "instructionsAr": "قف جانبياً بالنسبة للكابل وامسك المقبض بكلتا اليدين.\nاسحب ولف الجذع قطرياً مع ثبات الوركين والقدمين.\nارجع بتحكم.",
     "localMediaKey": "cable-woodchop",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "pallof-press",
@@ -1639,7 +1749,8 @@
     "instructionsAr": "قف جانبياً وامسك المقبض أمام الصدر.\nادفع الذراعين للأمام مع مقاومة التفاف الجذع نحو الكابل.\nأرجع ببطء.",
     "localMediaKey": "pallof-press",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "weighted-push-up",
@@ -1655,7 +1766,8 @@
     "instructionsAr": "ضع وزناً آمناً أعلى الظهر في وضع الضغط.\nاخفض الصدر نحو الأرض بتحكم ثم ادفع بقوة للأعلى.",
     "localMediaKey": "weighted-push-up",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "weighted-pull-up",
@@ -1670,7 +1782,8 @@
     "instructionsAr": "ثبّت وزناً بحزام الوسط وامسك العقلة بقبضة أوسع من الكتفين.\nاسحب صدرك نحو البار بتحكم وانزل بامتداد كامل.",
     "localMediaKey": "weighted-pull-up",
     "defaultRestSeconds": 120,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "assisted-dip",
@@ -1685,7 +1798,8 @@
     "instructionsAr": "اضبط وزن المساعدة وصعد ركبتيك على المسند.\nاخفض جسمك بثني المرفقين حتى زاوية 90 ثم ادفع للأعلى.",
     "localMediaKey": "assisted-dip",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "running",
@@ -1698,7 +1812,8 @@
     "instructionsAr": "حافظ على استقامة القامة وإرخاء الكتفين أثناء الجري.\nاضبط وتيرة التنفس مع خطوات متزنة على المشاية أو المضمار.",
     "localMediaKey": "running",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   },
   {
     "id": "walking",
@@ -1711,7 +1826,8 @@
     "instructionsAr": "سر بخطوات منتظمة مع تحريك الذراعين بانسيابية.\nحافظ على شد خفيف للبطن واستقامة الظهر.",
     "localMediaKey": "walking",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   },
   {
     "id": "cycling",
@@ -1724,7 +1840,8 @@
     "instructionsAr": "اضبط ارتفاع المقعد ليبقى الركب مثنياً قليلاً في أسفل الدورة.\nحافظ على سرعة دوران ثابتة ومقاومة مناسبة.",
     "localMediaKey": "cycling",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   },
   {
     "id": "rowing",
@@ -1739,7 +1856,8 @@
     "instructionsAr": "ادفع بالساقين أولاً ثم أمل الجذع قليلاً واسحب المقبض نحو أسفل الصدر.\nأعد الذراعين ثم اثنِ الركبتين بالترتيب العكسي.",
     "localMediaKey": "rowing",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   },
   {
     "id": "stair-climber",
@@ -1752,7 +1870,8 @@
     "instructionsAr": "ضع كامل القدم على الدرجة وتجنب الاتكاء الزائد على المقابض.\nاصعد بإيقاع ثابت مع تنفس منتظم.",
     "localMediaKey": "stair-climber",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   },
   {
     "id": "weighted-dip",
@@ -1768,7 +1887,8 @@
     "instructionsAr": "علق وزناً على حزام الوسط وامسك المتوازي.\nاخفض جسمك بتحكم ثم ادفع للأعلى مع ثبات الجذع.",
     "localMediaKey": "weighted-dip",
     "defaultRestSeconds": 120,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "plate-front-raise",
@@ -1783,7 +1903,8 @@
     "instructionsAr": "امسك قرص الوزن من الجانبين أمام الفخذين.\nارفع القرص للأمام حتى مستوى الكتفين ثم اخفضه ببطء.",
     "localMediaKey": "plate-front-raise",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "bent-over-rear-delt-raise",
@@ -1798,7 +1919,8 @@
     "instructionsAr": "انحنِ بجذعك للأمام مع استقامة الظهر وامسك الدمبلين.\nارفع الذراعين للجانبين لعصر الكتف الخلفي ثم أنزل بتحكم.",
     "localMediaKey": "bent-over-rear-delt-raise",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "cable-rear-delt-fly",
@@ -1813,7 +1935,8 @@
     "instructionsAr": "امسك طرفي الكابل المتقاطعين بمستوى الصدر.\nافتح ذراعيك للخلف بزاوية واسعة واعصر الكتفين الخلفيين.",
     "localMediaKey": "cable-rear-delt-fly",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "meadows-row",
@@ -1829,7 +1952,8 @@
     "instructionsAr": "قف عمودياً بجانب طرف البار المائل في الزاوية.\nاسحب البار بيد واحدة نحو جانب الخصر مع عصر المجنص.",
     "localMediaKey": "meadows-row",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "wide-grip-lat-pulldown",
@@ -1844,7 +1968,8 @@
     "instructionsAr": "امسك البار بقبضة واسعة فوق الرأس.\nاسحب البار نحو أعلى الصدر مع سحب الكتفين للأسفل ثم أعده بتحكم.",
     "localMediaKey": "wide-grip-lat-pulldown",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "neutral-grip-pull-up",
@@ -1860,7 +1985,8 @@
     "instructionsAr": "امسك المقبضين المتقابلين وراحة اليدين للداخل.\nاسحب صدرك للأعلى ثم انزل ببطء حتى امتداد الذراعين.",
     "localMediaKey": "neutral-grip-pull-up",
     "defaultRestSeconds": 120,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "assisted-chin-up",
@@ -1875,7 +2001,8 @@
     "instructionsAr": "امسك المقابض بقبضة سفلية بمواجهة الوجه وضع الركبتين على المسند.\nاسحب للأعلى مع تركيز الشد على البايسبس والظهر.",
     "localMediaKey": "assisted-chin-up",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "weighted-chin-up",
@@ -1890,7 +2017,8 @@
     "instructionsAr": "علق وزناً في الخصر وامسك البار بقبضة سفلية بمستوى الكتفين.\nاسحب نفسك للأعلى ثم انزل بتحكم كامل.",
     "localMediaKey": "weighted-chin-up",
     "defaultRestSeconds": 120,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "dumbbell-shrug",
@@ -1905,7 +2033,8 @@
     "instructionsAr": "قف مستقيم القامة وامسك الدمبلين بجانب الجسم.\nارفع الكتفين نحو الأذنين واثبت لحظة قبل الإنزال البطيء.",
     "localMediaKey": "dumbbell-shrug",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "belt-squat",
@@ -1918,7 +2047,8 @@
     "instructionsAr": "ثبّت حزام الوزن حول الورك وقف على المنصة.\nانزل بالوركين للأسفل بظهر مستقيم ثم ادفع بالقدمين للأعلى.",
     "localMediaKey": "belt-squat",
     "defaultRestSeconds": 120,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "sumo-deadlift",
@@ -1933,7 +2063,8 @@
     "instructionsAr": "قف بقدمين متباعدتين للأصابع للخارج وامسك البار بين الساقين.\nحافظ على استقامة الظهر وارفع الوزن بدفع الأرض والورك.",
     "localMediaKey": "sumo-deadlift",
     "defaultRestSeconds": 150,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "trap-bar-deadlift",
@@ -1949,7 +2080,8 @@
     "instructionsAr": "قف داخل البار السداسي وامسك المقبضين الجانبيين.\nارفع جسمك بظهر مشدود وصدر مرفوع حتى الوقوف التام.",
     "localMediaKey": "trap-bar-deadlift",
     "defaultRestSeconds": 150,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "nordic-hamstring-curl",
@@ -1962,7 +2094,8 @@
     "instructionsAr": "ثبّت الكاحلين خلف مسند واركع مع استقامة الورك.\nانزل بجسمك للأمام لأقصى تحكم ممكن ثم ادفع برفق للعودة.",
     "localMediaKey": "nordic-hamstring-curl",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "single-leg-romanian-deadlift",
@@ -1977,7 +2110,8 @@
     "instructionsAr": "توازن على ساق واحدة وأرجع الأخرى للخلف مع إنزال الدمبل.\nحافظ على استقامة الورك وادفع للأعلى بشد العضلة الخلفية.",
     "localMediaKey": "single-leg-romanian-deadlift",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "split-squat",
@@ -1992,7 +2126,8 @@
     "instructionsAr": "خذ خطوة للأمام مع بقاء القدمين على الأرض.\nانزل عمودياً حتى تقارب الركبة الخلفية الأرض ثم ادفع للأعلى.",
     "localMediaKey": "split-squat",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "single-leg-glute-bridge",
@@ -2005,7 +2140,8 @@
     "instructionsAr": "استلقِ واثنِ ركبة واحدة مع رفع الساق الأخرى ممدودة.\nادفع الورك للأعلى عبر الكعب واعصر الأرداف في القمة.",
     "localMediaKey": "single-leg-glute-bridge",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "barbell-glute-bridge",
@@ -2020,7 +2156,8 @@
     "instructionsAr": "استلقِ على الأرض وضع البار المبطن فوق الحوض.\nادفع الورك للأعلى حتى استقامة الجذع مع الفخذين ثم انزل بتحكم.",
     "localMediaKey": "barbell-glute-bridge",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "dumbbell-glute-bridge",
@@ -2035,7 +2172,8 @@
     "instructionsAr": "استلقِ وثبّت الدمبل فوق الحوض بكلتا اليدين.\nارفع الورك للأعلى واعصر الأرداف لثانية قبل النزول.",
     "localMediaKey": "dumbbell-glute-bridge",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "dumbbell-hip-thrust",
@@ -2048,7 +2186,8 @@
     "instructionsAr": "أسند أعلى الظهر على البنش وضع الدمبل فوق الحوض.\nارفع الحوض للأعلى حتى خط أفقي مع استقامة الساقين ثم انزل.",
     "localMediaKey": "dumbbell-hip-thrust",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "smith-machine-hip-thrust",
@@ -2063,7 +2202,8 @@
     "instructionsAr": "أسند ظهرك على البنش تحت بار السميث.\nفك القفل وادفع الورك للأعلى بعصر الأرداف ثم اخفض ببطء.",
     "localMediaKey": "smith-machine-hip-thrust",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "smith-machine-romanian-deadlift",
@@ -2078,7 +2218,8 @@
     "instructionsAr": "قف ممسكاً ببار السميث واثنِ الركبتين قليلاً.\nادفع الوركين للخلف مع إنزال البار بمحاذاة الساقين ثم ارفع.",
     "localMediaKey": "smith-machine-romanian-deadlift",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "kettlebell-romanian-deadlift",
@@ -2093,7 +2234,8 @@
     "instructionsAr": "امسك الكيتل بل بكلتا اليدين أمام الفخذين.\nانحنِ من مفصل الورك بظهر مستقيم حتى تشعر بشد الخلفيات ثم عد.",
     "localMediaKey": "kettlebell-romanian-deadlift",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "cable-pull-through",
@@ -2108,7 +2250,8 @@
     "instructionsAr": "قف بظهرك نحو الكابل السفلي وامسك الحبل بين الساقين.\nاثنِ الورك للخلف ثم ادفع الوركين للأمام بعصر الأرداف.",
     "localMediaKey": "cable-pull-through",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "machine-glute-kickback",
@@ -2121,7 +2264,8 @@
     "instructionsAr": "ثبّت قدماً على الدواسة الخلفية وأمسك المقابض.\nادفع الساق للخلف للأعلى بتحكم دون تقوس أسفل الظهر.",
     "localMediaKey": "machine-glute-kickback",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "cable-standing-hip-abduction",
@@ -2136,7 +2280,8 @@
     "instructionsAr": "ثبّت سوار الكاحل في الساق البعيدة عن الكابل.\nارفع الساق جانبياً للخارج بتحكم ثم أعدها ببطء.",
     "localMediaKey": "cable-standing-hip-abduction",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "cable-standing-hip-adduction",
@@ -2151,7 +2296,8 @@
     "instructionsAr": "ثبّت سوار الكاحل في الساق القريبة من الكابل.\nاسحب الساق للداخل أمام الساق الثابتة لشد العضلات الضامة.",
     "localMediaKey": "cable-standing-hip-adduction",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "smith-machine-bulgarian-split-squat",
@@ -2166,7 +2312,8 @@
     "instructionsAr": "ضع مشط القدم الخلفية على البنش وقف تحت بار السميث.\nانزل بالركبة للأسفل بتحكم ثم ادفع بالساق الأمامية.",
     "localMediaKey": "smith-machine-bulgarian-split-squat",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "smith-machine-reverse-lunge",
@@ -2181,7 +2328,8 @@
     "instructionsAr": "ضع بار السميث على الكتفين واخطُ بساق للخلف.\nاخفض الركبة الخلفية قرب الأرض ثم ادفع للأمام للعودة.",
     "localMediaKey": "smith-machine-reverse-lunge",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "smith-machine-split-squat",
@@ -2196,7 +2344,8 @@
     "instructionsAr": "خذ وضعية الخطوة الثابتة تحت بار السميث.\nانزل عمودياً بتوازن ثم ادفع للأعلى بقوة الساق الأمامية.",
     "localMediaKey": "smith-machine-split-squat",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "heel-elevated-goblet-squat",
@@ -2211,7 +2360,8 @@
     "instructionsAr": "ارفع الكعبين على قرص منخفض واحتضن الدمبل أمام الصدر.\nانزل بعمق مع استقامة الجذع للتركيز على الفخذ الأمامي.",
     "localMediaKey": "heel-elevated-goblet-squat",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "dumbbell-sumo-squat",
@@ -2224,7 +2374,8 @@
     "instructionsAr": "باعد بين القدمين للخارج وامسك دمبلاً عمودياً بكلتا اليدين.\nانزل للأسفل باستقامة الظهر ثم ادفع للوقوف.",
     "localMediaKey": "dumbbell-sumo-squat",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "dumbbell-sumo-deadlift",
@@ -2239,7 +2390,8 @@
     "instructionsAr": "قف بوقفة واسعة وامسك الدمبلين أمام الجسم.\nادفع الوركين للخلف وانزل بظهر مشدود ثم ارفع للأعلى.",
     "localMediaKey": "dumbbell-sumo-deadlift",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "front-foot-elevated-split-squat",
@@ -2254,7 +2406,8 @@
     "instructionsAr": "ضع القدم الأمامية على منصة منخفضة والأخرى للخلف.\nانزل بمدى حركي أعمق ثم ادفع بالكعب الأمامي للأعلى.",
     "localMediaKey": "front-foot-elevated-split-squat",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "deficit-reverse-lunge",
@@ -2269,7 +2422,8 @@
     "instructionsAr": "قف على لوح أو منصة منخفضة واخطُ للخلف نحو الأرض.\nاخفض الركبة للأسفل بعمق إضافي ثم عد لوضع البداية.",
     "localMediaKey": "deficit-reverse-lunge",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "dumbbell-lateral-lunge",
@@ -2282,7 +2436,8 @@
     "instructionsAr": "اخطُ خطوة واسعة للجانب مع ثني ركبة الرجل المتقدمة.\nحافظ على استقامة الساق الأخرى ثم ادفع للعودة للمركز.",
     "localMediaKey": "dumbbell-lateral-lunge",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "dumbbell-curtsy-lunge",
@@ -2297,7 +2452,8 @@
     "instructionsAr": "اخطُ بساق واحدة قطرياً خلف الساق الأخرى مع الدمبلين.\nاخفض الوركين بثبات ثم ادفع بالساق الأمامية للأعلى.",
     "localMediaKey": "dumbbell-curtsy-lunge",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "landmine-squat",
@@ -2312,7 +2468,8 @@
     "instructionsAr": "امسك طرف البار المائل أمام الصدر بكلتا اليدين.\nانزل في السكوات بظهر مستقيم ثم ادفع للأعلى للأمام قليلاً.",
     "localMediaKey": "landmine-squat",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "landmine-romanian-deadlift",
@@ -2327,7 +2484,8 @@
     "instructionsAr": "قف ممسكاً بطرف البار بكلتا اليدين.\nادفع الوركين للخلف مع إنزال الطرف أمامك ثم عد بشد الأرداف.",
     "localMediaKey": "landmine-romanian-deadlift",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "kettlebell-swing",
@@ -2342,7 +2500,8 @@
     "instructionsAr": "اثنِ الورك للخلف ومرجح الكيتل بل بين الساقين.\nانفجر بدفع الوركين للأمام لرفع الوزن بمستوى الصدر دون شد الذراعين.",
     "localMediaKey": "kettlebell-swing",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "glute-focused-back-extension",
@@ -2357,7 +2516,8 @@
     "instructionsAr": "اضبط المسند أسفل الورك ودوّر أعلى الظهر قليلاً.\nارفع الجذع بعصر الأرداف دون فرط تقوس أسفل الظهر.",
     "localMediaKey": "glute-focused-back-extension",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "reverse-hyperextension",
@@ -2372,7 +2532,8 @@
     "instructionsAr": "استلقِ بصدرك وبطنك على الوسادة ممسكاً بالمقابض.\nارفع الساقين للخلف للأعلى بعصر الأرداف وأسفل الظهر.",
     "localMediaKey": "reverse-hyperextension",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "donkey-calf-raise",
@@ -2385,7 +2546,8 @@
     "instructionsAr": "انحنِ للأمام على الجهاز مع وضع أطراف القدمين على الحافة.\nاخفض الكعبين للتمدد ثم ادفع للأعلى بقوة السمانة.",
     "localMediaKey": "donkey-calf-raise",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "leg-press-calf-raise",
@@ -2398,7 +2560,8 @@
     "instructionsAr": "ضع مقدمة القدمين على الحافة السفلية لمنصة الدفع.\nادفع المنصة بأمشاط القدمين وأعدها ببطء للتمدد الكامل.",
     "localMediaKey": "leg-press-calf-raise",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "wall-sit",
@@ -2413,7 +2576,8 @@
     "instructionsAr": "أسند ظهرك على الجدار وانزل حتى تصبح الفخذان موازيتين للأرض.\nاثبت في الوضع مع شد البطن والتنفس المنتظم.",
     "localMediaKey": "wall-sit",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   },
   {
     "id": "jump-squat",
@@ -2426,7 +2590,8 @@
     "instructionsAr": "انزل في وضع السكوات ثم اقفز للأعلى بقوة.\nاهبط بنعومة على مشط القدمين مع امتصاص الصدمة بالركبتين.",
     "localMediaKey": "jump-squat",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "spider-curl",
@@ -2439,7 +2604,8 @@
     "instructionsAr": "استلقِ بصدرك على بنش مائل واخفض الذراعين عمودياً.\nاثنِ الدمبل للأعلى بعصر البايسبس ثم انزل ببطء.",
     "localMediaKey": "spider-curl",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "drag-curl",
@@ -2452,7 +2618,8 @@
     "instructionsAr": "امسك البار واسحبه عمودياً بملاصقة البطن والصدر.\nارجع المرفقين للخلف أثناء الصعود ثم انزل بتحكم.",
     "localMediaKey": "drag-curl",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "dumbbell-skull-crusher",
@@ -2467,7 +2634,8 @@
     "instructionsAr": "استلقِ وارفع الدمبلين فوق الصدر.\nاثنِ المرفقين لإنزال الدمبلين بجانب الرأس ثم افرد للأعلى.",
     "localMediaKey": "dumbbell-skull-crusher",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "single-dumbbell-skullcrusher",
@@ -2482,7 +2650,8 @@
     "instructionsAr": "استلقِ وامسك طرفي دمبل واحد فوق الرأس.\nاخفضه خلف الجبهة بثني المرفقين ثم ادفع للأعلى.",
     "localMediaKey": "single-dumbbell-skullcrusher",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "single-arm-dumbbell-tricep-extension",
@@ -2497,7 +2666,8 @@
     "instructionsAr": "ارفع الدمبل بيد واحدة فوق الرأس.\nاخفضه خلف الرقبة بتحكم مع ثبات العضد ثم افرد للأعلى.",
     "localMediaKey": "single-arm-dumbbell-tricep-extension",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "bench-dip",
@@ -2513,7 +2683,8 @@
     "instructionsAr": "أسند راحتي يديك على حافة البنش ومد ساقيك للأمام.\nاخفض الورك للأسفل ثم ادفع بقوة الترايسبس للأعلى.",
     "localMediaKey": "bench-dip",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "wrist-extension",
@@ -2526,7 +2697,8 @@
     "instructionsAr": "أسند ساعدك على الفخذ وراحة اليد للأسفل.\nارفع ظهر اليد بالدمبل للأعلى ثم اخفضه بتحكم.",
     "localMediaKey": "wrist-extension",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "farmer-carry",
@@ -2542,7 +2714,8 @@
     "instructionsAr": "امسك دمبلين ثقيلين بجانبيك وامشِ بخطوات ثابتة.\nحافظ على شد البطن والكتفين للخلف طوال المسافة.",
     "localMediaKey": "farmer-carry",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "mountain-climber",
@@ -2558,7 +2731,8 @@
     "instructionsAr": "ابدأ بوضع البلانك العالي على اليدين.\nاسحب ركبة تلو الأخرى بسرعة وتحكم نحو الصدر مع ثبات الجذع.",
     "localMediaKey": "mountain-climber",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "dead-bug",
@@ -2573,7 +2747,8 @@
     "instructionsAr": "استلقِ وارفع الذراعين والساقين المثنية للأعلى.\nامدّد ذراعاً وساقاً متعاكستين نحو الأرض مع لصق أسفل الظهر بالأرض.",
     "localMediaKey": "dead-bug",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "bird-dog",
@@ -2589,7 +2764,8 @@
     "instructionsAr": "ارتكز على اليدين والركبتين بظهر مستوٍ.\nمد ذراعاً للأمام والساق المقابلة للخلف بتوازن ثم بدّل.",
     "localMediaKey": "bird-dog",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "half-kneeling-pallof-press",
@@ -2605,7 +2781,8 @@
     "instructionsAr": "اجثُ بركبة واحدة جانبياً أمام الكابل.\nادفع المقبض للأمام مع منع الجذع من الالتفاف ثم أعده بتحكم.",
     "localMediaKey": "half-kneeling-pallof-press",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "cable-pallof-hold",
@@ -2621,7 +2798,8 @@
     "instructionsAr": "قف جانبياً وامسك المقبض ممدوداً أمام الصدر.\nقاوم قوة شد الكابل وحافظ على استقامة الجذع للمدة المطلوبة.",
     "localMediaKey": "cable-pallof-hold",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   },
   {
     "id": "weighted-crunch",
@@ -2634,7 +2812,8 @@
     "instructionsAr": "استلقِ وثبّت قرص الوزن أو الدمبل على الصدر.\nارفع أعلى الظهر بعصر البطن ثم انزل ببطء دون إرخاء كامل.",
     "localMediaKey": "weighted-crunch",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "weighted-russian-twist",
@@ -2649,7 +2828,8 @@
     "instructionsAr": "اجلس مائلاً للخلف قليلاً حاملاً قرصاً أو دمبلاً.\nلف جذعك يميناً ويساراً بتحكم دون التواء سريع.",
     "localMediaKey": "weighted-russian-twist",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "dumbbell-side-bend",
@@ -2664,7 +2844,8 @@
     "instructionsAr": "قف مستقيم الظهر ممسكاً بدمبل في يد واحدة.\nأمل الجذع للجانب نحو الوزن ثم اسحب للأعلى بعضلة الخصر المقابلة.",
     "localMediaKey": "dumbbell-side-bend",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "elliptical",
@@ -2677,7 +2858,8 @@
     "instructionsAr": "ضع القدمين في الدواستين وأمسك الذراعين المتحركين.\nحرك الساقين والذراعين بإيقاع متناغم ومقاومة متدرجة.",
     "localMediaKey": "elliptical",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   },
   {
     "id": "swimming",
@@ -2693,7 +2875,8 @@
     "instructionsAr": "حافظ على انسيابية الجسم في الماء وتنفس بإيقاع منتظم.\nنسّق ضربات الذراعين مع ركلات الساقين.",
     "localMediaKey": "swimming",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "jump-rope",
@@ -2708,7 +2891,8 @@
     "instructionsAr": "أمسك المقابض وأدر الحبل بحركة المعصمين.\nاقفز قفزات خفيفة على مقدمة القدمين مع إبقاء الركبتين مرنتين.",
     "localMediaKey": "jump-rope",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   },
   {
     "id": "assault-bike",
@@ -2723,7 +2907,8 @@
     "instructionsAr": "ادفع واسحب الذراعين بالتناغم مع تدوير البدالات بالقدمين.\nحافظ على وتيرة قوية وثابتة مع انتظام التنفس.",
     "localMediaKey": "assault-bike",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   },
   {
     "id": "skierg",
@@ -2740,7 +2925,8 @@
     "instructionsAr": "امسك المقبضين فوق الرأس وانزل بالجذع مع سحب الكابل للأسفل.\nافرد الجسم للعودة بوضع البداية وكرر بإيقاع قوي.",
     "localMediaKey": "skierg",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "hiking",
@@ -2753,7 +2939,8 @@
     "instructionsAr": "سر بخطوات متزنة مع إمالة طفيفة للأمام عند الصعود.\nاحرص على تثبيت كامل القدم على المسار.",
     "localMediaKey": "hiking",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "treadmill-incline-walk",
@@ -2766,7 +2953,8 @@
     "instructionsAr": "ارفع ميل السير بين 8 إلى 12 درجة بسرعة معتدلة.\nامشِ باستقامة القامة دون التمسك الدائم بالمقابض.",
     "localMediaKey": "treadmill-incline-walk",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   },
   {
     "id": "battle-ropes",
@@ -2782,7 +2970,8 @@
     "instructionsAr": "اثنِ الركبتين قليلاً وامسك طرفي الحبل.\nاصنع موجات متتابعة أو متزامنة بسرعة مع شد الجذع.",
     "localMediaKey": "battle-ropes",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   },
   {
     "id": "knee-push-up",
@@ -2799,7 +2988,8 @@
     "instructionsAr": "ارتكز على الركبتين واليدين في خط مستقيم للظهر.\nاخفض الصدر نحو الأرض ثم ادفع للأعلى بتحكم.",
     "localMediaKey": "knee-push-up",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "wide-push-up",
@@ -2816,7 +3006,8 @@
     "instructionsAr": "ضع اليدين أوسع من مستوى الكتفين.\nاخفض الصدر قرب الأرض مع بقاء الجذع مشدوداً ثم ادفع للأعلى.",
     "localMediaKey": "wide-push-up",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "pike-push-up",
@@ -2833,7 +3024,8 @@
     "instructionsAr": "ارفع الوركين للأعلى على شكل حرف V مقلوب.\nاخفض أعلى الرأس بين اليدين للأمام ثم ادفع للأعلى.",
     "localMediaKey": "pike-push-up",
     "defaultRestSeconds": 75,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "feet-elevated-pike-push-up",
@@ -2850,7 +3042,8 @@
     "instructionsAr": "ضع القدمين على بنش أو صندوق مع رفع الوركين عمودياً.\nاخفض الرأس بتحكم نحو الأرض ثم ادفع بقوة الأكتاف.",
     "localMediaKey": "feet-elevated-pike-push-up",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "archer-push-up",
@@ -2867,7 +3060,8 @@
     "instructionsAr": "اتخذ وضع ضغط واسع جداً وانخفض نحو يد واحدة مع مد الأخرى.\nادفع للأعلى ثم بدّل على اليد المقابلة.",
     "localMediaKey": "archer-push-up",
     "defaultRestSeconds": 75,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "typewriter-push-up",
@@ -2884,7 +3078,8 @@
     "instructionsAr": "انخفض لوضع ضغط واسع وانتقل أفقياً من جهة لأخرى.\nحافظ على انخفاض الصدر وشد الجذع أثناء الانتقال.",
     "localMediaKey": "typewriter-push-up",
     "defaultRestSeconds": 75,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "explosive-push-up",
@@ -2901,7 +3096,8 @@
     "instructionsAr": "اخفض الصدر نحو الأرض ثم ادفع للأعلى بأقصى سرعة حتى ترتفع اليدان.\nاهبط بنعومة مع امتصاص الحركة.",
     "localMediaKey": "explosive-push-up",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "hindu-push-up",
@@ -2918,7 +3114,8 @@
     "instructionsAr": "ابدأ بوركين مرتفعين ثم انزلق بالصدر قريباً من الأرض للأمام.\nادفع الصدر للأعلى مع تقوس لطيف ثم عد لوضع البداية.",
     "localMediaKey": "hindu-push-up",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "scapular-push-up",
@@ -2935,7 +3132,8 @@
     "instructionsAr": "في وضع البلانك العالي دون ثني المرفقين، قرّب لوحي الكتف من بعضهما.\nادفع الأرض لإبعاد اللوحين عن بعضهما وكرر.",
     "localMediaKey": "scapular-push-up",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "push-up-shoulder-tap",
@@ -2952,7 +3150,8 @@
     "instructionsAr": "نفّذ عدة ضغط كاملة وفي القمة المس كل كتف باليد المقابلة.\nتجنب تمايل الورك أثناء رفع اليد.",
     "localMediaKey": "push-up-shoulder-tap",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "wall-push-up",
@@ -2968,7 +3167,8 @@
     "instructionsAr": "قف أمام الجدار وضع راحتي اليدين بمستوى الكتفين.\nأمل جسمك نحو الجدار بثني المرفقين ثم ادفع للعودة.",
     "localMediaKey": "wall-push-up",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "wall-walk",
@@ -2985,7 +3185,8 @@
     "instructionsAr": "ابدأ بوضع الضغط وقدماك عند الجدار.\nاصعد بقدميك للخلف مع تقريب يديك من الحائط حتى تصبح عمودياً ثم انزل.",
     "localMediaKey": "wall-walk",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "wall-handstand-push-up",
@@ -3002,7 +3203,8 @@
     "instructionsAr": "اثبت عمودياً وأسند كعبيك على الجدار.\nاخفض الرأس بتحكم نحو الأرض ثم ادفع بقوة الأكتاف للأعلى.",
     "localMediaKey": "wall-handstand-push-up",
     "defaultRestSeconds": 120,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "handstand-push-up",
@@ -3019,7 +3221,8 @@
     "instructionsAr": "اتزن في وضع الوقوف على اليدين بشد كامل للجسم.\nاخفض الجسد بثني المرفقين ثم ادفع للأعلى بثبات.",
     "localMediaKey": "handstand-push-up",
     "defaultRestSeconds": 120,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "chair-dip",
@@ -3035,7 +3238,8 @@
     "instructionsAr": "أسند يديك على حافة كرسي ثابت ومد ساقيك.\nانزل بثني المرفقين حتى زاوية 90 ثم ادفع للأعلى.",
     "localMediaKey": "chair-dip",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "doorway-row",
@@ -3051,7 +3255,8 @@
     "instructionsAr": "قف وأمسك جانبي إطار الباب بكلتا اليدين مع تقريب القدمين للإطار.\nأمل جسمك للخلف ثم اسحب صدرك نحو الإطار بشد الظهر.",
     "localMediaKey": "doorway-row",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "towel-row",
@@ -3067,7 +3272,8 @@
     "instructionsAr": "لف منشفة متينة حول عمود ثابت وامسك طرفيها.\nأمل جسمك للخلف واسحب صدرك للأمام بعصر عضلات الظهر.",
     "localMediaKey": "towel-row",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "prone-y-raise",
@@ -3082,7 +3288,8 @@
     "instructionsAr": "استلقِ على البطن مع مد الذراعين للأمام بزاوية Y.\nارفع الذراعين للأعلى مع توجيه الإبهامين للسقف واعصر أعلى الظهر.",
     "localMediaKey": "prone-y-raise",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "prone-t-raise",
@@ -3097,7 +3304,8 @@
     "instructionsAr": "استلقِ على البطن مع فرد الذراعين للجانبين.\nارفع الذراعين نحو السقف مع عصر لوحي الكتف للداخل.",
     "localMediaKey": "prone-t-raise",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "superman",
@@ -3112,7 +3320,8 @@
     "instructionsAr": "استلقِ على بطنك ومد الذراعين للأمام والساقين للخلف.\nارفع الصدر والذراعين والساقين عن الأرض معاً لثانية ثم انزل.",
     "localMediaKey": "superman",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "superman-hold",
@@ -3127,7 +3336,8 @@
     "instructionsAr": "ارفع الصدر والذراعين والساقين معاً أثناء الاستلقاء على البطن.\nحافظ على الثبات والشد اللطيف دون حبس النفس.",
     "localMediaKey": "superman-hold",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   },
   {
     "id": "reverse-snow-angel",
@@ -3142,7 +3352,8 @@
     "instructionsAr": "استلقِ على البطن وأبقِ ذراعيك مرفوعتين قليلاً عن الأرض.\nحرّك الذراعين في قوس واسع من الخلف إلى فوق الرأس وبالعكس.",
     "localMediaKey": "reverse-snow-angel",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "dead-hang",
@@ -3159,7 +3370,8 @@
     "instructionsAr": "امسك البار بقبضة محكمة ودع جسمك يتدلى باسترخاء الكتفين.\nاثبت لتقوية القبضة وتمديد الظهر والكتفين.",
     "localMediaKey": "dead-hang",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   },
   {
     "id": "active-hang",
@@ -3175,7 +3387,8 @@
     "instructionsAr": "تعلق على البار ثم اسحب الكتفين للأسفل وللخلف بعيداً عن الأذنين.\nحافظ على استقامة الذراعين وشد اللوحين.",
     "localMediaKey": "active-hang",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   },
   {
     "id": "scapular-pull-up",
@@ -3191,7 +3404,8 @@
     "instructionsAr": "ابدأ من التعلق الكامل واسحب جسمك قليلاً بخفض لوحي الكتف فقط.\nتوقف لحظة في القمة دون ثني المرفقين ثم أرخِ بتحكم.",
     "localMediaKey": "scapular-pull-up",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "negative-pull-up",
@@ -3206,7 +3420,8 @@
     "instructionsAr": "اصعد لأعلى العقلة باستخدام صندوق أو قفزة خفيفة.\nاهبط ببطء وتحكم شديد لمدة 3 إلى 5 ثوانٍ حتى الامتداد الكامل.",
     "localMediaKey": "negative-pull-up",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "commando-pull-up",
@@ -3222,7 +3437,8 @@
     "instructionsAr": "امسك البار بقبضة متتابعة أمام بعضها وقف جانباً تحت البار.\nاسحب جسمك لملامسة الكتف للبار مع تبديل الجهة في كل عدة.",
     "localMediaKey": "commando-pull-up",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "l-sit-pull-up",
@@ -3238,7 +3454,8 @@
     "instructionsAr": "ارفع الساقين مستقيمتين للأمام بزاوية قائمة مع الجذع.\nحافظ على هذا الوضع أثناء سحب صدرك للعقلة.",
     "localMediaKey": "l-sit-pull-up",
     "defaultRestSeconds": 120,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "towel-pull-up",
@@ -3253,7 +3470,8 @@
     "instructionsAr": "علق منشفتين فوق بار العقلة وامسك بهما بقوة.\nاسحب جسمك للأعلى بتحكم لتحدي الظهر وقوة الأصابع.",
     "localMediaKey": "towel-pull-up",
     "defaultRestSeconds": 120,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "pistol-squat",
@@ -3268,7 +3486,8 @@
     "instructionsAr": "قف على ساق واحدة ومد الساق الأخرى مستقيمة للأمام.\nانزل بالكامل بتوازن ثم ادفع للوقوف دون لمس الأرض بالساق الممدودة.",
     "localMediaKey": "pistol-squat",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "assisted-pistol-squat",
@@ -3283,7 +3502,8 @@
     "instructionsAr": "توازن على ساق واحدة وأمسك دعامة ثابتة بخفة.\nانزل للأسفل ومد الساق الحرة للأمام ثم ادفع للأعلى.",
     "localMediaKey": "assisted-pistol-squat",
     "defaultRestSeconds": 75,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "shrimp-squat",
@@ -3298,7 +3518,8 @@
     "instructionsAr": "اثنِ ساقاً واحدة للخلف مع الإمساك بالقدم أو إبقائها مرفوعة.\nانزل بالساق الواقفة حتى تقارب الركبة الخلفية الأرض ثم اصعد.",
     "localMediaKey": "shrimp-squat",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "cossack-squat",
@@ -3313,7 +3534,8 @@
     "instructionsAr": "قف بوقفة واسعة جداً وانقل وزنك لساق واحدة مع النزول الكامل.\nاترك الساق الأخرى ممدودة للجانب ثم عد للمركز وبدّل.",
     "localMediaKey": "cossack-squat",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "sissy-squat",
@@ -3328,7 +3550,8 @@
     "instructionsAr": "ارفع الكعبين وأمل الجذع للخلف مع دفع الركبتين للأمام.\nانزل بتحكم ثم ارفع بتركيز عالٍ على عضلات الفخذ الأمامية.",
     "localMediaKey": "sissy-squat",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "forward-lunge",
@@ -3343,7 +3566,8 @@
     "instructionsAr": "اخطُ خطوة ثابتة للأمام وانخفض حتى تتشكل زاوية 90 للركبتين.\nادفع بكعب القدم الأمامية للرجوع لوضع الوقوف.",
     "localMediaKey": "forward-lunge",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "lateral-lunge",
@@ -3358,7 +3582,8 @@
     "instructionsAr": "خذ خطوة واسعة للجانب واثنِ ركبة واحدة مع إبقاء الأخرى ممدودة.\nادفع بالقدم للعودة وكرر على الجهة الأخرى.",
     "localMediaKey": "lateral-lunge",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "curtsy-lunge",
@@ -3373,7 +3598,8 @@
     "instructionsAr": "اخطُ بساق واحدة خلف الساق الأخرى قطرياً.\nاخفض الوركين بثبات ثم عد لوضع البداية وبدّل.",
     "localMediaKey": "curtsy-lunge",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "skater-squat",
@@ -3388,7 +3614,8 @@
     "instructionsAr": "توازن على ساق واحدة واثنِ الركبة الأخرى للخلف دون لمس الأرض.\nانزل بالورك بتحكم مع إمالة خفيفة للجذع للأمام ثم اصعد.",
     "localMediaKey": "skater-squat",
     "defaultRestSeconds": 75,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "single-leg-box-squat",
@@ -3403,7 +3630,8 @@
     "instructionsAr": "قف أمام صندوق على ساق واحدة واجلس عليه بتحكم.\nادفع بنفس الساق للوقوف دون التأرجح بالظهر.",
     "localMediaKey": "single-leg-box-squat",
     "defaultRestSeconds": 75,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "step-down",
@@ -3416,7 +3644,8 @@
     "instructionsAr": "قف بساق واحدة على حافة صندوق واخفض كعب الأخرى نحو الأرض.\nالمس الأرض بخفة ثم اصعد بقوة الساق الثابتة.",
     "localMediaKey": "step-down",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "calf-raise",
@@ -3429,7 +3658,8 @@
     "instructionsAr": "قف على حافة مرتفعة قليلاً وأرخِ الكعبين للأسفل.\nارتفع على أمشاط القدمين لأعلى مدى واثبت لحظة.",
     "localMediaKey": "calf-raise",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "single-leg-calf-raise",
@@ -3444,7 +3674,8 @@
     "instructionsAr": "توازن على حافة بساق واحدة مع الإمساك بخفة بدعامة.\nاخفض الكعب بالكامل ثم ادفع للأعلى بتحكم.",
     "localMediaKey": "single-leg-calf-raise",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "glute-bridge-march",
@@ -3459,7 +3690,8 @@
     "instructionsAr": "ارفع الورك في وضع جسر الأرداف وحافظ على ثبات الحوض.\nارفع ركبة واحدة نحو الصدر بالتناوب مع بقاء الورك مرتفعاً.",
     "localMediaKey": "glute-bridge-march",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "frog-pump",
@@ -3472,7 +3704,8 @@
     "instructionsAr": "استلقِ وألصق باطني القدمين مع فتح الركبتين للجانبين.\nادفع الوركين للأعلى بعصر الأرداف لثانية ثم انزل.",
     "localMediaKey": "frog-pump",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "donkey-kick",
@@ -3487,7 +3720,8 @@
     "instructionsAr": "ارتكز على اليدين والركبتين بظهر مستوٍ.\nارفع ساقاً مثنية نحو السقف بعصر الأرداف دون تقوس الظهر.",
     "localMediaKey": "donkey-kick",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "fire-hydrant",
@@ -3502,7 +3736,8 @@
     "instructionsAr": "من وضع الارتكاز على اليدين والركبتين، ارفع الركبة جانبياً.\nتجنب إمالة الجذع للجهة المعاكسة وارجع بتحكم.",
     "localMediaKey": "fire-hydrant",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "clamshell",
@@ -3517,7 +3752,8 @@
     "instructionsAr": "استلقِ على جانبك مع ثني الركبتين وإبقاء القدمين متلامستين.\nافتح الركبة العلوية للأعلى بتحكم ثم أغلق ببطء.",
     "localMediaKey": "clamshell",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "hip-airplane",
@@ -3532,7 +3768,8 @@
     "instructionsAr": "انحنِ للأمام على ساق واحدة وأدر الحوض للخارج ثم للداخل.\nيساعد هذا التمرين على ثبات الورك وتوازن الأرداف.",
     "localMediaKey": "hip-airplane",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "side-lying-hip-abduction",
@@ -3547,7 +3784,8 @@
     "instructionsAr": "استلقِ على جانبك مع فرد الساقين في خط مستقيم.\nارفع الساق العلوية للأعلى بتحكم دون تدوير الحوض للخلف.",
     "localMediaKey": "side-lying-hip-abduction",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "side-lying-leg-raise",
@@ -3562,7 +3800,8 @@
     "instructionsAr": "استلقِ جانبياً وأبقِ مشط القدم موجهاً للأمام.\nارفع الساق ببطء لأعلى مدى مريح ثم اخفضها بتحكم.",
     "localMediaKey": "side-lying-leg-raise",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "lying-hamstring-walkout",
@@ -3577,7 +3816,8 @@
     "instructionsAr": "ابدأ بوضع جسر الأرداف مع رفع الوركين.\nاخْطُ بالكعبين خطوات صغيرة للأمام حتى شبه استقامة الساقين ثم عد.",
     "localMediaKey": "lying-hamstring-walkout",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "towel-hamstring-curl",
@@ -3592,7 +3832,8 @@
     "instructionsAr": "استلقِ وضع كعبيك على منشفة فوق أرضية ملساء مع رفع الورك.\nاسحب الكعبين نحو الأرداف ثم مد الساقين بتحكم.",
     "localMediaKey": "towel-hamstring-curl",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "stability-ball-hamstring-curl",
@@ -3607,7 +3848,8 @@
     "instructionsAr": "استلقِ وضع كعبيك فوق الكرة مع رفع الحوض في خط مستقيم.\nاسحب الكرة نحو جسمك بثني الركبتين ثم أعدها ببطء.",
     "localMediaKey": "stability-ball-hamstring-curl",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "banded-glute-bridge",
@@ -3622,7 +3864,8 @@
     "instructionsAr": "ضع حبل المقاومة فوق الركبتين واستلقِ بثني الساقين.\nارفع الورك وادفع الركبتين قليلاً للخارج لعصر الأرداف.",
     "localMediaKey": "banded-glute-bridge",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "banded-hip-thrust",
@@ -3637,7 +3880,8 @@
     "instructionsAr": "أسند أعلى الظهر على البنش مع ربط حبل المقاومة حول الفخذين.\nادفع الورك للأعلى وحافظ على شد الحبل للخارج.",
     "localMediaKey": "banded-hip-thrust",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "banded-frog-pump",
@@ -3650,7 +3894,8 @@
     "instructionsAr": "ألصق باطني القدمين مع وضع حبل المقاومة فوق الركبتين.\nارفع الوركين للأعلى بعصر قوي للأرداف.",
     "localMediaKey": "banded-frog-pump",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "banded-clamshell",
@@ -3665,7 +3910,8 @@
     "instructionsAr": "استلقِ على جانبك مع وضع حبل المقاومة حول الفخذين.\nافتح الركبة العلوية ضد شد الحبل ثم عد ببطء.",
     "localMediaKey": "banded-clamshell",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "banded-lateral-walk",
@@ -3680,7 +3926,8 @@
     "instructionsAr": "ضع الحبل فوق الركبتين أو حول الكاحلين واثنِ الركبتين قليلاً.\nتحرك خطوات جانبية متتالية مع إبقاء التوتر مستمراً.",
     "localMediaKey": "banded-lateral-walk",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "banded-monster-walk",
@@ -3695,7 +3942,8 @@
     "instructionsAr": "ضع حبل المقاومة حول الساقين واخطُ قطرياً للأمام بتحكم.\nحافظ على انخفاض الوركين وثبات الركبتين للخارج.",
     "localMediaKey": "banded-monster-walk",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "banded-squat",
@@ -3710,7 +3958,8 @@
     "instructionsAr": "ضع حبل المقاومة فوق الركبتين أو تحت القدمين.\nانزل في السكوات مع مقاومة اندفاع الركبتين للداخل ثم ادفع للأعلى.",
     "localMediaKey": "banded-squat",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "banded-donkey-kick",
@@ -3725,7 +3974,8 @@
     "instructionsAr": "ثبّت الحبل حول القدم وارتكز على اليدين والركبتين.\nادفع الساق للخلف للأعلى ضد مقاومة الحبل ثم أرجعها ببطء.",
     "localMediaKey": "banded-donkey-kick",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "banded-fire-hydrant",
@@ -3740,7 +3990,8 @@
     "instructionsAr": "ضع الحبل فوق الركبتين وارتكز على أربع.\nافتح الركبة جانبياً ضد المقاومة مع ثبات الجذع.",
     "localMediaKey": "banded-fire-hydrant",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "banded-kickback",
@@ -3755,7 +4006,8 @@
     "instructionsAr": "ثبّت الحبل في الكاحلين وأمسك بدعامة أمامك.\nادفع ساقاً مستقيمة للخلف بتحكم لعصر الأرداف.",
     "localMediaKey": "banded-kickback",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "banded-standing-hip-abduction",
@@ -3770,7 +4022,8 @@
     "instructionsAr": "قف مستقيماً مع وضع الحبل حول الكاحلين.\nارفع ساقاً جانبياً للخارج دون إمالة الجذع ثم عد ببطء.",
     "localMediaKey": "banded-standing-hip-abduction",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "banded-seated-hip-abduction",
@@ -3785,7 +4038,8 @@
     "instructionsAr": "اجلس على البنش وضع الحبل فوق الركبتين.\nافتح الركبتين للخارج ضد الحبل واثبت لحظة ثم عد بتحكم.",
     "localMediaKey": "banded-seated-hip-abduction",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "band-pull-apart",
@@ -3800,7 +4054,8 @@
     "instructionsAr": "امسك حبل المقاومة ممدوداً أمام الكتفين.\nافتح ذراعيك للجانبين بعصر لوحي الكتف ثم أعدهما ببطء.",
     "localMediaKey": "band-pull-apart",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "banded-face-pull",
@@ -3815,7 +4070,8 @@
     "instructionsAr": "ثبّت الحبل بمستوى الوجه واسحبه نحو الجبهة.\nباعد بين اليدين في النهاية لعصر الكتف الخلفي.",
     "localMediaKey": "banded-face-pull",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "banded-row",
@@ -3830,7 +4086,8 @@
     "instructionsAr": "اجلس ومد ساقيك ولف الحبل حول القدمين.\nاسحب الطرفين نحو الخصر مع عصر عضلات الظهر واستقامة الجذع.",
     "localMediaKey": "banded-row",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "banded-lat-pulldown",
@@ -3846,7 +4103,8 @@
     "instructionsAr": "ثبّت الحبل في نقطة مرتفعة واركع أو اجلس.\nاسحب الطرفين للأسفل نحو الصدر بضم لوحي الكتف للأسفل.",
     "localMediaKey": "banded-lat-pulldown",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "banded-pallof-press",
@@ -3862,7 +4120,8 @@
     "instructionsAr": "ثبّت الحبل جانبياً بمستوى الصدر وامسكه بكلتا اليدين.\nادفع الذراعين للأمام مع مقاومة التفاف الجذع.",
     "localMediaKey": "banded-pallof-press",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "banded-woodchop",
@@ -3878,7 +4137,8 @@
     "instructionsAr": "ثبّت الحبل منخفضاً أو مرتفعاً وقف جانبياً.\nلف الجذع قطرياً بسحب الحبل مع شد البطن والخصر.",
     "localMediaKey": "banded-woodchop",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "banded-dead-bug",
@@ -3894,7 +4154,8 @@
     "instructionsAr": "ثبّت الحبل خلف الرأس وامسكه بيديك فوق الصدر.\nبدّل مد الساقين نحو الأرض مع إبقاء أسفل الظهر ملامساً للأرض.",
     "localMediaKey": "banded-dead-bug",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "hollow-body-hold",
@@ -3909,7 +4170,8 @@
     "instructionsAr": "استلقِ على ظهرك وارفع الكتفين والساقين الممدودتين قليلاً.\nاضغط بأسفل الظهر على الأرض وحافظ على الثبات.",
     "localMediaKey": "hollow-body-hold",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   },
   {
     "id": "hollow-rock",
@@ -3924,7 +4186,8 @@
     "instructionsAr": "اتخذ وضعية الجسم المجوف مع شد البطن بالكامل.\nتأرجح للخلف وللأمام بسلاسة مع الحفاظ على شكل الجسم الثابت.",
     "localMediaKey": "hollow-rock",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "v-up",
@@ -3939,7 +4202,8 @@
     "instructionsAr": "استلقِ ممدداً بالكامل وارفع الجذع والساقين في آنٍ واحد.\nالمس أطراف القدمين بيديك في القمة ثم انزل بتحكم.",
     "localMediaKey": "v-up",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "flutter-kick",
@@ -3954,7 +4218,8 @@
     "instructionsAr": "استلقِ وضع اليدين تحت الحوض لحماية أسفل الظهر.\nبدّل رفع وإنزال الساقين الممدودتين بحركات سريعة ومتحكم بها.",
     "localMediaKey": "flutter-kick",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "toe-touch",
@@ -3967,7 +4232,8 @@
     "instructionsAr": "استلقِ وارفع الساقين عمودياً نحو السقف.\nارفع كتفيك للأمام للمس أصابع القدمين بعصر أعلى البطن.",
     "localMediaKey": "toe-touch",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "heel-tap",
@@ -3980,7 +4246,8 @@
     "instructionsAr": "استلقِ مع ثني الركبتين وارفع الكتفين قليلاً عن الأرض.\nأمل جذعك بالتناوب للمس الكعب الأيمن ثم الأيسر.",
     "localMediaKey": "heel-tap",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "plank-shoulder-tap",
@@ -3996,7 +4263,8 @@
     "instructionsAr": "اثبت في وضع البلانك العالي مع فتح القدمين قليلاً للتوازن.\nالمس كل كتف باليد المقابلة ببطء مع منع تمايل الحوض.",
     "localMediaKey": "plank-shoulder-tap",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "plank-jack",
@@ -4012,7 +4280,8 @@
     "instructionsAr": "من وضع البلانك، اقفز بالقدمين للخارج وللداخل.\nحافظ على ثبات الكتفين واستقامة الظهر طوال الحركة.",
     "localMediaKey": "plank-jack",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "bear-plank",
@@ -4028,7 +4297,8 @@
     "instructionsAr": "ارتكز على اليدين وأطراف الأصابع مع ثني الركبتين ورفعهما سنتيمترات عن الأرض.\nحافظ على استقامة الظهر وشد البطن.",
     "localMediaKey": "bear-plank",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   },
   {
     "id": "bear-crawl",
@@ -4044,7 +4314,8 @@
     "instructionsAr": "من وضع بلانك الدب، تحرك للأمام بتحريك اليد والقدم المتعاكستين.\nأبقِ الوركين منخفضين وبظهر مستوٍ.",
     "localMediaKey": "bear-crawl",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "crab-walk",
@@ -4061,7 +4332,8 @@
     "instructionsAr": "اجلس وأسند يديك خلفك مع ثني الركبتين وارفع الحوض.\nامشِ للأمام أو للخلف بالتناوب بين اليدين والقدمين.",
     "localMediaKey": "crab-walk",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "inchworm",
@@ -4078,7 +4350,8 @@
     "instructionsAr": "قف وانحنِ للمس الأرض بيديك ثم امشِ باليدين للأمام لوضع البلانك.\nتقدم بالقدمين أو ارجع باليدين للوقوف وكرر.",
     "localMediaKey": "inchworm",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "l-sit-hold",
@@ -4095,7 +4368,8 @@
     "instructionsAr": "أسند راحتي يديك على الأرض أو المتوازي وارفع الورك والساقين مستقيمتين للأمام.\nادفع الكتفين للأسفل واثبت بشد البطن.",
     "localMediaKey": "l-sit-hold",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   },
   {
     "id": "seated-knee-tuck",
@@ -4110,7 +4384,8 @@
     "instructionsAr": "اجلس على حافة البنش وأمسك الجانبين وأمل الجذع للخلف.\nاسحب الركبتين نحو الصدر ثم مد الساقين للأمام بتحكم.",
     "localMediaKey": "seated-knee-tuck",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "side-plank-hip-dip",
@@ -4126,7 +4401,8 @@
     "instructionsAr": "ارتكز في وضع البلانك الجانبي على الساعد.\nاخفض الورك برفق قرب الأرض ثم ارفعه للأعلى بعصر الخصر.",
     "localMediaKey": "side-plank-hip-dip",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "copenhagen-plank",
@@ -4141,7 +4417,8 @@
     "instructionsAr": "في وضع البلانك الجانبي، ضع الساق العلوية فوق بنش والأسفل معلقة.\nارفع الوركين في خط مستقيم واثبت لشد الضامة والخصر.",
     "localMediaKey": "copenhagen-plank",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   },
   {
     "id": "dragon-flag",
@@ -4157,7 +4434,8 @@
     "instructionsAr": "استلقِ وأمسك حافة البنش خلف الرأس وارفع الجسم عمودياً على الكتفين.\nاخفض الجسم كقطعة واحدة مستقيمة ببطء ثم ارفعه مجدداً.",
     "localMediaKey": "dragon-flag",
     "defaultRestSeconds": 90,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "burpee",
@@ -4174,7 +4452,8 @@
     "instructionsAr": "انزل لوضع القرفصاء وضع اليدين ثم اقفز بالقدمين للبلانك ونفذ ضغطاً.\nعد بالقدمين للأمام واقفز للأعلى بتمدد كامل.",
     "localMediaKey": "burpee",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "half-burpee",
@@ -4190,7 +4469,8 @@
     "instructionsAr": "ضع اليدين على الأرض واقفز بالقدمين للبلانك ثم عد للقفز واقفاً.\nحافظ على إيقاع سريع ومتوازن مع شد البطن.",
     "localMediaKey": "half-burpee",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "squat-thrust",
@@ -4206,7 +4486,8 @@
     "instructionsAr": "من الوقوف، انزل بيديك على الأرض واقفز للخلف لوضع البلانك.\nارجع القدمين بسرعة بين اليدين وقف.",
     "localMediaKey": "squat-thrust",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "high-knees",
@@ -4221,7 +4502,8 @@
     "instructionsAr": "اجرِ في مكانك مع رفع الركبتين لمستوى الورك بالتناوب السريع.\nحرّك الذراعين بتناغم وحافظ على استقامة الجذع.",
     "localMediaKey": "high-knees",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   },
   {
     "id": "jumping-jack",
@@ -4236,7 +4518,8 @@
     "instructionsAr": "اقفز مع فتح القدمين للجانبين ورفع الذراعين فوق الرأس.\nعد لوضع البداية بقدمين مضمومتين وخفض الذراعين.",
     "localMediaKey": "jumping-jack",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   },
   {
     "id": "skater-hop",
@@ -4249,7 +4532,8 @@
     "instructionsAr": "اقفز جانبياً من ساق إلى أخرى مع تمرير الساق الحرة خلفك.\nثبّت التوازن لحظة على كل هبوط ثم اندفع للجهة المقابلة.",
     "localMediaKey": "skater-hop",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "lateral-shuffle",
@@ -4262,7 +4546,8 @@
     "instructionsAr": "اثنِ الركبتين قليلاً في وضع رياضي منخفض.\nتحرك جانبياً بخطوات سريعة متقاربة يميناً ثم يساراً.",
     "localMediaKey": "lateral-shuffle",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   },
   {
     "id": "fast-feet",
@@ -4275,7 +4560,8 @@
     "instructionsAr": "انخفض قليلاً على أمشاط القدمين وحرّك القدمين بأقصى سرعة في المكان.\nأبقِ البطن مشدوداً والذراعين متحركتين للتوازن.",
     "localMediaKey": "fast-feet",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "sprawl",
@@ -4291,7 +4577,8 @@
     "instructionsAr": "انزل بسرعة لوضع البلانك مع إبقاء الوركين منخفضين دون ملامسة الأرض.\nارتد للوقوف السريع في وضع استعداد رياضي.",
     "localMediaKey": "sprawl",
     "defaultRestSeconds": 60,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "seal-jack",
@@ -4307,7 +4594,8 @@
     "instructionsAr": "اقفز مع فتح الساقين والذراعين أفقياً للجانبين بمستوى الصدر.\nأغلق اليدين والساقين في القفزة التالية بإيقاع متواصل.",
     "localMediaKey": "seal-jack",
     "defaultRestSeconds": 45,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   },
   {
     "id": "cat-cow-stretch",
@@ -4322,7 +4610,8 @@
     "instructionsAr": "ارتكز على اليدين والركبتين.\nقوّس الظهر للأعلى مع الزفير، ثم اخفض البطن وارفع الصدر مع الشهيق.",
     "localMediaKey": "cat-cow-stretch",
     "defaultRestSeconds": 30,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   },
   {
     "id": "arm-circles",
@@ -4339,7 +4628,8 @@
     "instructionsAr": "افرد الذراعين للجانبين وأدرهما في دوائر صغيرة ثم واسعة.\nبدّل اتجاه الدوران للأمام وللخلف لإحماء الكتفين.",
     "localMediaKey": "arm-circles",
     "defaultRestSeconds": 30,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "worlds-greatest-stretch",
@@ -4355,7 +4645,8 @@
     "instructionsAr": "من خطوة طعن عميقة، ضع يداً على الأرض وأدر الجذع برفع اليد الأخرى للسقف.\nبدّل بين الساقين لفتح الوركين والعمود الفقري.",
     "localMediaKey": "worlds-greatest-stretch",
     "defaultRestSeconds": 30,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   },
   {
     "id": "leg-swings-stretch",
@@ -4370,7 +4661,8 @@
     "instructionsAr": "أمسك بدعامة جانبية وحرّك ساقاً مستقيمة للأمام والخلف بانسيابية.\nكرر للحركة الجانبية ثم بدّل الساق.",
     "localMediaKey": "leg-swings-stretch",
     "defaultRestSeconds": 30,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "torso-twist-stretch",
@@ -4385,7 +4677,8 @@
     "instructionsAr": "قف بقدمين بمستوى الكتفين وأدر جذعك وذراعيك بلطف يميناً ويساراً.\nحافظ على تنفس هادئ وحركة مرنة.",
     "localMediaKey": "torso-twist-stretch",
     "defaultRestSeconds": 30,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "REPS"
   },
   {
     "id": "doorway-chest-stretch",
@@ -4401,7 +4694,8 @@
     "instructionsAr": "ضع الساعدين على جانبي إطار الباب بزاوية 90 درجة.\nتقدّم خطوة لطيفة للأمام حتى تشعر بتمدد مريح في الصدر والكتفين.",
     "localMediaKey": "doorway-chest-stretch",
     "defaultRestSeconds": 30,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   },
   {
     "id": "childs-pose",
@@ -4418,7 +4712,8 @@
     "instructionsAr": "اركع واجلس بالوركين نحو الكعبين مع مد الذراعين للأمام على الأرض.\nاسترخِ وتنفس بعمق لتمديد أسفل الظهر والأكتاف.",
     "localMediaKey": "childs-pose",
     "defaultRestSeconds": 30,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   },
   {
     "id": "kneeling-hip-flexor-stretch",
@@ -4433,7 +4728,8 @@
     "instructionsAr": "اجثُ على ركبة واحدة وضع القدم الأخرى أمامك.\nادفع الوركين للأمام برفق مع شد الأرداف للشعور بتمدد مقدمة الورك.",
     "localMediaKey": "kneeling-hip-flexor-stretch",
     "defaultRestSeconds": 30,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   },
   {
     "id": "hamstring-stretch",
@@ -4448,7 +4744,8 @@
     "instructionsAr": "قدّم قدماً للأمام مع إبقاء الركبة مستقيمة وإمالة الجذع بظهر مستوٍ.\nاثبت عند أول شد لطيف ثم بدّل الساق.",
     "localMediaKey": "hamstring-stretch",
     "defaultRestSeconds": 30,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   },
   {
     "id": "standing-quad-stretch",
@@ -4463,7 +4760,8 @@
     "instructionsAr": "قف بتوازن واسحب مشط قدم واحدة بيدك نحو الأرداف.\nحافظ على تقارب الركبتين واستقامة الظهر ثم بدّل.",
     "localMediaKey": "standing-quad-stretch",
     "defaultRestSeconds": 30,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   },
   {
     "id": "seated-forward-fold-stretch",
@@ -4479,7 +4777,8 @@
     "instructionsAr": "اجلس ومد الساقين مستقيمتين للأمام.\nأمل الجذع من مفصل الورك نحو القدمين بظهر مفرود قدر الإمكان.",
     "localMediaKey": "seated-forward-fold-stretch",
     "defaultRestSeconds": 30,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   },
   {
     "id": "cross-body-shoulder-stretch",
@@ -4495,7 +4794,8 @@
     "instructionsAr": "مرّر ذراعاً واحدة أفقياً أمام الصدر واسحبها برفق باليد الأخرى.\nحافظ على خفض الكتف وتنفس بهدوء ثم بدّل.",
     "localMediaKey": "cross-body-shoulder-stretch",
     "defaultRestSeconds": 30,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   },
   {
     "id": "wall-calf-stretch",
@@ -4510,7 +4810,8 @@
     "instructionsAr": "أسند يديك على الحائط وأرجع قدماً مستقيمة للخلف مع لصق الكعب بالأرض.\nتقدم بالورك للأمام حتى تشعر بإطالة السمانة ثم بدّل.",
     "localMediaKey": "wall-calf-stretch",
     "defaultRestSeconds": 30,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   },
   {
     "id": "butterfly-stretch",
@@ -4525,6 +4826,7 @@
     "instructionsAr": "اجلس وألصق باطني القدمين مع تقريب الكعبين من الجسم.\nاخفض الركبتين برفق نحو الأرض بظهر مستقيم وتنفس بهدوء.",
     "localMediaKey": "butterfly-stretch",
     "defaultRestSeconds": 30,
-    "isCustom": false
+    "isCustom": false,
+    "exerciseType": "TIME"
   }
 ]

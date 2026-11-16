@@ -6,6 +6,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.himma.app.domain.model.EquipmentType
 import com.himma.app.domain.model.Exercise
+import com.himma.app.domain.model.ExerciseType
 import com.himma.app.domain.model.MuscleGroup
 import com.himma.app.domain.text.ArabicTextNormalizer
 
@@ -46,6 +47,8 @@ data class ExerciseEntity(
     val createdAt: Long,
     @ColumnInfo(name = "updated_at")
     val updatedAt: Long,
+    @ColumnInfo(name = "exercise_type", defaultValue = "REPS")
+    val exerciseType: String = ExerciseType.REPS.name,
 ) {
     fun toDomain(): Exercise = Exercise(
         id = id,
@@ -63,6 +66,7 @@ data class ExerciseEntity(
         isCustom = isCustom,
         createdAt = createdAt,
         updatedAt = updatedAt,
+        exerciseType = ExerciseType.fromNameOrDefault(exerciseType),
     )
 
     companion object {
@@ -81,6 +85,7 @@ data class ExerciseEntity(
             isCustom = exercise.isCustom,
             createdAt = exercise.createdAt,
             updatedAt = exercise.updatedAt,
+            exerciseType = exercise.exerciseType.name,
         )
     }
 }

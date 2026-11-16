@@ -10,7 +10,14 @@ import androidx.compose.material.icons.rounded.SportsGymnastics
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.himma.app.R
 import com.himma.app.domain.model.EquipmentType
+import com.himma.app.domain.model.ExerciseType
 import com.himma.app.domain.model.MuscleGroup
+
+@StringRes
+fun ExerciseType.labelRes(): Int = when (this) {
+    ExerciseType.REPS -> R.string.exercise_type_reps
+    ExerciseType.TIME -> R.string.exercise_type_time
+}
 
 @StringRes
 fun MuscleGroup.labelRes(): Int = when (this) {

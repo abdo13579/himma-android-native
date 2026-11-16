@@ -4,6 +4,7 @@ import com.himma.app.core.database.dao.ExerciseDao
 import com.himma.app.core.database.entity.ExerciseEntity
 import com.himma.app.domain.model.EquipmentType
 import com.himma.app.domain.model.Exercise
+import com.himma.app.domain.model.ExerciseType
 import com.himma.app.domain.model.MuscleGroup
 import com.himma.app.domain.text.ArabicTextNormalizer
 import java.util.UUID
@@ -39,6 +40,7 @@ interface ExerciseRepository {
         defaultRestSeconds: Int,
         instructionsAr: String,
         instructionsEn: String,
+        exerciseType: ExerciseType = ExerciseType.REPS,
     ): String
 
     suspend fun deleteCustomExercise(id: String)
@@ -117,6 +119,7 @@ class RoomExerciseRepository @Inject constructor(
         defaultRestSeconds: Int,
         instructionsAr: String,
         instructionsEn: String,
+        exerciseType: ExerciseType,
     ): String {
         val now = System.currentTimeMillis()
         val existing = existingId?.let { exerciseDao.getByIdOnce(it) }
@@ -143,6 +146,7 @@ class RoomExerciseRepository @Inject constructor(
                 isCustom = true,
                 createdAt = existing?.createdAt ?: now,
                 updatedAt = now,
+                exerciseType = exerciseType.name,
             ),
         )
         return resolvedId
