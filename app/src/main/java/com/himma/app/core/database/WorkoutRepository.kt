@@ -65,6 +65,13 @@ interface WorkoutRepository {
 
     suspend fun removeExerciseFromWorkout(workoutId: String, exerciseId: String)
 
+    suspend fun updateExerciseWeightUnitMode(
+        workoutId: String,
+        exerciseId: String,
+        exerciseOrder: Int,
+        mode: com.himma.app.domain.model.WeightUnitMode,
+    )
+
     suspend fun updateSetValues(
         setId: String,
         weightKg: Double?,
@@ -155,6 +162,7 @@ class RoomWorkoutRepository @Inject constructor(
                             isCompleted = false,
                             isPr = false,
                             completedAt = null,
+                            weightUnitMode = routineEx.weightUnitMode.name,
                         ),
                     )
                 }
@@ -229,9 +237,12 @@ class RoomWorkoutRepository @Inject constructor(
         restSeconds: Int,
     ) {
         withContext(Dispatchers.IO) {
-            val nextSetIdx = workoutDao.getMaxSetIndexForExercise(workoutId, exerciseId) + 1
+            val nextSetIdx = workoutDao.getMaxSetIndexForExerciseOrder(workoutId, exerciseId, exerciseOrder) + 1
             val workout = workoutDao.getWorkoutByIdOnce(workoutId)
-            val prevSet = workout?.sets?.map { it.set }?.filter { it.exerciseId == exerciseId }?.lastOrNull()
+            val prevSet = workout?.sets
+                ?.map { it.set }
+                ?.filter { it.exerciseId == exerciseId && it.exerciseOrder == exerciseOrder }
+                ?.lastOrNull()
             workoutDao.upsertSet(
                 WorkoutSetEntity(
                     id = UUID.randomUUID().toString(),
@@ -248,6 +259,7 @@ class RoomWorkoutRepository @Inject constructor(
                     isCompleted = false,
                     isPr = false,
                     completedAt = null,
+                    weightUnitMode = prevSet?.weightUnitMode ?: com.himma.app.domain.model.WeightUnitMode.WEIGHT.name,
                 ),
             )
         }
@@ -255,13 +267,24 @@ class RoomWorkoutRepository @Inject constructor(
 
     override suspend fun removeSet(setId: String) {
         withContext(Dispatchers.IO) {
-            workoutDao.deleteSetById(setId)
+            workoutDao.deleteSetAndReindex(setId)
         }
     }
 
     override suspend fun removeExerciseFromWorkout(workoutId: String, exerciseId: String) {
         withContext(Dispatchers.IO) {
             workoutDao.deleteSetsForExercise(workoutId, exerciseId)
+        }
+    }
+
+    override suspend fun updateExerciseWeightUnitMode(
+        workoutId: String,
+        exerciseId: String,
+        exerciseOrder: Int,
+        mode: com.himma.app.domain.model.WeightUnitMode,
+    ) {
+        withContext(Dispatchers.IO) {
+            workoutDao.updateWeightUnitModeForExerciseOrder(workoutId, exerciseId, exerciseOrder, mode.name)
         }
     }
 
@@ -366,6 +389,7 @@ class RoomWorkoutRepository @Inject constructor(
                         weightKg = row.weightKg,
                         reps = row.reps,
                         durationSeconds = row.durationSeconds,
+                        weightUnitMode = com.himma.app.domain.model.WeightUnitMode.fromNameOrDefault(row.weightUnitMode),
                     )
                 }
             }

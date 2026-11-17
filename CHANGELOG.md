@@ -7,6 +7,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.2.0] — 2026-11-17
+
+### 🧱 Pin-Loaded Stack Plates Tracking, Workout Progress Bar & Ergonomic Set Management
+
+This release introduces native support for pin-loaded weight stack plates across routines and workouts, a real-time workout session progress bar, and major ergonomics fixes for set deletion and sequential numbering.
+
+#### Added
+- **Pin-Loaded Stack Plates Tracking Mode:**
+  - Added native tracking mode selection between traditional Weight and Stack Plates (`WeightUnitMode.STACK_PLATES`) for all cable and machine exercises.
+  - Routine Builder (`RoutineEditorScreen`) now includes a dedicated segmented button control for stack-compatible exercises to configure plate vs weight tracking upfront.
+  - Active Workout session (`ActiveWorkoutScreen`) dynamically adapts input fields to "Plates", formats previous performance hints as "Prev: X plates × Reps", and provides quick increment chips (`+1`, `+2`, `+5` plates).
+  - Tap-to-toggle tracking mode badge on exercise card headers during active workouts for flexible on-the-fly switching.
+  - Upgraded local database schema with safe Room migration (`MIGRATION_8_9`) maintaining zero data loss.
+  - JSON Backup/Restore updated with backwards-compatible stack plates support.
+- **Active Workout Real-time Progress Bar:**
+  - Prominent animated linear progress bar positioned in the top app bar of active workouts, visually tracking completion percentage based on logged sets.
+  - Fully accessible semantics and localized content descriptions.
+
+#### Fixed & Refined
+- **Set Deletion Visibility & Safe Re-indexing:**
+  - Fixed delete set icon visibility and hit area in workout set rows.
+  - Atomic set deletion with automatic re-indexing: deleting an intermediate set (e.g. set #2 out of 3) safely renumbers subsequent sets (#1, #2) while strictly preserving each set's individual type (Warmup, Drop Set, Failure, Normal).
+  - Adding a new set after deletion correctly appends the next sequential number.
+
+#### Packaging
+- **Official Production APK Packaging:**
+  - Shipped signed production release APK (`android:debuggable="false"`), unlocking full ART Ahead-Of-Time (AOT) and Just-In-Time (JIT) optimizations and stripping debug overhead for peak runtime performance.
+
+---
+
 ## [1.1.0] — 2026-11-16
 
 ### ⏱️ Time-Based Exercises, Routine Exercise Previews & Inline Custom Exercise Creation

@@ -46,4 +46,6 @@ data class RoutineExerciseEntity(
     val targetRestSeconds: Int,
     @ColumnInfo(name = "target_duration_seconds")
     val targetDurationSeconds: Int? = null,
+    @ColumnInfo(name = "weight_unit_mode")
+    val weightUnitMode: String = "WEIGHT",
 )

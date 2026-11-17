@@ -119,6 +119,7 @@ class RoutineEditorViewModel @Inject constructor(
                                     targetRepsMax = item.targetRepsMax,
                                     targetRestSeconds = item.targetRestSeconds,
                                     targetDurationSeconds = item.targetDurationSeconds,
+                                    weightUnitMode = item.weightUnitMode,
                                 )
                             },
                         )
@@ -260,6 +261,10 @@ class RoutineEditorViewModel @Inject constructor(
             )
             draft.copy(targetDurationSeconds = next)
         }
+    }
+
+    fun updateWeightUnitMode(itemId: String, mode: com.himma.app.domain.model.WeightUnitMode) {
+        updateExerciseItem(itemId) { it.copy(weightUnitMode = mode) }
     }
 
     private fun updateExerciseItem(

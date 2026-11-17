@@ -6,6 +6,9 @@ import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.snap
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
@@ -86,6 +89,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -106,12 +111,14 @@ import com.himma.app.domain.model.MuscleGroup
 import com.himma.app.domain.model.PreviousSetHint
 import com.himma.app.domain.model.SetType
 import com.himma.app.domain.model.WeightUnit
+import com.himma.app.domain.model.WeightUnitMode
 import com.himma.app.domain.model.WorkoutExerciseGroup
 import com.himma.app.domain.model.WorkoutMath
 import com.himma.app.domain.model.WorkoutSet
 import com.himma.app.features.exercises.icon
 import com.himma.app.features.exercises.labelRes
 import com.himma.app.features.routines.RoutinePickerFilterState
+import com.himma.app.features.shell.LocalAnimationsEnabled
 import com.himma.app.service.RestTimerState
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -178,82 +185,131 @@ fun ActiveWorkoutScreen(
         }
     }
 
+    val completedSets = state.session?.completedSetsCount ?: 0
+    val totalSets = state.session?.totalSetsCount ?: 0
+    val targetProgress = state.session?.progress ?: 0f
+    val animationsEnabled = LocalAnimationsEnabled.current
+    val animatedProgress by animateFloatAsState(
+        targetValue = targetProgress,
+        animationSpec = if (animationsEnabled) tween(durationMillis = 350) else snap(),
+        label = "workoutProgress",
+    )
+    val progressPercent = (targetProgress * 100).toInt()
+    val progressDescription = stringResource(
+        id = R.string.workout_progress_desc,
+        progressPercent,
+        completedSets,
+        totalSets,
+    )
+
     Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text(
-                            text = state.session?.title.orEmpty(),
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                            style = MaterialTheme.typography.titleMedium,
-                        )
-                        Text(
-                            text = WorkoutMath.formatTimer(elapsedSeconds),
-                            style = MaterialTheme.typography.labelLarge,
-                            color = MaterialTheme.colorScheme.primary,
-                            fontWeight = FontWeight.SemiBold,
-                        )
-                    }
-                },
-                navigationIcon = {
-                    IconButton(
-                        onClick = onBackClick,
-                        modifier = Modifier.size(48.dp),
-                    ) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
-                            contentDescription = stringResource(id = R.string.exercise_detail_back),
-                        )
-                    }
-                },
-                actions = {
-                    FilledTonalButton(
-                        onClick = { showFinishDialog = true },
-                        enabled = state.session != null,
-                        modifier = Modifier.heightIn(min = 48.dp),
-                    ) {
-                        Text(stringResource(id = R.string.workout_finish_cta))
-                    }
-                    Box {
+            Column(modifier = Modifier.fillMaxWidth()) {
+                CenterAlignedTopAppBar(
+                    title = {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text(
+                                text = state.session?.title.orEmpty(),
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                                style = MaterialTheme.typography.titleMedium,
+                            )
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(6.dp),
+                            ) {
+                                Text(
+                                    text = WorkoutMath.formatTimer(elapsedSeconds),
+                                    style = MaterialTheme.typography.labelLarge,
+                                    color = MaterialTheme.colorScheme.primary,
+                                    fontWeight = FontWeight.SemiBold,
+                                )
+                                if (totalSets > 0) {
+                                    Text(
+                                        text = "•",
+                                        style = MaterialTheme.typography.labelMedium,
+                                        color = MaterialTheme.colorScheme.outline,
+                                    )
+                                    Text(
+                                        text = stringResource(
+                                            id = R.string.workout_progress_percent,
+                                            progressPercent,
+                                        ),
+                                        style = MaterialTheme.typography.labelMedium,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                        fontWeight = FontWeight.Medium,
+                                    )
+                                }
+                            }
+                        }
+                    },
+                    navigationIcon = {
                         IconButton(
-                            onClick = { menuExpanded = true },
+                            onClick = onBackClick,
                             modifier = Modifier.size(48.dp),
                         ) {
                             Icon(
-                                imageVector = Icons.Rounded.MoreVert,
-                                contentDescription = stringResource(id = R.string.routines_more_actions),
+                                imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
+                                contentDescription = stringResource(id = R.string.exercise_detail_back),
                             )
                         }
-                        DropdownMenu(
-                            expanded = menuExpanded,
-                            onDismissRequest = { menuExpanded = false },
+                    },
+                    actions = {
+                        FilledTonalButton(
+                            onClick = { showFinishDialog = true },
+                            enabled = state.session != null,
+                            modifier = Modifier.heightIn(min = 48.dp),
                         ) {
-                            DropdownMenuItem(
-                                text = {
-                                    Text(
-                                        text = stringResource(id = R.string.workout_discard_action),
-                                        color = MaterialTheme.colorScheme.error,
-                                    )
-                                },
-                                leadingIcon = {
-                                    Icon(
-                                        imageVector = Icons.Rounded.DeleteOutline,
-                                        contentDescription = null,
-                                        tint = MaterialTheme.colorScheme.error,
-                                    )
-                                },
-                                onClick = {
-                                    menuExpanded = false
-                                    showDiscardDialog = true
-                                },
-                            )
+                            Text(stringResource(id = R.string.workout_finish_cta))
                         }
-                    }
-                },
-            )
+                        Box {
+                            IconButton(
+                                onClick = { menuExpanded = true },
+                                modifier = Modifier.size(48.dp),
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Rounded.MoreVert,
+                                    contentDescription = stringResource(id = R.string.routines_more_actions),
+                                )
+                            }
+                            DropdownMenu(
+                                expanded = menuExpanded,
+                                onDismissRequest = { menuExpanded = false },
+                            ) {
+                                DropdownMenuItem(
+                                    text = {
+                                        Text(
+                                            text = stringResource(id = R.string.workout_discard_action),
+                                            color = MaterialTheme.colorScheme.error,
+                                        )
+                                    },
+                                    leadingIcon = {
+                                        Icon(
+                                            imageVector = Icons.Rounded.DeleteOutline,
+                                            contentDescription = null,
+                                            tint = MaterialTheme.colorScheme.error,
+                                        )
+                                    },
+                                    onClick = {
+                                        menuExpanded = false
+                                        showDiscardDialog = true
+                                    },
+                                )
+                            }
+                        }
+                    },
+                )
+                LinearProgressIndicator(
+                    progress = { animatedProgress },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(4.dp)
+                        .semantics {
+                            contentDescription = progressDescription
+                        },
+                )
+            }
         },
         bottomBar = {
             AnimatedVisibility(
@@ -370,6 +426,9 @@ fun ActiveWorkoutScreen(
                                         set = set,
                                         exerciseDisplayName = group.exercise.primaryDisplayName(state.language),
                                     )
+                                },
+                                onWeightUnitModeChange = { mode ->
+                                    viewModel.updateExerciseWeightUnitMode(group, mode)
                                 },
                                 onRemoveSet = { set -> viewModel.removeSet(set.id) },
                                 onAddSet = { viewModel.addSet(group) },
@@ -499,6 +558,7 @@ private fun WorkoutExerciseCard(
     onDurationChange: (WorkoutSet, Int?) -> Unit,
     onSetTypeChange: (WorkoutSet, SetType) -> Unit,
     onToggleComplete: (WorkoutSet) -> Unit,
+    onWeightUnitModeChange: (WeightUnitMode) -> Unit = {},
     onRemoveSet: (WorkoutSet) -> Unit,
     onAddSet: () -> Unit,
     onRemoveExercise: () -> Unit,
@@ -570,11 +630,38 @@ private fun WorkoutExerciseCard(
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                     )
-                    Text(
-                        text = stringResource(id = R.string.seconds_short, group.restSeconds),
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.primary,
-                    )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.seconds_short, group.restSeconds),
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.primary,
+                        )
+                        if (group.exercise.supportsStackPlates) {
+                            val isPlates = group.sets.firstOrNull()?.weightUnitMode == WeightUnitMode.STACK_PLATES
+                            Surface(
+                                shape = MaterialTheme.shapes.extraSmall,
+                                color = if (isPlates) MaterialTheme.colorScheme.secondaryContainer else MaterialTheme.colorScheme.surfaceVariant,
+                                modifier = Modifier.clickable {
+                                    val nextMode = if (isPlates) WeightUnitMode.WEIGHT else WeightUnitMode.STACK_PLATES
+                                    onWeightUnitModeChange(nextMode)
+                                },
+                            ) {
+                                Text(
+                                    text = if (isPlates) {
+                                        stringResource(id = R.string.weight_mode_plates)
+                                    } else {
+                                        stringResource(id = R.string.weight_mode_weight)
+                                    },
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = if (isPlates) MaterialTheme.colorScheme.onSecondaryContainer else MaterialTheme.colorScheme.onSurfaceVariant,
+                                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
+                                )
+                            }
+                        }
+                    }
                 }
 
                 IconButton(
@@ -603,6 +690,16 @@ private fun WorkoutExerciseCard(
                                 modifier = Modifier.heightIn(min = 48.dp),
                             )
                         }
+                    } else if (activeTargetSet.weightUnitMode == WeightUnitMode.STACK_PLATES) {
+                        listOf(1.0, 2.0, 5.0).forEach { delta ->
+                            AssistChip(
+                                onClick = { onQuickIncrement(activeTargetSet, delta) },
+                                label = {
+                                    Text("+${delta.toInt()} ${stringResource(R.string.workout_plates_badge)}")
+                                },
+                                modifier = Modifier.heightIn(min = 48.dp),
+                            )
+                        }
                     } else {
                         listOf(1.0, 2.5, 5.0).forEach { delta ->
                             AssistChip(
@@ -627,14 +724,20 @@ private fun WorkoutExerciseCard(
                     weightUnit = weightUnit,
                     unitLabel = unitLabel,
                     previousHint = prevHint,
-                    canRemove = group.sets.size > 1,
+                    canRemove = true,
                     onFocusSet = { selectedSetIdForIncrement = set.id },
                     onWeightChange = { onWeightChange(set, it) },
                     onRepsChange = { onRepsChange(set, it) },
                     onDurationChange = { onDurationChange(set, it) },
                     onSetTypeChange = { onSetTypeChange(set, it) },
                     onToggleComplete = { onToggleComplete(set) },
-                    onRemoveSet = { onRemoveSet(set) },
+                    onRemoveSet = {
+                        if (group.sets.size > 1) {
+                            onRemoveSet(set)
+                        } else {
+                            onRemoveExercise()
+                        }
+                    },
                 )
             }
 
@@ -677,12 +780,17 @@ private fun WorkoutSetRow(
     var isMinFocused by remember { mutableStateOf(false) }
     var isSecFocused by remember { mutableStateOf(false) }
 
-    val formattedExternalWeight = remember(set.weightKg, weightUnit) {
-        set.weightKg?.let { kg ->
-            formatCleanNumber(WeightUnit.toDisplayWeight(kg, weightUnit))
-        }.orEmpty()
+    val isStackPlates = set.weightUnitMode == WeightUnitMode.STACK_PLATES
+    val formattedExternalWeight = remember(set.weightKg, weightUnit, isStackPlates) {
+        if (isStackPlates) {
+            set.weightKg?.let { formatCleanNumber(it) }.orEmpty()
+        } else {
+            set.weightKg?.let { kg ->
+                formatCleanNumber(WeightUnit.toDisplayWeight(kg, weightUnit))
+            }.orEmpty()
+        }
     }
-    var weightText by remember(set.id, weightUnit) { mutableStateOf(formattedExternalWeight) }
+    var weightText by remember(set.id, weightUnit, isStackPlates) { mutableStateOf(formattedExternalWeight) }
 
     LaunchedEffect(formattedExternalWeight, isWeightFocused) {
         if (!isWeightFocused && weightText != formattedExternalWeight) {
@@ -733,6 +841,42 @@ private fun WorkoutSetRow(
                 .padding(horizontal = 10.dp, vertical = 8.dp),
             verticalArrangement = Arrangement.spacedBy(6.dp),
         ) {
+            val prevText = if (exerciseType == ExerciseType.TIME) {
+                if (previousHint?.durationSeconds != null) {
+                    stringResource(
+                        id = R.string.workout_previous_time_hint,
+                        WorkoutMath.formatTimer(previousHint.durationSeconds),
+                    )
+                } else {
+                    stringResource(id = R.string.workout_previous_none)
+                }
+            } else if (isStackPlates || previousHint?.weightUnitMode == WeightUnitMode.STACK_PLATES) {
+                if (previousHint?.weightKg != null || previousHint?.reps != null) {
+                    val prevPlates = previousHint?.weightKg?.let { formatCleanNumber(it) } ?: "0"
+                    val prevReps = previousHint?.reps?.toString() ?: "0"
+                    stringResource(
+                        id = R.string.workout_previous_plates_hint,
+                        prevPlates,
+                        prevReps,
+                    )
+                } else {
+                    stringResource(id = R.string.workout_previous_none)
+                }
+            } else {
+                if (previousHint?.weightKg != null || previousHint?.reps != null) {
+                    val prevWeight = previousHint.weightKg?.let {
+                        formatCleanNumber(WeightUnit.toDisplayWeight(it, weightUnit))
+                    } ?: "0"
+                    val prevReps = previousHint.reps?.toString() ?: "0"
+                    stringResource(
+                        id = R.string.workout_previous_hint,
+                        "$prevWeight $unitLabel × $prevReps",
+                    )
+                } else {
+                    stringResource(id = R.string.workout_previous_none)
+                }
+            }
+
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -741,6 +885,7 @@ private fun WorkoutSetRow(
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier.weight(1f),
                 ) {
                     Text(
                         text = "#${set.setIndex + 1}",
@@ -769,7 +914,7 @@ private fun WorkoutSetRow(
                                 text = stringResource(id = set.setType.labelRes()),
                                 style = MaterialTheme.typography.labelMedium,
                                 color = setTypeBadgeContentColor(set.setType),
-                                modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
+                                modifier = Modifier.padding(horizontal = 8.dp, vertical = 6.dp),
                             )
                         }
                         DropdownMenu(
@@ -787,50 +932,29 @@ private fun WorkoutSetRow(
                             }
                         }
                     }
-                }
 
-                val prevText = if (exerciseType == ExerciseType.TIME) {
-                    if (previousHint?.durationSeconds != null) {
-                        stringResource(
-                            id = R.string.workout_previous_time_hint,
-                            WorkoutMath.formatTimer(previousHint.durationSeconds),
+                    if (prevText.isNotBlank()) {
+                        Text(
+                            text = prevText,
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
                         )
-                    } else {
-                        stringResource(id = R.string.workout_previous_none)
-                    }
-                } else {
-                    if (previousHint?.weightKg != null || previousHint?.reps != null) {
-                        val prevWeight = previousHint.weightKg?.let {
-                            formatCleanNumber(WeightUnit.toDisplayWeight(it, weightUnit))
-                        } ?: "0"
-                        val prevReps = previousHint.reps?.toString() ?: "0"
-                        stringResource(
-                            id = R.string.workout_previous_hint,
-                            "$prevWeight $unitLabel × $prevReps",
-                        )
-                    } else {
-                        stringResource(id = R.string.workout_previous_none)
                     }
                 }
 
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(
-                        text = prevText,
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                    if (canRemove) {
-                        IconButton(
-                            onClick = onRemoveSet,
-                            modifier = Modifier.size(36.dp),
-                        ) {
-                            Icon(
-                                imageVector = Icons.Rounded.Close,
-                                contentDescription = stringResource(id = R.string.workout_remove_set),
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                                modifier = Modifier.size(16.dp),
-                            )
-                        }
+                if (canRemove) {
+                    IconButton(
+                        onClick = onRemoveSet,
+                        modifier = Modifier.size(40.dp),
+                    ) {
+                        Icon(
+                            imageVector = Icons.Rounded.DeleteOutline,
+                            contentDescription = stringResource(id = R.string.workout_remove_set),
+                            tint = MaterialTheme.colorScheme.error,
+                            modifier = Modifier.size(20.dp),
+                        )
                     }
                 }
             }
@@ -907,7 +1031,11 @@ private fun WorkoutSetRow(
                         },
                         label = {
                             Text(
-                                text = stringResource(id = R.string.workout_weight_label, unitLabel),
+                                text = if (isStackPlates) {
+                                    stringResource(id = R.string.workout_plates_label)
+                                } else {
+                                    stringResource(id = R.string.workout_weight_label, unitLabel)
+                                },
                                 maxLines = 1,
                                 overflow = TextOverflow.Ellipsis,
                             )

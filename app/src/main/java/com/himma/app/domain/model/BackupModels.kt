@@ -99,6 +99,7 @@ data class BackupRoutineExercise(
     val targetRepsMax: Int = 12,
     val targetRestSeconds: Int = 90,
     val targetDurationSeconds: Int? = null,
+    val weightUnitMode: String = "WEIGHT",
 )
 
 @Serializable
@@ -130,6 +131,7 @@ data class BackupWorkoutSet(
     val isCompleted: Boolean = false,
     val isPr: Boolean = false,
     val completedAt: Long? = null,
+    val weightUnitMode: String = "WEIGHT",
 )
 
 @Serializable

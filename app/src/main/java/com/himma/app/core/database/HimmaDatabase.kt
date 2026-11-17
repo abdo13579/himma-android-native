@@ -41,7 +41,7 @@ abstract class HimmaDatabase : RoomDatabase() {
 
     companion object {
         const val DATABASE_NAME = "himma.db"
-        const val DATABASE_VERSION = 8
+        const val DATABASE_VERSION = 9
 
         val MIGRATION_1_2 = object : Migration(1, 2) {
             override fun migrate(db: SupportSQLiteDatabase) {
@@ -268,6 +268,13 @@ abstract class HimmaDatabase : RoomDatabase() {
             }
         }
 
+        val MIGRATION_8_9 = object : Migration(8, 9) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE `routine_exercises` ADD COLUMN `weight_unit_mode` TEXT NOT NULL DEFAULT 'WEIGHT'")
+                db.execSQL("ALTER TABLE `workout_sets` ADD COLUMN `weight_unit_mode` TEXT NOT NULL DEFAULT 'WEIGHT'")
+            }
+        }
+
         /**
          * Explicit migrations array; new specs append versioned migrations here
          * to guarantee zero data loss across updates.
@@ -280,6 +287,7 @@ abstract class HimmaDatabase : RoomDatabase() {
             MIGRATION_5_6,
             MIGRATION_6_7,
             MIGRATION_7_8,
+            MIGRATION_8_9,
         )
     }
 }

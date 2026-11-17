@@ -56,6 +56,8 @@ data class WorkoutSetEntity(
     val isPr: Boolean,
     @ColumnInfo(name = "completed_at")
     val completedAt: Long?,
+    @ColumnInfo(name = "weight_unit_mode")
+    val weightUnitMode: String = "WEIGHT",
 ) {
     fun toDomain(): WorkoutSet = WorkoutSet(
         id = id,
@@ -72,5 +74,6 @@ data class WorkoutSetEntity(
         isCompleted = isCompleted,
         isPr = isPr,
         completedAt = completedAt,
+        weightUnitMode = com.himma.app.domain.model.WeightUnitMode.fromNameOrDefault(weightUnitMode),
     )
 }

@@ -19,6 +19,7 @@ data class PreviousSetHint(
     val weightKg: Double?,
     val reps: Int?,
     val durationSeconds: Int? = null,
+    val weightUnitMode: WeightUnitMode = WeightUnitMode.WEIGHT,
 )
 
 data class WorkoutSet(
@@ -36,6 +37,7 @@ data class WorkoutSet(
     val isCompleted: Boolean = false,
     val isPr: Boolean = false,
     val completedAt: Long? = null,
+    val weightUnitMode: WeightUnitMode = WeightUnitMode.WEIGHT,
 )
 
 data class WorkoutExerciseGroup(
@@ -62,6 +64,9 @@ data class WorkoutSession(
 
     val totalSetsCount: Int
         get() = exercises.sumOf { it.sets.size }
+
+    val progress: Float
+        get() = if (totalSetsCount > 0) (completedSetsCount.toFloat() / totalSetsCount.toFloat()).coerceIn(0f, 1f) else 0f
 }
 
 data class FinishedWorkoutSummary(

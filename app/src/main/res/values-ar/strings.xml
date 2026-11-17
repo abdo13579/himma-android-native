@@ -211,6 +211,8 @@
     <string name="workout_remove_exercise">إزالة التمرين</string>
     <string name="workout_remove_set">حذف المجموعة</string>
     <string name="workout_mark_done">إتمام المجموعة</string>
+    <string name="workout_progress_percent">%1$d%%</string>
+    <string name="workout_progress_desc">نسبة إنجاز التمرين: %1$d%% (اكتملت %2$d من %3$d مجموعات)</string>
 
     <string name="set_type_normal">عادي</string>
     <string name="set_type_warmup">إحماء</string>
@@ -322,4 +324,12 @@
     <string name="routine_picker_create_and_add">حفظ وإضافة للروتين</string>
     <string name="routine_picker_empty_with_custom">لم يتم العثور على تمارين مطابقة. هل تود إنشاء تمرين مخصص؟</string>
     <string name="routine_picker_create_named_custom">إنشاء \"%1$s\" كتمرين مخصص</string>
+
+    <!-- Stack Plates / Weight Unit Mode -->
+    <string name="routine_editor_weight_mode_label">طريقة القياس</string>
+    <string name="weight_mode_weight">الوزن</string>
+    <string name="weight_mode_plates">عدد البلاطات</string>
+    <string name="workout_plates_label">البلاطات</string>
+    <string name="workout_plates_badge">بلاطات</string>
+    <string name="workout_previous_plates_hint">السابق: %1$s بلاطة × %2$s</string>
 </resources>

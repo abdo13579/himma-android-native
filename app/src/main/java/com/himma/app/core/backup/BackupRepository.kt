@@ -142,6 +142,7 @@ class LocalBackupRepository @Inject constructor(
                     targetRepsMax = it.targetRepsMax,
                     targetRestSeconds = it.targetRestSeconds,
                     targetDurationSeconds = it.targetDurationSeconds,
+                    weightUnitMode = it.weightUnitMode,
                 )
             },
             workouts = workouts.map {
@@ -173,6 +174,7 @@ class LocalBackupRepository @Inject constructor(
                     isCompleted = it.isCompleted,
                     isPr = it.isPr,
                     completedAt = it.completedAt,
+                    weightUnitMode = it.weightUnitMode,
                 )
             },
             personalRecords = personalRecords.map {
@@ -585,6 +587,7 @@ class LocalBackupRepository @Inject constructor(
         targetRepsMax = targetRepsMax.coerceAtLeast(targetRepsMin.coerceAtLeast(1)),
         targetRestSeconds = targetRestSeconds.coerceIn(15, 600),
         targetDurationSeconds = targetDurationSeconds,
+        weightUnitMode = weightUnitMode,
     )
 
     private fun BackupWorkout.toEntity(validRoutineIds: Set<String>): WorkoutEntity = WorkoutEntity(
@@ -614,6 +617,7 @@ class LocalBackupRepository @Inject constructor(
         isCompleted = isCompleted,
         isPr = isPr,
         completedAt = completedAt,
+        weightUnitMode = weightUnitMode,
     )
 
     companion object {

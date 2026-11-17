@@ -51,6 +51,9 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SegmentedButtonDefaults
+import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -90,6 +93,7 @@ import com.himma.app.domain.model.ExerciseType
 import com.himma.app.domain.model.MuscleGroup
 import com.himma.app.domain.model.RoutineExercise
 import com.himma.app.domain.model.RoutineExerciseDraft
+import com.himma.app.domain.model.WeightUnitMode
 import com.himma.app.domain.model.WorkoutMath
 import com.himma.app.features.exercises.CustomExerciseBottomSheet
 import com.himma.app.features.exercises.ExerciseDetailBottomSheet
@@ -256,6 +260,7 @@ fun RoutineEditorScreen(
                             onAdjustRepsMax = { delta -> viewModel.adjustRepsMax(draft.itemId, delta) },
                             onAdjustDuration = { delta -> viewModel.adjustDurationSeconds(draft.itemId, delta) },
                             onAdjustRest = { delta -> viewModel.adjustRestSeconds(draft.itemId, delta) },
+                            onWeightUnitModeChange = { mode -> viewModel.updateWeightUnitMode(draft.itemId, mode) },
                             onExerciseClick = { inspectingExercise = draft.exercise },
                         )
                     }
@@ -459,6 +464,7 @@ private fun RoutineExerciseEditorCard(
     onAdjustRepsMax: (Int) -> Unit,
     onAdjustDuration: (Int) -> Unit,
     onAdjustRest: (Int) -> Unit,
+    onWeightUnitModeChange: (WeightUnitMode) -> Unit,
     onExerciseClick: () -> Unit,
 ) {
     val context = LocalContext.current
@@ -636,6 +642,42 @@ private fun RoutineExerciseEditorCard(
                 onDecrease = { onAdjustRest(-15) },
                 onIncrease = { onAdjustRest(15) },
             )
+
+            if (draft.exercise.supportsStackPlates) {
+                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(6.dp),
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.routine_editor_weight_mode_label),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                    SingleChoiceSegmentedButtonRow(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 40.dp),
+                    ) {
+                        WeightUnitMode.entries.forEachIndexed { index, mode ->
+                            SegmentedButton(
+                                selected = draft.weightUnitMode == mode,
+                                onClick = { onWeightUnitModeChange(mode) },
+                                shape = SegmentedButtonDefaults.itemShape(index = index, count = WeightUnitMode.entries.size),
+                                modifier = Modifier.heightIn(min = 40.dp),
+                            ) {
+                                Text(
+                                    text = when (mode) {
+                                        WeightUnitMode.WEIGHT -> stringResource(id = R.string.weight_mode_weight)
+                                        WeightUnitMode.STACK_PLATES -> stringResource(id = R.string.weight_mode_plates)
+                                    },
+                                    style = MaterialTheme.typography.labelMedium,
+                                )
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

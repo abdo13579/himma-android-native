@@ -16,6 +16,7 @@ import com.himma.app.domain.model.MuscleGroup
 import com.himma.app.domain.model.PreviousSetHint
 import com.himma.app.domain.model.SetType
 import com.himma.app.domain.model.WeightUnit
+import com.himma.app.domain.model.WeightUnitMode
 import com.himma.app.domain.model.WorkoutExerciseGroup
 import com.himma.app.domain.model.WorkoutMath
 import com.himma.app.domain.model.WorkoutSession
@@ -127,7 +128,11 @@ class ActiveWorkoutViewModel @Inject constructor(
 
     fun updateWeightFromInput(set: WorkoutSet, rawInput: String) {
         val parsedDisplay = parsePositiveOrZeroDecimal(rawInput)
-        val weightKg = parsedDisplay?.let { WeightUnit.toStorageKg(it, uiState.value.weightUnit) }
+        val weightKg = if (set.weightUnitMode == WeightUnitMode.STACK_PLATES) {
+            parsedDisplay
+        } else {
+            parsedDisplay?.let { WeightUnit.toStorageKg(it, uiState.value.weightUnit) }
+        }
         viewModelScope.launch {
             workoutRepository.updateSetValues(
                 setId = set.id,
@@ -141,18 +146,44 @@ class ActiveWorkoutViewModel @Inject constructor(
     }
 
     fun quickIncrementWeight(set: WorkoutSet, deltaDisplayUnit: Double) {
-        val unit = uiState.value.weightUnit
-        val currentDisplay = set.weightKg?.let { WeightUnit.toDisplayWeight(it, unit) } ?: 0.0
-        val nextDisplay = (currentDisplay + deltaDisplayUnit).coerceAtLeast(0.0)
-        val nextKg = WeightUnit.toStorageKg(nextDisplay, unit)
+        if (set.weightUnitMode == WeightUnitMode.STACK_PLATES) {
+            val currentPlates = set.weightKg ?: 0.0
+            val nextPlates = (currentPlates + deltaDisplayUnit).coerceAtLeast(0.0)
+            viewModelScope.launch {
+                workoutRepository.updateSetValues(
+                    setId = set.id,
+                    weightKg = nextPlates,
+                    reps = set.reps,
+                    durationSeconds = set.durationSeconds,
+                    setType = set.setType,
+                    rpe = set.rpe,
+                )
+            }
+        } else {
+            val unit = uiState.value.weightUnit
+            val currentDisplay = set.weightKg?.let { WeightUnit.toDisplayWeight(it, unit) } ?: 0.0
+            val nextDisplay = (currentDisplay + deltaDisplayUnit).coerceAtLeast(0.0)
+            val nextKg = WeightUnit.toStorageKg(nextDisplay, unit)
+            viewModelScope.launch {
+                workoutRepository.updateSetValues(
+                    setId = set.id,
+                    weightKg = nextKg,
+                    reps = set.reps,
+                    durationSeconds = set.durationSeconds,
+                    setType = set.setType,
+                    rpe = set.rpe,
+                )
+            }
+        }
+    }
+
+    fun updateExerciseWeightUnitMode(group: WorkoutExerciseGroup, mode: WeightUnitMode) {
         viewModelScope.launch {
-            workoutRepository.updateSetValues(
-                setId = set.id,
-                weightKg = nextKg,
-                reps = set.reps,
-                durationSeconds = set.durationSeconds,
-                setType = set.setType,
-                rpe = set.rpe,
+            workoutRepository.updateExerciseWeightUnitMode(
+                workoutId = workoutId,
+                exerciseId = group.exercise.id,
+                exerciseOrder = group.exerciseOrder,
+                mode = mode,
             )
         }
     }

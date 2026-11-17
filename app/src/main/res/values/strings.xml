@@ -211,6 +211,8 @@
     <string name="workout_remove_exercise">Remove exercise</string>
     <string name="workout_remove_set">Remove set</string>
     <string name="workout_mark_done">Complete set</string>
+    <string name="workout_progress_percent">%1$d%%</string>
+    <string name="workout_progress_desc">Workout progress: %1$d%% (%2$d of %3$d sets completed)</string>
 
     <string name="set_type_normal">Normal</string>
     <string name="set_type_warmup">Warmup</string>
@@ -322,4 +324,12 @@
     <string name="routine_picker_create_and_add">Save &amp; Add to Routine</string>
     <string name="routine_picker_empty_with_custom">No matching exercises found. Would you like to create a custom exercise?</string>
     <string name="routine_picker_create_named_custom">Create \"%1$s\" as Custom Exercise</string>
+
+    <!-- Stack Plates / Weight Unit Mode -->
+    <string name="routine_editor_weight_mode_label">Tracking Mode</string>
+    <string name="weight_mode_weight">Weight</string>
+    <string name="weight_mode_plates">Stack Plates</string>
+    <string name="workout_plates_label">Plates</string>
+    <string name="workout_plates_badge">Plates</string>
+    <string name="workout_previous_plates_hint">Prev: %1$s plates × %2$s</string>
 </resources>

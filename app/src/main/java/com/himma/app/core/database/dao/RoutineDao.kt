@@ -57,6 +57,7 @@ data class RoutineWithExercises(
                     targetRepsMax = relation.item.targetRepsMax,
                     targetRestSeconds = relation.item.targetRestSeconds,
                     targetDurationSeconds = relation.item.targetDurationSeconds,
+                    weightUnitMode = com.himma.app.domain.model.WeightUnitMode.fromNameOrDefault(relation.item.weightUnitMode),
                 )
             },
     )

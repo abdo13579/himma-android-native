@@ -10,6 +10,7 @@ import com.himma.app.domain.model.MuscleGroup
 import com.himma.app.domain.model.PreviousSetHint
 import com.himma.app.domain.model.SetType
 import com.himma.app.domain.model.WeightUnit
+import com.himma.app.domain.model.WeightUnitMode
 import com.himma.app.domain.model.WorkoutExerciseGroup
 import com.himma.app.domain.model.WorkoutMath
 import com.himma.app.domain.model.WorkoutSession
@@ -118,6 +119,103 @@ class ActiveWorkoutViewModelTest {
 
         collector.cancel()
     }
+
+    @Test
+    fun `deleting set 2 of 3 reindexes set 3 to index 1 while preserving its setType, and next added set is index 2`() = runTest {
+        val viewModel = ActiveWorkoutViewModel(
+            savedStateHandle = SavedStateHandle(mapOf("workoutId" to "w1")),
+            workoutRepository = fakeWorkoutRepo,
+            exerciseRepository = fakeExerciseRepo,
+            preferencesRepository = fakePrefsRepo,
+            restTimerController = fakeTimer,
+        )
+        val collector = backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) {
+            viewModel.uiState.collect()
+        }
+        advanceUntilIdle()
+
+        val group = viewModel.uiState.value.session!!.exercises.first()
+        // Add 2 more sets to make 3 sets total
+        viewModel.addSet(group)
+        advanceUntilIdle()
+        val groupAfterSecond = viewModel.uiState.value.session!!.exercises.first()
+        viewModel.addSet(groupAfterSecond)
+        advanceUntilIdle()
+
+        val setsInitial = viewModel.uiState.value.session!!.exercises.first().sets
+        assertEquals(3, setsInitial.size)
+
+        // Give set 3 a custom type (e.g. DROP_SET)
+        viewModel.updateSetType(setsInitial[2], SetType.DROP_SET)
+        advanceUntilIdle()
+
+        val setsBeforeDelete = viewModel.uiState.value.session!!.exercises.first().sets
+        val set2Id = setsBeforeDelete[1].id
+        val set3Id = setsBeforeDelete[2].id
+        assertEquals(SetType.DROP_SET, setsBeforeDelete[2].setType)
+
+        // Delete set #2
+        viewModel.removeSet(set2Id)
+        advanceUntilIdle()
+
+        val setsAfterDelete = viewModel.uiState.value.session!!.exercises.first().sets
+        assertEquals(2, setsAfterDelete.size)
+        // Set 1 is index 0
+        assertEquals(0, setsAfterDelete[0].setIndex)
+        // Set 3 is now index 1 (displayed as #2)
+        assertEquals(set3Id, setsAfterDelete[1].id)
+        assertEquals(1, setsAfterDelete[1].setIndex)
+        // Its set type was preserved (DROP_SET)!
+        assertEquals(SetType.DROP_SET, setsAfterDelete[1].setType)
+
+        // Now add a new set -> should be index 2 (displayed as #3)
+        viewModel.addSet(viewModel.uiState.value.session!!.exercises.first())
+        advanceUntilIdle()
+
+        val setsAfterAdd = viewModel.uiState.value.session!!.exercises.first().sets
+        assertEquals(3, setsAfterAdd.size)
+        assertEquals(2, setsAfterAdd[2].setIndex)
+        assertEquals(SetType.NORMAL, setsAfterAdd[2].setType)
+
+        collector.cancel()
+    }
+
+    @Test
+    fun `stack plates tracking mode updates and quick increments integer plate counts`() = runTest {
+        val viewModel = ActiveWorkoutViewModel(
+            savedStateHandle = SavedStateHandle(mapOf("workoutId" to "w1")),
+            workoutRepository = fakeWorkoutRepo,
+            exerciseRepository = fakeExerciseRepo,
+            preferencesRepository = fakePrefsRepo,
+            restTimerController = fakeTimer,
+        )
+        val collector = backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) {
+            viewModel.uiState.collect()
+        }
+        advanceUntilIdle()
+
+        val group = viewModel.uiState.value.session!!.exercises.first()
+        viewModel.updateExerciseWeightUnitMode(group, WeightUnitMode.STACK_PLATES)
+        advanceUntilIdle()
+
+        val platesGroup = viewModel.uiState.value.session!!.exercises.first()
+        val firstSet = platesGroup.sets.first()
+        assertEquals(WeightUnitMode.STACK_PLATES, firstSet.weightUnitMode)
+
+        // Enter 5 plates
+        viewModel.updateWeightFromInput(firstSet, "5")
+        advanceUntilIdle()
+        val updatedSet = viewModel.uiState.value.session!!.exercises.first().sets.first()
+        assertEquals(5.0, updatedSet.weightKg!!, 0.01)
+
+        // Quick increment +2 plates -> 7.0
+        viewModel.quickIncrementWeight(updatedSet, 2.0)
+        advanceUntilIdle()
+        val incrementedSet = viewModel.uiState.value.session!!.exercises.first().sets.first()
+        assertEquals(7.0, incrementedSet.weightKg!!, 0.01)
+
+        collector.cancel()
+    }
 }
 
 class FakeRestTimerController : RestTimerController {
@@ -220,11 +318,72 @@ class FakeWorkoutRepository : WorkoutRepository {
 
     override suspend fun addExerciseToWorkout(workoutId: String, exercise: Exercise, targetSets: Int, restSeconds: Int) {}
 
-    override suspend fun addSetToExercise(workoutId: String, exerciseId: String, exerciseOrder: Int, restSeconds: Int) {}
+    override suspend fun addSetToExercise(
+        workoutId: String,
+        exerciseId: String,
+        exerciseOrder: Int,
+        restSeconds: Int,
+    ) {
+        sessionFlow.value = sessionFlow.value?.let { current ->
+            current.copy(
+                exercises = current.exercises.map { group ->
+                    if (group.exercise.id == exerciseId && group.exerciseOrder == exerciseOrder) {
+                        val nextIndex = group.sets.size
+                        val newSet = WorkoutSet(
+                            id = "s_${System.currentTimeMillis()}_$nextIndex",
+                            workoutId = workoutId,
+                            exerciseId = exerciseId,
+                            exerciseOrder = exerciseOrder,
+                            setIndex = nextIndex,
+                            restSeconds = restSeconds,
+                            weightKg = null,
+                            reps = null,
+                            setType = SetType.NORMAL,
+                        )
+                        group.copy(sets = group.sets + newSet)
+                    } else {
+                        group
+                    }
+                }
+            )
+        }
+    }
 
-    override suspend fun removeSet(setId: String) {}
+    override suspend fun removeSet(setId: String) {
+        sessionFlow.value = sessionFlow.value?.let { current ->
+            current.copy(
+                exercises = current.exercises.map { group ->
+                    val remaining = group.sets.filter { it.id != setId }
+                    group.copy(
+                        sets = remaining.mapIndexed { idx, s -> s.copy(setIndex = idx) }
+                    )
+                }
+            )
+        }
+    }
 
     override suspend fun removeExerciseFromWorkout(workoutId: String, exerciseId: String) {}
+
+    override suspend fun updateExerciseWeightUnitMode(
+        workoutId: String,
+        exerciseId: String,
+        exerciseOrder: Int,
+        mode: WeightUnitMode,
+    ) {
+        sessionFlow.value = sessionFlow.value?.let { current ->
+            current.copy(
+                exercises = current.exercises.map { group ->
+                    if (group.exercise.id == exerciseId && group.exerciseOrder == exerciseOrder) {
+                        group.copy(
+                            sets = group.sets.map { s -> s.copy(weightUnitMode = mode) }
+                        )
+                    } else {
+                        group
+                    }
+                }
+            )
+        }
+    }
 
     override suspend fun updateSetValues(setId: String, weightKg: Double?, reps: Int?, durationSeconds: Int?, setType: SetType, rpe: Double?) {
         sessionFlow.value = sessionFlow.value?.let { current ->

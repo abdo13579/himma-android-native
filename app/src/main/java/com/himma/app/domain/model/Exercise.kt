@@ -49,6 +49,17 @@ enum class ExerciseType {
     }
 }
 
+enum class WeightUnitMode {
+    WEIGHT,
+    STACK_PLATES;
+
+    companion object {
+        fun fromNameOrDefault(raw: String?): WeightUnitMode {
+            return entries.firstOrNull { it.name.equals(raw?.trim(), ignoreCase = true) } ?: WEIGHT
+        }
+    }
+}
+
 data class Exercise(
     val id: String,
     val nameEn: String,
@@ -65,6 +76,9 @@ data class Exercise(
     val updatedAt: Long,
     val exerciseType: ExerciseType = ExerciseType.REPS,
 ) {
+    val supportsStackPlates: Boolean
+        get() = (equipment == EquipmentType.CABLE || equipment == EquipmentType.MACHINE) && exerciseType != ExerciseType.TIME
+
     fun primaryDisplayName(language: AppLanguage): String = when (language) {
         AppLanguage.ARABIC -> nameAr.ifBlank { nameEn }
         AppLanguage.ENGLISH -> nameEn.ifBlank { nameAr }

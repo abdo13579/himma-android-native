@@ -27,6 +27,7 @@ data class RoutineExercise(
     val targetRepsMax: Int,
     val targetRestSeconds: Int,
     val targetDurationSeconds: Int? = null,
+    val weightUnitMode: WeightUnitMode = WeightUnitMode.WEIGHT,
 ) {
     fun formattedRepsRange(): String =
         if (targetRepsMin == targetRepsMax) "$targetRepsMin" else "$targetRepsMin–$targetRepsMax"
@@ -62,6 +63,7 @@ data class RoutineExerciseDraft(
     } else {
         null
     },
+    val weightUnitMode: WeightUnitMode = WeightUnitMode.WEIGHT,
 ) {
     fun normalized(): RoutineExerciseDraft {
         val clampedMin = targetRepsMin.coerceIn(RoutineExercise.MIN_REPS, RoutineExercise.MAX_REPS)
@@ -79,6 +81,7 @@ data class RoutineExerciseDraft(
                 RoutineExercise.MAX_REST_SECONDS,
             ),
             targetDurationSeconds = clampedDuration,
+            weightUnitMode = weightUnitMode,
         )
     }
 

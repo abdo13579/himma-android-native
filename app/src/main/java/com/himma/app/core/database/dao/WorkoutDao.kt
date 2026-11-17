@@ -111,6 +111,32 @@ interface WorkoutDao {
     @Query("SELECT COALESCE(MAX(set_index), -1) FROM workout_sets WHERE workout_id = :workoutId AND exercise_id = :exerciseId")
     suspend fun getMaxSetIndexForExercise(workoutId: String, exerciseId: String): Int
 
+    @Query("SELECT COALESCE(MAX(set_index), -1) FROM workout_sets WHERE workout_id = :workoutId AND exercise_id = :exerciseId AND exercise_order = :exerciseOrder")
+    suspend fun getMaxSetIndexForExerciseOrder(workoutId: String, exerciseId: String, exerciseOrder: Int): Int
+
+    @Query("SELECT * FROM workout_sets WHERE workout_id = :workoutId AND exercise_id = :exerciseId AND exercise_order = :exerciseOrder ORDER BY set_index ASC")
+    suspend fun getSetsForExerciseOrder(
+        workoutId: String,
+        exerciseId: String,
+        exerciseOrder: Int,
+    ): List<WorkoutSetEntity>
+
+    @Transaction
+    suspend fun deleteSetAndReindex(setId: String) {
+        val target = getSetByIdOnce(setId) ?: return
+        deleteSetById(setId)
+        val remaining = getSetsForExerciseOrder(
+            workoutId = target.workoutId,
+            exerciseId = target.exerciseId,
+            exerciseOrder = target.exerciseOrder,
+        )
+        remaining.forEachIndexed { newIndex, set ->
+            if (set.setIndex != newIndex) {
+                upsertSet(set.copy(setIndex = newIndex))
+            }
+        }
+    }
+
     @Query(
         """
         SELECT ws.* FROM workout_sets ws
@@ -152,6 +178,14 @@ interface WorkoutDao {
 
     @Query("UPDATE workouts SET notes = :notes WHERE id = :workoutId")
     suspend fun updateNotes(workoutId: String, notes: String)
+
+    @Query("UPDATE workout_sets SET weight_unit_mode = :mode WHERE workout_id = :workoutId AND exercise_id = :exerciseId AND exercise_order = :exerciseOrder")
+    suspend fun updateWeightUnitModeForExerciseOrder(
+        workoutId: String,
+        exerciseId: String,
+        exerciseOrder: Int,
+        mode: String,
+    )
 
     @Query("DELETE FROM workout_sets WHERE id = :setId")
     suspend fun deleteSetById(setId: String)

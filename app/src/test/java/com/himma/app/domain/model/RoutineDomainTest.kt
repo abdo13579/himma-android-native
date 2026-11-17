@@ -120,4 +120,43 @@ class RoutineDomainTest {
         val normalized = draft.copy(targetDurationSeconds = 99999).normalized()
         assertEquals(RoutineExercise.MAX_DURATION_SECONDS, normalized.targetDurationSeconds)
     }
+
+    @Test
+    fun `supportsStackPlates is true only for strength machine and cable exercises`() {
+        val cableEx = sampleExercise("lat_pulldown", MuscleGroup.BACK).copy(
+            equipment = EquipmentType.CABLE,
+            exerciseType = ExerciseType.REPS,
+        )
+        val machineEx = sampleExercise("leg_press", MuscleGroup.LEGS).copy(
+            equipment = EquipmentType.MACHINE,
+            exerciseType = ExerciseType.REPS,
+        )
+        val barbellEx = sampleExercise("bench", MuscleGroup.CHEST).copy(
+            equipment = EquipmentType.BARBELL,
+        )
+        val treadmillTimeEx = sampleExercise("treadmill", MuscleGroup.LEGS).copy(
+            equipment = EquipmentType.MACHINE,
+            exerciseType = ExerciseType.TIME,
+        )
+
+        assertEquals(true, cableEx.supportsStackPlates)
+        assertEquals(true, machineEx.supportsStackPlates)
+        assertEquals(false, barbellEx.supportsStackPlates)
+        assertEquals(false, treadmillTimeEx.supportsStackPlates)
+    }
+
+    @Test
+    fun `draft preserves weightUnitMode across normalization`() {
+        val cableEx = sampleExercise("cable_row", MuscleGroup.BACK).copy(equipment = EquipmentType.CABLE)
+        val draft = RoutineExerciseDraft(
+            itemId = "cable-1",
+            exercise = cableEx,
+            weightUnitMode = WeightUnitMode.STACK_PLATES,
+        )
+
+        val normalized = draft.normalized()
+        assertEquals(WeightUnitMode.STACK_PLATES, normalized.weightUnitMode)
+        assertEquals(WeightUnitMode.STACK_PLATES, WeightUnitMode.fromNameOrDefault("STACK_PLATES"))
+        assertEquals(WeightUnitMode.WEIGHT, WeightUnitMode.fromNameOrDefault("UNKNOWN_VALUE"))
+    }
 }
