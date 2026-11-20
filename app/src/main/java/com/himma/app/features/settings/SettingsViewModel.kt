@@ -16,6 +16,7 @@ import com.himma.app.core.updater.UpdateDownloadState
 import com.himma.app.domain.model.AppLanguage
 import com.himma.app.domain.model.BackupValidationError
 import com.himma.app.domain.model.BackupValidationException
+import com.himma.app.domain.model.CustomExportOptions
 import com.himma.app.domain.model.RestoreMode
 import com.himma.app.domain.model.RestoreSummary
 import com.himma.app.domain.model.ThemeMode
@@ -43,6 +44,8 @@ data class SettingsUiState(
     val isBackupBusy: Boolean = false,
     val hasLocalAutoSnapshot: Boolean = false,
     val pendingRestore: BackupInspection? = null,
+    val showCustomExportDialog: Boolean = false,
+    val customExportOptions: CustomExportOptions = CustomExportOptions(),
 )
 
 sealed interface SettingsEvent {
@@ -82,6 +85,8 @@ class SettingsViewModel @Inject constructor(
         val isBusy: Boolean = false,
         val hasSnapshot: Boolean = false,
         val pendingRestore: BackupInspection? = null,
+        val showCustomExportDialog: Boolean = false,
+        val customExportOptions: CustomExportOptions = CustomExportOptions(),
     )
 
     private val drafts = MutableStateFlow(DraftInputs())
@@ -110,6 +115,8 @@ class SettingsViewModel @Inject constructor(
             isBackupBusy = backup.isBusy,
             hasLocalAutoSnapshot = backup.hasSnapshot || prefs.lastAutoBackupAt != null,
             pendingRestore = backup.pendingRestore,
+            showCustomExportDialog = backup.showCustomExportDialog,
+            customExportOptions = backup.customExportOptions,
         )
     }.stateIn(
         scope = viewModelScope,
@@ -193,9 +200,22 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
+    fun openCustomExportDialog() {
+        backupStatus.update { it.copy(showCustomExportDialog = true) }
+    }
+
+    fun dismissCustomExportDialog() {
+        backupStatus.update { it.copy(showCustomExportDialog = false) }
+    }
+
+    fun updateCustomExportOptions(options: CustomExportOptions) {
+        backupStatus.update { it.copy(customExportOptions = options) }
+    }
+
     fun exportJsonToUri(uri: Uri) {
+        val options = backupStatus.value.customExportOptions
         runBackupOperation {
-            backupRepository.exportBackupToUri(uri)
+            backupRepository.exportBackupToUri(uri, options)
                 .onSuccess { _events.emit(SettingsEvent.JsonExported) }
                 .onFailure { emitError(it) }
         }

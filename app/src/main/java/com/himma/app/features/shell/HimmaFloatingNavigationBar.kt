@@ -1,9 +1,14 @@
 package com.himma.app.features.shell
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -169,23 +174,46 @@ private fun FloatingNavigationItem(
         ) {
             Icon(
                 imageVector = destination.icon,
-                contentDescription = null,
+                contentDescription = stringResource(id = destination.labelRes),
                 tint = iconColor,
                 modifier = Modifier.size(20.dp),
             )
         }
 
-        Spacer(modifier = Modifier.height(3.dp))
-
-        Text(
-            text = stringResource(id = destination.labelRes),
-            style = MaterialTheme.typography.labelSmall.copy(
-                fontSize = 11.sp,
-                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
-            ),
-            color = textColor,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-        )
+        if (animationsEnabled) {
+            AnimatedVisibility(
+                visible = isSelected,
+                enter = fadeIn(animationSpec = tween(150)) + expandVertically(animationSpec = tween(150)),
+                exit = fadeOut(animationSpec = tween(100)) + shrinkVertically(animationSpec = tween(100)),
+            ) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Spacer(modifier = Modifier.height(3.dp))
+                    Text(
+                        text = stringResource(id = destination.labelRes),
+                        style = MaterialTheme.typography.labelSmall.copy(
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Bold,
+                        ),
+                        color = textColor,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                }
+            }
+        } else {
+            if (isSelected) {
+                Spacer(modifier = Modifier.height(3.dp))
+                Text(
+                    text = stringResource(id = destination.labelRes),
+                    style = MaterialTheme.typography.labelSmall.copy(
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Bold,
+                    ),
+                    color = textColor,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+            }
+        }
     }
 }

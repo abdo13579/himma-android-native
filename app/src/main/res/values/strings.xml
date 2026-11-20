@@ -332,4 +332,23 @@
     <string name="workout_plates_label">Plates</string>
     <string name="workout_plates_badge">Plates</string>
     <string name="workout_previous_plates_hint">Prev: %1$s plates × %2$s</string>
+
+    <!-- Custom Backup Export -->
+    <string name="backup_custom_export_title">Custom Data Export</string>
+    <string name="backup_custom_export_desc">Select the items you want to include in the backup file:</string>
+    <string name="backup_export_routines">Routines &amp; schedules</string>
+    <string name="backup_export_custom_exercises">Custom exercises</string>
+    <string name="backup_export_theme_prefs">Theme &amp; preferences</string>
+    <string name="backup_export_history">Workout history</string>
+    <string name="backup_export_profile_stats">Profile, measurements &amp; PRs</string>
+    <string name="backup_export_action">Export</string>
+    <string name="backup_export_select_at_least_one">Select at least one item to export</string>
+
+    <!-- Workout History Item Deletion -->
+    <string name="analytics_workout_deleted_msg">Workout removed from history</string>
+    <string name="analytics_delete_workout_action">Delete from history</string>
+    <string name="analytics_delete_workout_dialog_title">Delete workout from history?</string>
+    <string name="analytics_delete_workout_dialog_desc">Are you sure you want to delete this workout from history? All its sets will be permanently removed and this action cannot be undone.</string>
+    <string name="dialog_confirm_delete">Delete</string>
+    <string name="dialog_cancel">Cancel</string>
 </resources>

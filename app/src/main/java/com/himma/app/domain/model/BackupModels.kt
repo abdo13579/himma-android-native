@@ -7,6 +7,18 @@ enum class RestoreMode {
     MERGE,
 }
 
+@Serializable
+data class CustomExportOptions(
+    val exportRoutines: Boolean = true,
+    val exportCustomExercises: Boolean = true,
+    val exportPreferences: Boolean = true,
+    val exportWorkouts: Boolean = true,
+    val exportProfileAndStats: Boolean = true,
+) {
+    val isAnySelected: Boolean
+        get() = exportRoutines || exportCustomExercises || exportPreferences || exportWorkouts || exportProfileAndStats
+}
+
 enum class BackupValidationError {
     EMPTY_FILE,
     INVALID_JSON,

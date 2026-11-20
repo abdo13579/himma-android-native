@@ -3,6 +3,7 @@ package com.himma.app.features.analytics
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.spring
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -36,7 +37,9 @@ import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.ShowChart
 import androidx.compose.material.icons.rounded.ArrowDropDown
 import androidx.compose.material.icons.rounded.EmojiEvents
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.AssistChip
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -47,6 +50,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
@@ -55,6 +59,7 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.TabPosition
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -111,6 +116,8 @@ fun AnalyticsScreen(
     }
 
     var showExercisePicker by remember { mutableStateOf(false) }
+    var workoutPendingDelete by remember { mutableStateOf<WorkoutHistorySummary?>(null) }
+    var workoutDetailPendingDeleteId by remember { mutableStateOf<String?>(null) }
 
     LaunchedEffect(viewModel, context) {
         viewModel.events.collect { event ->
@@ -121,8 +128,66 @@ fun AnalyticsScreen(
                 AnalyticsEvent.BodyWeightDeleted -> {
                     onShowMessage(context.getString(R.string.analytics_weight_deleted_msg))
                 }
+                AnalyticsEvent.WorkoutDeleted -> {
+                    onShowMessage(context.getString(R.string.analytics_workout_deleted_msg))
+                }
             }
         }
+    }
+
+    if (workoutPendingDelete != null || workoutDetailPendingDeleteId != null) {
+        val targetId = workoutPendingDelete?.id ?: workoutDetailPendingDeleteId
+        AlertDialog(
+            onDismissRequest = {
+                workoutPendingDelete = null
+                workoutDetailPendingDeleteId = null
+            },
+            icon = {
+                Icon(
+                    imageVector = Icons.Outlined.DeleteOutline,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.error,
+                )
+            },
+            title = {
+                Text(
+                    text = stringResource(id = R.string.analytics_delete_workout_dialog_title),
+                    fontWeight = FontWeight.Bold,
+                )
+            },
+            text = {
+                Text(stringResource(id = R.string.analytics_delete_workout_dialog_desc))
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        if (targetId != null) {
+                            viewModel.deleteWorkout(targetId)
+                        }
+                        workoutPendingDelete = null
+                        workoutDetailPendingDeleteId = null
+                    },
+                    colors = ButtonDefaults.textButtonColors(
+                        contentColor = MaterialTheme.colorScheme.error,
+                    ),
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.dialog_confirm_delete),
+                        fontWeight = FontWeight.Bold,
+                    )
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = {
+                        workoutPendingDelete = null
+                        workoutDetailPendingDeleteId = null
+                    },
+                ) {
+                    Text(stringResource(id = R.string.dialog_cancel))
+                }
+            },
+        )
     }
 
     state.selectedWorkoutDetail?.let { detailSession ->
@@ -134,6 +199,7 @@ fun AnalyticsScreen(
                 unit = unit,
                 unitLabel = unitLabel,
                 isArabic = isArabic,
+                onDeleteWorkout = { workoutDetailPendingDeleteId = it },
             )
         }
     }
@@ -237,6 +303,7 @@ fun AnalyticsScreen(
                 unit = unit,
                 unitLabel = unitLabel,
                 onWorkoutClick = viewModel::openWorkoutDetail,
+                onDeleteWorkoutClick = { workoutPendingDelete = it },
             )
 
             AnalyticsTab.PR_LEDGER -> PrLedgerTabContent(
@@ -277,6 +344,7 @@ private fun HistoryTabContent(
     unit: WeightUnit,
     unitLabel: String,
     onWorkoutClick: (String) -> Unit,
+    onDeleteWorkoutClick: (WorkoutHistorySummary) -> Unit,
 ) {
     if (history.isEmpty()) {
         EmptyAnalyticsState(
@@ -321,19 +389,35 @@ private fun HistoryTabContent(
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                             )
                         }
-                        if (workout.prCount > 0) {
-                            AssistChip(
-                                onClick = { onWorkoutClick(workout.id) },
-                                label = {
-                                    Text(
-                                        text = stringResource(
-                                            id = R.string.analytics_pr_badge,
-                                            workout.prCount,
-                                        ),
-                                        fontWeight = FontWeight.Bold,
-                                    )
-                                },
-                            )
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(4.dp),
+                        ) {
+                            if (workout.prCount > 0) {
+                                AssistChip(
+                                    onClick = { onWorkoutClick(workout.id) },
+                                    label = {
+                                        Text(
+                                            text = stringResource(
+                                                id = R.string.analytics_pr_badge,
+                                                workout.prCount,
+                                            ),
+                                            fontWeight = FontWeight.Bold,
+                                        )
+                                    },
+                                )
+                            }
+                            IconButton(
+                                onClick = { onDeleteWorkoutClick(workout) },
+                                modifier = Modifier.size(36.dp),
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Outlined.DeleteOutline,
+                                    contentDescription = stringResource(id = R.string.analytics_delete_workout_action),
+                                    tint = MaterialTheme.colorScheme.error.copy(alpha = 0.8f),
+                                    modifier = Modifier.size(20.dp),
+                                )
+                            }
                         }
                     }
 
@@ -820,6 +904,7 @@ private fun WorkoutDetailSheetContent(
     unit: WeightUnit,
     unitLabel: String,
     isArabic: Boolean,
+    onDeleteWorkout: (String) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -890,6 +975,25 @@ private fun WorkoutDetailSheetContent(
             }
             HorizontalDivider()
         }
+
+        OutlinedButton(
+            onClick = { onDeleteWorkout(session.id) },
+            colors = ButtonDefaults.outlinedButtonColors(
+                contentColor = MaterialTheme.colorScheme.error,
+            ),
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.error.copy(alpha = 0.5f)),
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(min = 48.dp),
+        ) {
+            Icon(
+                imageVector = Icons.Outlined.DeleteOutline,
+                contentDescription = null,
+                modifier = Modifier.padding(end = 8.dp),
+            )
+            Text(stringResource(id = R.string.analytics_delete_workout_action))
+        }
+
         Spacer(modifier = Modifier.height(24.dp))
     }
 }

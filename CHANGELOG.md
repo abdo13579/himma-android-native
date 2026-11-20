@@ -7,6 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.3.0] — 2026-11-20
+
+### 🎯 Selective Backup Export, History Deletion & Navigation Polish
+
+This release introduces granular selective data backup export, completed workout deletion from history with safe confirmation, dynamic navigation bar labels that display exclusively on the active tab, and streamlined animation defaults.
+
+#### Added
+- **Selective Custom Backup Export:**
+  - Added dedicated selective export dialog allowing users to pick and choose specific datasets to export into their `.himma.json` backup file.
+  - Granular checkboxes for: Routines & Schedules, Custom Exercises, Theme & App Preferences, Workout History, and Profile/Measurements/PRs.
+  - Partial backups cleanly supported for export, validation, and smart merging.
+- **Workout History Deletion:**
+  - Added capability to delete workouts from the History ledger ("السجل") directly from the history card and workout detail bottom sheet.
+  - Destructive confirmation dialog prevents accidental loss and cascades cleanup of sets cleanly in Room.
+
+#### Refined & Polished
+- **Dynamic Floating Navigation Bar:**
+  - Active tab text label visibility: destination titles now only appear for the currently selected tab with smooth micro-animation (matching "مواظب" design language), keeping unselected tabs minimal and uncluttered.
+  - Maintained accessibility content descriptions for TalkBack and screen readers.
+- **Animations Core Standard:**
+  - Promoted animations to core built-in standard behavior and removed the legacy manual motion toggle from settings.
+
+---
+
 ## [1.2.0] — 2026-11-17
 
 ### 🧱 Pin-Loaded Stack Plates Tracking, Workout Progress Bar & Ergonomic Set Management

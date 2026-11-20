@@ -332,4 +332,23 @@
     <string name="workout_plates_label">البلاطات</string>
     <string name="workout_plates_badge">بلاطات</string>
     <string name="workout_previous_plates_hint">السابق: %1$s بلاطة × %2$s</string>
+
+    <!-- Custom Backup Export -->
+    <string name="backup_custom_export_title">تصدير مخصص للبيانات</string>
+    <string name="backup_custom_export_desc">حدد العناصر التي ترغب في تضمينها في ملف النسخة الاحتياطية:</string>
+    <string name="backup_export_routines">الروتينات وجدول التمارين</string>
+    <string name="backup_export_custom_exercises">التمارين المخصصة</string>
+    <string name="backup_export_theme_prefs">المظهر وتفضيلات التطبيق</string>
+    <string name="backup_export_history">سجل التمارين المكتملة</string>
+    <string name="backup_export_profile_stats">الملف الشخصي والقياسات والأرقام القياسية</string>
+    <string name="backup_export_action">تصدير</string>
+    <string name="backup_export_select_at_least_one">يجب تحديد عنصر واحد على الأقل للتصدير</string>
+
+    <!-- Workout History Item Deletion -->
+    <string name="analytics_workout_deleted_msg">تم حذف التمرين من السجل بنجاح</string>
+    <string name="analytics_delete_workout_action">حذف من السجل</string>
+    <string name="analytics_delete_workout_dialog_title">حذف التمرين من السجل؟</string>
+    <string name="analytics_delete_workout_dialog_desc">هل أنت متأكد من رغبتك في حذف هذا التمرين من السجل؟ سيتم حذف جميع مجموعاته نهائياً ولا يمكن التراجع عن هذا الإجراء.</string>
+    <string name="dialog_confirm_delete">حذف</string>
+    <string name="dialog_cancel">إلغاء</string>
 </resources>

@@ -47,6 +47,8 @@ interface AnalyticsRepository {
 
     suspend fun deleteBodyWeight(id: String)
 
+    suspend fun deleteWorkout(workoutId: String)
+
     suspend fun evaluateAndPersistWorkoutPrs(workoutId: String): Int
 }
 
@@ -178,6 +180,12 @@ class RoomAnalyticsRepository @Inject constructor(
     override suspend fun deleteBodyWeight(id: String) {
         withContext(Dispatchers.IO) {
             analyticsDao.deleteBodyWeightById(id)
+        }
+    }
+
+    override suspend fun deleteWorkout(workoutId: String) {
+        withContext(Dispatchers.IO) {
+            workoutDao.deleteWorkoutById(workoutId)
         }
     }
 

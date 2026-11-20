@@ -13,6 +13,7 @@ import com.himma.app.domain.model.AppLanguage
 import com.himma.app.domain.model.BackupPreview
 import com.himma.app.domain.model.BackupValidationError
 import com.himma.app.domain.model.BackupValidationException
+import com.himma.app.domain.model.CustomExportOptions
 import com.himma.app.domain.model.HimmaBackupDocument
 import com.himma.app.domain.model.RestoreMode
 import com.himma.app.domain.model.RestoreSummary
@@ -167,19 +168,68 @@ class SettingsViewModelTest {
         }
         advanceUntilIdle()
 
-        assertFalse(viewModel.uiState.value.preferences.animationsEnabled)
-
-        viewModel.setAnimationsEnabled(true)
-        advanceUntilIdle()
         assertTrue(viewModel.uiState.value.preferences.animationsEnabled)
-        assertTrue(fakePrefsRepo.preferences.first().animationsEnabled)
 
         viewModel.setAnimationsEnabled(false)
         advanceUntilIdle()
         assertFalse(viewModel.uiState.value.preferences.animationsEnabled)
         assertFalse(fakePrefsRepo.preferences.first().animationsEnabled)
 
+        viewModel.setAnimationsEnabled(true)
+        advanceUntilIdle()
+        assertTrue(viewModel.uiState.value.preferences.animationsEnabled)
+        assertTrue(fakePrefsRepo.preferences.first().animationsEnabled)
+
         collector.cancel()
+    }
+
+    @Test
+    fun `custom export dialog and options can be controlled and exported`() = runTest {
+        val viewModel = SettingsViewModel(
+            fakePrefsRepo,
+            fakeProfileRepo,
+            fakeBackupRepo,
+            fakeScheduler,
+            fakeUpdateRepo,
+        )
+        val collector = backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) {
+            viewModel.uiState.collect()
+        }
+        val events = mutableListOf<SettingsEvent>()
+        val eventCollector = backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) {
+            viewModel.events.collect { events.add(it) }
+        }
+        advanceUntilIdle()
+
+        assertFalse(viewModel.uiState.value.showCustomExportDialog)
+        assertTrue(viewModel.uiState.value.customExportOptions.isAnySelected)
+
+        viewModel.openCustomExportDialog()
+        advanceUntilIdle()
+        assertTrue(viewModel.uiState.value.showCustomExportDialog)
+
+        val customOptions = CustomExportOptions(
+            exportRoutines = true,
+            exportCustomExercises = false,
+            exportPreferences = false,
+            exportWorkouts = false,
+            exportProfileAndStats = false,
+        )
+        viewModel.updateCustomExportOptions(customOptions)
+        advanceUntilIdle()
+        assertEquals(customOptions, viewModel.uiState.value.customExportOptions)
+
+        val uri = org.mockito.Mockito.mock(Uri::class.java)
+        viewModel.exportJsonToUri(uri)
+        advanceUntilIdle()
+        assertTrue(events.contains(SettingsEvent.JsonExported))
+
+        viewModel.dismissCustomExportDialog()
+        advanceUntilIdle()
+        assertFalse(viewModel.uiState.value.showCustomExportDialog)
+
+        collector.cancel()
+        eventCollector.cancel()
     }
 
     @Test
@@ -238,11 +288,11 @@ private class FakeBackupRepository : BackupRepository {
         appVersion = "0.1.1-beta",
     )
 
-    override suspend fun createBackupJson(): String = BackupSerializer.encode(sampleDoc)
+    override suspend fun createBackupJson(options: CustomExportOptions): String = BackupSerializer.encode(sampleDoc)
 
     override suspend fun createCsvExport(): String = "workout_id\n"
 
-    override suspend fun exportBackupToUri(uri: Uri): Result<Unit> = Result.success(Unit)
+    override suspend fun exportBackupToUri(uri: Uri, options: CustomExportOptions): Result<Unit> = Result.success(Unit)
 
     override suspend fun exportCsvToUri(uri: Uri): Result<Unit> = Result.success(Unit)
 
