@@ -26,6 +26,11 @@ class GitHubAppUpdateRepository @Inject constructor(
     }
 
     override suspend fun checkForUpdate(): Result<AppUpdateInfo> = withContext(Dispatchers.IO) {
+        if (!BuildConfig.SUPPORTS_IN_APP_UPDATES) {
+            return@withContext Result.failure(
+                IllegalStateException("In-app updates are disabled for this distribution")
+            )
+        }
         try {
             val url = URL(RELEASES_API_URL)
             val connection = (url.openConnection() as HttpURLConnection).apply {
@@ -78,6 +83,11 @@ class GitHubAppUpdateRepository @Inject constructor(
         fileName: String,
         onProgress: (progressPercent: Int, downloadedBytes: Long, totalBytes: Long) -> Unit,
     ): Result<File> = withContext(Dispatchers.IO) {
+        if (!BuildConfig.SUPPORTS_IN_APP_UPDATES) {
+            return@withContext Result.failure(
+                IllegalStateException("In-app updates are disabled for this distribution")
+            )
+        }
         try {
             val updateDir = File(context.cacheDir, "updates").apply { mkdirs() }
             val targetFile = File(updateDir, fileName)

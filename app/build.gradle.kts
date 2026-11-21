@@ -12,15 +12,27 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.himma.app"
+        applicationId = "com.himma.fitness"
         minSdk = 26
         targetSdk = 35
-        versionCode = 7
-        versionName = "1.2.0"
+        versionCode = 8
+        versionName = "1.3.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         resourceConfigurations += listOf("ar", "en")
+    }
+
+    flavorDimensions += "distribution"
+    productFlavors {
+        create("github") {
+            dimension = "distribution"
+            buildConfigField("boolean", "SUPPORTS_IN_APP_UPDATES", "true")
+        }
+        create("store") {
+            dimension = "distribution"
+            buildConfigField("boolean", "SUPPORTS_IN_APP_UPDATES", "false")
+        }
     }
 
     buildTypes {
@@ -96,6 +108,7 @@ dependencies {
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation("org.mockito:mockito-core:5.14.2")
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
@@ -103,4 +116,10 @@ dependencies {
 
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+}
+
+tasks.register("testDebugUnitTest") {
+    dependsOn("testGithubDebugUnitTest")
+    description = "Runs unit tests for debug flavor (alias for testGithubDebugUnitTest)"
+    group = "verification"
 }

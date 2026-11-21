@@ -1,127 +1,83 @@
-# هِمّة | Himma (Native Android)
+# هِمّة | Himma
 
 <div align="center">
 
+![Version](https://img.shields.io/badge/Version-v1.3.0-16A34A?logo=github&logoColor=white)
 ![Kotlin](https://img.shields.io/badge/Kotlin-2.0.21-7F52FF?logo=kotlin&logoColor=white)
-![Compose](https://img.shields.io/badge/Jetpack%20Compose-BOM%202024.12.01-4285F4?logo=jetpackcompose&logoColor=white)
+![Compose](https://img.shields.io/badge/Compose-BOM%202024.12.01-4285F4?logo=jetpackcompose&logoColor=white)
 ![Material 3](https://img.shields.io/badge/Material%20Design-3-16A34A?logo=materialdesign&logoColor=white)
-![Room](https://img.shields.io/badge/Local%20Database-Room%20SQLite-22C55E)
-![Android SDK](https://img.shields.io/badge/Android%20SDK-26%20..%2035-brightgreen?logo=android&logoColor=white)
+![Android SDK](https://img.shields.io/badge/Android-8.0+_(SDK_26--35)-brightgreen?logo=android&logoColor=white)
 ![License](https://img.shields.io/badge/License-PolyForm%20Noncommercial-blue)
-![Offline First](https://img.shields.io/badge/Network-100%25%20Offline-black)
+![Offline](https://img.shields.io/badge/100%25-Offline%20&%20Private-black)
 
 <br/>
 
-**هِمّة (Himma)** هو تطبيق أندرويد أصلي (Native Android) مجاني ومفتوح المصدر للاستخدام الشخصي، مصمم لتسجيل تمارين الجيم وتتبع الأحمال التدريبية وأوزان الجسم بخصوصية تامة 100% دون الحاجة لأي اتصال بالإنترنت، وبدون اشتراكات أو إعلانات أو تسجيل دخول.
-
-*A 100% offline-first, privacy-focused native Android gym workout tracker and progressive overload companion built with Kotlin, Jetpack Compose, and Material Design 3.*
+**تطبيق أندرويد مفتوح المصدر لتسجيل تمارين الجيم وتتبع الأحمال التدريبية بدون إنترنت، بدون إعلانات، وبخصوصية تامة 100%.**  
+*A 100% offline, privacy-first native Android gym workout tracker and progressive overload companion.*
 
 </div>
 
 ---
 
-## ✨ المميزات الرئيسية | Key Features
+## ⚡ أبرز المميزات
 
-### 🏋️‍♂️ مكتبة تمارين مدمجة بالكامل (302 تمرين محلي)
-- **قاعدة بيانات محلية 100%:** لا تتطلب إنترنت إطلاقاً.
-- **عروض توضيحية ثنائية الإطارات (2-Frame WebP):** 302 صورة توضيحية خفيفة عالية الجودة مدمجة محلياً داخل التطبيق تُعرض عبر Coil مع توضيح العضلة المستهدفة.
-- **تسميات وتعليمات عربية دقيقة:** ترجمة وتعليمات تفصيلية لتمارين القوة والحديد باللغتين العربية والإنجليزية.
-- **بحث فوري مع معالجة التشكيل:** تطبيع الحروف العربية (إزالة التشكيل وتوحيد أشكال الألف والياء والتاء المربوطة) لبحث لحظي.
-- **إضافة تمارين مخصصة غير محدودة:** مع تصنيف العضلة ونوع الأداة وتحديد وقت الراحة الافتراضي.
-
-### 📋 منشئ الروتينات غير المحدود (Unlimited Routine Builder)
-- إنشاء روتينات تدريبية غير محدودة مجاناً (Push / Pull / Legs، Upper / Lower، Full Body وغيرها).
-- ضبط المجموعات المستهدفة، نطاق التكرارات (Reps Min/Max)، ومؤقت الراحة لكل تمرين.
-- إمكانية نسخ ومضاعفة الروتينات بنقرة واحدة، وحذف الروتينات مع إمكانية التراجع الفوري (Undo).
-
-### ⏱️ جلسة التمرين النشطة ومؤقت الراحة في الخلفية
-- **شاشة تسجيل سريعة تحت إضاءة الجيم:** أزرار كبيرة بحجم $\ge 48\text{ dp}$ وشرائح زيادة سريعة للأوزان (`+1`, `+2.5`, `+5 kg/lbs`).
-- **تصنيفات المجموعات:** مجموعة عادية (`Normal`)، إحماء (`Warmup`)، دروب سيت (`Drop Set`)، وفشل عضلي (`Failure`).
-- **الإكمال التلقائي الذكي:** ملء الوزن والعدات تلقائياً من آخر جلسة مكتملة لنفس التمرين ونفس رقم المجموعة عند تحديد علامة الصح لمجموعة فارغة.
-- **خدمة المؤقت في الخلفية (`ForegroundService`):** عد تنازلي مباشر على شاشة القفل ولوحة الإشعارات مع أزرار التحكم السريع (`-15s`, `+15s`, `Skip`)، وتنبيه صوتي واهتزاز عند انتهاء الراحة حتى في وضع Doze Mode.
-- **حفظ فوري للمسودة:** إمكانية الخروج من التطبيق أو إعادة تشغيل الهاتف مع بقاء التمرين ومجموعاته النشطة قابلة للاستئناف فوراً.
-
-### 🏆 محرك الأرقام القياسية (PR Engine) ومعادلة Brzycki 1RM
-- **اكتشاف تلقائي للأرقام القياسية:** عند كسر أقصى وزن، أو أقصى حجم لمجموعة، أو أعلى 1RM تقديري مع شارة **`PR 🏆`**.
-- **حساب الحد الأقصى التقديري للتكرار الواحد (Estimated 1RM):**
-  $$\text{1RM} = \frac{\text{weight}}{1.0278 - 0.0278 \times \text{reps}}$$
-- **سجل الأرقام القياسية (PR Ledger):** قائمة شاملة بكل التمارين المحققة مع تفاصيل الوزن والحجم والـ 1RM وتاريخ الإنجاز.
-
-### 📊 تحليلات بيانية وتوصيات محلية (Compose Canvas Charts)
-- **منحنيات التطور:** رسم بياني انسيابي أصلي في Jetpack Compose لتتبع تطور الأوزان والـ 1RM عبر الزمن.
-- **توزيع الحجم الأسبوعي:** تحليل حصة كل مجموعة عضلية من إجمالي مجموعات الأسبوع لاكتشاف العضلات المهملة.
-- **توصيات التقدم الذاتي:** خوارزميات محلية 100% لاقتراح الزيادة التدريجية (Progressive Overload Hints) وتنبيه عدم توازن المجموعات العضلية.
-- **تتبع وزن الجسم:** تسجيل قياسات الوزن مع رسوم بيانية لفترات (7 أيام / 30 يوماً / 90 يوماً / الكل).
-
-### 💾 النسخ الاحتياطي المحلي واستيراد/تصدير البيانات
-- **تصدير واستعادة بصيغة مفتوحة (`.himma.json`):** عبر إطار عمل أندرويد الرسمي **Storage Access Framework (SAF)** لحفظ واستعادة النسخة في أي مجلد أو بطاقة SD.
-- **خيارات استعادة ذكية:** خيار **دمج ذكي (Smart Merge)** لإضافة التمارين والجلسات الناقصة دون تكرار، أو **استبدال كامل (Replace All)**.
-- **تصدير كجداول بيانات (`.csv`):** متوافق مع Excel وGoogle Sheets مع ترميز UTF-8 BOM لدعم اللغة العربية بدقة.
-- **نسخ احتياطي محلي تلقائي دوري:** مهمة خلفية خفيفة عبر `WorkManager` لأخذ لقطة محلية كل 24 ساعة.
-
-### 🔒 الخصوصية والأمان
-- **صفر تتبع أو إعلانات:** لا وجود لأي SDKs تجارية أو إعلانية أو برمجيات تتبع (Analytics/Telemetry).
-- **صفر طلبات سحابية:** كل بايت يتم تخزينه في قاعدة بيانات SQLite المحلية على جهازك.
-- **صفر اشتراكات:** كل المزايا مفتوحة بالكامل.
+- **🏋️‍♂️ مكتبة تمارين مدمجة (302 تمرين):** صور توضيحية ثنائية الإطارات، تعليمات باللغتين العربية والإنجليزية، وبحث لحظي ذكي يتجاهل التشكيل، مع إمكانية إضافة تمارين مخصصة.
+- **⏱️ تتبع الأوزان والأزمنة والبلاطات:** دعم تمارين الوزن والعدات، تمارين المدة والوقت (كالكارديو والبلانك)، ونظام البلاطات (`Stack Plates`) لأجهزة الكيبل.
+- **📋 منشئ روتينات مرن:** إنشاء وتكرار عدد غير محدود من الجداول التدريبية، مع تحديد التكرارات والمجموعات ومؤقتات الراحة لكل تمرين ومعاينة سريعة للحركات.
+- **⚡ جلسة تمرين مريحة:** شريط تقدم مباشر، أزرار زيادة سريعة، إكمال تلقائي من الجلسات السابقة، ومؤقت راحة في الخلفية (`ForegroundService`) يظهر على شاشة القفل والإشعارات.
+- **📈 أرقام قياسية وتحليلات:** حساب تلقائي للحد الأقصى (Brzycki 1RM)، رصد الأرقام القياسية (PRs)، ورسوم بيانية لتوزيع الحجم الأسبوعي وتطور الأوزان ووزن الجسم.
+- **💾 نسخ احتياطي مفتوح:** تصدير واستعادة كاملة للبيانات محلياً عبر JSON وCSV (متوافق مع Excel)، مع نسخ احتياطي تلقائي دوري.
+- **🎨 مظهر عصري وأداء فائق:** تصميم AMOLED داكن ومظهر Frost (ثلجي)، وشريط تنقل عائم، مع إمكانية إيقاف الحركات لتسريع الاستجابة على الأجهزة الاقتصادية.
+- **🔄 تحديثات مباشرة:** فحص وتحميل التحديثات وتثبيتها من داخل التطبيق مباشرة عبر GitHub Releases.
 
 ---
 
-## 🛠️ البنية التقنية | Tech Stack
+## 🛠️ البنية التقنية
 
-| الطبقة | التقنيات المستخدمة |
+| المجال | التقنية |
 |:---|:---|
-| **لغة البرمجة** | Kotlin `2.0.21` |
-| **واجهة المستخدم** | Jetpack Compose (BOM `2024.12.01`) + Material Design 3 |
-| **قاعدة البيانات المحلية** | Room `2.6.1` (SQLite مع هجرات صريحة واختبارات تكامل) |
-| **تفضيلات المستخدم** | Jetpack DataStore Preferences `1.1.1` |
-| **حقن الاعتماديات** | Dagger Hilt `2.52` + Hilt Navigation Compose `1.2.0` |
-| **المهام المجدولة** | AndroidX WorkManager `2.10.0` + Hilt Work `1.2.0` |
-| **التنقل** | Navigation Compose `2.8.5` |
-| **الصور والوسائط المحلية** | Coil Compose `2.7.0` |
-| **التسلسل والترميز** | Kotlinx Serialization JSON `1.7.3` |
-| **الأهداف المستهدفة** | `minSdk = 26` (Android 8.0 Oreo), `targetSdk = 35` (Android 15) |
+| **اللغة والواجهة** | Kotlin `2.0.21` + Jetpack Compose (BOM `2024.12.01`) + Material 3 |
+| **قاعدة البيانات والتفضيلات** | Room SQLite `2.6.1` (Offline) + DataStore Preferences |
+| **المعمارية وحقن الاعتماديات** | Clean Architecture + MVVM + Dagger Hilt `2.52` |
+| **المهام والمؤقت** | AndroidX WorkManager `2.10.0` + Foreground Service |
+| **الصور والوسائط** | Coil Compose `2.7.0` (Local WebP Assets) |
 
 ---
 
-## 📦 التثبيت والتشغيل | Download & Installation
+## 📦 التحميل والبناء
 
-### تحميل الحزمة المباشرة (APK)
-يمكنك تحميل أحدث ملف APK جاهز للتثبيت مباشرة من صفحة [GitHub Releases](https://github.com/abdo13579/himma-android-native/releases).
+### تحميل ملف الـ APK
+حمّل أحدث إصدار جاهز للتثبيت مباشرة من صفحة **[GitHub Releases](https://github.com/abdo13579/himma-android-native/releases)**.
 
 ### البناء من المصدر (Build from Source)
-1. استنسخ المستودع:
-   ```bash
-   git clone https://github.com/abdo13579/himma-android-native.git
-   cd himma-android-native
-   ```
-2. تأكد من إعداد JDK 17 وAndroid SDK:
-   ```bash
-   export JAVA_HOME="/path/to/jdk-17"
-   export ANDROID_HOME="/path/to/android-sdk"
-   ```
-3. تشغيل اختبارات الوحدة:
-   ```bash
-   ./gradlew testDebugUnitTest
-   ```
-4. بناء حزمة Debug APK:
-   ```bash
-   ./gradlew assembleDebug
-   ```
-   سيتوفر ملف الـ APK الناتج في:
-   `app/build/outputs/apk/debug/app-debug.apk`
+```bash
+git clone https://github.com/abdo13579/himma-android-native.git
+cd himma-android-native
 
-5. التثبيت المباشر على الهاتف عبر ADB:
-   ```bash
-   ./gradlew installDebug
-   ```
+# تشغيل الاختبارات
+./gradlew testDebugUnitTest
+
+# بناء حزمة الإنتاج لـ GitHub (APK مع التحديث التلقائي)
+./gradlew assembleGithubRelease
+# الناتج: app/build/outputs/apk/github/release/app-github-release.apk
+
+# بناء حزمة الإنتاج لمتجر Google Play (AAB متوافق 100% مع سياسات المتجر)
+./gradlew bundleStoreRelease
+# الناتج: app/build/outputs/bundle/storeRelease/app-store-release.aab
+
+# أو تثبيت حزمة التطوير مباشرة عبر ADB
+./gradlew installGithubDebug
+```
 
 ---
 
-## 📄 الترخيص | License
+## 🔒 الخصوصية (Privacy Policy)
 
-هذا المشروع مرخص بموجب **ترخيص بوليفورم غير التجاري (PolyForm Noncommercial License 1.0.0)**.
+تطبيق هِمّة يعمل محلياً 100% بدون إنترنت ولا يجمع أو يشارك أي بيانات شخصية أو إحصائية نهائياً.  
+يمكنك مراجعة **[سياسة الخصوصية الرسمية (Privacy Policy)](PRIVACY_POLICY.md)** للتفاصيل.
 
-- **يُسمح لك بـ:** استخدام التطبيق وتشغيله شخصياً، دراسة الكود المصدري، التعديل عليه، وبناؤه لأغراضك الخاصة والشخصية والتعليمية غير التجارية بحرية تامة.
-- **يُمنع:** بيع التطبيق أو نسخه أو إعادة توزيعه تجارياً أو تحقيق أي مكاسب مالية أو تجارية منه دون إذن كتابي صريح من صاحب المشروع.
+---
 
-راجع ملف [LICENSE](LICENSE) للحصول على النص الكامل للترخيص.
+## 📄 الترخيص
+
+مرخص بموجب **[PolyForm Noncommercial License 1.0.0](LICENSE)** — متاح ومجاني بالكامل للاستخدام الشخصي، والدراسة، والتطوير غير التجاري.

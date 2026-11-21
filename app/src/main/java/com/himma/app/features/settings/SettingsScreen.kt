@@ -249,62 +249,64 @@ fun SettingsScreen(
         )
     }
 
-    if (showPermissionDialog) {
-        AlertDialog(
-            onDismissRequest = { showPermissionDialog = false },
-            icon = {
-                Icon(
-                    imageVector = Icons.Rounded.Security,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary,
-                )
-            },
-            title = {
-                Text(
-                    text = stringResource(id = R.string.update_permission_required_title),
-                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                )
-            },
-            text = {
-                Text(
-                    text = stringResource(id = R.string.update_permission_required_desc),
-                    style = MaterialTheme.typography.bodyMedium,
-                )
-            },
-            confirmButton = {
-                Button(
-                    onClick = {
-                        showPermissionDialog = false
-                        context.startActivity(AppInstallerHelper.createPermissionSettingsIntent(context))
-                    },
-                ) {
-                    Text(stringResource(id = R.string.update_permission_grant))
-                }
-            },
-            dismissButton = {
-                TextButton(onClick = { showPermissionDialog = false }) {
-                    Text(stringResource(id = R.string.exercise_cancel))
-                }
-            },
-        )
-    }
+    if (BuildConfig.SUPPORTS_IN_APP_UPDATES) {
+        if (showPermissionDialog) {
+            AlertDialog(
+                onDismissRequest = { showPermissionDialog = false },
+                icon = {
+                    Icon(
+                        imageVector = Icons.Rounded.Security,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.primary,
+                    )
+                },
+                title = {
+                    Text(
+                        text = stringResource(id = R.string.update_permission_required_title),
+                        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                    )
+                },
+                text = {
+                    Text(
+                        text = stringResource(id = R.string.update_permission_required_desc),
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                },
+                confirmButton = {
+                    Button(
+                        onClick = {
+                            showPermissionDialog = false
+                            context.startActivity(AppInstallerHelper.createPermissionSettingsIntent(context))
+                        },
+                    ) {
+                        Text(stringResource(id = R.string.update_permission_grant))
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = { showPermissionDialog = false }) {
+                        Text(stringResource(id = R.string.exercise_cancel))
+                    }
+                },
+            )
+        }
 
-    if (showUpdateDialog && updateCheckState is UpdateCheckUiState.UpdateAvailable) {
-        val info = (updateCheckState as UpdateCheckUiState.UpdateAvailable).info
-        AppUpdateDialog(
-            info = info,
-            downloadState = downloadState,
-            onDownloadClick = { viewModel.startDownload(info) },
-            onInstallClick = { file ->
-                if (AppInstallerHelper.canInstallPackages(context)) {
-                    AppInstallerHelper.startApkInstallation(context, file)
-                } else {
-                    pendingInstallFile = file
-                    showPermissionDialog = true
-                }
-            },
-            onDismiss = viewModel::dismissUpdateDialog,
-        )
+        if (showUpdateDialog && updateCheckState is UpdateCheckUiState.UpdateAvailable) {
+            val info = (updateCheckState as UpdateCheckUiState.UpdateAvailable).info
+            AppUpdateDialog(
+                info = info,
+                downloadState = downloadState,
+                onDownloadClick = { viewModel.startDownload(info) },
+                onInstallClick = { file ->
+                    if (AppInstallerHelper.canInstallPackages(context)) {
+                        AppInstallerHelper.startApkInstallation(context, file)
+                    } else {
+                        pendingInstallFile = file
+                        showPermissionDialog = true
+                    }
+                },
+                onDismiss = viewModel::dismissUpdateDialog,
+            )
+        }
     }
 
     Column(
@@ -512,6 +514,36 @@ fun SettingsScreen(
                         )
                     }
                 }
+
+                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f))
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .heightIn(min = 48.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(end = 12.dp),
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.settings_animations_label),
+                            style = MaterialTheme.typography.bodyLarge,
+                        )
+                        Text(
+                            text = stringResource(id = R.string.settings_animations_desc),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
+                    Switch(
+                        checked = state.preferences.animationsEnabled,
+                        onCheckedChange = viewModel::setAnimationsEnabled,
+                    )
+                }
             }
         }
 
@@ -632,84 +664,92 @@ fun SettingsScreen(
                     }
                 }
 
-                Text(
-                    text = stringResource(id = R.string.settings_updates_desc),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-
-                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f))
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                ) {
-                    Column(modifier = Modifier.weight(1f)) {
-                        Text(
-                            text = stringResource(id = R.string.settings_auto_check_updates),
-                            style = MaterialTheme.typography.titleSmall,
-                        )
-                        Text(
-                            text = stringResource(id = R.string.settings_auto_check_updates_desc),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                    }
-                    Switch(
-                        checked = state.preferences.autoCheckUpdates,
-                        onCheckedChange = viewModel::setAutoCheckUpdates,
+                if (!BuildConfig.SUPPORTS_IN_APP_UPDATES) {
+                    Text(
+                        text = stringResource(id = R.string.settings_updates_managed_by_store),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
-                }
+                } else {
+                    Text(
+                        text = stringResource(id = R.string.settings_updates_desc),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
 
-                FilledTonalButton(
-                    onClick = viewModel::checkForUpdates,
-                    enabled = updateCheckState !is UpdateCheckUiState.Checking,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .heightIn(min = 48.dp),
-                ) {
-                    if (updateCheckState is UpdateCheckUiState.Checking) {
-                        CircularProgressIndicator(
-                            modifier = Modifier.size(20.dp),
-                            strokeWidth = 2.dp,
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(stringResource(id = R.string.settings_checking_updates))
-                    } else {
-                        Icon(
-                            imageVector = Icons.Rounded.CloudSync,
-                            contentDescription = null,
-                            modifier = Modifier.size(18.dp),
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(stringResource(id = R.string.settings_check_updates))
-                    }
-                }
+                    HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f))
 
-                when (val check = updateCheckState) {
-                    is UpdateCheckUiState.UpToDate -> {
-                        Text(
-                            text = stringResource(id = R.string.settings_up_to_date, check.currentVersion),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.primary,
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                    ) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                text = stringResource(id = R.string.settings_auto_check_updates),
+                                style = MaterialTheme.typography.titleSmall,
+                            )
+                            Text(
+                                text = stringResource(id = R.string.settings_auto_check_updates_desc),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                        }
+                        Switch(
+                            checked = state.preferences.autoCheckUpdates,
+                            onCheckedChange = viewModel::setAutoCheckUpdates,
                         )
                     }
-                    is UpdateCheckUiState.UpdateAvailable -> {
-                        Text(
-                            text = stringResource(id = R.string.settings_update_available, check.info.remoteVersion),
-                            style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold),
-                            color = MaterialTheme.colorScheme.primary,
-                        )
+
+                    FilledTonalButton(
+                        onClick = viewModel::checkForUpdates,
+                        enabled = updateCheckState !is UpdateCheckUiState.Checking,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 48.dp),
+                    ) {
+                        if (updateCheckState is UpdateCheckUiState.Checking) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(20.dp),
+                                strokeWidth = 2.dp,
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(stringResource(id = R.string.settings_checking_updates))
+                        } else {
+                            Icon(
+                                imageVector = Icons.Rounded.CloudSync,
+                                contentDescription = null,
+                                modifier = Modifier.size(18.dp),
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(stringResource(id = R.string.settings_check_updates))
+                        }
                     }
-                    is UpdateCheckUiState.Error -> {
-                        Text(
-                            text = check.message,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.error,
-                        )
+
+                    when (val check = updateCheckState) {
+                        is UpdateCheckUiState.UpToDate -> {
+                            Text(
+                                text = stringResource(id = R.string.settings_up_to_date, check.currentVersion),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.primary,
+                            )
+                        }
+                        is UpdateCheckUiState.UpdateAvailable -> {
+                            Text(
+                                text = stringResource(id = R.string.settings_update_available, check.info.remoteVersion),
+                                style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold),
+                                color = MaterialTheme.colorScheme.primary,
+                            )
+                        }
+                        is UpdateCheckUiState.Error -> {
+                            Text(
+                                text = check.message,
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.error,
+                            )
+                        }
+                        else -> Unit
                     }
-                    else -> Unit
                 }
             }
         }

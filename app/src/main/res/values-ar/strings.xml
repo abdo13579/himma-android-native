@@ -332,7 +332,6 @@
     <string name="workout_plates_label">البلاطات</string>
     <string name="workout_plates_badge">بلاطات</string>
     <string name="workout_previous_plates_hint">السابق: %1$s بلاطة × %2$s</string>
-
     <!-- Custom Backup Export -->
     <string name="backup_custom_export_title">تصدير مخصص للبيانات</string>
     <string name="backup_custom_export_desc">حدد العناصر التي ترغب في تضمينها في ملف النسخة الاحتياطية:</string>
@@ -351,4 +350,6 @@
     <string name="analytics_delete_workout_dialog_desc">هل أنت متأكد من رغبتك في حذف هذا التمرين من السجل؟ سيتم حذف جميع مجموعاته نهائياً ولا يمكن التراجع عن هذا الإجراء.</string>
     <string name="dialog_confirm_delete">حذف</string>
     <string name="dialog_cancel">إلغاء</string>
+
+    <string name="settings_updates_managed_by_store">تم تثبيت هذا الإصدار عبر متجر Google Play. يتم استلام التحديثات تلقائياً من خلال المتجر.</string>
 </resources>

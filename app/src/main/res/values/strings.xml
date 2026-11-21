@@ -332,7 +332,6 @@
     <string name="workout_plates_label">Plates</string>
     <string name="workout_plates_badge">Plates</string>
     <string name="workout_previous_plates_hint">Prev: %1$s plates × %2$s</string>
-
     <!-- Custom Backup Export -->
     <string name="backup_custom_export_title">Custom Data Export</string>
     <string name="backup_custom_export_desc">Select the items you want to include in the backup file:</string>
@@ -351,4 +350,6 @@
     <string name="analytics_delete_workout_dialog_desc">Are you sure you want to delete this workout from history? All its sets will be permanently removed and this action cannot be undone.</string>
     <string name="dialog_confirm_delete">Delete</string>
     <string name="dialog_cancel">Cancel</string>
+
+    <string name="settings_updates_managed_by_store">This version is distributed via Google Play. Updates are delivered automatically through the Play Store.</string>
 </resources>
