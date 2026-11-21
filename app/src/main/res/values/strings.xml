@@ -332,4 +332,5 @@
     <string name="workout_plates_label">Plates</string>
     <string name="workout_plates_badge">Plates</string>
     <string name="workout_previous_plates_hint">Prev: %1$s plates × %2$s</string>
+    <string name="settings_updates_managed_by_store">This version is distributed via Google Play. Updates are delivered automatically through the Play Store.</string>
 </resources>

@@ -23,6 +23,18 @@ android {
         resourceConfigurations += listOf("ar", "en")
     }
 
+    flavorDimensions += "distribution"
+    productFlavors {
+        create("github") {
+            dimension = "distribution"
+            buildConfigField("boolean", "SUPPORTS_IN_APP_UPDATES", "true")
+        }
+        create("store") {
+            dimension = "distribution"
+            buildConfigField("boolean", "SUPPORTS_IN_APP_UPDATES", "false")
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -103,4 +115,10 @@ dependencies {
 
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+}
+
+tasks.register("testDebugUnitTest") {
+    dependsOn("testGithubDebugUnitTest")
+    description = "Runs unit tests for debug flavor (alias for testGithubDebugUnitTest)"
+    group = "verification"
 }

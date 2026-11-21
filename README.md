@@ -57,13 +57,24 @@ cd himma-android-native
 # تشغيل الاختبارات
 ./gradlew testDebugUnitTest
 
-# بناء حزمة الإنتاج الرسمية (Production Release APK)
-./gradlew assembleRelease
-# الناتج: app/build/outputs/apk/release/app-release.apk
+# بناء حزمة الإنتاج لـ GitHub (APK مع التحديث التلقائي)
+./gradlew assembleGithubRelease
+# الناتج: app/build/outputs/apk/github/release/app-github-release.apk
+
+# بناء حزمة الإنتاج لمتجر Google Play (AAB متوافق 100% مع سياسات المتجر)
+./gradlew bundleStoreRelease
+# الناتج: app/build/outputs/bundle/storeRelease/app-store-release.aab
 
 # أو تثبيت حزمة التطوير مباشرة عبر ADB
-./gradlew installDebug
+./gradlew installGithubDebug
 ```
+
+---
+
+## 🔒 الخصوصية (Privacy Policy)
+
+تطبيق هِمّة يعمل محلياً 100% بدون إنترنت ولا يجمع أو يشارك أي بيانات شخصية أو إحصائية نهائياً.  
+يمكنك مراجعة **[سياسة الخصوصية الرسمية (Privacy Policy)](PRIVACY_POLICY.md)** للتفاصيل.
 
 ---
 

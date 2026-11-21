@@ -2,6 +2,7 @@ package com.himma.app.features.shell
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.himma.app.BuildConfig
 import com.himma.app.core.database.RoutineRepository
 import com.himma.app.core.database.UserProfileRepository
 import com.himma.app.core.database.WorkoutRepository
@@ -45,7 +46,7 @@ class TodayViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             val prefs = preferencesRepository.preferences.first()
-            if (prefs.autoCheckUpdates && !hasCheckedUpdates) {
+            if (BuildConfig.SUPPORTS_IN_APP_UPDATES && prefs.autoCheckUpdates && !hasCheckedUpdates) {
                 hasCheckedUpdates = true
                 appUpdateRepository.checkForUpdate().onSuccess { info ->
                     if (info.isUpdateAvailable) {

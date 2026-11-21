@@ -142,20 +142,22 @@ Common commands:
 - **Run Unit Tests:**
   ```zsh
   ./gradlew testDebugUnitTest
+  # or ./gradlew testGithubDebugUnitTest / testStoreDebugUnitTest
   ```
-- **Build Debug APK:**
+- **Build GitHub Production Release APK:**
   ```zsh
-  ./gradlew assembleDebug
-  # Output: app/build/outputs/apk/debug/app-debug.apk
+  ./gradlew assembleGithubRelease
+  # Output: app/build/outputs/apk/github/release/app-github-release.apk
   ```
-- **Build Production Release APK:**
+- **Build Google Play Production Release Bundle (AAB):**
   ```zsh
-  ./gradlew assembleRelease
-  # Output: app/build/outputs/apk/release/app-release.apk
+  ./gradlew bundleStoreRelease
+  # Output: app/build/outputs/bundle/storeRelease/app-store-release.aab
   ```
-- **Install on USB-Connected Device:**
+- **Install Debug APK on Device:**
   ```zsh
-  ./gradlew installDebug
+  ./gradlew installGithubDebug
+  # or ./gradlew installStoreDebug
   ```
 - **Launch App via ADB:**
   ```zsh
