@@ -113,6 +113,39 @@ class AnalyticsViewModelTest {
 
         collector.cancel()
     }
+
+    @Test
+    fun `deleteWorkout removes entry from history and closes detail sheet if open`() = runTest {
+        val viewModel = AnalyticsViewModel(
+            analyticsRepository = fakeAnalyticsRepo,
+            exerciseRepository = fakeExerciseRepo,
+            preferencesRepository = fakePrefsRepo,
+        )
+        val collector = backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) {
+            viewModel.uiState.collect()
+        }
+        val events = mutableListOf<AnalyticsEvent>()
+        val eventCollector = backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) {
+            viewModel.events.collect { events.add(it) }
+        }
+        advanceUntilIdle()
+
+        assertEquals(1, viewModel.uiState.value.workoutHistory.size)
+
+        viewModel.openWorkoutDetail("w1")
+        advanceUntilIdle()
+        assertNotNull(viewModel.uiState.value.selectedWorkoutDetail)
+
+        viewModel.deleteWorkout("w1")
+        advanceUntilIdle()
+
+        assertTrue(viewModel.uiState.value.workoutHistory.isEmpty())
+        assertNull(viewModel.uiState.value.selectedWorkoutDetail)
+        assertTrue(events.contains(AnalyticsEvent.WorkoutDeleted))
+
+        collector.cancel()
+        eventCollector.cancel()
+    }
 }
 
 private class FakeAnalyticsRepository : AnalyticsRepository {
@@ -210,6 +243,10 @@ private class FakeAnalyticsRepository : AnalyticsRepository {
 
     override suspend fun deleteBodyWeight(id: String) {
         bodyWeightFlow.value = bodyWeightFlow.value.filterNot { it.id == id }
+    }
+
+    override suspend fun deleteWorkout(workoutId: String) {
+        historyFlow.value = historyFlow.value.filterNot { it.id == workoutId }
     }
 
     override suspend fun evaluateAndPersistWorkoutPrs(workoutId: String): Int = 0

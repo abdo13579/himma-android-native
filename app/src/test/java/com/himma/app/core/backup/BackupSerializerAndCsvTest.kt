@@ -215,4 +215,34 @@ class BackupSerializerAndCsvTest {
         assertTrue(csv.contains("بنش بار مستوي"))
         assertTrue(csv.contains(",220.5,lbs,5,8.5,true,true,"))
     }
+
+    @Test
+    fun `backup encodes and validates partial custom document like routines only or theme only`() {
+        val routinesOnlyDoc = HimmaBackupDocument(
+            exportedAt = 1_731_000_000_000L,
+            appVersion = "0.1.1-beta",
+            routines = listOf(
+                BackupRoutine(id = "r1", title = "Upper Body", notes = "Chest & Back", orderIndex = 0),
+            ),
+        )
+        val encodedRoutines = BackupSerializer.encode(routinesOnlyDoc)
+        val decodedRoutines = BackupSerializer.decodeAndValidate(encodedRoutines).getOrThrow()
+        assertEquals(1, decodedRoutines.routines.size)
+        assertTrue(decodedRoutines.customExercises.isEmpty())
+        assertTrue(decodedRoutines.workouts.isEmpty())
+
+        val themeOnlyDoc = HimmaBackupDocument(
+            exportedAt = 1_731_000_000_000L,
+            appVersion = "0.1.1-beta",
+            preferences = BackupPreferences(
+                languageTag = "ar",
+                weightUnit = "kg",
+                themeMode = "FROST",
+            ),
+        )
+        val encodedTheme = BackupSerializer.encode(themeOnlyDoc)
+        val decodedTheme = BackupSerializer.decodeAndValidate(encodedTheme).getOrThrow()
+        assertEquals("FROST", decodedTheme.preferences?.themeMode)
+        assertTrue(decodedTheme.routines.isEmpty())
+    }
 }

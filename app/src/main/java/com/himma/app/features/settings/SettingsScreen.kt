@@ -3,6 +3,7 @@ package com.himma.app.features.settings
 import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -30,6 +31,7 @@ import androidx.compose.material.icons.rounded.SystemUpdate
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.FilledTonalButton
@@ -55,6 +57,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -73,6 +76,7 @@ import java.io.File
 import com.himma.app.core.datastore.UserPreferences
 import com.himma.app.domain.model.AppLanguage
 import com.himma.app.domain.model.BackupValidationError
+import com.himma.app.domain.model.CustomExportOptions
 import com.himma.app.domain.model.RestoreMode
 import com.himma.app.domain.model.ThemeMode
 import com.himma.app.domain.model.WeightUnit
@@ -228,6 +232,19 @@ fun SettingsScreen(
                 TextButton(onClick = viewModel::dismissPendingRestore) {
                     Text(stringResource(id = R.string.exercise_cancel))
                 }
+            },
+        )
+    }
+
+    if (state.showCustomExportDialog) {
+        CustomExportDialog(
+            options = state.customExportOptions,
+            onOptionsChange = viewModel::updateCustomExportOptions,
+            onDismiss = viewModel::dismissCustomExportDialog,
+            onConfirmExport = {
+                viewModel.dismissCustomExportDialog()
+                val date = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE)
+                exportJsonLauncher.launch("himma-backup-$date.himma.json")
             },
         )
     }
@@ -554,8 +571,7 @@ fun SettingsScreen(
 
                 FilledTonalButton(
                     onClick = {
-                        val date = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE)
-                        exportJsonLauncher.launch("himma-backup-$date.himma.json")
+                        viewModel.openCustomExportDialog()
                     },
                     enabled = !state.isBackupBusy,
                     modifier = Modifier
@@ -888,4 +904,121 @@ private fun formatTimestamp(epochMillis: Long): String {
     return Instant.ofEpochMilli(epochMillis)
         .atZone(ZoneId.systemDefault())
         .format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT))
+}
+
+@Composable
+private fun CustomExportDialog(
+    options: CustomExportOptions,
+    onOptionsChange: (CustomExportOptions) -> Unit,
+    onDismiss: () -> Unit,
+    onConfirmExport: () -> Unit,
+) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        icon = {
+            Icon(
+                imageVector = Icons.Outlined.Backup,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.primary,
+            )
+        },
+        title = {
+            Text(
+                text = stringResource(id = R.string.backup_custom_export_title),
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold,
+            )
+        },
+        text = {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(6.dp),
+            ) {
+                Text(
+                    text = stringResource(id = R.string.backup_custom_export_desc),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+
+                Spacer(modifier = Modifier.height(6.dp))
+
+                ExportOptionCheckboxRow(
+                    label = stringResource(id = R.string.backup_export_routines),
+                    checked = options.exportRoutines,
+                    onCheckedChange = { onOptionsChange(options.copy(exportRoutines = it)) },
+                )
+
+                ExportOptionCheckboxRow(
+                    label = stringResource(id = R.string.backup_export_custom_exercises),
+                    checked = options.exportCustomExercises,
+                    onCheckedChange = { onOptionsChange(options.copy(exportCustomExercises = it)) },
+                )
+
+                ExportOptionCheckboxRow(
+                    label = stringResource(id = R.string.backup_export_theme_prefs),
+                    checked = options.exportPreferences,
+                    onCheckedChange = { onOptionsChange(options.copy(exportPreferences = it)) },
+                )
+
+                ExportOptionCheckboxRow(
+                    label = stringResource(id = R.string.backup_export_history),
+                    checked = options.exportWorkouts,
+                    onCheckedChange = { onOptionsChange(options.copy(exportWorkouts = it)) },
+                )
+
+                ExportOptionCheckboxRow(
+                    label = stringResource(id = R.string.backup_export_profile_stats),
+                    checked = options.exportProfileAndStats,
+                    onCheckedChange = { onOptionsChange(options.copy(exportProfileAndStats = it)) },
+                )
+            }
+        },
+        confirmButton = {
+            TextButton(
+                onClick = onConfirmExport,
+                enabled = options.isAnySelected,
+            ) {
+                Text(
+                    text = stringResource(id = R.string.backup_export_action),
+                    fontWeight = FontWeight.Bold,
+                )
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text(stringResource(id = R.string.dialog_cancel))
+            }
+        },
+    )
+}
+
+@Composable
+private fun ExportOptionCheckboxRow(
+    label: String,
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(8.dp))
+            .clickable { onCheckedChange(!checked) }
+            .padding(vertical = 6.dp, horizontal = 4.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween,
+    ) {
+        Text(
+            text = label,
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier
+                .weight(1f)
+                .padding(end = 8.dp),
+        )
+        Checkbox(
+            checked = checked,
+            onCheckedChange = onCheckedChange,
+        )
+    }
 }

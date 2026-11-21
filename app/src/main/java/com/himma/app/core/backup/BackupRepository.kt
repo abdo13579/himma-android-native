@@ -33,6 +33,7 @@ import com.himma.app.domain.model.BackupValidationError
 import com.himma.app.domain.model.BackupValidationException
 import com.himma.app.domain.model.BackupWorkout
 import com.himma.app.domain.model.BackupWorkoutSet
+import com.himma.app.domain.model.CustomExportOptions
 import com.himma.app.domain.model.EquipmentType
 import com.himma.app.domain.model.HimmaBackupDocument
 import com.himma.app.domain.model.MuscleGroup
@@ -57,9 +58,9 @@ data class BackupInspection(
 )
 
 interface BackupRepository {
-    suspend fun createBackupJson(): String
+    suspend fun createBackupJson(options: CustomExportOptions = CustomExportOptions()): String
     suspend fun createCsvExport(): String
-    suspend fun exportBackupToUri(uri: Uri): Result<Unit>
+    suspend fun exportBackupToUri(uri: Uri, options: CustomExportOptions = CustomExportOptions()): Result<Unit>
     suspend fun exportCsvToUri(uri: Uri): Result<Unit>
     suspend fun inspectBackupUri(uri: Uri): Result<BackupInspection>
     suspend fun inspectLatestAutoSnapshot(): Result<BackupInspection>
@@ -88,16 +89,16 @@ class LocalBackupRepository @Inject constructor(
     private val latestAutoSnapshotFile: File
         get() = File(autoBackupDir, LATEST_SNAPSHOT_FILE_NAME)
 
-    override suspend fun createBackupJson(): String {
-        val prefs = preferencesRepository.preferences.first()
-        val profile = userProfileDao.getProfileOnce()
-        val customExercises = exerciseDao.getCustomExercisesOnce()
-        val routines = routineDao.getAllRoutinesOnce()
-        val routineExercises = routineDao.getAllRoutineExercisesOnce()
-        val workouts = workoutDao.getAllWorkoutsOnce()
-        val workoutSets = workoutDao.getAllWorkoutSetsOnce()
-        val personalRecords = analyticsDao.getAllPersonalRecordsOnce()
-        val bodyWeights = analyticsDao.getAllBodyWeightsOnce()
+    override suspend fun createBackupJson(options: CustomExportOptions): String {
+        val prefs = if (options.exportPreferences) preferencesRepository.preferences.first() else null
+        val profile = if (options.exportProfileAndStats) userProfileDao.getProfileOnce() else null
+        val customExercises = if (options.exportCustomExercises) exerciseDao.getCustomExercisesOnce() else emptyList()
+        val routines = if (options.exportRoutines) routineDao.getAllRoutinesOnce() else emptyList()
+        val routineExercises = if (options.exportRoutines) routineDao.getAllRoutineExercisesOnce() else emptyList()
+        val workouts = if (options.exportWorkouts) workoutDao.getAllWorkoutsOnce() else emptyList()
+        val workoutSets = if (options.exportWorkouts) workoutDao.getAllWorkoutSetsOnce() else emptyList()
+        val personalRecords = if (options.exportProfileAndStats) analyticsDao.getAllPersonalRecordsOnce() else emptyList()
+        val bodyWeights = if (options.exportProfileAndStats) analyticsDao.getAllBodyWeightsOnce() else emptyList()
 
         val document = HimmaBackupDocument(
             format = HimmaBackupDocument.FORMAT_ID,
@@ -112,13 +113,15 @@ class LocalBackupRepository @Inject constructor(
                     updatedAt = it.updatedAt,
                 )
             },
-            preferences = BackupPreferences(
-                languageTag = prefs.language.tag,
-                weightUnit = prefs.weightUnit.code,
-                defaultRestSeconds = prefs.defaultRestSeconds,
-                themeMode = prefs.themeMode.key,
-                useDynamicColor = prefs.useDynamicColor,
-            ),
+            preferences = prefs?.let {
+                BackupPreferences(
+                    languageTag = it.language.tag,
+                    weightUnit = it.weightUnit.code,
+                    defaultRestSeconds = it.defaultRestSeconds,
+                    themeMode = it.themeMode.key,
+                    useDynamicColor = it.useDynamicColor,
+                )
+            },
             customExercises = customExercises.map { it.toBackupDto() },
             routines = routines.map {
                 BackupRoutine(
@@ -208,8 +211,8 @@ class LocalBackupRepository @Inject constructor(
         )
     }
 
-    override suspend fun exportBackupToUri(uri: Uri): Result<Unit> = runCatching {
-        val payload = createBackupJson()
+    override suspend fun exportBackupToUri(uri: Uri, options: CustomExportOptions): Result<Unit> = runCatching {
+        val payload = createBackupJson(options)
         writeTextToUri(uri, payload)
     }
 

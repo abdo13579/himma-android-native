@@ -84,7 +84,7 @@ class DataStoreUserPreferencesRepository @Inject constructor(
                 autoBackupEnabled = prefs[Keys.AUTO_BACKUP_ENABLED] ?: true,
                 lastAutoBackupAt = prefs[Keys.LAST_AUTO_BACKUP_AT],
                 autoCheckUpdates = prefs[Keys.AUTO_CHECK_UPDATES] ?: true,
-                animationsEnabled = prefs[Keys.ANIMATIONS_ENABLED] ?: false,
+                animationsEnabled = prefs[Keys.ANIMATIONS_ENABLED] ?: true,
             )
         }
 

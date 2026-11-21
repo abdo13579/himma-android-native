@@ -66,6 +66,7 @@ data class AnalyticsUiState(
 sealed interface AnalyticsEvent {
     data object BodyWeightLogged : AnalyticsEvent
     data object BodyWeightDeleted : AnalyticsEvent
+    data object WorkoutDeleted : AnalyticsEvent
 }
 
 @HiltViewModel
@@ -236,6 +237,16 @@ class AnalyticsViewModel @Inject constructor(
         viewModelScope.launch {
             analyticsRepository.deleteBodyWeight(id)
             _events.emit(AnalyticsEvent.BodyWeightDeleted)
+        }
+    }
+
+    fun deleteWorkout(workoutId: String) {
+        viewModelScope.launch {
+            analyticsRepository.deleteWorkout(workoutId)
+            if (selection.value.selectedWorkoutId == workoutId) {
+                closeWorkoutDetail()
+            }
+            _events.emit(AnalyticsEvent.WorkoutDeleted)
         }
     }
 
