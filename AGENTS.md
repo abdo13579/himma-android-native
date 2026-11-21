@@ -15,8 +15,8 @@ Guidance for AI coding agents working in this repository.
 
 ## 2. Project Overview & Open-Source Principles
 
-- **App Name:** هِمّة | Himma (`com.himma.app`)
-- **Current Version:** `v1.2.0` (versionCode 7)
+- **App Name:** هِمّة | Himma (`com.himma.fitness`, namespace `com.himma.app`)
+- **Current Version:** `v1.3.0` (versionCode 8)
 - **License:** **PolyForm Noncommercial License 1.0.0** — free for personal, educational, and non-commercial use.
 - **Model:** **100% Free & Open Source (FOSS)** — no paywalls, no Pro tiers, no Google Play Billing, no ads, no analytics/telemetry, and no cloud servers or mandatory sign-in.
 - **Scope:** Native Android mobile application (Jetpack Compose, Kotlin).
@@ -161,7 +161,7 @@ Common commands:
   ```
 - **Launch App via ADB:**
   ```zsh
-  adb shell am start -n com.himma.app/.MainActivity
+  adb shell am start -n com.himma.fitness/com.himma.app.MainActivity
   ```
 - **List Connected Devices:**
   ```zsh

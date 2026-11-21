@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Version](https://img.shields.io/badge/Version-v1.2.0-16A34A?logo=github&logoColor=white)
+![Version](https://img.shields.io/badge/Version-v1.3.0-16A34A?logo=github&logoColor=white)
 ![Kotlin](https://img.shields.io/badge/Kotlin-2.0.21-7F52FF?logo=kotlin&logoColor=white)
 ![Compose](https://img.shields.io/badge/Compose-BOM%202024.12.01-4285F4?logo=jetpackcompose&logoColor=white)
 ![Material 3](https://img.shields.io/badge/Material%20Design-3-16A34A?logo=materialdesign&logoColor=white)
