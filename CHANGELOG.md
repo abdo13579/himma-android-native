@@ -8,26 +8,27 @@
 
 ## [1.3.0] — 2026-11-21
 
-### 🚀 Google Play Release Preparation & Selective Backup, History Deletion & Navigation Polish
+### 🚀 تصدير مخصص للنسخ الاحتياطي، حذف التمارين من السجل، وتجهيز الإطلاق لمتجر Google Play
 
-This release unifies the official application ID (`com.himma.fitness`) for Google Play distribution, and introduces granular selective data backup export, completed workout deletion from history with safe confirmation, dynamic navigation bar labels that display exclusively on the active tab, and streamlined animation defaults.
+يقدم هذا الإصدار إمكانية التصدير المخصص والمفصل لبيانات النسخ الاحتياطي، وإمكانية حذف جلسات التمارين المكتملة من السجل مع نافذة تأكيد آمنة، وتحسين شريط التنقل العائم لإظهار تسمية التبويب النشط فقط، إلى جانب توحيد معرّف الحزمة الرسمي (`com.himma.fitness`) وتجهيز نكهة المتجر الخاصة بـ Google Play.
 
-#### Added
-- **Selective Custom Backup Export:**
-  - Added dedicated selective export dialog allowing users to pick and choose specific datasets to export into their `.himma.json` backup file.
-  - Granular checkboxes for: Routines & Schedules, Custom Exercises, Theme & App Preferences, Workout History, and Profile/Measurements/PRs.
-  - Partial backups cleanly supported for export, validation, and smart merging.
-- **Workout History Deletion:**
-  - Added capability to delete workouts from the History ledger directly from the history card and workout detail bottom sheet.
-  - Destructive confirmation dialog prevents accidental loss and cascades cleanup of sets cleanly in Room.
+#### أُضيف (Added)
+- **تصدير مخصص للنسخ الاحتياطي (Custom Selective Backup Export):**
+  - نافذة تفاعلية منظمة تتيح للمستخدم تحديد البيانات المراد تضمينها بدقة في ملف النسخة الاحتياطية بصيغة `.himma.json`.
+  - خيارات تفصيلية تشمل: الروتينات وجدول التمارين، التمارين المخصصة، إعدادات المظهر وتفضيلات التطبيق، سجل التمارين المكتملة، والملف الشخصي مع القياسات والأرقام القياسية (PRs).
+  - دعم كامل للتحقق من صحة ملفات النسخ الاحتياطي الجزئية واستعادتها أو دمجها الذكي بكل سلاسة.
+- **حذف جلسات التمارين من السجل (Workout History Deletion):**
+  - إمكانية حذف أي جلسة تمرين سابقة مباشرة من بطاقة السجل في شاشة التحليلات أو من الشاشة السفلية لتفاصيل الجلسة.
+  - نافذة تأكيد تفاعلية تمنع الحذف غير المقصود، مع حذف متسلسل ونظيف للمجموعات المرتبطة بالجلسة في قاعدة بيانات Room المحلية.
 
-#### Refined & Polished
-- **Dynamic Floating Navigation Bar:**
-  - Active tab text label visibility: destination titles now only appear for the currently selected tab with smooth micro-animation, keeping unselected tabs minimal and uncluttered.
-  - Maintained accessibility content descriptions for TalkBack and screen readers.
-- **Package ID & Store Flavor:**
-  - Unified Application ID to `com.himma.fitness` across Google Play and GitHub builds.
-  - Added Google Play store flavor and automated update channel management.
+#### عُدّل وحُسّن (Refined & Polished)
+- **شريط التنقل العائم الديناميكي (Dynamic Floating Navigation Bar):**
+  - إظهار اسم التبويب حصرياً للتبويب المحدد حالياً مع حركة تفاعلية ناعمة وخفيفة، مع إبقاء الأيقونة فقط للتبويبات غير المحددة لمنح الواجهة مظهراً أكثر بساطة وأناقة.
+  - الحفاظ الكامل على نصوص إمكانية الوصول والتوصيف لقارئات الشاشة (TalkBack).
+- **توحيد معرف الحزمة ونكهة المتجر (Package ID & Store Flavor):**
+  - اعتماد المعرف الرسمي الموحد `com.himma.fitness` لنسخ Google Play وGitHub.
+  - إضافة نكهة بناء مستقلة لمتجر Google Play (`store`) مجردة من صلاحيات التثبيت الذاتي لحزم APK.
+  - توفير سياسة الخصوصية الرسمية داخل التطبيق والمستودع.
 
 ---
 
