@@ -15,6 +15,10 @@ out/
 *.jks
 *.keystore
 
+# Build Artifacts
+*.apk
+*.aab
+
 # macOS
 .DS_Store
 

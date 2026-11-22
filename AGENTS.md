@@ -16,7 +16,7 @@ Guidance for AI coding agents working in this repository.
 ## 2. Project Overview & Open-Source Principles
 
 - **App Name:** هِمّة | Himma (`com.himma.fitness`, namespace `com.himma.app`)
-- **Current Version:** `v1.3.0` (versionCode 8)
+- **Current Version:** `v1.3.0` (versionCode 9)
 - **License:** **PolyForm Noncommercial License 1.0.0** — free for personal, educational, and non-commercial use.
 - **Model:** **100% Free & Open Source (FOSS)** — no paywalls, no Pro tiers, no Google Play Billing, no ads, no analytics/telemetry, and no cloud servers or mandatory sign-in.
 - **Scope:** Native Android mobile application (Jetpack Compose, Kotlin).
@@ -28,7 +28,7 @@ Guidance for AI coding agents working in this repository.
 
 - **Language & UI:** Kotlin `2.0.21`, Jetpack Compose (BOM `2024.12.01`), Material Design 3 (`material3`, `material-icons-extended`)
 - **Build System:** Gradle `8.11.1` (Kotlin DSL + `./gradlew`), Android Gradle Plugin (AGP) `8.7.3`, KSP `2.0.21-1.0.27`
-- **SDK Targets:** `minSdk = 26` (Android 8.0 Oreo), `compileSdk = 35`, `targetSdk = 35` (Android 15), Java/Kotlin JVM target `17`
+- **SDK Targets:** `minSdk = 26` (Android 8.0 Oreo), `compileSdk = 36`, `targetSdk = 36` (Android 16), Java/Kotlin JVM target `17`
 - **Architecture & DI:** Clean Architecture + MVVM + Hilt (`2.52`) + Navigation Compose (`2.8.5`)
 - **Persistence:** Room (`2.6.1`, `DATABASE_VERSION = 9`, schema exported to `app/schemas/`) + DataStore Preferences (`1.1.1`)
 - **Background Tasks & Services:** AndroidX WorkManager (`2.10.0`) + Hilt Work (`1.2.0`), `ForegroundService` (`RestTimerForegroundService`)

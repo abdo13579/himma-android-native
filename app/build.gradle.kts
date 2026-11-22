@@ -9,13 +9,13 @@ plugins {
 
 android {
     namespace = "com.himma.app"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.himma.fitness"
         minSdk = 26
-        targetSdk = 35
-        versionCode = 8
+        targetSdk = 36
+        versionCode = 9
         versionName = "1.3.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -35,10 +35,24 @@ android {
         }
     }
 
+    signingConfigs {
+        create("release") {
+            val keystoreFile = rootProject.file("himma-release.jks")
+            if (keystoreFile.exists()) {
+                storeFile = keystoreFile
+                storePassword = System.getenv("KEYSTORE_PASSWORD") ?: "himma123456"
+                keyAlias = System.getenv("KEY_ALIAS") ?: "himma-release"
+                keyPassword = System.getenv("KEY_PASSWORD") ?: "himma123456"
+            } else {
+                initWith(getByName("debug"))
+            }
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.getByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
