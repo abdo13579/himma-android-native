@@ -2,7 +2,7 @@
   {
     "id": "bench-press",
     "nameEn": "Bench Press",
-    "nameAr": "بنش برس بالبار (مستوي)",
+    "nameAr": "بنش برس مستوي بالبار",
     "primaryMuscle": "CHEST",
     "secondaryMuscles": [
       "ARMS",
@@ -53,7 +53,7 @@
   {
     "id": "dumbbell-bench-press",
     "nameEn": "Dumbbell Bench Press",
-    "nameAr": "بنش برس بالدمبل (مستوي)",
+    "nameAr": "بنش برس مستوي بالدمبل",
     "primaryMuscle": "CHEST",
     "secondaryMuscles": [
       "ARMS",
@@ -186,7 +186,7 @@
   {
     "id": "dumbbell-fly",
     "nameEn": "Dumbbell Fly",
-    "nameAr": "تفتيح الصدر بالدمبل (مستوي)",
+    "nameAr": "تفتيح الصدر مستوي بالدمبل",
     "primaryMuscle": "CHEST",
     "secondaryMuscles": [
       "SHOULDERS"
@@ -202,7 +202,7 @@
   {
     "id": "push-up",
     "nameEn": "Push-up",
-    "nameAr": "تمرين الضغط (Push-Up)",
+    "nameAr": "تمرين الضغط",
     "primaryMuscle": "CHEST",
     "secondaryMuscles": [
       "ARMS",
@@ -219,7 +219,7 @@
   {
     "id": "incline-push-up",
     "nameEn": "Incline Push-up",
-    "nameAr": "تمرين الضغط المائل للأعلى",
+    "nameAr": "ضغط مائل للأعلى",
     "primaryMuscle": "CHEST",
     "secondaryMuscles": [
       "ARMS",
@@ -237,7 +237,7 @@
   {
     "id": "decline-push-up",
     "nameEn": "Decline Push-up",
-    "nameAr": "تمرين الضغط المائل للأسفل",
+    "nameAr": "ضغط مائل للأسفل",
     "primaryMuscle": "CHEST",
     "secondaryMuscles": [
       "SHOULDERS",
@@ -255,7 +255,7 @@
   {
     "id": "chest-dip",
     "nameEn": "Chest Dip",
-    "nameAr": "المتوازي للصدر (Chest Dips)",
+    "nameAr": "المتوازي للصدر",
     "primaryMuscle": "CHEST",
     "secondaryMuscles": [
       "ARMS",
@@ -272,7 +272,7 @@
   {
     "id": "overhead-press",
     "nameEn": "Overhead Press",
-    "nameAr": "دفع الكتف بالبار (Overhead Press)",
+    "nameAr": "دفع الكتف بالبار واقفاً",
     "primaryMuscle": "SHOULDERS",
     "secondaryMuscles": [
       "ARMS"
@@ -321,7 +321,7 @@
   {
     "id": "arnold-press",
     "nameEn": "Arnold Press",
-    "nameAr": "أرنولد برس بالدمبل",
+    "nameAr": "دفع الكتف أرنولد بالدمبل (Arnold Press)",
     "primaryMuscle": "SHOULDERS",
     "secondaryMuscles": [
       "ARMS"
@@ -353,7 +353,7 @@
   {
     "id": "push-press",
     "nameEn": "Push Press",
-    "nameAr": "دفع الكتف الانفجاري (Push Press)",
+    "nameAr": "دفع الكتف الانفجاري بالبار",
     "primaryMuscle": "SHOULDERS",
     "secondaryMuscles": [
       "ARMS",
@@ -370,7 +370,7 @@
   {
     "id": "landmine-press",
     "nameEn": "Landmine Press",
-    "nameAr": "دفع الكتف بذراع اللاندماين",
+    "nameAr": "دفع الكتف بالبار الأرضي",
     "primaryMuscle": "SHOULDERS",
     "secondaryMuscles": [
       "CHEST",
@@ -467,7 +467,7 @@
   {
     "id": "upright-row",
     "nameEn": "Upright Row",
-    "nameAr": "سحب عمودي للكتف بالبار",
+    "nameAr": "سحب البار للذقن للكتف",
     "primaryMuscle": "SHOULDERS",
     "secondaryMuscles": [
       "BACK",
@@ -500,7 +500,7 @@
   {
     "id": "reverse-pec-deck",
     "nameEn": "Reverse Pec Deck",
-    "nameAr": "فراشة عكسية للكتف الخلفي",
+    "nameAr": "تفتيح الكتف الخلفي على الجهاز",
     "primaryMuscle": "SHOULDERS",
     "secondaryMuscles": [
       "BACK"
@@ -516,9 +516,10 @@
   {
     "id": "deadlift",
     "nameEn": "Deadlift",
-    "nameAr": "رفعة ميتة بالبار (Deadlift)",
+    "nameAr": "ديدلفت بالبار",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
+      "LEGS",
       "ARMS"
     ],
     "equipment": "BARBELL",
@@ -532,7 +533,7 @@
   {
     "id": "rack-pull",
     "nameEn": "Rack Pull",
-    "nameAr": "سحب من الحامل (Rack Pull)",
+    "nameAr": "ديدلفت نصفي من الحامل",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
       "LEGS"
@@ -548,7 +549,7 @@
   {
     "id": "barbell-row",
     "nameEn": "Barbell Row",
-    "nameAr": "سحب بالبار من الانحناء (Barbell Row)",
+    "nameAr": "سحب بار للظهر مع الانحناء",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
       "ARMS",
@@ -565,7 +566,7 @@
   {
     "id": "pendlay-row",
     "nameEn": "Pendlay Row",
-    "nameAr": "سحب بندلاي من الأرض بالبار",
+    "nameAr": "سحب بار من الأرض للظهر (Pendlay Row)",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
       "ARMS",
@@ -582,7 +583,7 @@
   {
     "id": "t-bar-row",
     "nameEn": "T-Bar Row",
-    "nameAr": "سحب T-Bar",
+    "nameAr": "سحب تي بار للظهر",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
       "ARMS",
@@ -599,7 +600,7 @@
   {
     "id": "dumbbell-bent-over-row",
     "nameEn": "Dumbbell Bent Over Row",
-    "nameAr": "سحب بالدمبل مع الانحناء",
+    "nameAr": "سحب دمبل للظهر مع الانحناء",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
       "ARMS",
@@ -632,7 +633,7 @@
   {
     "id": "chest-supported-row",
     "nameEn": "Chest Supported Row",
-    "nameAr": "سحب الظهر على مقعد مائل (دعم الصدر)",
+    "nameAr": "سحب الظهر على مقعد مائل",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
       "ARMS",
@@ -649,7 +650,7 @@
   {
     "id": "seated-row",
     "nameEn": "Seated Cable Row",
-    "nameAr": "سحب أرضي بالكابل (Seated Row)",
+    "nameAr": "سحب أرضي بالكابل",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
       "ARMS",
@@ -699,7 +700,7 @@
   {
     "id": "lat-pulldown",
     "nameEn": "Lat Pulldown",
-    "nameAr": "سحب عالي للظهر بالكابل (Lat Pulldown)",
+    "nameAr": "سحب عالي للظهر بالكابل",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
       "ARMS"
@@ -715,7 +716,7 @@
   {
     "id": "close-grip-lat-pulldown",
     "nameEn": "Close-Grip Lat Pulldown",
-    "nameAr": "سحب عالي قبضة ضيقة",
+    "nameAr": "سحب عالي قبضة ضيقة بالكابل",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
       "ARMS"
@@ -731,7 +732,7 @@
   {
     "id": "straight-arm-pulldown",
     "nameEn": "Straight-Arm Pulldown",
-    "nameAr": "سحب أمامي بذراعين مستقيمتين",
+    "nameAr": "سحب أمامي للظهر بذراعين مستقيمتين",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
       "CORE"
@@ -747,7 +748,7 @@
   {
     "id": "pull-up",
     "nameEn": "Pull-up",
-    "nameAr": "العقلة (Pull-Up)",
+    "nameAr": "العقلة للظهر",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
       "ARMS",
@@ -797,7 +798,7 @@
   {
     "id": "face-pull",
     "nameEn": "Face Pull",
-    "nameAr": "سحب الحبل للوجه (Face Pull)",
+    "nameAr": "سحب الحبل للوجه للكتف الخلفي (Face Pull)",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
       "SHOULDERS"
@@ -813,7 +814,7 @@
   {
     "id": "shrug",
     "nameEn": "Barbell Shrug",
-    "nameAr": "هز الكتفين للترابيس بالبار",
+    "nameAr": "ترابيس بالبار",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
       "ARMS"
@@ -829,7 +830,7 @@
   {
     "id": "back-extension",
     "nameEn": "Back Extension",
-    "nameAr": "تمديد أسفل الظهر (Hyperextension)",
+    "nameAr": "تمديد أسفل الظهر",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
       "LEGS"
@@ -845,7 +846,7 @@
   {
     "id": "squat",
     "nameEn": "Squat",
-    "nameAr": "سكوات خلفي بالبار (Barbell Squat)",
+    "nameAr": "سكوات خلفي بالبار",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
@@ -877,7 +878,7 @@
   {
     "id": "goblet-squat",
     "nameEn": "Goblet Squat",
-    "nameAr": "جوبلت سكوات بالدمبل",
+    "nameAr": "سكوات أمامي بالدمبل",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
@@ -923,7 +924,7 @@
   {
     "id": "leg-press",
     "nameEn": "Leg Press",
-    "nameAr": "دفع الأرجل على الجهاز (Leg Press)",
+    "nameAr": "دفع الأرجل على الجهاز",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [],
     "equipment": "MACHINE",
@@ -937,7 +938,7 @@
   {
     "id": "bulgarian-split-squat",
     "nameEn": "Bulgarian Split Squat",
-    "nameAr": "السكوات البلغاري بساق واحدة",
+    "nameAr": "سكوات بلغاري بساق واحدة",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
@@ -953,7 +954,7 @@
   {
     "id": "walking-lunge",
     "nameEn": "Walking Lunge",
-    "nameAr": "الطعن بالمشي بالدمبل",
+    "nameAr": "طعن بالمشي بالدمبل",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [],
     "equipment": "DUMBBELL",
@@ -967,7 +968,7 @@
   {
     "id": "reverse-lunge",
     "nameEn": "Reverse Lunge",
-    "nameAr": "الطعن للخلف بالدمبل",
+    "nameAr": "طعن للخلف بالدمبل",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [],
     "equipment": "DUMBBELL",
@@ -1011,7 +1012,7 @@
   {
     "id": "leg-extension",
     "nameEn": "Leg Extension",
-    "nameAr": "تمديد الأرجل الأمامية (Leg Extension)",
+    "nameAr": "تمديد الأرجل الأمامية",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [],
     "equipment": "MACHINE",
@@ -1025,7 +1026,7 @@
   {
     "id": "romanian-deadlift",
     "nameEn": "Romanian Deadlift",
-    "nameAr": "ديدليفت روماني بالبار (RDL)",
+    "nameAr": "ديدلفت روماني بالبار",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "BACK"
@@ -1041,7 +1042,7 @@
   {
     "id": "dumbbell-romanian-deadlift",
     "nameEn": "Dumbbell Romanian Deadlift",
-    "nameAr": "ديدليفت روماني بالدمبل",
+    "nameAr": "ديدلفت روماني بالدمبل",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "BACK"
@@ -1057,7 +1058,7 @@
   {
     "id": "leg-curl",
     "nameEn": "Leg Curl",
-    "nameAr": "ثني الأرجل الخلفية (Leg Curl)",
+    "nameAr": "ثني الأرجل الخلفية",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [],
     "equipment": "MACHINE",
@@ -1099,7 +1100,7 @@
   {
     "id": "good-morning",
     "nameEn": "Good Morning",
-    "nameAr": "تمرين جود مورنينج بالبار",
+    "nameAr": "انحناء بالبار للخلفيات وأسفل الظهر (Good Morning)",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "BACK"
@@ -1115,7 +1116,7 @@
   {
     "id": "hip-thrust",
     "nameEn": "Hip Thrust",
-    "nameAr": "دفع الحوض بالبار (Hip Thrust)",
+    "nameAr": "دفع الحوض بالبار للأرداف",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [],
     "equipment": "BARBELL",
@@ -1129,7 +1130,7 @@
   {
     "id": "glute-bridge",
     "nameEn": "Glute Bridge",
-    "nameAr": "جسر الأرداف (Glute Bridge)",
+    "nameAr": "رفع الحوض للأرداف على الأرض",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [],
     "equipment": "BODYWEIGHT",
@@ -1143,7 +1144,7 @@
   {
     "id": "cable-kickback",
     "nameEn": "Cable Kickback",
-    "nameAr": "ركلة الكابل الخلفية للأرداف",
+    "nameAr": "ركل خلفي للأرداف بالكابل",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [],
     "equipment": "CABLE",
@@ -1157,7 +1158,7 @@
   {
     "id": "hip-abduction-machine",
     "nameEn": "Hip Abduction Machine",
-    "nameAr": "فتح الفخذين على الجهاز (Abduction)",
+    "nameAr": "فتح الفخذين على الجهاز",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
@@ -1173,7 +1174,7 @@
   {
     "id": "hip-adduction-machine",
     "nameEn": "Hip Adduction Machine",
-    "nameAr": "ضم الفخذين على الجهاز (Adduction)",
+    "nameAr": "ضم الفخذين على الجهاز",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
@@ -1203,7 +1204,7 @@
   {
     "id": "seated-calf-raise",
     "nameEn": "Seated Calf Raise",
-    "nameAr": "تمرين السمانة جالساً",
+    "nameAr": "تمرين السمانة جالساً على الجهاز",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [],
     "equipment": "MACHINE",
@@ -1231,7 +1232,7 @@
   {
     "id": "ez-bar-curl",
     "nameEn": "EZ-Bar Curl",
-    "nameAr": "بايسبس كيرل بالبار الزجزاج (EZ-Bar)",
+    "nameAr": "بايسبس كيرل بالبار الزجزاج",
     "primaryMuscle": "ARMS",
     "secondaryMuscles": [],
     "equipment": "BARBELL",
@@ -1245,7 +1246,7 @@
   {
     "id": "hammer-curl",
     "nameEn": "Hammer Curl",
-    "nameAr": "هامر كيرل بالدمبل (قبضة محايدة)",
+    "nameAr": "هامر كيرل بالدمبل",
     "primaryMuscle": "ARMS",
     "secondaryMuscles": [],
     "equipment": "DUMBBELL",
@@ -1259,7 +1260,7 @@
   {
     "id": "incline-dumbbell-curl",
     "nameEn": "Incline Dumbbell Curl",
-    "nameAr": "بايسبس كيرل على مقعد مائل",
+    "nameAr": "بايسبس كيرل على مقعد مائل بالدمبل",
     "primaryMuscle": "ARMS",
     "secondaryMuscles": [],
     "equipment": "DUMBBELL",
@@ -1273,7 +1274,7 @@
   {
     "id": "preacher-curl",
     "nameEn": "Preacher Curl",
-    "nameAr": "بايسبس كيرل على مسند الواعظ (Preacher)",
+    "nameAr": "بايسبس على المسند المائل (Preacher Curl)",
     "primaryMuscle": "ARMS",
     "secondaryMuscles": [],
     "equipment": "MACHINE",
@@ -1287,7 +1288,7 @@
   {
     "id": "concentration-curl",
     "nameEn": "Concentration Curl",
-    "nameAr": "كيرل التركيز بالدمبل",
+    "nameAr": "بايسبس تركيز بالدمبل",
     "primaryMuscle": "ARMS",
     "secondaryMuscles": [],
     "equipment": "DUMBBELL",
@@ -1329,7 +1330,7 @@
   {
     "id": "chin-up",
     "nameEn": "Chin-up",
-    "nameAr": "العقلة بقبضة معكوسة (Chin-Up)",
+    "nameAr": "عقلة بقبضة معكوسة للبايسبس",
     "primaryMuscle": "ARMS",
     "secondaryMuscles": [
       "BACK"
@@ -1345,7 +1346,7 @@
   {
     "id": "reverse-curl",
     "nameEn": "Reverse Curl",
-    "nameAr": "كيرل بقبضة علوية للساعد",
+    "nameAr": "بايسبس بقبضة علوية للساعد",
     "primaryMuscle": "ARMS",
     "secondaryMuscles": [],
     "equipment": "BARBELL",
@@ -1373,7 +1374,7 @@
   {
     "id": "tricep-pushdown",
     "nameEn": "Tricep Pushdown",
-    "nameAr": "دفع الترايسبس بالكابل (بار مستقيم)",
+    "nameAr": "دفع الترايسبس بالكابل بالبار المستقيم",
     "primaryMuscle": "ARMS",
     "secondaryMuscles": [
       "SHOULDERS"
@@ -1470,7 +1471,7 @@
   {
     "id": "dip",
     "nameEn": "Dip",
-    "nameAr": "تمرين المتوازي للترايسبس (Dips)",
+    "nameAr": "المتوازي للترايسبس",
     "primaryMuscle": "ARMS",
     "secondaryMuscles": [
       "CHEST",
@@ -1487,7 +1488,7 @@
   {
     "id": "tricep-kickback",
     "nameEn": "Tricep Kickback",
-    "nameAr": "ركلة خلفية للترايسبس بالدمبل",
+    "nameAr": "ركل خلفي للترايسبس بالدمبل",
     "primaryMuscle": "ARMS",
     "secondaryMuscles": [
       "SHOULDERS"
@@ -1503,7 +1504,7 @@
   {
     "id": "diamond-push-up",
     "nameEn": "Diamond Push-up",
-    "nameAr": "ضغط الماسة للترايسبس",
+    "nameAr": "ضغط ضيق على شكل ماسة للترايسبس",
     "primaryMuscle": "ARMS",
     "secondaryMuscles": [
       "CHEST",
@@ -1521,7 +1522,7 @@
   {
     "id": "crunch",
     "nameEn": "Crunch",
-    "nameAr": "طحن البطن (Crunch)",
+    "nameAr": "تمرين البطن العلوي",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [],
     "equipment": "BODYWEIGHT",
@@ -1535,7 +1536,7 @@
   {
     "id": "decline-sit-up",
     "nameEn": "Decline Sit-Up",
-    "nameAr": "بطن على المقعد المائل للأسفل",
+    "nameAr": "بطن على البنش المائل للأسفل",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [
       "LEGS"
@@ -1551,7 +1552,7 @@
   {
     "id": "reverse-crunch",
     "nameEn": "Reverse Crunch",
-    "nameAr": "طحن البطن المعكوس (أسفل البطن)",
+    "nameAr": "تمرين البطن العكسي لأسفل البطن",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [],
     "equipment": "BODYWEIGHT",
@@ -1565,7 +1566,7 @@
   {
     "id": "lying-leg-raise",
     "nameEn": "Lying Leg Raise",
-    "nameAr": "رفع الساقين مستلقياً",
+    "nameAr": "رفع الساقين مستلقياً للبطن",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [
       "LEGS"
@@ -1629,7 +1630,7 @@
   {
     "id": "cable-crunch",
     "nameEn": "Cable Crunch",
-    "nameAr": "طحن البطن بالحبل على الكابل",
+    "nameAr": "بطن بالحبل على الكابل",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [],
     "equipment": "CABLE",
@@ -1643,7 +1644,7 @@
   {
     "id": "plank",
     "nameEn": "Plank",
-    "nameAr": "تمرين البلانك (Plank)",
+    "nameAr": "تمرين البلانك",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [
       "SHOULDERS"
@@ -1675,7 +1676,7 @@
   {
     "id": "ab-wheel",
     "nameEn": "Ab Wheel Rollout",
-    "nameAr": "عجلة البطن (Ab Wheel Rollout)",
+    "nameAr": "عجلة البطن",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [
       "SHOULDERS"
@@ -1691,7 +1692,7 @@
   {
     "id": "russian-twist",
     "nameEn": "Russian Twist",
-    "nameAr": "التفاف الجذع الروسي",
+    "nameAr": "لف الجذع الروسي للخصر",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [
       "SHOULDERS"
@@ -1707,7 +1708,7 @@
   {
     "id": "bicycle-crunch",
     "nameEn": "Bicycle Crunch",
-    "nameAr": "بطن الدراجة (Bicycle Crunch)",
+    "nameAr": "بطن الدراجة",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [
       "LEGS"
@@ -1723,7 +1724,7 @@
   {
     "id": "cable-woodchop",
     "nameEn": "Cable Woodchop",
-    "nameAr": "تدوير الخصر بالكابل (Woodchop)",
+    "nameAr": "لف الجذع المائل بالكابل",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [
       "SHOULDERS"
@@ -1739,7 +1740,7 @@
   {
     "id": "pallof-press",
     "nameEn": "Pallof Press",
-    "nameAr": "دفع بالوف ضد الدوران بالكابل",
+    "nameAr": "دفع بالكابل ضد الدوران للخصر (Pallof Press)",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [
       "SHOULDERS"
@@ -1755,7 +1756,7 @@
   {
     "id": "weighted-push-up",
     "nameEn": "Weighted Push-up",
-    "nameAr": "ضغط بأوزان إضافية (Weighted Push-up)",
+    "nameAr": "ضغط بأوزان إضافية",
     "primaryMuscle": "CHEST",
     "secondaryMuscles": [
       "ARMS",
@@ -1772,7 +1773,7 @@
   {
     "id": "weighted-pull-up",
     "nameEn": "Weighted Pull-up",
-    "nameAr": "عقلة بأوزان إضافية (Weighted Pull-up)",
+    "nameAr": "عقلة بأوزان إضافية",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
       "ARMS"
@@ -1788,7 +1789,7 @@
   {
     "id": "assisted-dip",
     "nameEn": "Assisted Dip",
-    "nameAr": "تغطيس على الجهاز المساعد (Assisted Dip)",
+    "nameAr": "المتوازي المساعد على الجهاز",
     "primaryMuscle": "ARMS",
     "secondaryMuscles": [
       "CHEST"
@@ -1804,7 +1805,7 @@
   {
     "id": "running",
     "nameEn": "Running",
-    "nameAr": "الجري (Running)",
+    "nameAr": "الجري",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [],
     "equipment": "MACHINE",
@@ -1818,7 +1819,7 @@
   {
     "id": "walking",
     "nameEn": "Walking",
-    "nameAr": "المشي الرياضي (Walking)",
+    "nameAr": "المشي",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [],
     "equipment": "MACHINE",
@@ -1832,7 +1833,7 @@
   {
     "id": "cycling",
     "nameEn": "Cycling",
-    "nameAr": "ركوب الدراجة الثابتة (Cycling)",
+    "nameAr": "ركوب الدراجة الثابتة",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [],
     "equipment": "MACHINE",
@@ -1846,7 +1847,7 @@
   {
     "id": "rowing",
     "nameEn": "Rowing",
-    "nameAr": "جهاز التجديف (Rowing Machine)",
+    "nameAr": "جهاز التجديف",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
       "LEGS"
@@ -1862,7 +1863,7 @@
   {
     "id": "stair-climber",
     "nameEn": "Stair Climber",
-    "nameAr": "جهاز صعود الدرج (Stair Climber)",
+    "nameAr": "جهاز صعود الدرج",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [],
     "equipment": "MACHINE",
@@ -1876,7 +1877,7 @@
   {
     "id": "weighted-dip",
     "nameEn": "Weighted Dip",
-    "nameAr": "تغطيس بأوزان إضافية (Weighted Dip)",
+    "nameAr": "المتوازي بأوزان إضافية",
     "primaryMuscle": "ARMS",
     "secondaryMuscles": [
       "CHEST",
@@ -1893,7 +1894,7 @@
   {
     "id": "plate-front-raise",
     "nameEn": "Plate Front Raise",
-    "nameAr": "رفع أمامي بالقرص (Plate Front Raise)",
+    "nameAr": "رفرفة أمامية بالقرص",
     "primaryMuscle": "SHOULDERS",
     "secondaryMuscles": [
       "CHEST"
@@ -1909,7 +1910,7 @@
   {
     "id": "bent-over-rear-delt-raise",
     "nameEn": "Bent-Over Rear Delt Raise",
-    "nameAr": "رفرفة خلفي بالدمبل مع الانحناء",
+    "nameAr": "رفرفة للكتف الخلفي مع الانحناء بالدمبل",
     "primaryMuscle": "SHOULDERS",
     "secondaryMuscles": [
       "BACK"
@@ -1941,7 +1942,7 @@
   {
     "id": "meadows-row",
     "nameEn": "Meadows Row",
-    "nameAr": "سحب ميدوز بذراع واحدة (Meadows Row)",
+    "nameAr": "سحب بذراع واحدة على البار الأرضي (Meadows Row)",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
       "ARMS",
@@ -1958,7 +1959,7 @@
   {
     "id": "wide-grip-lat-pulldown",
     "nameEn": "Wide-Grip Lat Pulldown",
-    "nameAr": "سحب علوي بقبضة واسعة",
+    "nameAr": "سحب عالي قبضة واسعة بالكابل",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
       "ARMS"
@@ -1991,7 +1992,7 @@
   {
     "id": "assisted-chin-up",
     "nameEn": "Assisted Chin-up",
-    "nameAr": "تشن أب على الجهاز المساعد",
+    "nameAr": "عقلة بقبضة معكوسة على الجهاز المساعد",
     "primaryMuscle": "ARMS",
     "secondaryMuscles": [
       "BACK"
@@ -2007,7 +2008,7 @@
   {
     "id": "weighted-chin-up",
     "nameEn": "Weighted Chin-up",
-    "nameAr": "تشن أب بأوزان إضافية",
+    "nameAr": "عقلة بقبضة معكوسة بأوزان إضافية",
     "primaryMuscle": "ARMS",
     "secondaryMuscles": [
       "BACK"
@@ -2023,7 +2024,7 @@
   {
     "id": "dumbbell-shrug",
     "nameEn": "Dumbbell Shrug",
-    "nameAr": "هز الأكتاف بالدمبل (Dumbbell Shrug)",
+    "nameAr": "ترابيس بالدمبل",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
       "ARMS"
@@ -2039,7 +2040,7 @@
   {
     "id": "belt-squat",
     "nameEn": "Belt Squat",
-    "nameAr": "سكوات بالحزام على الجهاز (Belt Squat)",
+    "nameAr": "سكوات بالحزام على الجهاز",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [],
     "equipment": "MACHINE",
@@ -2053,7 +2054,7 @@
   {
     "id": "sumo-deadlift",
     "nameEn": "Sumo Deadlift",
-    "nameAr": "رفعة ميتة سومو (Sumo Deadlift)",
+    "nameAr": "ديدلفت سومو بالبار",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
       "LEGS"
@@ -2069,7 +2070,7 @@
   {
     "id": "trap-bar-deadlift",
     "nameEn": "Trap Bar Deadlift",
-    "nameAr": "رفعة ميتة بالبار السداسي (Trap Bar)",
+    "nameAr": "ديدلفت بالبار السداسي",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
       "LEGS",
@@ -2086,7 +2087,7 @@
   {
     "id": "nordic-hamstring-curl",
     "nameEn": "Nordic Hamstring Curl",
-    "nameAr": "ثني الخلفي النوردي (Nordic Curl)",
+    "nameAr": "ثني الخلفيات النوردي (Nordic Curl)",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [],
     "equipment": "BODYWEIGHT",
@@ -2100,7 +2101,7 @@
   {
     "id": "single-leg-romanian-deadlift",
     "nameEn": "Single-Leg Romanian Deadlift",
-    "nameAr": "رفعة رومانية بساق واحدة بالدمبل",
+    "nameAr": "ديدلفت روماني بساق واحدة بالدمبل",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
@@ -2116,7 +2117,7 @@
   {
     "id": "split-squat",
     "nameEn": "Split Squat",
-    "nameAr": "سكوات متقسم بالدمبل (Split Squat)",
+    "nameAr": "سبليت سكوات بالدمبل",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
@@ -2132,7 +2133,7 @@
   {
     "id": "single-leg-glute-bridge",
     "nameEn": "Single-Leg Glute Bridge",
-    "nameAr": "جسر الأرداف بساق واحدة",
+    "nameAr": "رفع الحوض بساق واحدة للأرداف",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [],
     "equipment": "BODYWEIGHT",
@@ -2146,7 +2147,7 @@
   {
     "id": "barbell-glute-bridge",
     "nameEn": "Barbell Glute Bridge",
-    "nameAr": "جسر الأرداف بالبار",
+    "nameAr": "رفع الحوض بالبار على الأرض",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
@@ -2162,7 +2163,7 @@
   {
     "id": "dumbbell-glute-bridge",
     "nameEn": "Dumbbell Glute Bridge",
-    "nameAr": "جسر الأرداف بالدمبل",
+    "nameAr": "رفع الحوض بالدمبل على الأرض",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
@@ -2178,7 +2179,7 @@
   {
     "id": "dumbbell-hip-thrust",
     "nameEn": "Dumbbell Hip Thrust",
-    "nameAr": "دفع الورك بالدمبل على البنش",
+    "nameAr": "دفع الحوض بالدمبل على البنش",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [],
     "equipment": "DUMBBELL",
@@ -2192,7 +2193,7 @@
   {
     "id": "smith-machine-hip-thrust",
     "nameEn": "Smith Machine Hip Thrust",
-    "nameAr": "دفع الورك على جهاز السميث",
+    "nameAr": "دفع الحوض على جهاز السميث",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
@@ -2208,7 +2209,7 @@
   {
     "id": "smith-machine-romanian-deadlift",
     "nameEn": "Smith Machine Romanian Deadlift",
-    "nameAr": "رفعة رومانية على جهاز السميث",
+    "nameAr": "ديدلفت روماني على جهاز السميث",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "BACK"
@@ -2224,7 +2225,7 @@
   {
     "id": "kettlebell-romanian-deadlift",
     "nameEn": "Kettlebell Romanian Deadlift",
-    "nameAr": "رفعة رومانية بالكيتل بل",
+    "nameAr": "ديدلفت روماني بالكيتل بل",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "BACK"
@@ -2270,7 +2271,7 @@
   {
     "id": "cable-standing-hip-abduction",
     "nameEn": "Cable Standing Hip Abduction",
-    "nameAr": "إبعاد الفخذ واقفاً بالكابل",
+    "nameAr": "فتح الفخذ جانبياً واقفاً بالكابل",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
@@ -2286,7 +2287,7 @@
   {
     "id": "cable-standing-hip-adduction",
     "nameEn": "Cable Standing Hip Adduction",
-    "nameAr": "تقريب الفخذ واقفاً بالكابل",
+    "nameAr": "ضم الفخذ واقفاً بالكابل",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
@@ -2334,7 +2335,7 @@
   {
     "id": "smith-machine-split-squat",
     "nameEn": "Smith Machine Split Squat",
-    "nameAr": "سكوات متقسم على جهاز السميث",
+    "nameAr": "سبليت سكوات على جهاز السميث",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
@@ -2350,7 +2351,7 @@
   {
     "id": "heel-elevated-goblet-squat",
     "nameEn": "Heel-Elevated Goblet Squat",
-    "nameAr": "جوبلت سكوات مع رفع الكعبين",
+    "nameAr": "سكوات أمامي بالدمبل مع رفع الكعبين",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
@@ -2366,7 +2367,7 @@
   {
     "id": "dumbbell-sumo-squat",
     "nameEn": "Dumbbell Sumo Squat",
-    "nameAr": "سكوات سومو بالدمبل",
+    "nameAr": "سكوات سومو واسع بالدمبل",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [],
     "equipment": "DUMBBELL",
@@ -2380,7 +2381,7 @@
   {
     "id": "dumbbell-sumo-deadlift",
     "nameEn": "Dumbbell Sumo Deadlift",
-    "nameAr": "رفعة ميتة سومو بالدمبل",
+    "nameAr": "ديدلفت سومو بالدمبل",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
       "LEGS"
@@ -2396,7 +2397,7 @@
   {
     "id": "front-foot-elevated-split-squat",
     "nameEn": "Front-Foot Elevated Split Squat",
-    "nameAr": "سكوات متقسم مع رفع القدم الأمامية",
+    "nameAr": "سبليت سكوات مع رفع القدم الأمامية",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
@@ -2412,7 +2413,7 @@
   {
     "id": "deficit-reverse-lunge",
     "nameEn": "Deficit Reverse Lunge",
-    "nameAr": "طعن خلفي من على منصة (Deficit)",
+    "nameAr": "طعن خلفي من على منصة",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
@@ -2428,7 +2429,7 @@
   {
     "id": "dumbbell-lateral-lunge",
     "nameEn": "Dumbbell Lateral Lunge",
-    "nameAr": "طعن جانبي بالدمبل (Lateral Lunge)",
+    "nameAr": "طعن جانبي بالدمبل",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [],
     "equipment": "DUMBBELL",
@@ -2442,7 +2443,7 @@
   {
     "id": "dumbbell-curtsy-lunge",
     "nameEn": "Dumbbell Curtsy Lunge",
-    "nameAr": "طعن متقاطع خلفي بالدمبل",
+    "nameAr": "طعن متقاطع خلفي بالدمبل (Curtsy Lunge)",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
@@ -2458,7 +2459,7 @@
   {
     "id": "landmine-squat",
     "nameEn": "Landmine Squat",
-    "nameAr": "سكوات اللاندماين (Landmine Squat)",
+    "nameAr": "سكوات بالبار الأرضي",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
@@ -2474,7 +2475,7 @@
   {
     "id": "landmine-romanian-deadlift",
     "nameEn": "Landmine Romanian Deadlift",
-    "nameAr": "رفعة رومانية على اللاندماين",
+    "nameAr": "ديدلفت روماني بالبار الأرضي",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "BACK"
@@ -2490,7 +2491,7 @@
   {
     "id": "kettlebell-swing",
     "nameEn": "Kettlebell Swing",
-    "nameAr": "تأرجح الكيتل بل (Kettlebell Swing)",
+    "nameAr": "مرجحة الكيتل بل",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
@@ -2506,7 +2507,7 @@
   {
     "id": "glute-focused-back-extension",
     "nameEn": "Glute-Focused Back Extension",
-    "nameAr": "مد الظهر مع التركيز على الأرداف",
+    "nameAr": "تمديد الظهر مع التركيز على الأرداف",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "BACK"
@@ -2522,7 +2523,7 @@
   {
     "id": "reverse-hyperextension",
     "nameEn": "Reverse Hyperextension",
-    "nameAr": "رفع الساقين العكسي على الجهاز",
+    "nameAr": "رفع الساقين للخلف على الجهاز",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "BACK"
@@ -2538,7 +2539,7 @@
   {
     "id": "donkey-calf-raise",
     "nameEn": "Donkey Calf Raise",
-    "nameAr": "رفع السمانة بوضعية الانحناء",
+    "nameAr": "سمانة مع الانحناء للأمام",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [],
     "equipment": "MACHINE",
@@ -2552,7 +2553,7 @@
   {
     "id": "leg-press-calf-raise",
     "nameEn": "Leg Press Calf Raise",
-    "nameAr": "رفع السمانة على جهاز دفع الأرجل",
+    "nameAr": "سمانة على جهاز دفع الأرجل",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [],
     "equipment": "MACHINE",
@@ -2566,7 +2567,7 @@
   {
     "id": "wall-sit",
     "nameEn": "Wall Sit",
-    "nameAr": "الجلوس الثابت على الحائط (Wall Sit)",
+    "nameAr": "الجلوس الثابت على الحائط",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
@@ -2582,7 +2583,7 @@
   {
     "id": "jump-squat",
     "nameEn": "Jump Squat",
-    "nameAr": "سكوات القفز (Jump Squat)",
+    "nameAr": "سكوات مع القفز",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [],
     "equipment": "BODYWEIGHT",
@@ -2596,7 +2597,7 @@
   {
     "id": "spider-curl",
     "nameEn": "Spider Curl",
-    "nameAr": "بايسبس سبايدر على البنش المائل",
+    "nameAr": "بايسبس مقلوب على البنش المائل (Spider Curl)",
     "primaryMuscle": "ARMS",
     "secondaryMuscles": [],
     "equipment": "DUMBBELL",
@@ -2610,7 +2611,7 @@
   {
     "id": "drag-curl",
     "nameEn": "Drag Curl",
-    "nameAr": "سحب البار بمحاذاة الجذع (Drag Curl)",
+    "nameAr": "سحب البار بمحاذاة الجذع للبايسبس (Drag Curl)",
     "primaryMuscle": "ARMS",
     "secondaryMuscles": [],
     "equipment": "BARBELL",
@@ -2624,7 +2625,7 @@
   {
     "id": "dumbbell-skull-crusher",
     "nameEn": "Two Dumbbell Skullcrusher",
-    "nameAr": "ترايسبس خلف الرأس بدمبلين (Skullcrusher)",
+    "nameAr": "تمديد الترايسبس مستلقياً بدمبلين (Skullcrusher)",
     "primaryMuscle": "ARMS",
     "secondaryMuscles": [
       "SHOULDERS"
@@ -2640,7 +2641,7 @@
   {
     "id": "single-dumbbell-skullcrusher",
     "nameEn": "Single Dumbbell Skullcrusher",
-    "nameAr": "ترايسبس بدمبل واحد مستلقياً",
+    "nameAr": "تمديد الترايسبس مستلقياً بدمبل واحد",
     "primaryMuscle": "ARMS",
     "secondaryMuscles": [
       "SHOULDERS"
@@ -2656,7 +2657,7 @@
   {
     "id": "single-arm-dumbbell-tricep-extension",
     "nameEn": "Single Arm Dumbbell Tricep Extension",
-    "nameAr": "مد ترايسبس بدمبل واحد بذراع واحدة",
+    "nameAr": "تمديد الترايسبس فوق الرأس بذراع واحدة بالدمبل",
     "primaryMuscle": "ARMS",
     "secondaryMuscles": [
       "SHOULDERS"
@@ -2672,7 +2673,7 @@
   {
     "id": "bench-dip",
     "nameEn": "Bench Dip",
-    "nameAr": "تغطيس ترايسبس على البنش",
+    "nameAr": "متوازي الترايسبس على البنش",
     "primaryMuscle": "ARMS",
     "secondaryMuscles": [
       "CHEST",
@@ -2703,7 +2704,7 @@
   {
     "id": "farmer-carry",
     "nameEn": "Farmer Carry",
-    "nameAr": "مشي المزارع بالدمبل (Farmer Carry)",
+    "nameAr": "حمل الأوزان والمشي",
     "primaryMuscle": "ARMS",
     "secondaryMuscles": [
       "BACK",
@@ -2720,7 +2721,7 @@
   {
     "id": "mountain-climber",
     "nameEn": "Mountain Climber",
-    "nameAr": "تسلق الجبال (Mountain Climber)",
+    "nameAr": "تمرين تسلق الجبال",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [
       "SHOULDERS",
@@ -2737,7 +2738,7 @@
   {
     "id": "dead-bug",
     "nameEn": "Dead Bug",
-    "nameAr": "تمرين الحشرة الميتة للبطن (Dead Bug)",
+    "nameAr": "تمرين البطن المتعاكس مستلقياً (Dead Bug)",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [
       "LEGS"
@@ -2770,7 +2771,7 @@
   {
     "id": "half-kneeling-pallof-press",
     "nameEn": "Half-Kneeling Pallof Press",
-    "nameAr": "دفع بالوف نصف راكع بالكابل",
+    "nameAr": "دفع ضد الدوران نصف راكع بالكابل (Pallof Press)",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [
       "LEGS",
@@ -2787,7 +2788,7 @@
   {
     "id": "cable-pallof-hold",
     "nameEn": "Cable Pallof Hold",
-    "nameAr": "ثبات بالوف ضد الدوران بالكابل",
+    "nameAr": "ثبات ضد الدوران بالكابل (Pallof Hold)",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [
       "LEGS",
@@ -2804,7 +2805,7 @@
   {
     "id": "weighted-crunch",
     "nameEn": "Weighted Crunch",
-    "nameAr": "طحن البطن بوزن على الصدر",
+    "nameAr": "بطن بوزن على الصدر",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [],
     "equipment": "BARBELL",
@@ -2818,7 +2819,7 @@
   {
     "id": "weighted-russian-twist",
     "nameEn": "Weighted Russian Twist",
-    "nameAr": "التفاف روسي بوزن للخصر",
+    "nameAr": "لف الجذع الروسي بوزن للخصر",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [
       "SHOULDERS"
@@ -2850,7 +2851,7 @@
   {
     "id": "elliptical",
     "nameEn": "Elliptical",
-    "nameAr": "جهاز الأوبتكال (Elliptical)",
+    "nameAr": "جهاز الإليبتيكال (Elliptical)",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [],
     "equipment": "MACHINE",
@@ -2864,7 +2865,7 @@
   {
     "id": "swimming",
     "nameEn": "Swimming",
-    "nameAr": "السباحة (Swimming)",
+    "nameAr": "السباحة",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
       "SHOULDERS",
@@ -2881,7 +2882,7 @@
   {
     "id": "jump-rope",
     "nameEn": "Jump Rope",
-    "nameAr": "نط الحبل (Jump Rope)",
+    "nameAr": "نط الحبل",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "SHOULDERS"
@@ -2897,7 +2898,7 @@
   {
     "id": "assault-bike",
     "nameEn": "Assault Bike",
-    "nameAr": "الدراجة الهوائية (Assault Bike)",
+    "nameAr": "الدراجة الهوائية للمقاومة (Assault Bike)",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "SHOULDERS"
@@ -2931,7 +2932,7 @@
   {
     "id": "hiking",
     "nameEn": "Hiking",
-    "nameAr": "المشي الجبلي / المرتفع (Hiking)",
+    "nameAr": "المشي في المرتفعات",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [],
     "equipment": "BODYWEIGHT",
@@ -2959,7 +2960,7 @@
   {
     "id": "battle-ropes",
     "nameEn": "Battle Ropes",
-    "nameAr": "حبال القتال (Battle Ropes)",
+    "nameAr": "حبال اللياقة القتالية",
     "primaryMuscle": "SHOULDERS",
     "secondaryMuscles": [
       "CORE",
@@ -2976,7 +2977,7 @@
   {
     "id": "knee-push-up",
     "nameEn": "Knee Push-up",
-    "nameAr": "ضغط على الركبتين (Knee Push-up)",
+    "nameAr": "ضغط على الركبتين",
     "primaryMuscle": "CHEST",
     "secondaryMuscles": [
       "ARMS",
@@ -3012,7 +3013,7 @@
   {
     "id": "pike-push-up",
     "nameEn": "Pike Push-up",
-    "nameAr": "ضغط بايك للأكتاف (Pike Push-up)",
+    "nameAr": "ضغط بزاوية مرتفعة للأكتاف (Pike Push-Up)",
     "primaryMuscle": "SHOULDERS",
     "secondaryMuscles": [
       "ARMS",
@@ -3030,7 +3031,7 @@
   {
     "id": "feet-elevated-pike-push-up",
     "nameEn": "Feet-Elevated Pike Push-up",
-    "nameAr": "ضغط بايك مع رفع القدمين",
+    "nameAr": "ضغط أكتاف مع رفع القدمين (Elevated Pike)",
     "primaryMuscle": "SHOULDERS",
     "secondaryMuscles": [
       "ARMS",
@@ -3048,7 +3049,7 @@
   {
     "id": "archer-push-up",
     "nameEn": "Archer Push-up",
-    "nameAr": "ضغط آرتشر بالتناوب (Archer Push-up)",
+    "nameAr": "ضغط جانبي بالتناوب (Archer Push-Up)",
     "primaryMuscle": "CHEST",
     "secondaryMuscles": [
       "ARMS",
@@ -3066,7 +3067,7 @@
   {
     "id": "typewriter-push-up",
     "nameEn": "Typewriter Push-up",
-    "nameAr": "ضغط الآلة الكاتبة (Typewriter Push-up)",
+    "nameAr": "ضغط أفقي بالتناوب (Typewriter Push-Up)",
     "primaryMuscle": "CHEST",
     "secondaryMuscles": [
       "ARMS",
@@ -3084,7 +3085,7 @@
   {
     "id": "explosive-push-up",
     "nameEn": "Explosive Push-up",
-    "nameAr": "ضغط انفجاري (Explosive Push-up)",
+    "nameAr": "ضغط انفجاري",
     "primaryMuscle": "CHEST",
     "secondaryMuscles": [
       "ARMS",
@@ -3102,7 +3103,7 @@
   {
     "id": "hindu-push-up",
     "nameEn": "Hindu Push-up",
-    "nameAr": "الضغط الهندي (Hindu Push-up)",
+    "nameAr": "ضغط تموّجي للصدر والأكتاف (Hindu Push-Up)",
     "primaryMuscle": "CHEST",
     "secondaryMuscles": [
       "SHOULDERS",
@@ -3120,7 +3121,7 @@
   {
     "id": "scapular-push-up",
     "nameEn": "Scapular Push-up",
-    "nameAr": "ضغط لوحي الكتف (Scapular Push-up)",
+    "nameAr": "ضغط لوحي الكتف",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
       "CHEST",
@@ -3138,7 +3139,7 @@
   {
     "id": "push-up-shoulder-tap",
     "nameEn": "Push-up Shoulder Tap",
-    "nameAr": "ضغط مع لمس الكتف (Push-up Shoulder Tap)",
+    "nameAr": "ضغط مع لمس الكتف",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [
       "CHEST",
@@ -3156,7 +3157,7 @@
   {
     "id": "wall-push-up",
     "nameEn": "Wall Push-up",
-    "nameAr": "ضغط على الحائط (Wall Push-up)",
+    "nameAr": "ضغط على الحائط",
     "primaryMuscle": "CHEST",
     "secondaryMuscles": [
       "ARMS",
@@ -3173,7 +3174,7 @@
   {
     "id": "wall-walk",
     "nameEn": "Wall Walk",
-    "nameAr": "المشي على الحائط (Wall Walk)",
+    "nameAr": "المشي باليدين على الحائط",
     "primaryMuscle": "SHOULDERS",
     "secondaryMuscles": [
       "CORE",
@@ -3191,7 +3192,7 @@
   {
     "id": "wall-handstand-push-up",
     "nameEn": "Wall Handstand Push-up",
-    "nameAr": "ضغط الوقوف على اليدين مستنداً للحائط",
+    "nameAr": "ضغط الوقوف على اليدين على الحائط",
     "primaryMuscle": "SHOULDERS",
     "secondaryMuscles": [
       "ARMS",
@@ -3227,7 +3228,7 @@
   {
     "id": "chair-dip",
     "nameEn": "Chair Dip",
-    "nameAr": "تغطيس الترايسبس على الكرسي",
+    "nameAr": "متوازي الترايسبس على الكرسي",
     "primaryMuscle": "ARMS",
     "secondaryMuscles": [
       "CHEST",
@@ -3310,7 +3311,7 @@
   {
     "id": "superman",
     "nameEn": "Superman",
-    "nameAr": "تمرين سوبرمان لأسفل الظهر (Superman)",
+    "nameAr": "رفع الذراعين والساقين منبطحاً (Superman)",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
       "LEGS"
@@ -3326,7 +3327,7 @@
   {
     "id": "superman-hold",
     "nameEn": "Superman Hold",
-    "nameAr": "ثبات سوبرمان لأسفل الظهر",
+    "nameAr": "ثبات أسفل الظهر منبطحاً (Superman Hold)",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
       "LEGS"
@@ -3342,7 +3343,7 @@
   {
     "id": "reverse-snow-angel",
     "nameEn": "Reverse Snow Angel",
-    "nameAr": "ملاك الثلج العكسي (Reverse Snow Angel)",
+    "nameAr": "رفرفة الظهر منبطحاً (Reverse Snow Angel)",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
       "SHOULDERS"
@@ -3358,7 +3359,7 @@
   {
     "id": "dead-hang",
     "nameEn": "Dead Hang",
-    "nameAr": "التعلق الحر على العقلة (Dead Hang)",
+    "nameAr": "التعلق الحر على العقلة",
     "primaryMuscle": "ARMS",
     "secondaryMuscles": [
       "BACK",
@@ -3376,7 +3377,7 @@
   {
     "id": "active-hang",
     "nameEn": "Active Hang",
-    "nameAr": "التعلق النشط على العقلة (Active Hang)",
+    "nameAr": "التعلق النشط على العقلة",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
       "ARMS",
@@ -3410,7 +3411,7 @@
   {
     "id": "negative-pull-up",
     "nameEn": "Negative Pull-up",
-    "nameAr": "نزول عقلة بطيء (Negative Pull-up)",
+    "nameAr": "نزول عقلة بطيء",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
       "ARMS"
@@ -3426,7 +3427,7 @@
   {
     "id": "commando-pull-up",
     "nameEn": "Commando Pull-up",
-    "nameAr": "عقلة الكوماندو الجانبية",
+    "nameAr": "عقلة بقبضة جانبية متقابلة (Commando Pull-Up)",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
       "ARMS",
@@ -3443,7 +3444,7 @@
   {
     "id": "l-sit-pull-up",
     "nameEn": "L-Sit Pull-up",
-    "nameAr": "عقلة مع رفع الساقين بزاوية L",
+    "nameAr": "عقلة مع رفع الساقين بزاوية قائمة",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
       "ARMS",
@@ -3476,7 +3477,7 @@
   {
     "id": "pistol-squat",
     "nameEn": "Pistol Squat",
-    "nameAr": "سكوات المسدس بساق واحدة (Pistol Squat)",
+    "nameAr": "سكوات بساق واحدة (Pistol Squat)",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
@@ -3508,7 +3509,7 @@
   {
     "id": "shrimp-squat",
     "nameEn": "Shrimp Squat",
-    "nameAr": "سكوات شريمب بساق واحدة (Shrimp Squat)",
+    "nameAr": "سكوات بساق واحدة للخلف (Shrimp Squat)",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
@@ -3524,7 +3525,7 @@
   {
     "id": "cossack-squat",
     "nameEn": "Cossack Squat",
-    "nameAr": "سكوات القوزاق الجانبي (Cossack Squat)",
+    "nameAr": "سكوات جانبي عميق (Cossack Squat)",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
@@ -3540,7 +3541,7 @@
   {
     "id": "sissy-squat",
     "nameEn": "Sissy Squat",
-    "nameAr": "سيسي سكوات بوزن الجسم (Sissy Squat)",
+    "nameAr": "سكوات لتركيز الفخذ الأمامي (Sissy Squat)",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
@@ -3556,7 +3557,7 @@
   {
     "id": "forward-lunge",
     "nameEn": "Forward Lunge",
-    "nameAr": "طعن أمامي بوزن الجسم (Forward Lunge)",
+    "nameAr": "طعن أمامي بوزن الجسم",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
@@ -3588,7 +3589,7 @@
   {
     "id": "curtsy-lunge",
     "nameEn": "Curtsy Lunge",
-    "nameAr": "طعن متقاطع خلفي بوزن الجسم",
+    "nameAr": "طعن متقاطع خلفي بوزن الجسم (Curtsy Lunge)",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
@@ -3604,7 +3605,7 @@
   {
     "id": "skater-squat",
     "nameEn": "Skater Squat",
-    "nameAr": "سكوات المتزلج بساق واحدة (Skater Squat)",
+    "nameAr": "سكوات التوازن بساق واحدة (Skater Squat)",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
@@ -3636,7 +3637,7 @@
   {
     "id": "step-down",
     "nameEn": "Step-Down",
-    "nameAr": "نزول متحكم من الصندوق (Step-Down)",
+    "nameAr": "نزول متحكم من الصندوق بساق واحدة",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [],
     "equipment": "BODYWEIGHT",
@@ -3650,7 +3651,7 @@
   {
     "id": "calf-raise",
     "nameEn": "Calf Raise",
-    "nameAr": "رفع السمانة بوزن الجسم",
+    "nameAr": "سمانة بوزن الجسم",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [],
     "equipment": "BODYWEIGHT",
@@ -3664,7 +3665,7 @@
   {
     "id": "single-leg-calf-raise",
     "nameEn": "Single-Leg Calf Raise",
-    "nameAr": "رفع السمانة بساق واحدة",
+    "nameAr": "سمانة بساق واحدة بوزن الجسم",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
@@ -3680,7 +3681,7 @@
   {
     "id": "glute-bridge-march",
     "nameEn": "Glute Bridge March",
-    "nameAr": "مشي الجسر للأرداف (Glute Bridge March)",
+    "nameAr": "رفع الحوض مع تبديل الساقين",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
@@ -3696,7 +3697,7 @@
   {
     "id": "frog-pump",
     "nameEn": "Frog Pump",
-    "nameAr": "ضخ الضفدع للأرداف (Frog Pump)",
+    "nameAr": "رفع الحوض بوضعية الضم للأرداف (Frog Pump)",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [],
     "equipment": "BODYWEIGHT",
@@ -3710,7 +3711,7 @@
   {
     "id": "donkey-kick",
     "nameEn": "Donkey Kick",
-    "nameAr": "ركلة الحمار للأرداف (Donkey Kick)",
+    "nameAr": "ركل خلفي للأرداف على أربع",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
@@ -3742,7 +3743,7 @@
   {
     "id": "clamshell",
     "nameEn": "Clamshell",
-    "nameAr": "تمرين المحارة للأرداف الجانبية (Clamshell)",
+    "nameAr": "فتح الورك جانبياً مستلقياً (Clamshell)",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
@@ -3790,7 +3791,7 @@
   {
     "id": "side-lying-leg-raise",
     "nameEn": "Side-Lying Leg Raise",
-    "nameAr": "رفع الساق الجانبي للخارج",
+    "nameAr": "رفع الساق جانبياً للأعلى",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
@@ -3806,7 +3807,7 @@
   {
     "id": "lying-hamstring-walkout",
     "nameEn": "Lying Hamstring Walkout",
-    "nameAr": "مشي الكعبين للخلفيات مستلقياً",
+    "nameAr": "المشي بالكعبين للخلفيات مستلقياً",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
@@ -3854,12 +3855,12 @@
   {
     "id": "banded-glute-bridge",
     "nameEn": "Banded Glute Bridge",
-    "nameAr": "جسر الأرداف بحبل المقاومة",
+    "nameAr": "رفع الحوض للأرداف بحبل المقاومة",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
     ],
-    "equipment": "CABLE",
+    "equipment": "BODYWEIGHT",
     "instructionsEn": "Perform Banded Glute Bridge through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
     "instructionsAr": "ضع حبل المقاومة فوق الركبتين واستلقِ بثني الساقين.\nارفع الورك وادفع الركبتين قليلاً للخارج لعصر الأرداف.",
     "localMediaKey": "banded-glute-bridge",
@@ -3870,12 +3871,12 @@
   {
     "id": "banded-hip-thrust",
     "nameEn": "Banded Hip Thrust",
-    "nameAr": "دفع الورك على البنش بحبل المقاومة",
+    "nameAr": "دفع الحوض على البنش بحبل المقاومة",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
     ],
-    "equipment": "CABLE",
+    "equipment": "BODYWEIGHT",
     "instructionsEn": "Perform Banded Hip Thrust through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
     "instructionsAr": "أسند أعلى الظهر على البنش مع ربط حبل المقاومة حول الفخذين.\nادفع الورك للأعلى وحافظ على شد الحبل للخارج.",
     "localMediaKey": "banded-hip-thrust",
@@ -3886,10 +3887,10 @@
   {
     "id": "banded-frog-pump",
     "nameEn": "Banded Frog Pump",
-    "nameAr": "ضخ الضفدع بحبل المقاومة",
+    "nameAr": "رفع الحوض بوضعية الضم بحبل المقاومة",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [],
-    "equipment": "CABLE",
+    "equipment": "BODYWEIGHT",
     "instructionsEn": "Perform Banded Frog Pump through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
     "instructionsAr": "ألصق باطني القدمين مع وضع حبل المقاومة فوق الركبتين.\nارفع الوركين للأعلى بعصر قوي للأرداف.",
     "localMediaKey": "banded-frog-pump",
@@ -3900,12 +3901,12 @@
   {
     "id": "banded-clamshell",
     "nameEn": "Banded Clamshell",
-    "nameAr": "تمرين المحارة بحبل المقاومة",
+    "nameAr": "فتح الورك جانبياً بحبل المقاومة",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
     ],
-    "equipment": "CABLE",
+    "equipment": "BODYWEIGHT",
     "instructionsEn": "Perform Banded Clamshell through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
     "instructionsAr": "استلقِ على جانبك مع وضع حبل المقاومة حول الفخذين.\nافتح الركبة العلوية ضد شد الحبل ثم عد ببطء.",
     "localMediaKey": "banded-clamshell",
@@ -3921,7 +3922,7 @@
     "secondaryMuscles": [
       "CORE"
     ],
-    "equipment": "CABLE",
+    "equipment": "BODYWEIGHT",
     "instructionsEn": "Perform Banded Lateral Walk through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
     "instructionsAr": "ضع الحبل فوق الركبتين أو حول الكاحلين واثنِ الركبتين قليلاً.\nتحرك خطوات جانبية متتالية مع إبقاء التوتر مستمراً.",
     "localMediaKey": "banded-lateral-walk",
@@ -3932,12 +3933,12 @@
   {
     "id": "banded-monster-walk",
     "nameEn": "Banded Monster Walk",
-    "nameAr": "مشي الوحش للأمام بحبل المقاومة",
+    "nameAr": "المشي للأمام بحبل المقاومة",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
     ],
-    "equipment": "CABLE",
+    "equipment": "BODYWEIGHT",
     "instructionsEn": "Perform Banded Monster Walk through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
     "instructionsAr": "ضع حبل المقاومة حول الساقين واخطُ قطرياً للأمام بتحكم.\nحافظ على انخفاض الوركين وثبات الركبتين للخارج.",
     "localMediaKey": "banded-monster-walk",
@@ -3953,7 +3954,7 @@
     "secondaryMuscles": [
       "CORE"
     ],
-    "equipment": "CABLE",
+    "equipment": "BODYWEIGHT",
     "instructionsEn": "Perform Banded Squat through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
     "instructionsAr": "ضع حبل المقاومة فوق الركبتين أو تحت القدمين.\nانزل في السكوات مع مقاومة اندفاع الركبتين للداخل ثم ادفع للأعلى.",
     "localMediaKey": "banded-squat",
@@ -3964,12 +3965,12 @@
   {
     "id": "banded-donkey-kick",
     "nameEn": "Banded Donkey Kick",
-    "nameAr": "ركلة الحمار بحبل المقاومة",
+    "nameAr": "ركل خلفي للأرداف بحبل المقاومة",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
     ],
-    "equipment": "CABLE",
+    "equipment": "BODYWEIGHT",
     "instructionsEn": "Perform Banded Donkey Kick through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
     "instructionsAr": "ثبّت الحبل حول القدم وارتكز على اليدين والركبتين.\nادفع الساق للخلف للأعلى ضد مقاومة الحبل ثم أرجعها ببطء.",
     "localMediaKey": "banded-donkey-kick",
@@ -3985,7 +3986,7 @@
     "secondaryMuscles": [
       "CORE"
     ],
-    "equipment": "CABLE",
+    "equipment": "BODYWEIGHT",
     "instructionsEn": "Perform Banded Fire Hydrant through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
     "instructionsAr": "ضع الحبل فوق الركبتين وارتكز على أربع.\nافتح الركبة جانبياً ضد المقاومة مع ثبات الجذع.",
     "localMediaKey": "banded-fire-hydrant",
@@ -4001,7 +4002,7 @@
     "secondaryMuscles": [
       "CORE"
     ],
-    "equipment": "CABLE",
+    "equipment": "BODYWEIGHT",
     "instructionsEn": "Perform Banded Kickback through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
     "instructionsAr": "ثبّت الحبل في الكاحلين وأمسك بدعامة أمامك.\nادفع ساقاً مستقيمة للخلف بتحكم لعصر الأرداف.",
     "localMediaKey": "banded-kickback",
@@ -4012,12 +4013,12 @@
   {
     "id": "banded-standing-hip-abduction",
     "nameEn": "Banded Standing Hip Abduction",
-    "nameAr": "إبعاد الفخذ واقفاً بحبل المقاومة",
+    "nameAr": "فتح الفخذ واقفاً بحبل المقاومة",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
     ],
-    "equipment": "CABLE",
+    "equipment": "BODYWEIGHT",
     "instructionsEn": "Perform Banded Standing Hip Abduction through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
     "instructionsAr": "قف مستقيماً مع وضع الحبل حول الكاحلين.\nارفع ساقاً جانبياً للخارج دون إمالة الجذع ثم عد ببطء.",
     "localMediaKey": "banded-standing-hip-abduction",
@@ -4028,12 +4029,12 @@
   {
     "id": "banded-seated-hip-abduction",
     "nameEn": "Banded Seated Hip Abduction",
-    "nameAr": "إبعاد الفخذين جالساً بحبل المقاومة",
+    "nameAr": "فتح الفخذين جالساً بحبل المقاومة",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
     ],
-    "equipment": "CABLE",
+    "equipment": "BODYWEIGHT",
     "instructionsEn": "Perform Banded Seated Hip Abduction through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
     "instructionsAr": "اجلس على البنش وضع الحبل فوق الركبتين.\nافتح الركبتين للخارج ضد الحبل واثبت لحظة ثم عد بتحكم.",
     "localMediaKey": "banded-seated-hip-abduction",
@@ -4044,12 +4045,12 @@
   {
     "id": "band-pull-apart",
     "nameEn": "Band Pull-Apart",
-    "nameAr": "سحب حبل المقاومة أمام الصدر (Pull-Apart)",
+    "nameAr": "شد حبل المقاومة أمام الصدر",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
       "SHOULDERS"
     ],
-    "equipment": "CABLE",
+    "equipment": "BODYWEIGHT",
     "instructionsEn": "Perform Band Pull-Apart through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
     "instructionsAr": "امسك حبل المقاومة ممدوداً أمام الكتفين.\nافتح ذراعيك للجانبين بعصر لوحي الكتف ثم أعدهما ببطء.",
     "localMediaKey": "band-pull-apart",
@@ -4065,7 +4066,7 @@
     "secondaryMuscles": [
       "SHOULDERS"
     ],
-    "equipment": "CABLE",
+    "equipment": "BODYWEIGHT",
     "instructionsEn": "Perform Banded Face Pull through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
     "instructionsAr": "ثبّت الحبل بمستوى الوجه واسحبه نحو الجبهة.\nباعد بين اليدين في النهاية لعصر الكتف الخلفي.",
     "localMediaKey": "banded-face-pull",
@@ -4081,7 +4082,7 @@
     "secondaryMuscles": [
       "ARMS"
     ],
-    "equipment": "CABLE",
+    "equipment": "BODYWEIGHT",
     "instructionsEn": "Perform Banded Row through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
     "instructionsAr": "اجلس ومد ساقيك ولف الحبل حول القدمين.\nاسحب الطرفين نحو الخصر مع عصر عضلات الظهر واستقامة الجذع.",
     "localMediaKey": "banded-row",
@@ -4092,13 +4093,13 @@
   {
     "id": "banded-lat-pulldown",
     "nameEn": "Banded Lat Pulldown",
-    "nameAr": "سحب علوي بحبل المقاومة",
+    "nameAr": "سحب عالي بحبل المقاومة",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
       "ARMS",
       "CORE"
     ],
-    "equipment": "CABLE",
+    "equipment": "BODYWEIGHT",
     "instructionsEn": "Perform Banded Lat Pulldown through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
     "instructionsAr": "ثبّت الحبل في نقطة مرتفعة واركع أو اجلس.\nاسحب الطرفين للأسفل نحو الصدر بضم لوحي الكتف للأسفل.",
     "localMediaKey": "banded-lat-pulldown",
@@ -4109,13 +4110,13 @@
   {
     "id": "banded-pallof-press",
     "nameEn": "Banded Pallof Press",
-    "nameAr": "دفع بالوف بحبل المقاومة",
+    "nameAr": "دفع ضد الدوران بحبل المقاومة (Pallof Press)",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [
       "LEGS",
       "SHOULDERS"
     ],
-    "equipment": "CABLE",
+    "equipment": "BODYWEIGHT",
     "instructionsEn": "Perform Banded Pallof Press through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
     "instructionsAr": "ثبّت الحبل جانبياً بمستوى الصدر وامسكه بكلتا اليدين.\nادفع الذراعين للأمام مع مقاومة التفاف الجذع.",
     "localMediaKey": "banded-pallof-press",
@@ -4126,13 +4127,13 @@
   {
     "id": "banded-woodchop",
     "nameEn": "Banded Woodchop",
-    "nameAr": "تدوير الخصر بحبل المقاومة",
+    "nameAr": "لف الجذع المائل بحبل المقاومة",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [
       "SHOULDERS",
       "LEGS"
     ],
-    "equipment": "CABLE",
+    "equipment": "BODYWEIGHT",
     "instructionsEn": "Perform Banded Woodchop through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
     "instructionsAr": "ثبّت الحبل منخفضاً أو مرتفعاً وقف جانبياً.\nلف الجذع قطرياً بسحب الحبل مع شد البطن والخصر.",
     "localMediaKey": "banded-woodchop",
@@ -4143,13 +4144,13 @@
   {
     "id": "banded-dead-bug",
     "nameEn": "Banded Dead Bug",
-    "nameAr": "الحشرة الميتة بحبل المقاومة",
+    "nameAr": "تمرين البطن المتعاكس بحبل المقاومة (Dead Bug)",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [
       "LEGS",
       "SHOULDERS"
     ],
-    "equipment": "CABLE",
+    "equipment": "BODYWEIGHT",
     "instructionsEn": "Perform Banded Dead Bug through a full, controlled range of motion. Keep your core braced and avoid using momentum.",
     "instructionsAr": "ثبّت الحبل خلف الرأس وامسكه بيديك فوق الصدر.\nبدّل مد الساقين نحو الأرض مع إبقاء أسفل الظهر ملامساً للأرض.",
     "localMediaKey": "banded-dead-bug",
@@ -4160,7 +4161,7 @@
   {
     "id": "hollow-body-hold",
     "nameEn": "Hollow Body Hold",
-    "nameAr": "ثبات الجسم المجوف للبطن (Hollow Hold)",
+    "nameAr": "ثبات البطن المشدود مستلقياً (Hollow Hold)",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [
       "LEGS"
@@ -4176,7 +4177,7 @@
   {
     "id": "hollow-rock",
     "nameEn": "Hollow Rock",
-    "nameAr": "تأرجح الجسم المجوف للبطن (Hollow Rock)",
+    "nameAr": "تأرجح البطن مستلقياً (Hollow Rock)",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [
       "LEGS"
@@ -4192,7 +4193,7 @@
   {
     "id": "v-up",
     "nameEn": "V-Up",
-    "nameAr": "تمرين V-Up للبطن",
+    "nameAr": "رفع الجذع والساقين معاً للبطن (V-Up)",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [
       "LEGS"
@@ -4208,7 +4209,7 @@
   {
     "id": "flutter-kick",
     "nameEn": "Flutter Kick",
-    "nameAr": "رفرفة الساقين للبطن (Flutter Kick)",
+    "nameAr": "تبادل رفع الساقين للبطن",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [
       "LEGS"
@@ -4224,7 +4225,7 @@
   {
     "id": "toe-touch",
     "nameEn": "Toe Touch",
-    "nameAr": "لمس أطراف الأصابع للبطن (Toe Touch)",
+    "nameAr": "لمس القدمين للأعلى للبطن",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [],
     "equipment": "BODYWEIGHT",
@@ -4238,7 +4239,7 @@
   {
     "id": "heel-tap",
     "nameEn": "Heel Tap",
-    "nameAr": "لمس الكعبين بالتناوب للخصر (Heel Tap)",
+    "nameAr": "لمس الكعبين بالتناوب للجوانب",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [],
     "equipment": "BODYWEIGHT",
@@ -4269,7 +4270,7 @@
   {
     "id": "plank-jack",
     "nameEn": "Plank Jack",
-    "nameAr": "بلانك مع القفز الجانبي للقدمين (Plank Jack)",
+    "nameAr": "بلانك مع فتح وغلق القدمين",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [
       "SHOULDERS",
@@ -4286,7 +4287,7 @@
   {
     "id": "bear-plank",
     "nameEn": "Bear Plank",
-    "nameAr": "بلانك الدب (Bear Plank)",
+    "nameAr": "ثبات الارتكاز على اليدين والقدمين (Bear Plank)",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [
       "LEGS",
@@ -4303,7 +4304,7 @@
   {
     "id": "bear-crawl",
     "nameEn": "Bear Crawl",
-    "nameAr": "زحف الدب (Bear Crawl)",
+    "nameAr": "التحرك على اليدين والقدمين (Bear Crawl)",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [
       "SHOULDERS",
@@ -4320,7 +4321,7 @@
   {
     "id": "crab-walk",
     "nameEn": "Crab Walk",
-    "nameAr": "مشي السلطعون (Crab Walk)",
+    "nameAr": "المشي الخلفي على اليدين والقدمين (Crab Walk)",
     "primaryMuscle": "ARMS",
     "secondaryMuscles": [
       "LEGS",
@@ -4338,7 +4339,7 @@
   {
     "id": "inchworm",
     "nameEn": "Inchworm",
-    "nameAr": "تمرين الدودة (Inchworm)",
+    "nameAr": "الزحف باليدين من الوقوف إلى البلانك (Inchworm)",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [
       "SHOULDERS",
@@ -4356,7 +4357,7 @@
   {
     "id": "l-sit-hold",
     "nameEn": "L-Sit Hold",
-    "nameAr": "ثبات الجلوس بزاوية L (L-Sit)",
+    "nameAr": "ثبات الجلوس بزاوية قائمة (L-Sit)",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [
       "ARMS",
@@ -4407,7 +4408,7 @@
   {
     "id": "copenhagen-plank",
     "nameEn": "Copenhagen Plank",
-    "nameAr": "بلانك كوبنهاجن للعضلات الضامة",
+    "nameAr": "بلانك كوبنهاجن للعضلات الضامة (Copenhagen Plank)",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [
       "LEGS"
@@ -4423,7 +4424,7 @@
   {
     "id": "dragon-flag",
     "nameEn": "Dragon Flag",
-    "nameAr": "علم التنين للبطن (Dragon Flag)",
+    "nameAr": "رفع الجسم مستقيماً للبطن (Dragon Flag)",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [
       "BACK",
@@ -4440,7 +4441,7 @@
   {
     "id": "burpee",
     "nameEn": "Burpee",
-    "nameAr": "بيربي كامل (Burpee)",
+    "nameAr": "تمرين بيربي كامل (Burpee)",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CHEST",
@@ -4508,7 +4509,7 @@
   {
     "id": "jumping-jack",
     "nameEn": "Jumping Jack",
-    "nameAr": "قفز النجمة (Jumping Jack)",
+    "nameAr": "قفز مع فتح الذراعين والساقين (Jumping Jack)",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "SHOULDERS"
@@ -4524,7 +4525,7 @@
   {
     "id": "skater-hop",
     "nameEn": "Skater Hop",
-    "nameAr": "قفزات المتزلج الجانبية (Skater Hop)",
+    "nameAr": "قفز جانبي بالتناوب",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [],
     "equipment": "BODYWEIGHT",
@@ -4538,7 +4539,7 @@
   {
     "id": "lateral-shuffle",
     "nameEn": "Lateral Shuffle",
-    "nameAr": "الانزلاق الجانبي السريع (Lateral Shuffle)",
+    "nameAr": "التحرك الجانبي السريع",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [],
     "equipment": "BODYWEIGHT",
@@ -4552,7 +4553,7 @@
   {
     "id": "fast-feet",
     "nameEn": "Fast Feet",
-    "nameAr": "خطوات القدم السريعة (Fast Feet)",
+    "nameAr": "خطوات القدم السريعة",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [],
     "equipment": "BODYWEIGHT",
@@ -4566,7 +4567,7 @@
   {
     "id": "sprawl",
     "nameEn": "Sprawl",
-    "nameAr": "تمرين السبرول السريع (Sprawl)",
+    "nameAr": "نزول سريع بوضعية الضغط (Sprawl)",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE",
@@ -4583,7 +4584,7 @@
   {
     "id": "seal-jack",
     "nameEn": "Seal Jack",
-    "nameAr": "قفز الفقمات (Seal Jack)",
+    "nameAr": "قفز مع فتح الذراعين أفقياً (Seal Jack)",
     "primaryMuscle": "CHEST",
     "secondaryMuscles": [
       "SHOULDERS",
@@ -4600,7 +4601,7 @@
   {
     "id": "cat-cow-stretch",
     "nameEn": "Cat-Cow Stretch",
-    "nameAr": "إطالة القطة والبقرة للظهر",
+    "nameAr": "تقويس وتمديد الظهر على أربع (Cat-Cow)",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [
       "BACK"
@@ -4616,7 +4617,7 @@
   {
     "id": "arm-circles",
     "nameEn": "Arm Circles",
-    "nameAr": "تدوير الذراعين للإحماء (Arm Circles)",
+    "nameAr": "تدوير الذراعين للإحماء",
     "primaryMuscle": "SHOULDERS",
     "secondaryMuscles": [
       "CHEST",
@@ -4634,7 +4635,7 @@
   {
     "id": "worlds-greatest-stretch",
     "nameEn": "World's Greatest Stretch",
-    "nameAr": "أعظم إطالة شاملة للجسم",
+    "nameAr": "إطالة شاملة للورك والظهر (World's Greatest Stretch)",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [
       "LEGS",
@@ -4651,7 +4652,7 @@
   {
     "id": "leg-swings-stretch",
     "nameEn": "Leg Swings",
-    "nameAr": "تأرجح الساقين لإحماء الورك",
+    "nameAr": "مرجحة الساقين لإحماء الورك",
     "primaryMuscle": "CORE",
     "secondaryMuscles": [
       "LEGS"
@@ -4700,7 +4701,7 @@
   {
     "id": "childs-pose",
     "nameEn": "Child's Pose",
-    "nameAr": "وضعية الطفل لإطالة الظهر",
+    "nameAr": "إطالة الظهر بالجلوس للخلف (Child's Pose)",
     "primaryMuscle": "BACK",
     "secondaryMuscles": [
       "SHOULDERS",
@@ -4718,7 +4719,7 @@
   {
     "id": "kneeling-hip-flexor-stretch",
     "nameEn": "Kneeling Hip Flexor Stretch",
-    "nameAr": "إطالة عضلة الحوض المثنية راكعاً",
+    "nameAr": "إطالة عضلة الحوض الأمامية راكعاً",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"
@@ -4816,7 +4817,7 @@
   {
     "id": "butterfly-stretch",
     "nameEn": "Butterfly Stretch",
-    "nameAr": "إطالة الفراشة للورك والضامة",
+    "nameAr": "إطالة العضلات الضامة جالساً",
     "primaryMuscle": "LEGS",
     "secondaryMuscles": [
       "CORE"

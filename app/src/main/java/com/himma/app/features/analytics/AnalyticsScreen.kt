@@ -965,7 +965,7 @@ private fun WorkoutDetailSheetContent(
                         )
                         if (set.isPr) {
                             Text(
-                                text = "PR 🏆",
+                                text = stringResource(id = R.string.workout_pr_badge),
                                 style = MaterialTheme.typography.labelMedium,
                                 color = MaterialTheme.colorScheme.primary,
                                 fontWeight = FontWeight.Bold,

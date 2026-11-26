@@ -13,6 +13,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -26,12 +27,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -45,7 +50,6 @@ import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material.icons.rounded.Timer
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.AssistChip
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.CircularProgressIndicator
@@ -55,6 +59,7 @@ import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.FilledTonalIconToggleButton
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
@@ -74,6 +79,7 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
@@ -312,12 +318,20 @@ fun ActiveWorkoutScreen(
             }
         },
         bottomBar = {
-            AnimatedVisibility(
-                visible = state.restTimer.isRunning,
-                enter = slideInVertically(initialOffsetY = { it }) + fadeIn(),
-                exit = slideOutVertically(targetOffsetY = { it }) + fadeOut(),
-            ) {
-                RestTimerDockedBar(
+            if (animationsEnabled) {
+                AnimatedVisibility(
+                    visible = state.restTimer.isRunning,
+                    enter = slideInVertically(initialOffsetY = { it }) + fadeIn(),
+                    exit = slideOutVertically(targetOffsetY = { it }) + fadeOut(),
+                ) {
+                    RestTimerFloatingBar(
+                        restTimer = state.restTimer,
+                        onAdjust = viewModel::adjustRestTimer,
+                        onSkip = viewModel::skipRestTimer,
+                    )
+                }
+            } else if (state.restTimer.isRunning) {
+                RestTimerFloatingBar(
                     restTimer = state.restTimer,
                     onAdjust = viewModel::adjustRestTimer,
                     onSkip = viewModel::skipRestTimer,
@@ -357,8 +371,9 @@ fun ActiveWorkoutScreen(
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(innerPadding),
-                    contentPadding = PaddingValues(16.dp),
+                        .padding(innerPadding)
+                        .imePadding(),
+                    contentPadding = PaddingValues(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 96.dp),
                     verticalArrangement = Arrangement.spacedBy(14.dp),
                 ) {
                     item(key = "session_notes") {
@@ -405,12 +420,6 @@ fun ActiveWorkoutScreen(
                                 onWeightChange = { set, input ->
                                     viewModel.updateWeightFromInput(set, input)
                                 },
-                                onQuickIncrement = { set, delta ->
-                                    viewModel.quickIncrementWeight(set, delta)
-                                },
-                                onQuickIncrementDuration = { set, deltaSeconds ->
-                                    viewModel.quickIncrementDuration(set, deltaSeconds)
-                                },
                                 onRepsChange = { set, input ->
                                     viewModel.updateRepsFromInput(set, input)
                                 },
@@ -432,7 +441,9 @@ fun ActiveWorkoutScreen(
                                 },
                                 onRemoveSet = { set -> viewModel.removeSet(set.id) },
                                 onAddSet = { viewModel.addSet(group) },
-                                onRemoveExercise = { viewModel.removeExercise(group.exercise.id) },
+                                onRemoveExercise = {
+                                    viewModel.removeExercise(group.exercise.id, group.exerciseOrder)
+                                },
                             )
                         }
                     }
@@ -552,8 +563,6 @@ private fun WorkoutExerciseCard(
     unitLabel: String,
     previousHints: Map<Pair<String, Int>, PreviousSetHint>,
     onWeightChange: (WorkoutSet, String) -> Unit,
-    onQuickIncrement: (WorkoutSet, Double) -> Unit,
-    onQuickIncrementDuration: (WorkoutSet, Int) -> Unit,
     onRepsChange: (WorkoutSet, String) -> Unit,
     onDurationChange: (WorkoutSet, Int?) -> Unit,
     onSetTypeChange: (WorkoutSet, SetType) -> Unit,
@@ -565,15 +574,6 @@ private fun WorkoutExerciseCard(
 ) {
     val context = LocalContext.current
     val thumbUri = group.exercise.frameAssetUri(0)
-
-    var selectedSetIdForIncrement by remember(group.sets.size) {
-        mutableStateOf(
-            group.sets.firstOrNull { !it.isCompleted }?.id ?: group.sets.lastOrNull()?.id,
-        )
-    }
-    val activeTargetSet = group.sets.firstOrNull { it.id == selectedSetIdForIncrement }
-        ?: group.sets.firstOrNull { !it.isCompleted }
-        ?: group.sets.lastOrNull()
 
     ElevatedCard(modifier = Modifier.fillMaxWidth()) {
         Column(
@@ -641,24 +641,31 @@ private fun WorkoutExerciseCard(
                         )
                         if (group.exercise.supportsStackPlates) {
                             val isPlates = group.sets.firstOrNull()?.weightUnitMode == WeightUnitMode.STACK_PLATES
-                            Surface(
-                                shape = MaterialTheme.shapes.extraSmall,
-                                color = if (isPlates) MaterialTheme.colorScheme.secondaryContainer else MaterialTheme.colorScheme.surfaceVariant,
-                                modifier = Modifier.clickable {
-                                    val nextMode = if (isPlates) WeightUnitMode.WEIGHT else WeightUnitMode.STACK_PLATES
-                                    onWeightUnitModeChange(nextMode)
-                                },
-                            ) {
-                                Text(
-                                    text = if (isPlates) {
-                                        stringResource(id = R.string.weight_mode_plates)
-                                    } else {
-                                        stringResource(id = R.string.weight_mode_weight)
+                            Box(
+                                modifier = Modifier
+                                    .widthIn(min = 48.dp)
+                                    .heightIn(min = 48.dp)
+                                    .clickable {
+                                        val nextMode = if (isPlates) WeightUnitMode.WEIGHT else WeightUnitMode.STACK_PLATES
+                                        onWeightUnitModeChange(nextMode)
                                     },
-                                    style = MaterialTheme.typography.labelSmall,
-                                    color = if (isPlates) MaterialTheme.colorScheme.onSecondaryContainer else MaterialTheme.colorScheme.onSurfaceVariant,
-                                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
-                                )
+                                contentAlignment = Alignment.Center,
+                            ) {
+                                Surface(
+                                    shape = MaterialTheme.shapes.extraSmall,
+                                    color = if (isPlates) MaterialTheme.colorScheme.secondaryContainer else MaterialTheme.colorScheme.surfaceVariant,
+                                ) {
+                                    Text(
+                                        text = if (isPlates) {
+                                            stringResource(id = R.string.weight_mode_plates)
+                                        } else {
+                                            stringResource(id = R.string.weight_mode_weight)
+                                        },
+                                        style = MaterialTheme.typography.labelSmall,
+                                        color = if (isPlates) MaterialTheme.colorScheme.onSecondaryContainer else MaterialTheme.colorScheme.onSurfaceVariant,
+                                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                                    )
+                                }
                             }
                         }
                     }
@@ -676,69 +683,32 @@ private fun WorkoutExerciseCard(
                 }
             }
 
-            if (activeTargetSet != null) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    if (group.exercise.exerciseType == ExerciseType.TIME) {
-                        listOf(30 to "+30s", 60 to "+1m", 300 to "+5m").forEach { (delta, chipLabel) ->
-                            AssistChip(
-                                onClick = { onQuickIncrementDuration(activeTargetSet, delta) },
-                                label = { Text(chipLabel) },
-                                modifier = Modifier.heightIn(min = 48.dp),
-                            )
-                        }
-                    } else if (activeTargetSet.weightUnitMode == WeightUnitMode.STACK_PLATES) {
-                        listOf(1.0, 2.0, 5.0).forEach { delta ->
-                            AssistChip(
-                                onClick = { onQuickIncrement(activeTargetSet, delta) },
-                                label = {
-                                    Text("+${delta.toInt()} ${stringResource(R.string.workout_plates_badge)}")
-                                },
-                                modifier = Modifier.heightIn(min = 48.dp),
-                            )
-                        }
-                    } else {
-                        listOf(1.0, 2.5, 5.0).forEach { delta ->
-                            AssistChip(
-                                onClick = { onQuickIncrement(activeTargetSet, delta) },
-                                label = {
-                                    Text("+${formatCleanNumber(delta)} $unitLabel")
-                                },
-                                modifier = Modifier.heightIn(min = 48.dp),
-                            )
-                        }
-                    }
-                }
-            }
-
             HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
 
             group.sets.forEach { set ->
-                val prevHint = previousHints[set.exerciseId to set.setIndex]
-                WorkoutSetRow(
-                    set = set,
-                    exerciseType = group.exercise.exerciseType,
-                    weightUnit = weightUnit,
-                    unitLabel = unitLabel,
-                    previousHint = prevHint,
-                    canRemove = true,
-                    onFocusSet = { selectedSetIdForIncrement = set.id },
-                    onWeightChange = { onWeightChange(set, it) },
-                    onRepsChange = { onRepsChange(set, it) },
-                    onDurationChange = { onDurationChange(set, it) },
-                    onSetTypeChange = { onSetTypeChange(set, it) },
-                    onToggleComplete = { onToggleComplete(set) },
-                    onRemoveSet = {
-                        if (group.sets.size > 1) {
-                            onRemoveSet(set)
-                        } else {
-                            onRemoveExercise()
-                        }
-                    },
-                )
+                key(set.id) {
+                    val prevHint = previousHints[set.exerciseId to set.setIndex]
+                    WorkoutSetRow(
+                        set = set,
+                        exerciseType = group.exercise.exerciseType,
+                        weightUnit = weightUnit,
+                        unitLabel = unitLabel,
+                        previousHint = prevHint,
+                        canRemove = true,
+                        onWeightChange = { onWeightChange(set, it) },
+                        onRepsChange = { onRepsChange(set, it) },
+                        onDurationChange = { onDurationChange(set, it) },
+                        onSetTypeChange = { onSetTypeChange(set, it) },
+                        onToggleComplete = { onToggleComplete(set) },
+                        onRemoveSet = {
+                            if (group.sets.size > 1) {
+                                onRemoveSet(set)
+                            } else {
+                                onRemoveExercise()
+                            }
+                        },
+                    )
+                }
             }
 
             OutlinedButton(
@@ -767,7 +737,6 @@ private fun WorkoutSetRow(
     unitLabel: String,
     previousHint: PreviousSetHint?,
     canRemove: Boolean,
-    onFocusSet: () -> Unit,
     onWeightChange: (String) -> Unit,
     onRepsChange: (String) -> Unit,
     onDurationChange: (Int?) -> Unit,
@@ -775,10 +744,10 @@ private fun WorkoutSetRow(
     onToggleComplete: () -> Unit,
     onRemoveSet: () -> Unit,
 ) {
-    var isWeightFocused by remember { mutableStateOf(false) }
-    var isRepsFocused by remember { mutableStateOf(false) }
-    var isMinFocused by remember { mutableStateOf(false) }
-    var isSecFocused by remember { mutableStateOf(false) }
+    var isWeightFocused by remember(set.id) { mutableStateOf(false) }
+    var isRepsFocused by remember(set.id) { mutableStateOf(false) }
+    var isMinFocused by remember(set.id) { mutableStateOf(false) }
+    var isSecFocused by remember(set.id) { mutableStateOf(false) }
 
     val isStackPlates = set.weightUnitMode == WeightUnitMode.STACK_PLATES
     val formattedExternalWeight = remember(set.weightKg, weightUnit, isStackPlates) {
@@ -824,7 +793,7 @@ private fun WorkoutSetRow(
         }
     }
 
-    var typeMenuExpanded by remember { mutableStateOf(false) }
+    var typeMenuExpanded by remember(set.id) { mutableStateOf(false) }
 
     Surface(
         color = if (set.isCompleted) {
@@ -895,7 +864,7 @@ private fun WorkoutSetRow(
 
                     if (set.isPr) {
                         Text(
-                            text = "PR 🏆",
+                            text = stringResource(id = R.string.workout_pr_badge),
                             style = MaterialTheme.typography.labelMedium,
                             color = MaterialTheme.colorScheme.primary,
                             fontWeight = FontWeight.Bold,
@@ -903,19 +872,24 @@ private fun WorkoutSetRow(
                     }
 
                     Box {
-                        Surface(
-                            color = setTypeBadgeContainerColor(set.setType),
-                            shape = MaterialTheme.shapes.small,
+                        Box(
                             modifier = Modifier
-                                .heightIn(min = 32.dp)
+                                .widthIn(min = 48.dp)
+                                .heightIn(min = 48.dp)
                                 .clickable { typeMenuExpanded = true },
+                            contentAlignment = Alignment.Center,
                         ) {
-                            Text(
-                                text = stringResource(id = set.setType.labelRes()),
-                                style = MaterialTheme.typography.labelMedium,
-                                color = setTypeBadgeContentColor(set.setType),
-                                modifier = Modifier.padding(horizontal = 8.dp, vertical = 6.dp),
-                            )
+                            Surface(
+                                color = setTypeBadgeContainerColor(set.setType),
+                                shape = MaterialTheme.shapes.small,
+                            ) {
+                                Text(
+                                    text = stringResource(id = set.setType.labelRes()),
+                                    style = MaterialTheme.typography.labelMedium,
+                                    color = setTypeBadgeContentColor(set.setType),
+                                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 6.dp),
+                                )
+                            }
                         }
                         DropdownMenu(
                             expanded = typeMenuExpanded,
@@ -947,7 +921,7 @@ private fun WorkoutSetRow(
                 if (canRemove) {
                     IconButton(
                         onClick = onRemoveSet,
-                        modifier = Modifier.size(40.dp),
+                        modifier = Modifier.size(48.dp),
                     ) {
                         Icon(
                             imageVector = Icons.Rounded.DeleteOutline,
@@ -990,7 +964,6 @@ private fun WorkoutSetRow(
                             .weight(1f)
                             .onFocusChanged { focusState ->
                                 isMinFocused = focusState.isFocused
-                                if (focusState.isFocused) onFocusSet()
                             },
                     )
 
@@ -1019,7 +992,6 @@ private fun WorkoutSetRow(
                             .weight(1f)
                             .onFocusChanged { focusState ->
                                 isSecFocused = focusState.isFocused
-                                if (focusState.isFocused) onFocusSet()
                             },
                     )
                 } else {
@@ -1046,7 +1018,6 @@ private fun WorkoutSetRow(
                             .weight(1f)
                             .onFocusChanged { focusState ->
                                 isWeightFocused = focusState.isFocused
-                                if (focusState.isFocused) onFocusSet()
                             },
                     )
 
@@ -1069,7 +1040,6 @@ private fun WorkoutSetRow(
                             .weight(0.85f)
                             .onFocusChanged { focusState ->
                                 isRepsFocused = focusState.isFocused
-                                if (focusState.isFocused) onFocusSet()
                             },
                     )
                 }
@@ -1094,78 +1064,119 @@ private fun WorkoutSetRow(
 }
 
 @Composable
-private fun RestTimerDockedBar(
+private fun RestTimerFloatingBar(
     restTimer: RestTimerState,
     onAdjust: (Int) -> Unit,
     onSkip: () -> Unit,
 ) {
-    Surface(
-        tonalElevation = 8.dp,
-        shadowElevation = 8.dp,
-        color = MaterialTheme.colorScheme.surfaceContainerHigh,
-        modifier = Modifier.fillMaxWidth(),
+    val barShape = RoundedCornerShape(24.dp)
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .navigationBarsPadding()
+            .imePadding()
+            .padding(horizontal = 16.dp, vertical = 10.dp),
+        contentAlignment = Alignment.Center,
     ) {
-        Column(modifier = Modifier.fillMaxWidth()) {
-            LinearProgressIndicator(
-                progress = { restTimer.progress },
+        Surface(
+            shape = barShape,
+            color = MaterialTheme.colorScheme.surfaceContainerHigh.copy(alpha = 0.96f),
+            tonalElevation = 4.dp,
+            shadowElevation = 10.dp,
+            border = BorderStroke(
+                width = 1.dp,
+                color = MaterialTheme.colorScheme.primary.copy(alpha = 0.35f),
+            ),
+            modifier = Modifier
+                .widthIn(max = 520.dp)
+                .fillMaxWidth(),
+        ) {
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(4.dp),
-            )
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 12.dp, vertical = 10.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    .clip(barShape),
             ) {
-                Icon(
-                    imageVector = Icons.Rounded.Timer,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary,
+                LinearProgressIndicator(
+                    progress = { restTimer.progress },
+                    trackColor = MaterialTheme.colorScheme.surfaceContainerHighest,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(3.dp),
                 )
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                        text = WorkoutMath.formatTimer(restTimer.remainingSeconds),
-                        style = MaterialTheme.typography.titleLarge,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.primary,
-                    )
-                    if (restTimer.exerciseName.isNotBlank()) {
-                        Text(
-                            text = restTimer.exerciseName,
-                            style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 12.dp, vertical = 10.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .size(40.dp)
+                            .clip(CircleShape)
+                            .background(MaterialTheme.colorScheme.primaryContainer),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Icon(
+                            imageVector = Icons.Rounded.Timer,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.size(20.dp),
                         )
                     }
-                }
 
-                OutlinedButton(
-                    onClick = { onAdjust(-15) },
-                    contentPadding = PaddingValues(horizontal = 10.dp),
-                    modifier = Modifier.heightIn(min = 48.dp),
-                ) {
-                    Text(stringResource(id = R.string.rest_timer_minus_15))
-                }
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = WorkoutMath.formatTimer(restTimer.remainingSeconds),
+                            style = MaterialTheme.typography.titleLarge,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.primary,
+                            maxLines = 1,
+                        )
+                        if (restTimer.exerciseName.isNotBlank()) {
+                            Text(
+                                text = restTimer.exerciseName,
+                                style = MaterialTheme.typography.labelSmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                            )
+                        }
+                    }
 
-                OutlinedButton(
-                    onClick = { onAdjust(15) },
-                    contentPadding = PaddingValues(horizontal = 10.dp),
-                    modifier = Modifier.heightIn(min = 48.dp),
-                ) {
-                    Text(stringResource(id = R.string.rest_timer_plus_15))
-                }
+                    FilledTonalButton(
+                        onClick = { onAdjust(-15) },
+                        shape = RoundedCornerShape(14.dp),
+                        contentPadding = PaddingValues(horizontal = 10.dp),
+                        modifier = Modifier.heightIn(min = 48.dp),
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.rest_timer_minus_15),
+                            fontWeight = FontWeight.SemiBold,
+                        )
+                    }
 
-                FilledIconButton(
-                    onClick = onSkip,
-                    modifier = Modifier.heightIn(min = 48.dp),
-                ) {
-                    Icon(
-                        imageVector = Icons.Rounded.Clear,
-                        contentDescription = stringResource(id = R.string.rest_timer_skip),
-                    )
+                    FilledTonalButton(
+                        onClick = { onAdjust(15) },
+                        shape = RoundedCornerShape(14.dp),
+                        contentPadding = PaddingValues(horizontal = 10.dp),
+                        modifier = Modifier.heightIn(min = 48.dp),
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.rest_timer_plus_15),
+                            fontWeight = FontWeight.SemiBold,
+                        )
+                    }
+
+                    FilledTonalIconButton(
+                        onClick = onSkip,
+                        modifier = Modifier.size(48.dp),
+                    ) {
+                        Icon(
+                            imageVector = Icons.Rounded.Clear,
+                            contentDescription = stringResource(id = R.string.rest_timer_skip),
+                        )
+                    }
                 }
             }
         }

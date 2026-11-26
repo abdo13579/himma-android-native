@@ -10,6 +10,7 @@ import com.himma.app.core.database.dao.AnalyticsDao
 import com.himma.app.core.database.dao.ExerciseDao
 import com.himma.app.core.database.dao.RoutineDao
 import com.himma.app.core.database.dao.UserProfileDao
+import com.himma.app.core.database.dao.WeeklyScheduleDao
 import com.himma.app.core.database.dao.WorkoutDao
 import com.himma.app.core.database.entity.BodyWeightEntity
 import com.himma.app.core.database.entity.ExerciseEntity
@@ -17,6 +18,7 @@ import com.himma.app.core.database.entity.PersonalRecordEntity
 import com.himma.app.core.database.entity.RoutineEntity
 import com.himma.app.core.database.entity.RoutineExerciseEntity
 import com.himma.app.core.database.entity.UserProfileEntity
+import com.himma.app.core.database.entity.WeeklyScheduleEntity
 import com.himma.app.core.database.entity.WorkoutEntity
 import com.himma.app.core.database.entity.WorkoutSetEntity
 import com.himma.app.core.datastore.UserPreferencesRepository
@@ -31,6 +33,7 @@ import com.himma.app.domain.model.BackupRoutine
 import com.himma.app.domain.model.BackupRoutineExercise
 import com.himma.app.domain.model.BackupValidationError
 import com.himma.app.domain.model.BackupValidationException
+import com.himma.app.domain.model.BackupWeeklyScheduleEntry
 import com.himma.app.domain.model.BackupWorkout
 import com.himma.app.domain.model.BackupWorkoutSet
 import com.himma.app.domain.model.CustomExportOptions
@@ -39,11 +42,15 @@ import com.himma.app.domain.model.HimmaBackupDocument
 import com.himma.app.domain.model.MuscleGroup
 import com.himma.app.domain.model.RestoreMode
 import com.himma.app.domain.model.RestoreSummary
+import com.himma.app.domain.model.ScheduleDayStatus
 import com.himma.app.domain.model.SetType
 import com.himma.app.domain.model.ThemeMode
+import com.himma.app.domain.model.WeekScheduleHelper
 import com.himma.app.domain.model.WeightUnit
+import com.himma.app.domain.model.WeightUnitMode
 import com.himma.app.domain.text.ArabicTextNormalizer
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
 import javax.inject.Inject
@@ -77,6 +84,7 @@ class LocalBackupRepository @Inject constructor(
     private val userProfileDao: UserProfileDao,
     private val exerciseDao: ExerciseDao,
     private val routineDao: RoutineDao,
+    private val weeklyScheduleDao: WeeklyScheduleDao,
     private val workoutDao: WorkoutDao,
     private val analyticsDao: AnalyticsDao,
     private val exerciseRepository: ExerciseRepository,
@@ -91,14 +99,28 @@ class LocalBackupRepository @Inject constructor(
 
     override suspend fun createBackupJson(options: CustomExportOptions): String {
         val prefs = if (options.exportPreferences) preferencesRepository.preferences.first() else null
-        val profile = if (options.exportProfileAndStats) userProfileDao.getProfileOnce() else null
-        val customExercises = if (options.exportCustomExercises) exerciseDao.getCustomExercisesOnce() else emptyList()
-        val routines = if (options.exportRoutines) routineDao.getAllRoutinesOnce() else emptyList()
-        val routineExercises = if (options.exportRoutines) routineDao.getAllRoutineExercisesOnce() else emptyList()
-        val workouts = if (options.exportWorkouts) workoutDao.getAllWorkoutsOnce() else emptyList()
-        val workoutSets = if (options.exportWorkouts) workoutDao.getAllWorkoutSetsOnce() else emptyList()
-        val personalRecords = if (options.exportProfileAndStats) analyticsDao.getAllPersonalRecordsOnce() else emptyList()
-        val bodyWeights = if (options.exportProfileAndStats) analyticsDao.getAllBodyWeightsOnce() else emptyList()
+        val snapshot = withContext(Dispatchers.IO) {
+            database.withTransaction {
+                val profile = if (options.exportProfileAndStats) userProfileDao.getProfileOnce() else null
+                val customExercises = if (options.exportCustomExercises) exerciseDao.getCustomExercisesOnce() else emptyList()
+                val routines = if (options.exportRoutines) routineDao.getAllRoutinesOnce() else emptyList()
+                val routineExercises = if (options.exportRoutines) routineDao.getAllRoutineExercisesOnce() else emptyList()
+                val weeklySchedule = if (options.exportWeeklySchedule) weeklyScheduleDao.getAllOnce() else emptyList()
+                val workouts = if (options.exportWorkouts) workoutDao.getAllWorkoutsOnce() else emptyList()
+                val workoutSets = if (options.exportWorkouts) workoutDao.getAllWorkoutSetsOnce() else emptyList()
+                val personalRecords = if (options.exportProfileAndStats) analyticsDao.getAllPersonalRecordsOnce() else emptyList()
+                val bodyWeights = if (options.exportProfileAndStats) analyticsDao.getAllBodyWeightsOnce() else emptyList()
+                Triple(
+                    Triple(profile, customExercises, routines),
+                    Triple(routineExercises, weeklySchedule, workouts),
+                    Triple(workoutSets, personalRecords, bodyWeights),
+                )
+            }
+        }
+        val (first, second, third) = snapshot
+        val (profile, customExercises, routines) = first
+        val (routineExercises, weeklySchedule, workouts) = second
+        val (workoutSets, personalRecords, bodyWeights) = third
 
         val document = HimmaBackupDocument(
             format = HimmaBackupDocument.FORMAT_ID,
@@ -120,6 +142,7 @@ class LocalBackupRepository @Inject constructor(
                     defaultRestSeconds = it.defaultRestSeconds,
                     themeMode = it.themeMode.key,
                     useDynamicColor = it.useDynamicColor,
+                    weekStartDay = it.weekStartDay.name,
                 )
             },
             customExercises = customExercises.map { it.toBackupDto() },
@@ -146,6 +169,14 @@ class LocalBackupRepository @Inject constructor(
                     targetRestSeconds = it.targetRestSeconds,
                     targetDurationSeconds = it.targetDurationSeconds,
                     weightUnitMode = it.weightUnitMode,
+                )
+            },
+            weeklySchedule = weeklySchedule.map {
+                BackupWeeklyScheduleEntry(
+                    dayOfWeek = it.dayOfWeek,
+                    status = it.status,
+                    routineId = it.routineId,
+                    updatedAt = it.updatedAt,
                 )
             },
             workouts = workouts.map {
@@ -199,16 +230,22 @@ class LocalBackupRepository @Inject constructor(
                 )
             },
         )
-        return BackupSerializer.encode(document)
+        return withContext(Dispatchers.Default) {
+            BackupSerializer.encode(document)
+        }
     }
 
     override suspend fun createCsvExport(): String {
         val weightUnit = preferencesRepository.preferences.first().weightUnit
-        val workouts = workoutDao.getCompletedWorkoutsWithSetsOnce()
-        return CsvWorkoutExporter.exportWorkouts(
-            workouts = workouts,
-            weightUnit = weightUnit,
-        )
+        val workouts = withContext(Dispatchers.IO) {
+            workoutDao.getCompletedWorkoutsWithSetsOnce()
+        }
+        return withContext(Dispatchers.Default) {
+            CsvWorkoutExporter.exportWorkouts(
+                workouts = workouts,
+                weightUnit = weightUnit,
+            )
+        }
     }
 
     override suspend fun exportBackupToUri(uri: Uri, options: CustomExportOptions): Result<Unit> = runCatching {
@@ -224,20 +261,29 @@ class LocalBackupRepository @Inject constructor(
     override suspend fun inspectBackupUri(uri: Uri): Result<BackupInspection> {
         val rawResult = runCatching { readTextFromUri(uri) }
         val raw = rawResult.getOrElse { return Result.failure(it) }
-        return inspectBackupJson(raw)
+        return withContext(Dispatchers.Default) {
+            inspectBackupJson(raw)
+        }
     }
 
-    override suspend fun inspectLatestAutoSnapshot(): Result<BackupInspection> = withContext(Dispatchers.IO) {
-        val file = latestAutoSnapshotFile
-        if (!file.exists()) {
-            return@withContext Result.failure(
-                BackupValidationException(BackupValidationError.EMPTY_FILE),
-            )
+    override suspend fun inspectLatestAutoSnapshot(): Result<BackupInspection> {
+        val raw = withContext(Dispatchers.IO) {
+            val file = latestAutoSnapshotFile
+            if (!file.exists()) {
+                return@withContext Result.failure<String>(
+                    BackupValidationException(BackupValidationError.EMPTY_FILE),
+                )
+            }
+            if (file.length() > MAX_BACKUP_BYTES) {
+                return@withContext Result.failure<String>(
+                    IllegalArgumentException("Backup file exceeds maximum allowed size"),
+                )
+            }
+            runCatching { file.readText(Charsets.UTF_8) }
+        }.getOrElse { return Result.failure(it) }
+        return withContext(Dispatchers.Default) {
+            inspectBackupJson(raw)
         }
-        val raw = runCatching { file.readText(Charsets.UTF_8) }.getOrElse {
-            return@withContext Result.failure(it)
-        }
-        inspectBackupJson(raw)
     }
 
     override fun inspectBackupJson(rawJson: String): Result<BackupInspection> {
@@ -255,10 +301,12 @@ class LocalBackupRepository @Inject constructor(
     ): Result<RestoreSummary> = runCatching {
         exerciseRepository.ensureSeeded()
 
-        val summary = database.withTransaction {
-            when (mode) {
-                RestoreMode.REPLACE -> applyReplaceRestore(document)
-                RestoreMode.MERGE -> applyMergeRestore(document)
+        val summary = withContext(Dispatchers.IO) {
+            database.withTransaction {
+                when (mode) {
+                    RestoreMode.REPLACE -> applyReplaceRestore(document)
+                    RestoreMode.MERGE -> applyMergeRestore(document)
+                }
             }
         }
 
@@ -270,6 +318,7 @@ class LocalBackupRepository @Inject constructor(
                     defaultRestSeconds = prefs.defaultRestSeconds,
                     themeMode = ThemeMode.fromKey(prefs.themeMode),
                     useDynamicColor = prefs.useDynamicColor,
+                    weekStartDay = WeekScheduleHelper.dayFromNameOrDefault(prefs.weekStartDay),
                 )
             }
         }
@@ -297,10 +346,11 @@ class LocalBackupRepository @Inject constructor(
 
     override fun hasLocalAutoSnapshot(): Boolean = latestAutoSnapshotFile.exists()
 
-    private suspend fun applyReplaceRestore(document: HimmaBackupDocument): RestoreSummary {
+    internal suspend fun applyReplaceRestore(document: HimmaBackupDocument): RestoreSummary {
         analyticsDao.deleteAllPersonalRecords()
         analyticsDao.deleteAllBodyWeights()
         workoutDao.deleteAllWorkouts()
+        weeklyScheduleDao.deleteAll()
         routineDao.deleteAllRoutines()
         exerciseDao.deleteAllCustomExercises()
         userProfileDao.deleteProfile()
@@ -324,6 +374,11 @@ class LocalBackupRepository @Inject constructor(
         }
 
         val restoredRoutineIds = routineEntities.map { it.id }.toSet()
+        val activeRestoredRoutineIds = routineEntities.filter { !it.isDeleted }.map { it.id }.toSet()
+        val scheduleEntities = document.weeklySchedule.mapNotNull { it.toEntityOrNull(activeRestoredRoutineIds) }
+        if (scheduleEntities.isNotEmpty()) {
+            weeklyScheduleDao.upsertAll(scheduleEntities)
+        }
         var draftSeen = false
         val workoutEntities = document.workouts.mapNotNull { workout ->
             if (!workout.isCompleted) {
@@ -391,10 +446,11 @@ class LocalBackupRepository @Inject constructor(
             restoredWorkouts = workoutEntities.size,
             restoredSets = validSets.size,
             skippedMissingExercises = skippedRoutineEx.size + skippedWorkoutSets.size,
+            restoredScheduleDays = scheduleEntities.size,
         )
     }
 
-    private suspend fun applyMergeRestore(document: HimmaBackupDocument): RestoreSummary {
+    internal suspend fun applyMergeRestore(document: HimmaBackupDocument): RestoreSummary {
         document.profile?.let { incoming ->
             val current = userProfileDao.getProfileOnce()
             if (current == null || incoming.updatedAt > current.updatedAt) {
@@ -441,7 +497,21 @@ class LocalBackupRepository @Inject constructor(
             )
         }
 
-        val allRoutineIds = routineDao.getAllRoutinesOnce().map { it.id }.toSet()
+        val allRoutines = routineDao.getAllRoutinesOnce()
+        val allRoutineIds = allRoutines.map { it.id }.toSet()
+        val activeRoutineIds = allRoutines.filter { !it.isDeleted }.map { it.id }.toSet()
+
+        val existingScheduleByDay = weeklyScheduleDao.getAllOnce().associateBy { it.dayOfWeek }
+        val scheduleToUpsert = document.weeklySchedule.mapNotNull { incoming ->
+            val current = existingScheduleByDay[incoming.dayOfWeek]
+            if (current != null && incoming.updatedAt <= current.updatedAt) {
+                return@mapNotNull null
+            }
+            incoming.toEntityOrNull(activeRoutineIds)
+        }
+        if (scheduleToUpsert.isNotEmpty()) {
+            weeklyScheduleDao.upsertAll(scheduleToUpsert)
+        }
         val existingWorkouts = workoutDao.getAllWorkoutsOnce()
         val existingWorkoutIds = existingWorkouts.map { it.id }.toSet()
         var hasActiveDraft = existingWorkouts.any { !it.isCompleted }
@@ -505,6 +575,7 @@ class LocalBackupRepository @Inject constructor(
             restoredWorkouts = workoutsToInsert.size,
             restoredSets = validSets.size,
             skippedMissingExercises = skippedCount,
+            restoredScheduleDays = scheduleToUpsert.size,
         )
     }
 
@@ -520,8 +591,45 @@ class LocalBackupRepository @Inject constructor(
     private suspend fun readTextFromUri(uri: Uri): String = withContext(Dispatchers.IO) {
         val input = context.contentResolver.openInputStream(uri)
             ?: throw IOException("Unable to open input stream for $uri")
-        input.bufferedReader(Charsets.UTF_8).use { reader ->
-            reader.readText()
+        input.use { stream ->
+            val buffer = ByteArray(8 * 1024)
+            val output = ByteArrayOutputStream()
+            var totalBytes = 0L
+            while (true) {
+                val read = stream.read(buffer)
+                if (read <= 0) break
+                totalBytes += read
+                if (totalBytes > MAX_BACKUP_BYTES) {
+                    throw IllegalArgumentException("Backup file exceeds maximum allowed size")
+                }
+                output.write(buffer, 0, read)
+            }
+            output.toString(Charsets.UTF_8.name())
+        }
+    }
+
+    private fun BackupWeeklyScheduleEntry.toEntityOrNull(
+        validRoutineIds: Set<String>,
+    ): WeeklyScheduleEntity? {
+        val day = WeekScheduleHelper.dayFromIsoValueOrNull(dayOfWeek) ?: return null
+        val parsedStatus = ScheduleDayStatus.fromNameOrNull(status) ?: return null
+        return when (parsedStatus) {
+            ScheduleDayStatus.ROUTINE -> {
+                val targetRoutineId = routineId?.takeIf { it in validRoutineIds } ?: return null
+                WeeklyScheduleEntity(
+                    dayOfWeek = day.value,
+                    status = ScheduleDayStatus.ROUTINE.name,
+                    routineId = targetRoutineId,
+                    updatedAt = updatedAt,
+                )
+            }
+            ScheduleDayStatus.REST -> WeeklyScheduleEntity(
+                dayOfWeek = day.value,
+                status = ScheduleDayStatus.REST.name,
+                routineId = null,
+                updatedAt = updatedAt,
+            )
+            ScheduleDayStatus.UNSET -> null
         }
     }
 
@@ -542,6 +650,7 @@ class LocalBackupRepository @Inject constructor(
         createdAt = createdAt,
         updatedAt = updatedAt,
         exerciseType = exerciseType,
+        isDeleted = isDeleted,
     )
 
     private fun BackupExercise.toEntity(): ExerciseEntity {
@@ -567,6 +676,7 @@ class LocalBackupRepository @Inject constructor(
             createdAt = createdAt,
             updatedAt = updatedAt,
             exerciseType = exerciseType,
+            isDeleted = isDeleted,
         )
     }
 
@@ -620,11 +730,12 @@ class LocalBackupRepository @Inject constructor(
         isCompleted = isCompleted,
         isPr = isPr,
         completedAt = completedAt,
-        weightUnitMode = weightUnitMode,
+        weightUnitMode = WeightUnitMode.fromNameOrDefault(weightUnitMode).name,
     )
 
     companion object {
         private const val AUTO_BACKUP_DIR_NAME = "auto_backups"
         private const val LATEST_SNAPSHOT_FILE_NAME = "himma-auto-latest.himma.json"
+        private const val MAX_BACKUP_BYTES = 25L * 1024L * 1024L
     }
 }

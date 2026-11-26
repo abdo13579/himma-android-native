@@ -292,14 +292,21 @@ class RoutineEditorViewModel @Inject constructor(
 
         formState.update { it.copy(isSaving = true) }
         viewModelScope.launch {
-            routineRepository.saveRoutine(
-                existingId = current.routineId,
-                title = trimmedTitle,
-                notes = current.notes,
-                exercises = current.exercises,
-            )
-            formState.update { it.copy(isSaving = false) }
-            onSaved()
+            var saved = false
+            try {
+                routineRepository.saveRoutine(
+                    existingId = current.routineId,
+                    title = trimmedTitle,
+                    notes = current.notes,
+                    exercises = current.exercises,
+                )
+                saved = true
+            } finally {
+                formState.update { it.copy(isSaving = false) }
+            }
+            if (saved) {
+                onSaved()
+            }
         }
     }
 }

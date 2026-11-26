@@ -9,14 +9,17 @@ import com.himma.app.core.database.RoomAnalyticsRepository
 import com.himma.app.core.database.RoomExerciseRepository
 import com.himma.app.core.database.RoomRoutineRepository
 import com.himma.app.core.database.RoomUserProfileRepository
+import com.himma.app.core.database.RoomWeeklyScheduleRepository
 import com.himma.app.core.database.RoomWorkoutRepository
 import com.himma.app.core.database.RoutineRepository
 import com.himma.app.core.database.UserProfileRepository
+import com.himma.app.core.database.WeeklyScheduleRepository
 import com.himma.app.core.database.WorkoutRepository
 import com.himma.app.core.database.dao.AnalyticsDao
 import com.himma.app.core.database.dao.ExerciseDao
 import com.himma.app.core.database.dao.RoutineDao
 import com.himma.app.core.database.dao.UserProfileDao
+import com.himma.app.core.database.dao.WeeklyScheduleDao
 import com.himma.app.core.database.dao.WorkoutDao
 import dagger.Binds
 import dagger.Module
@@ -60,6 +63,12 @@ abstract class DatabaseModule {
         impl: RoomAnalyticsRepository,
     ): AnalyticsRepository
 
+    @Binds
+    @Singleton
+    abstract fun bindWeeklyScheduleRepository(
+        impl: RoomWeeklyScheduleRepository,
+    ): WeeklyScheduleRepository
+
     companion object {
         @Provides
         @Singleton
@@ -99,6 +108,11 @@ abstract class DatabaseModule {
         @Provides
         fun provideAnalyticsDao(database: HimmaDatabase): AnalyticsDao {
             return database.analyticsDao()
+        }
+
+        @Provides
+        fun provideWeeklyScheduleDao(database: HimmaDatabase): WeeklyScheduleDao {
+            return database.weeklyScheduleDao()
         }
     }
 }

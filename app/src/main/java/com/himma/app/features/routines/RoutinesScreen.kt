@@ -98,7 +98,7 @@ fun RoutinesScreen(
                         start = 16.dp,
                         end = 16.dp,
                         top = 12.dp,
-                        bottom = 80.dp,
+                        bottom = 104.dp,
                     ),
                     verticalArrangement = Arrangement.spacedBy(14.dp),
                 ) {
@@ -290,7 +290,7 @@ private fun RoutineCard(
                     }
                     if (routine.exercises.size > 4) {
                         Text(
-                            text = "+${routine.exercises.size - 4}",
+                            text = "\u200E+${routine.exercises.size - 4}\u200E",
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.primary,
                         )

@@ -10,13 +10,19 @@ enum class RestoreMode {
 @Serializable
 data class CustomExportOptions(
     val exportRoutines: Boolean = true,
+    val exportWeeklySchedule: Boolean = true,
     val exportCustomExercises: Boolean = true,
     val exportPreferences: Boolean = true,
     val exportWorkouts: Boolean = true,
     val exportProfileAndStats: Boolean = true,
 ) {
     val isAnySelected: Boolean
-        get() = exportRoutines || exportCustomExercises || exportPreferences || exportWorkouts || exportProfileAndStats
+        get() = exportRoutines ||
+            exportWeeklySchedule ||
+            exportCustomExercises ||
+            exportPreferences ||
+            exportWorkouts ||
+            exportProfileAndStats
 }
 
 enum class BackupValidationError {
@@ -43,6 +49,7 @@ data class HimmaBackupDocument(
     val customExercises: List<BackupExercise> = emptyList(),
     val routines: List<BackupRoutine> = emptyList(),
     val routineExercises: List<BackupRoutineExercise> = emptyList(),
+    val weeklySchedule: List<BackupWeeklyScheduleEntry> = emptyList(),
     val workouts: List<BackupWorkout> = emptyList(),
     val workoutSets: List<BackupWorkoutSet> = emptyList(),
     val personalRecords: List<BackupPersonalRecord> = emptyList(),
@@ -69,6 +76,15 @@ data class BackupPreferences(
     val defaultRestSeconds: Int = 90,
     val themeMode: String = ThemeMode.AMOLED_DARK.key,
     val useDynamicColor: Boolean = false,
+    val weekStartDay: String = "SATURDAY",
+)
+
+@Serializable
+data class BackupWeeklyScheduleEntry(
+    val dayOfWeek: Int,
+    val status: String,
+    val routineId: String? = null,
+    val updatedAt: Long = 0L,
 )
 
 @Serializable
@@ -87,6 +103,7 @@ data class BackupExercise(
     val createdAt: Long = 0L,
     val updatedAt: Long = 0L,
     val exerciseType: String = "REPS",
+    val isDeleted: Boolean = false,
 )
 
 @Serializable
@@ -173,6 +190,7 @@ data class BackupPreview(
     val routineCount: Int,
     val workoutCount: Int,
     val setCount: Int,
+    val weeklyScheduleCount: Int = 0,
 )
 
 data class RestoreSummary(
@@ -182,4 +200,5 @@ data class RestoreSummary(
     val restoredWorkouts: Int,
     val restoredSets: Int,
     val skippedMissingExercises: Int = 0,
+    val restoredScheduleDays: Int = 0,
 )

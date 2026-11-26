@@ -194,7 +194,7 @@ fun ExerciseLibraryScreen(
                             start = 16.dp,
                             end = 16.dp,
                             top = 4.dp,
-                            bottom = 80.dp,
+                            bottom = 104.dp,
                         ),
                         verticalArrangement = Arrangement.spacedBy(10.dp),
                     ) {

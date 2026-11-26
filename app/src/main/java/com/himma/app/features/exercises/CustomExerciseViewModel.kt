@@ -50,7 +50,7 @@ class CustomExerciseViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(CustomExerciseUiState(editingId = editingExerciseId))
     val uiState: StateFlow<CustomExerciseUiState> = _uiState.asStateFlow()
 
-    private val _events = MutableSharedFlow<CustomExerciseEvent>()
+    private val _events = MutableSharedFlow<CustomExerciseEvent>(extraBufferCapacity = 4)
     val events: SharedFlow<CustomExerciseEvent> = _events.asSharedFlow()
 
     init {
@@ -140,19 +140,22 @@ class CustomExerciseViewModel @Inject constructor(
 
         _uiState.update { it.copy(isSaving = true, nameError = false) }
         viewModelScope.launch {
-            val savedId = exerciseRepository.saveCustomExercise(
-                existingId = state.editingId,
-                nameAr = state.nameAr,
-                nameEn = state.nameEn,
-                primaryMuscle = state.primaryMuscle,
-                secondaryMuscles = state.secondaryMuscles.toList(),
-                equipment = state.equipment,
-                defaultRestSeconds = state.defaultRestSeconds,
-                instructionsAr = state.instructionsAr,
-                instructionsEn = state.instructionsEn,
-                exerciseType = state.exerciseType,
-            )
-            _uiState.update { it.copy(isSaving = false) }
+            val savedId = try {
+                exerciseRepository.saveCustomExercise(
+                    existingId = state.editingId,
+                    nameAr = state.nameAr,
+                    nameEn = state.nameEn,
+                    primaryMuscle = state.primaryMuscle,
+                    secondaryMuscles = state.secondaryMuscles.toList(),
+                    equipment = state.equipment,
+                    defaultRestSeconds = state.defaultRestSeconds,
+                    instructionsAr = state.instructionsAr,
+                    instructionsEn = state.instructionsEn,
+                    exerciseType = state.exerciseType,
+                )
+            } finally {
+                _uiState.update { it.copy(isSaving = false) }
+            }
             _events.emit(CustomExerciseEvent.Saved(savedId))
         }
     }

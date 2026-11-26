@@ -1,7 +1,10 @@
 package com.himma.app.core.database
 
 import com.himma.app.core.database.dao.ExerciseDao
+import com.himma.app.core.database.dao.SeedExerciseNameUpdate
 import com.himma.app.core.database.entity.ExerciseEntity
+import com.himma.app.core.datastore.UserPreferences
+import com.himma.app.core.datastore.UserPreferencesRepository
 import com.himma.app.domain.model.EquipmentType
 import com.himma.app.domain.model.Exercise
 import com.himma.app.domain.model.ExerciseType
@@ -12,6 +15,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -50,6 +54,7 @@ interface ExerciseRepository {
 class RoomExerciseRepository @Inject constructor(
     private val exerciseDao: ExerciseDao,
     private val seedLoader: ExerciseSeedLoader,
+    private val preferencesRepository: UserPreferencesRepository,
 ) : ExerciseRepository {
 
     private val seedMutex = Mutex()
@@ -60,15 +65,40 @@ class RoomExerciseRepository @Inject constructor(
         if (seededChecked) return
         seedMutex.withLock {
             if (seededChecked) return
+            val prefs = preferencesRepository.preferences.first()
             withContext(Dispatchers.IO) {
-                val currentCount = exerciseDao.countSeedExercises()
-                if (currentCount == 0) {
-                    val entities = seedLoader.loadSeedEntities()
-                    exerciseDao.insertAllIgnore(entities)
-                }
-                val needingNormalization = exerciseDao.getExercisesNeedingNormalization()
-                if (needingNormalization.isNotEmpty()) {
-                    val patched = needingNormalization.map { row ->
+                val seedCount = exerciseDao.countSeedExercises()
+                val needsSync = seedCount == 0 ||
+                    prefs.seedCatalogVersion < UserPreferences.CURRENT_SEED_CATALOG_VERSION
+                if (needsSync) {
+                    val seedEntities = seedLoader.loadSeedEntities()
+                    val existingSeedRows = exerciseDao.getSeedExerciseNamesOnce()
+                    val existingById = existingSeedRows.associateBy { it.id }
+                    val missingSeeds = seedEntities.filter { it.id !in existingById }
+                    val now = System.currentTimeMillis()
+                    val nameUpdates = seedEntities.mapNotNull { seed ->
+                        val current = existingById[seed.id]
+                        if (current != null &&
+                            (
+                                current.nameAr != seed.nameAr ||
+                                    current.equipment != seed.equipment ||
+                                    current.secondaryMuscles != seed.secondaryMuscles
+                                )
+                        ) {
+                            SeedExerciseNameUpdate(
+                                id = seed.id,
+                                nameAr = seed.nameAr,
+                                nameArNormalized = seed.nameArNormalized,
+                                equipment = seed.equipment,
+                                secondaryMuscles = seed.secondaryMuscles,
+                                updatedAt = now,
+                            )
+                        } else {
+                            null
+                        }
+                    }
+                    val needingNormalization = exerciseDao.getExercisesNeedingNormalization()
+                    val patches = needingNormalization.map { row ->
                         val normalizedEquipment = when {
                             row.id == "One-Arm_Kettlebell_Swings" -> EquipmentType.DUMBBELL.name
                             row.equipment == EquipmentType.OTHER.name -> EquipmentType.BODYWEIGHT.name
@@ -79,7 +109,12 @@ class RoomExerciseRepository @Inject constructor(
                             equipment = normalizedEquipment,
                         )
                     }
-                    exerciseDao.upsertAll(patched)
+                    exerciseDao.applySeedSync(
+                        missingSeeds = missingSeeds,
+                        nameUpdates = nameUpdates,
+                        normalizationPatches = patches,
+                    )
+                    preferencesRepository.setSeedCatalogVersion(UserPreferences.CURRENT_SEED_CATALOG_VERSION)
                 }
             }
             seededChecked = true
@@ -147,12 +182,15 @@ class RoomExerciseRepository @Inject constructor(
                 createdAt = existing?.createdAt ?: now,
                 updatedAt = now,
                 exerciseType = exerciseType.name,
+                isDeleted = false,
             ),
         )
         return resolvedId
     }
 
     override suspend fun deleteCustomExercise(id: String) {
-        exerciseDao.deleteCustomById(id)
+        withContext(Dispatchers.IO) {
+            exerciseDao.deleteCustomById(id, System.currentTimeMillis())
+        }
     }
 }

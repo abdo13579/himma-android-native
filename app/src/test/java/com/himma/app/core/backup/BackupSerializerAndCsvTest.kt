@@ -12,10 +12,13 @@ import com.himma.app.domain.model.BackupRoutine
 import com.himma.app.domain.model.BackupRoutineExercise
 import com.himma.app.domain.model.BackupValidationError
 import com.himma.app.domain.model.BackupValidationException
+import com.himma.app.domain.model.BackupWeeklyScheduleEntry
 import com.himma.app.domain.model.BackupWorkout
 import com.himma.app.domain.model.BackupWorkoutSet
 import com.himma.app.domain.model.HimmaBackupDocument
+import com.himma.app.domain.model.ScheduleDayStatus
 import com.himma.app.domain.model.WeightUnit
+import java.time.DayOfWeek
 import java.time.ZoneOffset
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -244,5 +247,150 @@ class BackupSerializerAndCsvTest {
         val decodedTheme = BackupSerializer.decodeAndValidate(encodedTheme).getOrThrow()
         assertEquals("FROST", decodedTheme.preferences?.themeMode)
         assertTrue(decodedTheme.routines.isEmpty())
+    }
+
+    @Test
+    fun `backup encodes and validates weekly schedule and week start day`() {
+        val doc = HimmaBackupDocument(
+            exportedAt = 1_731_000_000_000L,
+            appVersion = "1.3.0",
+            preferences = BackupPreferences(
+                weekStartDay = DayOfWeek.SUNDAY.name,
+            ),
+            routines = listOf(
+                BackupRoutine(id = "pull_1", title = "Pull Day"),
+            ),
+            weeklySchedule = listOf(
+                BackupWeeklyScheduleEntry(
+                    dayOfWeek = DayOfWeek.TUESDAY.value,
+                    status = ScheduleDayStatus.ROUTINE.name,
+                    routineId = "pull_1",
+                    updatedAt = 1000L,
+                ),
+                BackupWeeklyScheduleEntry(
+                    dayOfWeek = DayOfWeek.WEDNESDAY.value,
+                    status = ScheduleDayStatus.REST.name,
+                    routineId = null,
+                    updatedAt = 2000L,
+                ),
+            ),
+        )
+
+        val encoded = BackupSerializer.encode(doc)
+        val decoded = BackupSerializer.decodeAndValidate(encoded).getOrThrow()
+        val preview = BackupSerializer.preview(decoded)
+
+        assertEquals(DayOfWeek.SUNDAY.name, decoded.preferences?.weekStartDay)
+        assertEquals(2, decoded.weeklySchedule.size)
+        assertEquals(2, preview.weeklyScheduleCount)
+
+        val invalidDoc = doc.copy(
+            weeklySchedule = listOf(
+                BackupWeeklyScheduleEntry(
+                    dayOfWeek = DayOfWeek.MONDAY.value,
+                    status = ScheduleDayStatus.ROUTINE.name,
+                    routineId = null,
+                ),
+            ),
+        )
+        val invalidResult = BackupSerializer.decodeAndValidate(BackupSerializer.encode(invalidDoc))
+        assertTrue(invalidResult.isFailure)
+        val ex = invalidResult.exceptionOrNull() as BackupValidationException
+        assertEquals(BackupValidationError.CORRUPT_STRUCTURE, ex.error)
+    }
+
+    @Test
+    fun `decode rejects duplicate ids and out-of-range numeric values`() {
+        val duplicateSetDoc = HimmaBackupDocument(
+            workouts = listOf(BackupWorkout(id = "w1", title = "W1", startTime = 100L)),
+            workoutSets = listOf(
+                BackupWorkoutSet(id = "dup", workoutId = "w1", exerciseId = "ex1"),
+                BackupWorkoutSet(id = "dup", workoutId = "w1", exerciseId = "ex1", setIndex = 1),
+            ),
+        )
+        val dupResult = BackupSerializer.decodeAndValidate(BackupSerializer.encode(duplicateSetDoc))
+        assertEquals(
+            BackupValidationError.CORRUPT_STRUCTURE,
+            (dupResult.exceptionOrNull() as BackupValidationException).error,
+        )
+
+        val negativeRepsDoc = HimmaBackupDocument(
+            workouts = listOf(BackupWorkout(id = "w1", title = "W1", startTime = 100L)),
+            workoutSets = listOf(
+                BackupWorkoutSet(id = "s1", workoutId = "w1", exerciseId = "ex1", reps = -3),
+            ),
+        )
+        val rangeResult = BackupSerializer.decodeAndValidate(BackupSerializer.encode(negativeRepsDoc))
+        assertEquals(
+            BackupValidationError.CORRUPT_STRUCTURE,
+            (rangeResult.exceptionOrNull() as BackupValidationException).error,
+        )
+    }
+
+    @Test
+    fun `csv exporter neutralizes formula injection and exports stack plates and set duration`() {
+        val exercise = ExerciseEntity(
+            id = "Cable_Row",
+            nameEn = "Cable Row",
+            nameAr = "=SUM(A1:A2)",
+            nameArNormalized = "sum",
+            primaryMuscle = "BACK",
+            secondaryMuscles = "",
+            equipment = "CABLE",
+            instructionsEn = "",
+            instructionsAr = "",
+            localMediaKey = null,
+            defaultRestSeconds = 90,
+            isCustom = false,
+            createdAt = 1L,
+            updatedAt = 1L,
+        )
+        val workout = WorkoutWithSets(
+            workout = WorkoutEntity(
+                id = "w1",
+                routineId = null,
+                title = "+InjectedTitle",
+                startTime = 1_700_000_000_000L,
+                endTime = 1_700_001_000_000L,
+                durationSeconds = 1000,
+                totalVolumeKg = 0.0,
+                notes = "@cmd",
+                isCompleted = true,
+            ),
+            sets = listOf(
+                WorkoutSetWithExercise(
+                    set = WorkoutSetEntity(
+                        id = "s1",
+                        workoutId = "w1",
+                        exerciseId = "Cable_Row",
+                        exerciseOrder = 0,
+                        setIndex = 0,
+                        restSeconds = 90,
+                        weightKg = 6.0,
+                        reps = 12,
+                        durationSeconds = 45,
+                        rpe = null,
+                        setType = "NORMAL",
+                        isCompleted = true,
+                        isPr = false,
+                        completedAt = null,
+                        weightUnitMode = "STACK_PLATES",
+                    ),
+                    exercise = exercise,
+                ),
+            ),
+        )
+
+        val csv = CsvWorkoutExporter.exportWorkouts(
+            workouts = listOf(workout),
+            weightUnit = WeightUnit.LBS,
+            zoneId = ZoneOffset.UTC,
+        )
+
+        assertTrue(csv.contains("'+InjectedTitle"))
+        assertTrue(csv.contains("'=SUM(A1:A2)"))
+        assertTrue(csv.contains("'@cmd"))
+        assertTrue(csv.contains(",6,plates,12,"))
+        assertTrue(csv.contains(",45,STACK_PLATES"))
     }
 }

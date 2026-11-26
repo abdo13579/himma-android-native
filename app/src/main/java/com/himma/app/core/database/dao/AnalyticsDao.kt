@@ -80,6 +80,9 @@ interface AnalyticsDao {
     @Query("DELETE FROM personal_records")
     suspend fun deleteAllPersonalRecords()
 
+    @Query("DELETE FROM personal_records WHERE exercise_id = :exerciseId")
+    suspend fun deletePersonalRecordForExercise(exerciseId: String)
+
     @Query(
         """
         SELECT 
@@ -104,7 +107,7 @@ interface AnalyticsDao {
         SELECT 
             e.primary_muscle AS primaryMuscle,
             COUNT(ws.id) AS completedSetsCount,
-            COALESCE(SUM(ws.weight_kg * ws.reps), 0.0) AS totalVolumeKg
+            COALESCE(SUM(CASE WHEN ws.weight_unit_mode = 'STACK_PLATES' THEN 0.0 ELSE ws.weight_kg * ws.reps END), 0.0) AS totalVolumeKg
         FROM workout_sets ws
         INNER JOIN workouts w ON w.id = ws.workout_id
         INNER JOIN exercises e ON e.id = ws.exercise_id
@@ -129,6 +132,7 @@ interface AnalyticsDao {
         WHERE w.is_completed = 1
           AND ws.is_completed = 1
           AND ws.exercise_id = :exerciseId
+          AND ws.weight_unit_mode != 'STACK_PLATES'
           AND ws.weight_kg IS NOT NULL
           AND ws.reps IS NOT NULL
         ORDER BY w.start_time ASC, ws.exercise_order ASC, ws.set_index ASC

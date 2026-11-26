@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
 
 sealed interface PendingWorkoutStart {
     data class FromRoutine(val routine: Routine) : PendingWorkoutStart
@@ -54,28 +55,35 @@ class WorkoutLauncherViewModel @Inject constructor(
     private val _pendingConflict = MutableStateFlow<ActiveDraftConflict?>(null)
     val pendingConflict: StateFlow<ActiveDraftConflict?> = _pendingConflict.asStateFlow()
 
+    private val launchMutex = Mutex()
+
     fun requestStartFromRoutine(
         routine: Routine,
         onNavigateToWorkout: (String) -> Unit,
     ) {
+        if (!launchMutex.tryLock()) return
         viewModelScope.launch {
-            val currentDraft = workoutRepository.getActiveDraftOnce()
-            if (currentDraft != null) {
-                if (currentDraft.routineId == routine.id) {
-                    onNavigateToWorkout(currentDraft.id)
+            try {
+                val currentDraft = workoutRepository.getActiveDraftOnce()
+                if (currentDraft != null) {
+                    if (currentDraft.routineId == routine.id) {
+                        onNavigateToWorkout(currentDraft.id)
+                    } else {
+                        _pendingConflict.value = ActiveDraftConflict(
+                            activeDraft = currentDraft,
+                            pendingStart = PendingWorkoutStart.FromRoutine(routine),
+                        )
+                    }
                 } else {
-                    _pendingConflict.value = ActiveDraftConflict(
-                        activeDraft = currentDraft,
-                        pendingStart = PendingWorkoutStart.FromRoutine(routine),
+                    val defaultRest = preferencesRepository.preferences.first().defaultRestSeconds
+                    val newId = workoutRepository.startWorkoutFromRoutine(
+                        routineId = routine.id,
+                        userDefaultRestSeconds = defaultRest,
                     )
+                    onNavigateToWorkout(newId)
                 }
-            } else {
-                val defaultRest = preferencesRepository.preferences.first().defaultRestSeconds
-                val newId = workoutRepository.startWorkoutFromRoutine(
-                    routineId = routine.id,
-                    userDefaultRestSeconds = defaultRest,
-                )
-                onNavigateToWorkout(newId)
+            } finally {
+                launchMutex.unlock()
             }
         }
     }
@@ -84,16 +92,21 @@ class WorkoutLauncherViewModel @Inject constructor(
         defaultTitle: String,
         onNavigateToWorkout: (String) -> Unit,
     ) {
+        if (!launchMutex.tryLock()) return
         viewModelScope.launch {
-            val currentDraft = workoutRepository.getActiveDraftOnce()
-            if (currentDraft != null) {
-                _pendingConflict.value = ActiveDraftConflict(
-                    activeDraft = currentDraft,
-                    pendingStart = PendingWorkoutStart.Free(defaultTitle),
-                )
-            } else {
-                val newId = workoutRepository.startFreeWorkout(defaultTitle)
-                onNavigateToWorkout(newId)
+            try {
+                val currentDraft = workoutRepository.getActiveDraftOnce()
+                if (currentDraft != null) {
+                    _pendingConflict.value = ActiveDraftConflict(
+                        activeDraft = currentDraft,
+                        pendingStart = PendingWorkoutStart.Free(defaultTitle),
+                    )
+                } else {
+                    val newId = workoutRepository.startFreeWorkout(defaultTitle)
+                    onNavigateToWorkout(newId)
+                }
+            } finally {
+                launchMutex.unlock()
             }
         }
     }
@@ -110,23 +123,28 @@ class WorkoutLauncherViewModel @Inject constructor(
 
     fun discardAndStartPending(onNavigateToWorkout: (String) -> Unit) {
         val conflict = _pendingConflict.value ?: return
+        if (!launchMutex.tryLock()) return
         _pendingConflict.value = null
         restTimerController.skip()
         viewModelScope.launch {
-            workoutRepository.discardWorkout(conflict.activeDraft.id)
-            val newId = when (val pending = conflict.pendingStart) {
-                is PendingWorkoutStart.FromRoutine -> {
-                    val defaultRest = preferencesRepository.preferences.first().defaultRestSeconds
-                    workoutRepository.startWorkoutFromRoutine(
-                        routineId = pending.routine.id,
-                        userDefaultRestSeconds = defaultRest,
-                    )
+            try {
+                workoutRepository.discardWorkout(conflict.activeDraft.id)
+                val newId = when (val pending = conflict.pendingStart) {
+                    is PendingWorkoutStart.FromRoutine -> {
+                        val defaultRest = preferencesRepository.preferences.first().defaultRestSeconds
+                        workoutRepository.startWorkoutFromRoutine(
+                            routineId = pending.routine.id,
+                            userDefaultRestSeconds = defaultRest,
+                        )
+                    }
+                    is PendingWorkoutStart.Free -> {
+                        workoutRepository.startFreeWorkout(pending.defaultTitle)
+                    }
                 }
-                is PendingWorkoutStart.Free -> {
-                    workoutRepository.startFreeWorkout(pending.defaultTitle)
-                }
+                onNavigateToWorkout(newId)
+            } finally {
+                launchMutex.unlock()
             }
-            onNavigateToWorkout(newId)
         }
     }
 }

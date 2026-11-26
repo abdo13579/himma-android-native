@@ -25,6 +25,7 @@ import com.himma.app.features.routines.RoutinePickerFilterState
 import com.himma.app.service.RestTimerController
 import com.himma.app.service.RestTimerState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -37,6 +38,8 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 
 data class ActiveWorkoutUiState(
     val isLoading: Boolean = true,
@@ -62,7 +65,10 @@ class ActiveWorkoutViewModel @Inject constructor(
     private val restTimerController: RestTimerController,
 ) : ViewModel() {
 
-    private val workoutId: String = checkNotNull(savedStateHandle.get<String>("workoutId"))
+    private val workoutId: String = savedStateHandle.get<String>("workoutId").orEmpty()
+    private val setMutexes = ConcurrentHashMap<String, Mutex>()
+    private val latestSetEdits = ConcurrentHashMap<String, WorkoutSet>()
+    private val finishOrDiscardMutex = Mutex()
 
     private val isPickerOpenFlow = MutableStateFlow(false)
     private val pickerFilterFlow = MutableStateFlow(RoutinePickerFilterState())
@@ -126,58 +132,71 @@ class ActiveWorkoutViewModel @Inject constructor(
         }
     }
 
+    private fun mutexForSet(setId: String): Mutex = setMutexes.getOrPut(setId) { Mutex() }
+
+    private fun currentSetSnapshot(fallback: WorkoutSet): WorkoutSet {
+        val fromSession = uiState.value.session
+            ?.exercises
+            ?.asSequence()
+            ?.flatMap { it.sets.asSequence() }
+            ?.firstOrNull { it.id == fallback.id }
+        return latestSetEdits[fallback.id] ?: fromSession ?: fallback
+    }
+
     fun updateWeightFromInput(set: WorkoutSet, rawInput: String) {
         val parsedDisplay = parsePositiveOrZeroDecimal(rawInput)
-        val weightKg = if (set.weightUnitMode == WeightUnitMode.STACK_PLATES) {
-            parsedDisplay
-        } else {
-            parsedDisplay?.let { WeightUnit.toStorageKg(it, uiState.value.weightUnit) }
-        }
+        val unit = uiState.value.weightUnit
         viewModelScope.launch {
-            workoutRepository.updateSetValues(
-                setId = set.id,
-                weightKg = weightKg,
-                reps = set.reps,
-                durationSeconds = set.durationSeconds,
-                setType = set.setType,
-                rpe = set.rpe,
-            )
+            mutexForSet(set.id).withLock {
+                val base = currentSetSnapshot(set)
+                val weightKg = if (base.weightUnitMode == WeightUnitMode.STACK_PLATES) {
+                    parsedDisplay
+                } else {
+                    parsedDisplay?.let { WeightUnit.toStorageKg(it, unit) }
+                }
+                val updated = base.copy(weightKg = weightKg)
+                latestSetEdits[set.id] = updated
+                workoutRepository.updateSetValues(
+                    setId = base.id,
+                    weightKg = updated.weightKg,
+                    reps = updated.reps,
+                    durationSeconds = updated.durationSeconds,
+                    setType = updated.setType,
+                    rpe = updated.rpe,
+                )
+            }
         }
     }
 
     fun quickIncrementWeight(set: WorkoutSet, deltaDisplayUnit: Double) {
-        if (set.weightUnitMode == WeightUnitMode.STACK_PLATES) {
-            val currentPlates = set.weightKg ?: 0.0
-            val nextPlates = (currentPlates + deltaDisplayUnit).coerceAtLeast(0.0)
-            viewModelScope.launch {
+        val unit = uiState.value.weightUnit
+        viewModelScope.launch {
+            mutexForSet(set.id).withLock {
+                val base = currentSetSnapshot(set)
+                val nextKg = if (base.weightUnitMode == WeightUnitMode.STACK_PLATES) {
+                    val currentPlates = base.weightKg ?: 0.0
+                    (currentPlates + deltaDisplayUnit).coerceAtLeast(0.0)
+                } else {
+                    val currentDisplay = base.weightKg?.let { WeightUnit.toDisplayWeight(it, unit) } ?: 0.0
+                    val nextDisplay = (currentDisplay + deltaDisplayUnit).coerceAtLeast(0.0)
+                    WeightUnit.toStorageKg(nextDisplay, unit)
+                }
+                val updated = base.copy(weightKg = nextKg)
+                latestSetEdits[set.id] = updated
                 workoutRepository.updateSetValues(
-                    setId = set.id,
-                    weightKg = nextPlates,
-                    reps = set.reps,
-                    durationSeconds = set.durationSeconds,
-                    setType = set.setType,
-                    rpe = set.rpe,
-                )
-            }
-        } else {
-            val unit = uiState.value.weightUnit
-            val currentDisplay = set.weightKg?.let { WeightUnit.toDisplayWeight(it, unit) } ?: 0.0
-            val nextDisplay = (currentDisplay + deltaDisplayUnit).coerceAtLeast(0.0)
-            val nextKg = WeightUnit.toStorageKg(nextDisplay, unit)
-            viewModelScope.launch {
-                workoutRepository.updateSetValues(
-                    setId = set.id,
-                    weightKg = nextKg,
-                    reps = set.reps,
-                    durationSeconds = set.durationSeconds,
-                    setType = set.setType,
-                    rpe = set.rpe,
+                    setId = base.id,
+                    weightKg = updated.weightKg,
+                    reps = updated.reps,
+                    durationSeconds = updated.durationSeconds,
+                    setType = updated.setType,
+                    rpe = updated.rpe,
                 )
             }
         }
     }
 
     fun updateExerciseWeightUnitMode(group: WorkoutExerciseGroup, mode: WeightUnitMode) {
+        group.sets.forEach { set -> latestSetEdits.remove(set.id) }
         viewModelScope.launch {
             workoutRepository.updateExerciseWeightUnitMode(
                 workoutId = workoutId,
@@ -191,69 +210,92 @@ class ActiveWorkoutViewModel @Inject constructor(
     fun updateRepsFromInput(set: WorkoutSet, rawInput: String) {
         val parsedReps = rawInput.trim().toIntOrNull()?.coerceIn(0, 500)
         viewModelScope.launch {
-            workoutRepository.updateSetValues(
-                setId = set.id,
-                weightKg = set.weightKg,
-                reps = parsedReps,
-                durationSeconds = set.durationSeconds,
-                setType = set.setType,
-                rpe = set.rpe,
-            )
+            mutexForSet(set.id).withLock {
+                val base = currentSetSnapshot(set)
+                val updated = base.copy(reps = parsedReps)
+                latestSetEdits[set.id] = updated
+                workoutRepository.updateSetValues(
+                    setId = base.id,
+                    weightKg = updated.weightKg,
+                    reps = updated.reps,
+                    durationSeconds = updated.durationSeconds,
+                    setType = updated.setType,
+                    rpe = updated.rpe,
+                )
+            }
         }
     }
 
     fun updateDurationSeconds(set: WorkoutSet, seconds: Int?) {
         val clamped = seconds?.coerceIn(0, 86400)
         viewModelScope.launch {
-            workoutRepository.updateSetValues(
-                setId = set.id,
-                weightKg = set.weightKg,
-                reps = set.reps,
-                durationSeconds = clamped,
-                setType = set.setType,
-                rpe = set.rpe,
-            )
+            mutexForSet(set.id).withLock {
+                val base = currentSetSnapshot(set)
+                val updated = base.copy(durationSeconds = clamped)
+                latestSetEdits[set.id] = updated
+                workoutRepository.updateSetValues(
+                    setId = base.id,
+                    weightKg = updated.weightKg,
+                    reps = updated.reps,
+                    durationSeconds = updated.durationSeconds,
+                    setType = updated.setType,
+                    rpe = updated.rpe,
+                )
+            }
         }
     }
 
     fun quickIncrementDuration(set: WorkoutSet, deltaSeconds: Int) {
-        val current = set.durationSeconds ?: 0
-        val next = (current + deltaSeconds).coerceIn(0, 86400)
         viewModelScope.launch {
-            workoutRepository.updateSetValues(
-                setId = set.id,
-                weightKg = set.weightKg,
-                reps = set.reps,
-                durationSeconds = next,
-                setType = set.setType,
-                rpe = set.rpe,
-            )
+            mutexForSet(set.id).withLock {
+                val base = currentSetSnapshot(set)
+                val current = base.durationSeconds ?: 0
+                val next = (current + deltaSeconds).coerceIn(0, 86400)
+                val updated = base.copy(durationSeconds = next)
+                latestSetEdits[set.id] = updated
+                workoutRepository.updateSetValues(
+                    setId = base.id,
+                    weightKg = updated.weightKg,
+                    reps = updated.reps,
+                    durationSeconds = updated.durationSeconds,
+                    setType = updated.setType,
+                    rpe = updated.rpe,
+                )
+            }
         }
     }
 
     fun updateSetType(set: WorkoutSet, setType: SetType) {
         viewModelScope.launch {
-            workoutRepository.updateSetValues(
-                setId = set.id,
-                weightKg = set.weightKg,
-                reps = set.reps,
-                durationSeconds = set.durationSeconds,
-                setType = setType,
-                rpe = set.rpe,
-            )
+            mutexForSet(set.id).withLock {
+                val base = currentSetSnapshot(set)
+                val updated = base.copy(setType = setType)
+                latestSetEdits[set.id] = updated
+                workoutRepository.updateSetValues(
+                    setId = base.id,
+                    weightKg = updated.weightKg,
+                    reps = updated.reps,
+                    durationSeconds = updated.durationSeconds,
+                    setType = updated.setType,
+                    rpe = updated.rpe,
+                )
+            }
         }
     }
 
     fun toggleSetCompleted(set: WorkoutSet, exerciseDisplayName: String) {
         viewModelScope.launch {
-            val outcome: SetCompletionResult = workoutRepository.toggleSetCompleted(set.id)
-            if (outcome.isCompleted && outcome.shouldStartTimer) {
-                restTimerController.start(
-                    seconds = outcome.restSeconds,
-                    exerciseName = exerciseDisplayName,
-                )
-            } else if (!outcome.isCompleted) {
-                restTimerController.skip()
+            mutexForSet(set.id).withLock {
+                latestSetEdits.remove(set.id)
+                val outcome: SetCompletionResult = workoutRepository.toggleSetCompleted(set.id)
+                if (outcome.isCompleted && outcome.shouldStartTimer) {
+                    restTimerController.start(
+                        seconds = outcome.restSeconds,
+                        exerciseName = exerciseDisplayName,
+                    )
+                } else if (!outcome.isCompleted) {
+                    restTimerController.skip()
+                }
             }
         }
     }
@@ -271,13 +313,22 @@ class ActiveWorkoutViewModel @Inject constructor(
 
     fun removeSet(setId: String) {
         viewModelScope.launch {
-            workoutRepository.removeSet(setId)
+            mutexForSet(setId).withLock {
+                latestSetEdits.remove(setId)
+                workoutRepository.removeSet(setId)
+            }
+            setMutexes.remove(setId)
         }
     }
 
-    fun removeExercise(exerciseId: String) {
+    fun removeExercise(exerciseId: String, exerciseOrder: Int) {
+        uiState.value.session
+            ?.exercises
+            ?.filter { it.exercise.id == exerciseId && it.exerciseOrder == exerciseOrder }
+            ?.flatMap { it.sets }
+            ?.forEach { latestSetEdits.remove(it.id) }
         viewModelScope.launch {
-            workoutRepository.removeExerciseFromWorkout(workoutId, exerciseId)
+            workoutRepository.removeExerciseFromWorkout(workoutId, exerciseId, exerciseOrder)
         }
     }
 
@@ -338,20 +389,30 @@ class ActiveWorkoutViewModel @Inject constructor(
     }
 
     fun finishWorkout(onFinished: (FinishedWorkoutSummary) -> Unit) {
+        if (!finishOrDiscardMutex.tryLock()) return
         restTimerController.skip()
         viewModelScope.launch {
-            val summary = workoutRepository.finishWorkout(workoutId)
-            if (summary != null) {
-                onFinished(summary)
+            try {
+                val summary = workoutRepository.finishWorkout(workoutId)
+                if (summary != null) {
+                    onFinished(summary)
+                }
+            } finally {
+                finishOrDiscardMutex.unlock()
             }
         }
     }
 
     fun discardWorkout(onDiscarded: () -> Unit) {
+        if (!finishOrDiscardMutex.tryLock()) return
         restTimerController.skip()
         viewModelScope.launch {
-            workoutRepository.discardWorkout(workoutId)
-            onDiscarded()
+            try {
+                workoutRepository.discardWorkout(workoutId)
+                onDiscarded()
+            } finally {
+                finishOrDiscardMutex.unlock()
+            }
         }
     }
 

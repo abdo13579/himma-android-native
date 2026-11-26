@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
 
 data class ExerciseDetailUiState(
     val exercise: Exercise? = null,
@@ -35,9 +36,10 @@ class ExerciseDetailViewModel @Inject constructor(
     preferencesRepository: UserPreferencesRepository,
 ) : ViewModel() {
 
-    private val exerciseId: String = checkNotNull(savedStateHandle["exerciseId"])
+    private val exerciseId: String = savedStateHandle.get<String>("exerciseId").orEmpty()
+    private val deleteMutex = Mutex()
 
-    private val _events = MutableSharedFlow<ExerciseDetailEvent>()
+    private val _events = MutableSharedFlow<ExerciseDetailEvent>(extraBufferCapacity = 4)
     val events: SharedFlow<ExerciseDetailEvent> = _events.asSharedFlow()
 
     val uiState: StateFlow<ExerciseDetailUiState> = combine(
@@ -58,9 +60,14 @@ class ExerciseDetailViewModel @Inject constructor(
     fun deleteCustomExercise() {
         val current = uiState.value.exercise ?: return
         if (!current.isCustom) return
+        if (!deleteMutex.tryLock()) return
         viewModelScope.launch {
-            exerciseRepository.deleteCustomExercise(current.id)
-            _events.emit(ExerciseDetailEvent.Deleted)
+            try {
+                exerciseRepository.deleteCustomExercise(current.id)
+                _events.emit(ExerciseDetailEvent.Deleted)
+            } finally {
+                deleteMutex.unlock()
+            }
         }
     }
 }

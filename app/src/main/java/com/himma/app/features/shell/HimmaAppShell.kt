@@ -330,7 +330,22 @@ fun HimmaAppShell(
                             }
                         },
                         onNavigateToSettings = {
-                            navController.navigate(HimmaDestination.SETTINGS.route)
+                            navController.navigate(HimmaDestination.SETTINGS.route) {
+                                popUpTo(navController.graph.findStartDestination().id) {
+                                    saveState = true
+                                }
+                                launchSingleTop = true
+                                restoreState = true
+                            }
+                        },
+                        onNavigateToRoutines = {
+                            navController.navigate(HimmaDestination.ROUTINES.route) {
+                                popUpTo(navController.graph.findStartDestination().id) {
+                                    saveState = true
+                                }
+                                launchSingleTop = true
+                                restoreState = true
+                            }
                         },
                     )
                 }

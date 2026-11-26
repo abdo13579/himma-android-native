@@ -81,7 +81,7 @@ data class FinishedWorkoutSummary(
 object WorkoutMath {
     fun calculateTotalVolumeKg(sets: Iterable<WorkoutSet>): Double {
         return sets
-            .filter { it.isCompleted }
+            .filter { it.isCompleted && it.weightUnitMode != WeightUnitMode.STACK_PLATES }
             .sumOf { set ->
                 val weight = (set.weightKg ?: 0.0).coerceAtLeast(0.0)
                 val reps = (set.reps ?: 0).coerceAtLeast(0)

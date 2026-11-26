@@ -216,6 +216,55 @@ class ActiveWorkoutViewModelTest {
 
         collector.cancel()
     }
+
+    @Test
+    fun `rapid weight and reps updates from same snapshot preserve both fields`() = runTest {
+        val viewModel = ActiveWorkoutViewModel(
+            savedStateHandle = SavedStateHandle(mapOf("workoutId" to "w1")),
+            workoutRepository = fakeWorkoutRepo,
+            exerciseRepository = fakeExerciseRepo,
+            preferencesRepository = fakePrefsRepo,
+            restTimerController = fakeTimer,
+        )
+        val collector = backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) {
+            viewModel.uiState.collect()
+        }
+        advanceUntilIdle()
+
+        val staleSnapshot = viewModel.uiState.value.session!!.exercises.first().sets.first()
+        viewModel.updateWeightFromInput(staleSnapshot, "80")
+        viewModel.updateRepsFromInput(staleSnapshot, "10")
+        advanceUntilIdle()
+
+        val updated = viewModel.uiState.value.session!!.exercises.first().sets.first()
+        assertEquals(80.0, updated.weightKg!!, 0.01)
+        assertEquals(10, updated.reps)
+
+        collector.cancel()
+    }
+
+    @Test
+    fun `removeExercise deletes only matching exerciseOrder`() = runTest {
+        val viewModel = ActiveWorkoutViewModel(
+            savedStateHandle = SavedStateHandle(mapOf("workoutId" to "w1")),
+            workoutRepository = fakeWorkoutRepo,
+            exerciseRepository = fakeExerciseRepo,
+            preferencesRepository = fakePrefsRepo,
+            restTimerController = fakeTimer,
+        )
+        val collector = backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) {
+            viewModel.uiState.collect()
+        }
+        advanceUntilIdle()
+
+        viewModel.removeExercise("bench", exerciseOrder = 0)
+        advanceUntilIdle()
+
+        assertEquals(listOf("bench" to 0), fakeWorkoutRepo.removedExercises)
+        assertTrue(viewModel.uiState.value.session!!.exercises.isEmpty())
+
+        collector.cancel()
+    }
 }
 
 class FakeRestTimerController : RestTimerController {
@@ -242,7 +291,10 @@ class FakeRestTimerController : RestTimerController {
         }
     }
 
+    var skipCalls = 0
+
     override fun skip() {
+        skipCalls++
         _state.value = RestTimerState()
     }
 }
@@ -362,7 +414,22 @@ class FakeWorkoutRepository : WorkoutRepository {
         }
     }
 
-    override suspend fun removeExerciseFromWorkout(workoutId: String, exerciseId: String) {}
+    val removedExercises = mutableListOf<Pair<String, Int>>()
+
+    override suspend fun removeExerciseFromWorkout(
+        workoutId: String,
+        exerciseId: String,
+        exerciseOrder: Int,
+    ) {
+        removedExercises.add(exerciseId to exerciseOrder)
+        sessionFlow.value = sessionFlow.value?.let { current ->
+            current.copy(
+                exercises = current.exercises.filterNot {
+                    it.exercise.id == exerciseId && it.exerciseOrder == exerciseOrder
+                },
+            )
+        }
+    }
 
     override suspend fun updateExerciseWeightUnitMode(
         workoutId: String,

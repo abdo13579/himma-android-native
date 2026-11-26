@@ -70,5 +70,19 @@ class ExerciseSeedAssetsTest {
         assertEquals("REPS", byId["bench-press"]?.exerciseType)
         assertEquals("REPS", byId["squat"]?.exerciseType)
         assertEquals("REPS", byId["deadlift"]?.exerciseType)
+        assertTrue(
+            "deadlift should include LEGS in secondaryMuscles",
+            byId["deadlift"]?.secondaryMuscles?.contains("LEGS") == true,
+        )
+
+        entries.filter {
+            it.id.contains("band", ignoreCase = true) ||
+                it.nameEn.contains("band", ignoreCase = true)
+        }.forEach { bandExercise ->
+            assertFalse(
+                "Resistance band ${bandExercise.id} must not be CABLE so stack plates stays hidden",
+                bandExercise.equipment == "CABLE",
+            )
+        }
     }
 }

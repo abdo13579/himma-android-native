@@ -49,6 +49,8 @@ data class ExerciseEntity(
     val updatedAt: Long,
     @ColumnInfo(name = "exercise_type", defaultValue = "REPS")
     val exerciseType: String = ExerciseType.REPS.name,
+    @ColumnInfo(name = "is_deleted", defaultValue = "0")
+    val isDeleted: Boolean = false,
 ) {
     fun toDomain(): Exercise = Exercise(
         id = id,

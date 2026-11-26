@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">همة</string>
+    <string name="app_name">Himma</string>
 
     <!-- Navigation Tabs -->
     <string name="nav_today">Today</string>
@@ -20,7 +20,7 @@
     <string name="onboarding_body_weight_placeholder">e.g. 75.0</string>
     <string name="onboarding_rest_label">Default Rest Timer</string>
     <string name="onboarding_start_cta">Start Training</string>
-    <string name="onboarding_local_badge">All data stays 100% offline on your device</string>
+    <string name="onboarding_local_badge">Your workout data stays locally on your device</string>
 
     <!-- Languages & Units -->
     <string name="language_ar">العربية</string>
@@ -308,6 +308,7 @@
     <string name="update_permission_grant">Open Settings</string>
     <string name="update_banner_available">A new version of Himma is available (%s)</string>
     <string name="update_banner_action">View</string>
+    <string name="update_banner_dismiss">Dismiss</string>
 
     <!-- Exercise Type & Duration -->
     <string name="exercise_type_label">Exercise Type</string>
@@ -352,4 +353,56 @@
     <string name="dialog_cancel">Cancel</string>
 
     <string name="settings_updates_managed_by_store">This version is distributed via Google Play. Updates are delivered automatically through the Play Store.</string>
+
+    <!-- About & External Links -->
+    <string name="settings_section_about">About &amp; Links</string>
+    <string name="settings_about_desc">Himma is free, open-source, and offline-first. Review the source code or our privacy policy anytime on GitHub.</string>
+    <string name="settings_view_github_repo">View GitHub Repository</string>
+    <string name="settings_privacy_policy">Privacy Policy</string>
+    <string name="settings_open_link_error">No browser app found to open this link</string>
+    <string name="settings_send_feedback">Send Feedback &amp; Suggestions</string>
+    <string name="settings_open_email_error">No email app found to send feedback</string>
+
+    <!-- Weekly Schedule & Days -->
+    <string name="day_full_sat">Saturday</string>
+    <string name="day_full_sun">Sunday</string>
+    <string name="day_full_mon">Monday</string>
+    <string name="day_full_tue">Tuesday</string>
+    <string name="day_full_wed">Wednesday</string>
+    <string name="day_full_thu">Thursday</string>
+    <string name="day_full_fri">Friday</string>
+    <string name="day_short_sat">Sat</string>
+    <string name="day_short_sun">Sun</string>
+    <string name="day_short_mon">Mon</string>
+    <string name="day_short_tue">Tue</string>
+    <string name="day_short_wed">Wed</string>
+    <string name="day_short_thu">Thu</string>
+    <string name="day_short_fri">Fri</string>
+
+    <string name="settings_week_start_label">Week Start Day</string>
+    <string name="backup_export_weekly_schedule">Weekly schedule (workout &amp; rest days)</string>
+
+    <string name="today_schedule_title">Weekly Schedule</string>
+    <string name="today_schedule_today_header">Today • %1$s</string>
+    <string name="today_schedule_day_header">%1$s Schedule</string>
+    <string name="today_schedule_edit">Edit</string>
+    <string name="today_schedule_set_cta">Set Routine or Rest</string>
+    <string name="today_schedule_rest_title">Rest Day</string>
+    <string name="today_schedule_rest_desc">Recovery day — recharge for your next session.</string>
+    <string name="today_schedule_unset_title">No routine scheduled</string>
+    <string name="today_schedule_unset_desc">Assign a workout routine or mark this day as rest.</string>
+    <string name="today_schedule_completed_badge">Completed Today</string>
+    <string name="today_schedule_sheet_title">Schedule for %1$s</string>
+    <string name="today_schedule_option_rest">Rest Day</string>
+    <string name="today_schedule_option_rest_desc">Mark this day as a recovery day</string>
+    <string name="today_schedule_option_clear">Clear Day Schedule</string>
+    <string name="today_schedule_routines_header">Choose a Routine</string>
+    <string name="today_schedule_no_routines">You haven\'t created any routines yet.</string>
+    <string name="today_schedule_create_routine_cta">Go to Routines</string>
+    <string name="today_schedule_today_badge">Today</string>
+
+    <!-- Localization & Update Dialog Details -->
+    <string name="workout_pr_badge">PR 🏆</string>
+    <string name="update_dialog_size_mb">Size: %1$.1f MB</string>
+    <string name="update_download_ready">Download completed. Ready to install.</string>
 </resources>

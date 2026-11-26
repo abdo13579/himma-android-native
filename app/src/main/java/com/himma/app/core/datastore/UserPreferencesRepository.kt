@@ -10,8 +10,10 @@ import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.himma.app.domain.model.AppLanguage
 import com.himma.app.domain.model.ThemeMode
+import com.himma.app.domain.model.WeekScheduleHelper
 import com.himma.app.domain.model.WeightUnit
 import java.io.IOException
+import java.time.DayOfWeek
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.flow.Flow
@@ -37,12 +39,15 @@ interface UserPreferencesRepository {
     suspend fun setLastAutoBackupAt(timestampMillis: Long?)
     suspend fun setAutoCheckUpdates(enabled: Boolean)
     suspend fun setAnimationsEnabled(enabled: Boolean)
+    suspend fun setWeekStartDay(dayOfWeek: DayOfWeek)
+    suspend fun setSeedCatalogVersion(version: Int)
     suspend fun restorePreferences(
         language: AppLanguage,
         weightUnit: WeightUnit,
         defaultRestSeconds: Int,
         themeMode: ThemeMode,
         useDynamicColor: Boolean,
+        weekStartDay: DayOfWeek = WeekScheduleHelper.DEFAULT_WEEK_START,
     )
 }
 
@@ -62,6 +67,8 @@ class DataStoreUserPreferencesRepository @Inject constructor(
         val LAST_AUTO_BACKUP_AT = longPreferencesKey("last_auto_backup_at")
         val AUTO_CHECK_UPDATES = booleanPreferencesKey("auto_check_updates")
         val ANIMATIONS_ENABLED = booleanPreferencesKey("animations_enabled")
+        val WEEK_START_DAY = stringPreferencesKey("week_start_day")
+        val SEED_CATALOG_VERSION = intPreferencesKey("seed_catalog_version")
     }
 
     override val preferences: Flow<UserPreferences> = dataStore.data
@@ -85,6 +92,8 @@ class DataStoreUserPreferencesRepository @Inject constructor(
                 lastAutoBackupAt = prefs[Keys.LAST_AUTO_BACKUP_AT],
                 autoCheckUpdates = prefs[Keys.AUTO_CHECK_UPDATES] ?: true,
                 animationsEnabled = prefs[Keys.ANIMATIONS_ENABLED] ?: true,
+                weekStartDay = WeekScheduleHelper.dayFromNameOrDefault(prefs[Keys.WEEK_START_DAY]),
+                seedCatalogVersion = prefs[Keys.SEED_CATALOG_VERSION] ?: 0,
             )
         }
 
@@ -147,12 +156,21 @@ class DataStoreUserPreferencesRepository @Inject constructor(
         dataStore.edit { it[Keys.ANIMATIONS_ENABLED] = enabled }
     }
 
+    override suspend fun setWeekStartDay(dayOfWeek: DayOfWeek) {
+        dataStore.edit { it[Keys.WEEK_START_DAY] = dayOfWeek.name }
+    }
+
+    override suspend fun setSeedCatalogVersion(version: Int) {
+        dataStore.edit { it[Keys.SEED_CATALOG_VERSION] = version }
+    }
+
     override suspend fun restorePreferences(
         language: AppLanguage,
         weightUnit: WeightUnit,
         defaultRestSeconds: Int,
         themeMode: ThemeMode,
         useDynamicColor: Boolean,
+        weekStartDay: DayOfWeek,
     ) {
         dataStore.edit { prefs ->
             prefs[Keys.LANGUAGE] = language.tag
@@ -160,6 +178,7 @@ class DataStoreUserPreferencesRepository @Inject constructor(
             prefs[Keys.DEFAULT_REST_SECONDS] = defaultRestSeconds.coerceIn(15, 600)
             prefs[Keys.THEME_MODE] = themeMode.key
             prefs[Keys.USE_DYNAMIC_COLOR] = useDynamicColor
+            prefs[Keys.WEEK_START_DAY] = weekStartDay.name
             prefs[Keys.ONBOARDING_COMPLETED] = true
         }
     }

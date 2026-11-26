@@ -2,6 +2,7 @@ package com.himma.app.core.backup
 
 import com.himma.app.core.database.dao.WorkoutWithSets
 import com.himma.app.domain.model.WeightUnit
+import com.himma.app.domain.model.WeightUnitMode
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -28,6 +29,8 @@ object CsvWorkoutExporter {
         "is_completed",
         "is_pr",
         "workout_notes",
+        "set_duration_seconds",
+        "weight_unit_mode",
     )
 
     fun exportWorkouts(
@@ -67,14 +70,21 @@ object CsvWorkoutExporter {
                     "",
                     "",
                     workout.notes,
+                    "",
+                    "",
                 )
                 sb.appendLine(row.joinToString(",") { escapeCsv(it) })
             } else {
                 orderedSets.forEach { setWithExercise ->
                     val set = setWithExercise.set
-                    val displayWeight = set.weightKg?.let { kg ->
-                        WeightUnit.toDisplayWeight(kg, weightUnit).toString()
-                    }.orEmpty()
+                    val unitMode = WeightUnitMode.fromNameOrDefault(set.weightUnitMode)
+                    val displayWeight = when {
+                        set.weightKg == null -> ""
+                        unitMode == WeightUnitMode.STACK_PLATES ->
+                            if (set.weightKg % 1.0 == 0.0) set.weightKg.toInt().toString() else set.weightKg.toString()
+                        else -> WeightUnit.toDisplayWeight(set.weightKg, weightUnit).toString()
+                    }
+                    val displayUnit = if (unitMode == WeightUnitMode.STACK_PLATES) "plates" else weightUnit.code
                     val row = listOf(
                         workout.id,
                         dateIso,
@@ -87,12 +97,14 @@ object CsvWorkoutExporter {
                         (set.setIndex + 1).toString(),
                         set.setType,
                         displayWeight,
-                        weightUnit.code,
+                        displayUnit,
                         set.reps?.toString().orEmpty(),
                         set.rpe?.toString().orEmpty(),
                         set.isCompleted.toString(),
                         set.isPr.toString(),
                         workout.notes,
+                        set.durationSeconds?.toString().orEmpty(),
+                        unitMode.name,
                     )
                     sb.appendLine(row.joinToString(",") { escapeCsv(it) })
                 }
@@ -103,9 +115,17 @@ object CsvWorkoutExporter {
     }
 
     internal fun escapeCsv(value: String): String {
-        val needsQuoting = value.any { it == ',' || it == '"' || it == '\n' || it == '\r' }
-        if (!needsQuoting) return value
-        val escaped = value.replace("\"", "\"\"")
+        val neutralized = if (
+            value.isNotEmpty() &&
+            value[0].let { it == '=' || it == '+' || it == '-' || it == '@' || it == '\t' || it == '\r' }
+        ) {
+            "'$value"
+        } else {
+            value
+        }
+        val needsQuoting = neutralized.any { it == ',' || it == '"' || it == '\n' || it == '\r' }
+        if (!needsQuoting) return neutralized
+        val escaped = neutralized.replace("\"", "\"\"")
         return "\"$escaped\""
     }
 }

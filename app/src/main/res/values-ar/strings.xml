@@ -20,7 +20,7 @@
     <string name="onboarding_body_weight_placeholder">مثال: 75.0</string>
     <string name="onboarding_rest_label">وقت الراحة الافتراضي</string>
     <string name="onboarding_start_cta">ابدأ التمرين</string>
-    <string name="onboarding_local_badge">جميع بياناتك محفوظة محلياً على جهازك فقط</string>
+    <string name="onboarding_local_badge">بيانات تمارينك محفوظة محلياً على جهازك</string>
 
     <!-- Languages & Units -->
     <string name="language_ar">العربية</string>
@@ -220,8 +220,8 @@
     <string name="set_type_failure">فشل</string>
 
     <string name="rest_timer_label">مؤقت الراحة</string>
-    <string name="rest_timer_minus_15">-15 ث</string>
-    <string name="rest_timer_plus_15">+15 ث</string>
+    <string name="rest_timer_minus_15">&#x200E;-15&#x200E; ث</string>
+    <string name="rest_timer_plus_15">&#x200E;+15&#x200E; ث</string>
     <string name="rest_timer_skip">تخطي</string>
     <string name="rest_channel_progress_name">مؤقت الراحة أثناء التمرين</string>
     <string name="rest_channel_progress_desc">يعرض العد التنازلي المستمر للراحة على شاشة القفل</string>
@@ -308,6 +308,7 @@
     <string name="update_permission_grant">فتح الإعدادات</string>
     <string name="update_banner_available">يتوفر إصدار جديد من هِمّة (%s)</string>
     <string name="update_banner_action">عرض</string>
+    <string name="update_banner_dismiss">تجاهل</string>
 
     <!-- Exercise Type & Duration -->
     <string name="exercise_type_label">نوع التمرين</string>
@@ -352,4 +353,56 @@
     <string name="dialog_cancel">إلغاء</string>
 
     <string name="settings_updates_managed_by_store">تم تثبيت هذا الإصدار عبر متجر Google Play. يتم استلام التحديثات تلقائياً من خلال المتجر.</string>
+
+    <!-- About & External Links -->
+    <string name="settings_section_about">حول التطبيق والروابط</string>
+    <string name="settings_about_desc">تطبيق هِمّة مجاني ومفتوح المصدر ويعمل بمبدأ الأولوية للوضع المحلي (Offline-First). يمكنك استعراض الكود المصدري أو مراجعة سياسة الخصوصية على GitHub في أي وقت.</string>
+    <string name="settings_view_github_repo">عرض المستودع على GitHub</string>
+    <string name="settings_privacy_policy">سياسة الخصوصية</string>
+    <string name="settings_open_link_error">لم يتم العثور على تطبيق متصفح لفتح الرابط</string>
+    <string name="settings_send_feedback">إرسال اقتراح أو ملاحظة</string>
+    <string name="settings_open_email_error">لم يتم العثور على تطبيق بريد إلكتروني لإرسال الرسالة</string>
+
+    <!-- Weekly Schedule & Days -->
+    <string name="day_full_sat">السبت</string>
+    <string name="day_full_sun">الأحد</string>
+    <string name="day_full_mon">الاثنين</string>
+    <string name="day_full_tue">الثلاثاء</string>
+    <string name="day_full_wed">الأربعاء</string>
+    <string name="day_full_thu">الخميس</string>
+    <string name="day_full_fri">الجمعة</string>
+    <string name="day_short_sat">السبت</string>
+    <string name="day_short_sun">الأحد</string>
+    <string name="day_short_mon">الاثنين</string>
+    <string name="day_short_tue">الثلاثاء</string>
+    <string name="day_short_wed">الأربعاء</string>
+    <string name="day_short_thu">الخميس</string>
+    <string name="day_short_fri">الجمعة</string>
+
+    <string name="settings_week_start_label">بداية الأسبوع</string>
+    <string name="backup_export_weekly_schedule">الجدول الأسبوعي (أيام التمرين والراحة)</string>
+
+    <string name="today_schedule_title">جدولك الأسبوعي</string>
+    <string name="today_schedule_today_header">تمرين اليوم • %1$s</string>
+    <string name="today_schedule_day_header">جدول %1$s</string>
+    <string name="today_schedule_edit">تعديل</string>
+    <string name="today_schedule_set_cta">تحديد روتين أو راحة</string>
+    <string name="today_schedule_rest_title">يوم راحة</string>
+    <string name="today_schedule_rest_desc">يوم مخصص للراحة والاستشفاء العضلي.</string>
+    <string name="today_schedule_unset_title">لم تحدد روتيناً لهذا اليوم</string>
+    <string name="today_schedule_unset_desc">اختر روتين تمرين لهذا اليوم أو اجعله يوم راحة.</string>
+    <string name="today_schedule_completed_badge">أُنجز اليوم</string>
+    <string name="today_schedule_sheet_title">جدول يوم %1$s</string>
+    <string name="today_schedule_option_rest">راحة</string>
+    <string name="today_schedule_option_rest_desc">تعيين هذا اليوم كيوم راحة</string>
+    <string name="today_schedule_option_clear">إزالة التخصيص</string>
+    <string name="today_schedule_routines_header">اختر روتيناً</string>
+    <string name="today_schedule_no_routines">لم تنشئ أي روتين تدريبي بعد.</string>
+    <string name="today_schedule_create_routine_cta">الانتقال إلى الروتينات</string>
+    <string name="today_schedule_today_badge">اليوم</string>
+
+    <!-- Localization & Update Dialog Details -->
+    <string name="workout_pr_badge">رقم قياسي 🏆</string>
+    <string name="update_dialog_size_mb">الحجم: %1$.1f ميجابايت</string>
+    <string name="update_download_ready">اكتمل التنزيل بنجاح، يمكنك التثبيت الآن.</string>
 </resources>

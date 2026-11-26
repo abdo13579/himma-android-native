@@ -10,6 +10,7 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.pm.ServiceInfo
 import android.media.AudioAttributes
 import android.media.RingtoneManager
 import android.os.Build
@@ -19,6 +20,7 @@ import android.os.VibrationEffect
 import android.os.Vibrator
 import android.os.VibratorManager
 import androidx.core.app.NotificationCompat
+import androidx.core.app.ServiceCompat
 import androidx.core.content.ContextCompat
 import com.himma.app.MainActivity
 import com.himma.app.R
@@ -113,7 +115,36 @@ class RestTimerForegroundService : Service() {
             ),
         )
 
-        startForeground(NOTIFICATION_ID_PROGRESS, buildProgressNotification(seconds))
+        val foregroundStarted = try {
+            val fgsType = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE
+            } else {
+                0
+            }
+            ServiceCompat.startForeground(
+                this,
+                NOTIFICATION_ID_PROGRESS,
+                buildProgressNotification(seconds),
+                fgsType,
+            )
+            true
+        } catch (_: SecurityException) {
+            false
+        } catch (_: IllegalStateException) {
+            false
+        }
+
+        if (!foregroundStarted) {
+            // Stop service immediately to avoid ForegroundServiceDidNotStartInTimeException
+            // and trigger the controller's in-process fallback timer without clearing state.
+            tickerJob?.cancel()
+            cancelWakeupAlarm()
+            endElapsedMs = 0L
+            stateHolder.notifyForegroundRejected()
+            stopSelf()
+            return
+        }
+
         scheduleWakeupAlarm(endElapsedMs)
         startTickerLoop()
     }
@@ -185,7 +216,7 @@ class RestTimerForegroundService : Service() {
         triggerAlertVibration()
         postCompletionNotification(completedExerciseName)
 
-        stopForeground(STOP_FOREGROUND_REMOVE)
+        ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_REMOVE)
         stopSelf()
     }
 
@@ -194,13 +225,17 @@ class RestTimerForegroundService : Service() {
         cancelWakeupAlarm()
         endElapsedMs = 0L
         stateHolder.clear()
-        stopForeground(STOP_FOREGROUND_REMOVE)
+        ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_REMOVE)
         stopSelf()
     }
 
     private fun postProgressNotification(remainingSec: Int) {
         if (!canPostNotifications()) return
-        notificationManager.notify(NOTIFICATION_ID_PROGRESS, buildProgressNotification(remainingSec))
+        try {
+            notificationManager.notify(NOTIFICATION_ID_PROGRESS, buildProgressNotification(remainingSec))
+        } catch (_: SecurityException) {
+            // Ignore if notification permission was revoked mid-countdown.
+        }
     }
 
     private fun postCompletionNotification(exerciseName: String) {
@@ -215,7 +250,11 @@ class RestTimerForegroundService : Service() {
             .setAutoCancel(true)
             .setContentIntent(createLaunchIntent())
             .build()
-        notificationManager.notify(NOTIFICATION_ID_COMPLETE, notification)
+        try {
+            notificationManager.notify(NOTIFICATION_ID_COMPLETE, notification)
+        } catch (_: SecurityException) {
+            // Ignore if notification permission was revoked mid-countdown.
+        }
     }
 
     private fun buildProgressNotification(remainingSec: Int): Notification {
@@ -293,11 +332,19 @@ class RestTimerForegroundService : Service() {
     private fun scheduleWakeupAlarm(triggerAtElapsedMs: Long) {
         val alarmIntent = createAlarmPendingIntent()
         try {
-            alarmManager.setAndAllowWhileIdle(
-                AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                triggerAtElapsedMs,
-                alarmIntent,
-            )
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S || alarmManager.canScheduleExactAlarms()) {
+                alarmManager.setExactAndAllowWhileIdle(
+                    AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                    triggerAtElapsedMs,
+                    alarmIntent,
+                )
+            } else {
+                alarmManager.setAndAllowWhileIdle(
+                    AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                    triggerAtElapsedMs,
+                    alarmIntent,
+                )
+            }
         } catch (_: SecurityException) {
             // Safe fallback: coroutine loop still handles foreground countdown.
         }

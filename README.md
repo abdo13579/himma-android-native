@@ -9,12 +9,12 @@
 ![Material 3](https://img.shields.io/badge/Material%20Design-3-16A34A?logo=materialdesign&logoColor=white)
 ![Android SDK](https://img.shields.io/badge/Android-8.0+_(SDK_26--36)-brightgreen?logo=android&logoColor=white)
 ![License](https://img.shields.io/badge/License-PolyForm%20Noncommercial-blue)
-![Offline](https://img.shields.io/badge/100%25-Offline%20&%20Private-black)
+![Offline-First](https://img.shields.io/badge/Offline--First-Private-black)
 
 <br/>
 
-**تطبيق أندرويد مفتوح المصدر لتسجيل تمارين الجيم وتتبع الأحمال التدريبية بدون إنترنت، بدون إعلانات، وبخصوصية تامة 100%.**  
-*A 100% offline, privacy-first native Android gym workout tracker and progressive overload companion.*
+**تطبيق أندرويد مفتوح المصدر لتسجيل تمارين الجيم وتتبع الأحمال التدريبية بمبدأ الأولوية للوضع المحلي (Offline-First)، بدون إعلانات، مع عمل جميع الميزات الأساسية بدون إنترنت.**  
+*An offline-first, privacy-respecting native Android gym workout tracker and progressive overload companion — core features work completely offline with zero ads.*
 
 </div>
 
@@ -86,7 +86,7 @@ cd himma-android-native
 
 ## 🔒 الخصوصية (Privacy Policy)
 
-تطبيق هِمّة يعمل محلياً 100% بدون إنترنت ولا يجمع أو يشارك أي بيانات شخصية أو إحصائية نهائياً.  
+يعمل تطبيق هِمّة بمبدأ الأولوية للوضع المحلي (Offline-First)؛ حيث تُحفظ بيانات تمارينك على جهازك وتعمل جميع الميزات الأساسية دون الحاجة للاتصال بالإنترنت، ودون إعلانات أو تتبّع طرف ثالث، بينما تبقى أي ميزات أو تفاعلات تتطلب الإنترنت اختيارية بالكامل ولا تؤثر على عمل التطبيق بدون اتصال.  
 يمكنك مراجعة **[سياسة الخصوصية الرسمية (Privacy Policy)](PRIVACY_POLICY.md)** للتفاصيل.
 
 ---

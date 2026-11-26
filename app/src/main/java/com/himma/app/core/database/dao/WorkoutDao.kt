@@ -108,9 +108,6 @@ interface WorkoutDao {
     @Query("SELECT COALESCE(MAX(exercise_order), -1) FROM workout_sets WHERE workout_id = :workoutId")
     suspend fun getMaxExerciseOrder(workoutId: String): Int
 
-    @Query("SELECT COALESCE(MAX(set_index), -1) FROM workout_sets WHERE workout_id = :workoutId AND exercise_id = :exerciseId")
-    suspend fun getMaxSetIndexForExercise(workoutId: String, exerciseId: String): Int
-
     @Query("SELECT COALESCE(MAX(set_index), -1) FROM workout_sets WHERE workout_id = :workoutId AND exercise_id = :exerciseId AND exercise_order = :exerciseOrder")
     suspend fun getMaxSetIndexForExerciseOrder(workoutId: String, exerciseId: String, exerciseOrder: Int): Int
 
@@ -190,8 +187,25 @@ interface WorkoutDao {
     @Query("DELETE FROM workout_sets WHERE id = :setId")
     suspend fun deleteSetById(setId: String)
 
-    @Query("DELETE FROM workout_sets WHERE workout_id = :workoutId AND exercise_id = :exerciseId")
-    suspend fun deleteSetsForExercise(workoutId: String, exerciseId: String)
+    @Query(
+        "DELETE FROM workout_sets WHERE workout_id = :workoutId AND exercise_id = :exerciseId AND exercise_order = :exerciseOrder",
+    )
+    suspend fun deleteSetsForExerciseOrder(workoutId: String, exerciseId: String, exerciseOrder: Int)
+
+    @Query(
+        """
+        SELECT ws.* FROM workout_sets ws
+        INNER JOIN workouts w ON w.id = ws.workout_id
+        WHERE w.is_completed = 1
+          AND ws.is_completed = 1
+          AND ws.exercise_id = :exerciseId
+          AND ws.weight_unit_mode != 'STACK_PLATES'
+          AND ws.weight_kg IS NOT NULL
+          AND ws.reps IS NOT NULL
+        ORDER BY w.start_time ASC, ws.exercise_order ASC, ws.set_index ASC
+        """
+    )
+    suspend fun getCompletedWeightSetsForExerciseAsc(exerciseId: String): List<WorkoutSetEntity>
 
     @Query("DELETE FROM workouts WHERE id = :workoutId")
     suspend fun deleteWorkoutById(workoutId: String)

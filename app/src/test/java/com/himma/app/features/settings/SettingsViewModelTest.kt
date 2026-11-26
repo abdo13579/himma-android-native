@@ -1,6 +1,8 @@
 package com.himma.app.features.settings
 
+import android.content.Context
 import android.net.Uri
+import java.io.File
 import com.himma.app.core.backup.AutoBackupScheduler
 import com.himma.app.core.backup.BackupInspection
 import com.himma.app.core.backup.BackupRepository
@@ -9,6 +11,7 @@ import com.himma.app.core.updater.AppUpdateInfo
 import com.himma.app.core.updater.AppUpdateRepository
 import com.himma.app.core.updater.UpdateCheckUiState
 import com.himma.app.core.updater.UpdateDownloadState
+import com.himma.app.core.updater.UpdateInstaller
 import com.himma.app.domain.model.AppLanguage
 import com.himma.app.domain.model.BackupPreview
 import com.himma.app.domain.model.BackupValidationError
@@ -21,6 +24,7 @@ import com.himma.app.domain.model.ThemeMode
 import com.himma.app.domain.model.WeightUnit
 import com.himma.app.features.onboarding.FakeUserPreferencesRepository
 import com.himma.app.features.onboarding.FakeUserProfileRepository
+import java.time.DayOfWeek
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
@@ -50,6 +54,7 @@ class SettingsViewModelTest {
     private lateinit var fakeBackupRepo: FakeBackupRepository
     private lateinit var fakeScheduler: FakeAutoBackupScheduler
     private lateinit var fakeUpdateRepo: FakeAppUpdateRepository
+    private lateinit var fakeUpdateInstaller: FakeUpdateInstaller
 
     @Before
     fun setup() {
@@ -59,6 +64,7 @@ class SettingsViewModelTest {
         fakeBackupRepo = FakeBackupRepository()
         fakeScheduler = FakeAutoBackupScheduler()
         fakeUpdateRepo = FakeAppUpdateRepository()
+        fakeUpdateInstaller = FakeUpdateInstaller()
     }
 
     @After
@@ -74,6 +80,7 @@ class SettingsViewModelTest {
             fakeBackupRepo,
             fakeScheduler,
             fakeUpdateRepo,
+            fakeUpdateInstaller,
         )
         val collector = backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) {
             viewModel.uiState.collect()
@@ -84,6 +91,7 @@ class SettingsViewModelTest {
         viewModel.setThemeMode(ThemeMode.LIGHT)
         viewModel.setUseDynamicColor(true)
         viewModel.setDefaultRestSeconds(180)
+        viewModel.setWeekStartDay(DayOfWeek.MONDAY)
         viewModel.setWeightUnit(WeightUnit.KG)
         viewModel.updateDisplayName("Karim")
         viewModel.updateBodyWeightInput("82.5")
@@ -97,6 +105,7 @@ class SettingsViewModelTest {
         assertEquals(ThemeMode.LIGHT, prefs.themeMode)
         assertTrue(prefs.useDynamicColor)
         assertEquals(180, prefs.defaultRestSeconds)
+        assertEquals(DayOfWeek.MONDAY, prefs.weekStartDay)
         assertEquals("Karim", profile?.displayName)
         assertEquals(82.5, profile?.bodyWeightKg ?: 0.0, 0.01)
 
@@ -115,6 +124,7 @@ class SettingsViewModelTest {
             fakeBackupRepo,
             fakeScheduler,
             fakeUpdateRepo,
+            fakeUpdateInstaller,
         )
         val collector = backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) {
             viewModel.uiState.collect()
@@ -162,6 +172,7 @@ class SettingsViewModelTest {
             fakeBackupRepo,
             fakeScheduler,
             fakeUpdateRepo,
+            fakeUpdateInstaller,
         )
         val collector = backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) {
             viewModel.uiState.collect()
@@ -191,6 +202,7 @@ class SettingsViewModelTest {
             fakeBackupRepo,
             fakeScheduler,
             fakeUpdateRepo,
+            fakeUpdateInstaller,
         )
         val collector = backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) {
             viewModel.uiState.collect()
@@ -240,6 +252,7 @@ class SettingsViewModelTest {
             fakeBackupRepo,
             fakeScheduler,
             fakeUpdateRepo,
+            fakeUpdateInstaller,
         )
 
         advanceUntilIdle()
@@ -380,5 +393,24 @@ class FakeAppUpdateRepository(
         onProgress(50, 12_500_000L, 25_000_000L)
         onProgress(100, 25_000_000L, 25_000_000L)
         return downloadResult
+    }
+}
+
+class FakeUpdateInstaller(
+    var canInstall: Boolean = true,
+) : UpdateInstaller {
+    var startedInstallPath: String? = null
+    var openedPermissionSettings: Boolean = false
+
+    override fun canInstallPackages(context: Context): Boolean = canInstall
+
+    override fun openInstallPermissionSettings(context: Context): Result<Unit> {
+        openedPermissionSettings = true
+        return Result.success(Unit)
+    }
+
+    override fun startApkInstallation(context: Context, apkFile: File): Result<Unit> {
+        startedInstallPath = apkFile.absolutePath
+        return Result.success(Unit)
     }
 }

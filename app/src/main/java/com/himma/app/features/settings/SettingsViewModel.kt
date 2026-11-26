@@ -1,5 +1,6 @@
 package com.himma.app.features.settings
 
+import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,6 +14,7 @@ import com.himma.app.core.updater.AppUpdateInfo
 import com.himma.app.core.updater.AppUpdateRepository
 import com.himma.app.core.updater.UpdateCheckUiState
 import com.himma.app.core.updater.UpdateDownloadState
+import com.himma.app.core.updater.UpdateInstaller
 import com.himma.app.domain.model.AppLanguage
 import com.himma.app.domain.model.BackupValidationError
 import com.himma.app.domain.model.BackupValidationException
@@ -22,7 +24,11 @@ import com.himma.app.domain.model.RestoreSummary
 import com.himma.app.domain.model.ThemeMode
 import com.himma.app.domain.model.WeightUnit
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.io.File
+import java.time.DayOfWeek
 import javax.inject.Inject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -34,6 +40,8 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.withContext
 
 data class SettingsUiState(
     val preferences: UserPreferences = UserPreferences(),
@@ -64,6 +72,7 @@ class SettingsViewModel @Inject constructor(
     private val backupRepository: BackupRepository,
     private val autoBackupScheduler: AutoBackupScheduler,
     private val appUpdateRepository: AppUpdateRepository,
+    private val updateInstaller: UpdateInstaller,
 ) : ViewModel() {
 
     private val _updateCheckState = MutableStateFlow<UpdateCheckUiState>(UpdateCheckUiState.Idle)
@@ -74,6 +83,9 @@ class SettingsViewModel @Inject constructor(
 
     private val _showUpdateDialog = MutableStateFlow(false)
     val showUpdateDialog: StateFlow<Boolean> = _showUpdateDialog
+
+    private var downloadJob: Job? = null
+    private val backupMutex = Mutex()
 
     private data class DraftInputs(
         val displayName: String? = null,
@@ -90,11 +102,18 @@ class SettingsViewModel @Inject constructor(
     )
 
     private val drafts = MutableStateFlow(DraftInputs())
-    private val backupStatus = MutableStateFlow(
-        BackupUiStatus(hasSnapshot = backupRepository.hasLocalAutoSnapshot()),
-    )
-    private val _events = MutableSharedFlow<SettingsEvent>()
+    private val backupStatus = MutableStateFlow(BackupUiStatus())
+    private val _events = MutableSharedFlow<SettingsEvent>(extraBufferCapacity = 8)
     val events: SharedFlow<SettingsEvent> = _events.asSharedFlow()
+
+    init {
+        viewModelScope.launch {
+            val hasSnapshot = withContext(Dispatchers.IO) {
+                backupRepository.hasLocalAutoSnapshot()
+            }
+            backupStatus.update { it.copy(hasSnapshot = hasSnapshot) }
+        }
+    }
 
     val uiState: StateFlow<SettingsUiState> = combine(
         preferencesRepository.preferences,
@@ -143,6 +162,12 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
+    fun setWeekStartDay(dayOfWeek: DayOfWeek) {
+        viewModelScope.launch {
+            preferencesRepository.setWeekStartDay(dayOfWeek)
+        }
+    }
+
     fun setThemeMode(themeMode: ThemeMode) {
         viewModelScope.launch {
             preferencesRepository.setThemeMode(themeMode)
@@ -184,7 +209,13 @@ class SettingsViewModel @Inject constructor(
                 displayName = rawName,
                 bodyWeightKg = weightKg,
             )
-            drafts.value = DraftInputs()
+            drafts.update { current ->
+                current.copy(
+                    displayName = if (current.displayName == draftSnapshot.displayName) null else current.displayName,
+                    bodyWeight = if (current.bodyWeight == draftSnapshot.bodyWeight) null else current.bodyWeight,
+                    bodyWeightError = false,
+                )
+            }
             _events.emit(SettingsEvent.ProfileSaved)
         }
     }
@@ -298,8 +329,9 @@ class SettingsViewModel @Inject constructor(
     }
 
     fun startDownload(updateInfo: AppUpdateInfo) {
+        if (downloadJob?.isActive == true) return
         val fileName = "himma-v${updateInfo.remoteVersion}.apk"
-        viewModelScope.launch {
+        downloadJob = viewModelScope.launch {
             _downloadState.value = UpdateDownloadState.Downloading(0, 0, updateInfo.apkSizeBytes)
             appUpdateRepository.downloadUpdate(
                 downloadUrl = updateInfo.apkDownloadUrl,
@@ -311,16 +343,27 @@ class SettingsViewModel @Inject constructor(
                 _downloadState.value = UpdateDownloadState.Completed(file)
             }.onFailure { error ->
                 _downloadState.value = UpdateDownloadState.Error(
-                    error.message ?: "Download failed"
+                    error.message ?: "Download failed",
                 )
             }
         }
     }
 
     fun dismissUpdateDialog() {
+        downloadJob?.cancel()
+        downloadJob = null
         _showUpdateDialog.value = false
         _downloadState.value = UpdateDownloadState.Idle
     }
+
+    fun canInstallPackages(context: Context): Boolean =
+        updateInstaller.canInstallPackages(context)
+
+    fun openInstallPermissionSettings(context: Context): Result<Unit> =
+        updateInstaller.openInstallPermissionSettings(context)
+
+    fun startApkInstallation(context: Context, apkFile: File): Result<Unit> =
+        updateInstaller.startApkInstallation(context, apkFile)
 
     fun setAutoCheckUpdates(enabled: Boolean) {
         viewModelScope.launch {
@@ -342,16 +385,21 @@ class SettingsViewModel @Inject constructor(
 
     private fun runBackupOperation(block: suspend () -> Unit) {
         viewModelScope.launch {
+            if (!backupMutex.tryLock()) return@launch
             backupStatus.update { it.copy(isBusy = true) }
             try {
                 block()
             } finally {
+                val hasSnapshot = withContext(Dispatchers.IO) {
+                    backupRepository.hasLocalAutoSnapshot()
+                }
                 backupStatus.update {
                     it.copy(
                         isBusy = false,
-                        hasSnapshot = backupRepository.hasLocalAutoSnapshot(),
+                        hasSnapshot = hasSnapshot,
                     )
                 }
+                backupMutex.unlock()
             }
         }
     }

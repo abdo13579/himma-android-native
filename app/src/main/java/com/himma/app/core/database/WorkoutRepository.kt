@@ -1,6 +1,8 @@
 package com.himma.app.core.database
 
+import androidx.room.withTransaction
 import com.himma.app.core.database.dao.AnalyticsDao
+import com.himma.app.core.database.dao.ExerciseDao
 import com.himma.app.core.database.dao.RoutineDao
 import com.himma.app.core.database.dao.WorkoutDao
 import com.himma.app.core.database.entity.WorkoutEntity
@@ -12,6 +14,7 @@ import com.himma.app.domain.model.FinishedWorkoutSummary
 import com.himma.app.domain.model.PersonalRecord
 import com.himma.app.domain.model.PreviousSetHint
 import com.himma.app.domain.model.SetType
+import com.himma.app.domain.model.WeightUnitMode
 import com.himma.app.domain.model.WorkoutMath
 import com.himma.app.domain.model.WorkoutSession
 import java.util.UUID
@@ -63,7 +66,7 @@ interface WorkoutRepository {
 
     suspend fun removeSet(setId: String)
 
-    suspend fun removeExerciseFromWorkout(workoutId: String, exerciseId: String)
+    suspend fun removeExerciseFromWorkout(workoutId: String, exerciseId: String, exerciseOrder: Int)
 
     suspend fun updateExerciseWeightUnitMode(
         workoutId: String,
@@ -92,9 +95,11 @@ interface WorkoutRepository {
 
 @Singleton
 class RoomWorkoutRepository @Inject constructor(
+    private val database: HimmaDatabase,
     private val workoutDao: WorkoutDao,
     private val routineDao: RoutineDao,
     private val analyticsDao: AnalyticsDao,
+    private val exerciseDao: ExerciseDao,
     private val analyticsRepository: AnalyticsRepository,
 ) : WorkoutRepository {
 
@@ -271,9 +276,13 @@ class RoomWorkoutRepository @Inject constructor(
         }
     }
 
-    override suspend fun removeExerciseFromWorkout(workoutId: String, exerciseId: String) {
+    override suspend fun removeExerciseFromWorkout(
+        workoutId: String,
+        exerciseId: String,
+        exerciseOrder: Int,
+    ) {
         withContext(Dispatchers.IO) {
-            workoutDao.deleteSetsForExercise(workoutId, exerciseId)
+            workoutDao.deleteSetsForExerciseOrder(workoutId, exerciseId, exerciseOrder)
         }
     }
 
@@ -312,65 +321,78 @@ class RoomWorkoutRepository @Inject constructor(
 
     override suspend fun toggleSetCompleted(setId: String): SetCompletionResult =
         withContext(Dispatchers.IO) {
-            val existing = workoutDao.getSetByIdOnce(setId)
-                ?: return@withContext SetCompletionResult(false, false, 0)
+            database.withTransaction {
+                val existing = workoutDao.getSetByIdOnce(setId)
+                    ?: return@withTransaction SetCompletionResult(false, false, 0)
 
-            val nextCompleted = !existing.isCompleted
-            var updatedWeight = existing.weightKg
-            var updatedReps = existing.reps
-            var updatedDuration = existing.durationSeconds
+                val nextCompleted = !existing.isCompleted
+                var updatedWeight = existing.weightKg
+                var updatedReps = existing.reps
+                var updatedDuration = existing.durationSeconds
+                val exercise = exerciseDao.getByIdOnce(existing.exerciseId)
+                val isTimeBased = exercise?.exerciseType == ExerciseType.TIME.name
 
-            // Auto-fill from previous session's completed set at the same setIndex if blank.
-            if (nextCompleted && (updatedWeight == null || updatedReps == null || updatedDuration == null)) {
-                val previous = workoutDao.getPreviousCompletedSet(
-                    exerciseId = existing.exerciseId,
-                    setIndex = existing.setIndex,
-                )
-                if (previous != null) {
-                    if (updatedWeight == null) updatedWeight = previous.weightKg
-                    if (updatedReps == null) updatedReps = previous.reps
-                    if (updatedDuration == null) updatedDuration = previous.durationSeconds
+                // Auto-fill from previous session's completed set at the same setIndex if blank.
+                val needsAutofill = nextCompleted && if (isTimeBased) {
+                    updatedDuration == null
+                } else {
+                    updatedWeight == null || updatedReps == null
                 }
-            }
-
-            val isLivePr = if (nextCompleted) {
-                val existingPr = analyticsDao.getPersonalRecordForExercise(existing.exerciseId)?.let {
-                    PersonalRecord(
-                        id = it.id,
-                        exerciseId = it.exerciseId,
-                        maxWeightKg = it.maxWeightKg,
-                        maxVolumeSetKg = it.maxVolumeSetKg,
-                        estimated1rmKg = it.estimated1rmKg,
-                        achievedAt = it.achievedAt,
-                        workoutId = it.workoutId,
+                if (needsAutofill) {
+                    val previous = workoutDao.getPreviousCompletedSet(
+                        exerciseId = existing.exerciseId,
+                        setIndex = existing.setIndex,
                     )
+                    if (previous != null) {
+                        if (isTimeBased) {
+                            if (updatedDuration == null) updatedDuration = previous.durationSeconds
+                        } else {
+                            if (updatedWeight == null) updatedWeight = previous.weightKg
+                            if (updatedReps == null) updatedReps = previous.reps
+                        }
+                    }
                 }
-                BrzyckiMath.isSetPersonalRecord(
-                    weightKg = updatedWeight,
-                    reps = updatedReps,
-                    existingPr = existingPr,
+
+                val isStackPlates = WeightUnitMode.fromNameOrDefault(existing.weightUnitMode) == WeightUnitMode.STACK_PLATES
+                val isLivePr = if (nextCompleted && !isTimeBased && !isStackPlates) {
+                    val existingPr = analyticsDao.getPersonalRecordForExercise(existing.exerciseId)?.let {
+                        PersonalRecord(
+                            id = it.id,
+                            exerciseId = it.exerciseId,
+                            maxWeightKg = it.maxWeightKg,
+                            maxVolumeSetKg = it.maxVolumeSetKg,
+                            estimated1rmKg = it.estimated1rmKg,
+                            achievedAt = it.achievedAt,
+                            workoutId = it.workoutId,
+                        )
+                    }
+                    BrzyckiMath.isSetPersonalRecord(
+                        weightKg = updatedWeight,
+                        reps = updatedReps,
+                        existingPr = existingPr,
+                    )
+                } else {
+                    false
+                }
+
+                workoutDao.upsertSet(
+                    existing.copy(
+                        weightKg = updatedWeight,
+                        reps = updatedReps,
+                        durationSeconds = updatedDuration,
+                        isCompleted = nextCompleted,
+                        isPr = isLivePr,
+                        completedAt = if (nextCompleted) System.currentTimeMillis() else null,
+                    ),
                 )
-            } else {
-                false
-            }
 
-            workoutDao.upsertSet(
-                existing.copy(
-                    weightKg = updatedWeight,
-                    reps = updatedReps,
-                    durationSeconds = updatedDuration,
+                SetCompletionResult(
                     isCompleted = nextCompleted,
+                    shouldStartTimer = nextCompleted,
+                    restSeconds = existing.restSeconds,
                     isPr = isLivePr,
-                    completedAt = if (nextCompleted) System.currentTimeMillis() else null,
-                ),
-            )
-
-            SetCompletionResult(
-                isCompleted = nextCompleted,
-                shouldStartTimer = nextCompleted,
-                restSeconds = existing.restSeconds,
-                isPr = isLivePr,
-            )
+                )
+            }
         }
 
     override suspend fun getPreviousHintsForExercises(
@@ -399,32 +421,34 @@ class RoomWorkoutRepository @Inject constructor(
 
     override suspend fun finishWorkout(workoutId: String): FinishedWorkoutSummary? =
         withContext(Dispatchers.IO) {
-            val relation = workoutDao.getWorkoutByIdOnce(workoutId) ?: return@withContext null
-            val domain = relation.toDomain()
-            val allSets = domain.exercises.flatMap { it.sets }
-            val endTime = System.currentTimeMillis()
-            val durationSeconds = WorkoutMath.calculateDurationSeconds(domain.startTime, endTime)
-            val totalVolumeKg = WorkoutMath.calculateTotalVolumeKg(allSets)
+            database.withTransaction {
+                val relation = workoutDao.getWorkoutByIdOnce(workoutId) ?: return@withTransaction null
+                val domain = relation.toDomain()
+                val allSets = domain.exercises.flatMap { it.sets }
+                val endTime = System.currentTimeMillis()
+                val durationSeconds = WorkoutMath.calculateDurationSeconds(domain.startTime, endTime)
+                val totalVolumeKg = WorkoutMath.calculateTotalVolumeKg(allSets)
 
-            workoutDao.upsertWorkout(
-                relation.workout.copy(
-                    endTime = endTime,
+                workoutDao.upsertWorkout(
+                    relation.workout.copy(
+                        endTime = endTime,
+                        durationSeconds = durationSeconds,
+                        totalVolumeKg = totalVolumeKg,
+                        isCompleted = true,
+                    ),
+                )
+
+                val newPrCount = analyticsRepository.evaluateAndPersistWorkoutPrs(workoutId)
+
+                FinishedWorkoutSummary(
+                    workoutId = domain.id,
+                    title = domain.title,
                     durationSeconds = durationSeconds,
                     totalVolumeKg = totalVolumeKg,
-                    isCompleted = true,
-                ),
-            )
-
-            val newPrCount = analyticsRepository.evaluateAndPersistWorkoutPrs(workoutId)
-
-            FinishedWorkoutSummary(
-                workoutId = domain.id,
-                title = domain.title,
-                durationSeconds = durationSeconds,
-                totalVolumeKg = totalVolumeKg,
-                completedSets = domain.completedSetsCount,
-                newPrCount = newPrCount,
-            )
+                    completedSets = domain.completedSetsCount,
+                    newPrCount = newPrCount,
+                )
+            }
         }
 
     override suspend fun discardWorkout(workoutId: String) {

@@ -1,5 +1,7 @@
 package com.himma.app.features.settings
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -14,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
@@ -26,6 +29,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.rounded.CloudSync
+import androidx.compose.material.icons.rounded.Code
+import androidx.compose.material.icons.rounded.Feedback
+import androidx.compose.material.icons.rounded.Info
+import androidx.compose.material.icons.rounded.PrivacyTip
 import androidx.compose.material.icons.rounded.Security
 import androidx.compose.material.icons.rounded.SystemUpdate
 import androidx.compose.material3.AlertDialog
@@ -50,36 +57,44 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.himma.app.BuildConfig
 import com.himma.app.R
-import com.himma.app.core.updater.AppInstallerHelper
 import com.himma.app.core.updater.AppUpdateInfo
 import com.himma.app.core.updater.UpdateCheckUiState
 import com.himma.app.core.updater.UpdateDownloadState
 import java.io.File
 import com.himma.app.core.datastore.UserPreferences
+import com.himma.app.core.locale.dayOfWeekFullName
 import com.himma.app.domain.model.AppLanguage
 import com.himma.app.domain.model.BackupValidationError
 import com.himma.app.domain.model.CustomExportOptions
 import com.himma.app.domain.model.RestoreMode
 import com.himma.app.domain.model.ThemeMode
+import com.himma.app.domain.model.WeekScheduleHelper
 import com.himma.app.domain.model.WeightUnit
+import java.time.DayOfWeek
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
@@ -98,19 +113,59 @@ fun SettingsScreen(
     val downloadState by viewModel.downloadState.collectAsStateWithLifecycle()
     val showUpdateDialog by viewModel.showUpdateDialog.collectAsStateWithLifecycle()
     val context = LocalContext.current
+    val uriHandler = LocalUriHandler.current
+    val openLinkErrorMsg = stringResource(id = R.string.settings_open_link_error)
+    val openEmailErrorMsg = stringResource(id = R.string.settings_open_email_error)
+    val openExternalUrl: (String) -> Unit = { url ->
+        runCatching { uriHandler.openUri(url) }
+            .onFailure { onShowMessage(openLinkErrorMsg) }
+    }
+    val openFeedbackEmail: () -> Unit = {
+        val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.parse("mailto:")
+            putExtra(Intent.EXTRA_EMAIL, arrayOf(DEVELOPER_EMAIL))
+            putExtra(Intent.EXTRA_SUBJECT, buildFeedbackEmailSubject())
+        }
+        runCatching { context.startActivity(emailIntent) }
+            .onFailure { onShowMessage(openEmailErrorMsg) }
+    }
 
-    var showPermissionDialog by remember { mutableStateOf(false) }
-    var pendingInstallFile by remember { mutableStateOf<File?>(null) }
+    var showPermissionDialog by rememberSaveable { mutableStateOf(false) }
+    var pendingInstallPath by rememberSaveable { mutableStateOf<String?>(null) }
+    var handledCompletedPath by rememberSaveable { mutableStateOf<String?>(null) }
+    val lifecycleOwner = LocalLifecycleOwner.current
 
-    LaunchedEffect(downloadState) {
-        if (downloadState is UpdateDownloadState.Completed) {
-            val apkFile = (downloadState as UpdateDownloadState.Completed).apkFile
-            pendingInstallFile = apkFile
-            if (AppInstallerHelper.canInstallPackages(context)) {
-                AppInstallerHelper.startApkInstallation(context, apkFile)
+    if (BuildConfig.SUPPORTS_IN_APP_UPDATES) {
+        LaunchedEffect(downloadState) {
+            val completed = downloadState as? UpdateDownloadState.Completed ?: return@LaunchedEffect
+            val path = completed.apkFile.absolutePath
+            if (handledCompletedPath == path) return@LaunchedEffect
+            handledCompletedPath = path
+            if (viewModel.canInstallPackages(context)) {
+                viewModel.startApkInstallation(context, completed.apkFile)
+                    .onFailure { onShowMessage(openLinkErrorMsg) }
             } else {
+                pendingInstallPath = path
                 showPermissionDialog = true
             }
+        }
+
+        DisposableEffect(lifecycleOwner, pendingInstallPath) {
+            val observer = LifecycleEventObserver { _, event ->
+                if (event == Lifecycle.Event.ON_RESUME) {
+                    val path = pendingInstallPath
+                    if (path != null && viewModel.canInstallPackages(context)) {
+                        pendingInstallPath = null
+                        val file = File(path)
+                        if (file.exists()) {
+                            viewModel.startApkInstallation(context, file)
+                                .onFailure { onShowMessage(openLinkErrorMsg) }
+                        }
+                    }
+                }
+            }
+            lifecycleOwner.lifecycle.addObserver(observer)
+            onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
         }
     }
 
@@ -276,7 +331,8 @@ fun SettingsScreen(
                     Button(
                         onClick = {
                             showPermissionDialog = false
-                            context.startActivity(AppInstallerHelper.createPermissionSettingsIntent(context))
+                            viewModel.openInstallPermissionSettings(context)
+                                .onFailure { onShowMessage(openLinkErrorMsg) }
                         },
                     ) {
                         Text(stringResource(id = R.string.update_permission_grant))
@@ -297,10 +353,11 @@ fun SettingsScreen(
                 downloadState = downloadState,
                 onDownloadClick = { viewModel.startDownload(info) },
                 onInstallClick = { file ->
-                    if (AppInstallerHelper.canInstallPackages(context)) {
-                        AppInstallerHelper.startApkInstallation(context, file)
+                    if (viewModel.canInstallPackages(context)) {
+                        viewModel.startApkInstallation(context, file)
+                            .onFailure { onShowMessage(openLinkErrorMsg) }
                     } else {
-                        pendingInstallFile = file
+                        pendingInstallPath = file.absolutePath
                         showPermissionDialog = true
                     }
                 },
@@ -312,6 +369,7 @@ fun SettingsScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
+            .imePadding()
             .verticalScroll(rememberScrollState())
             .padding(horizontal = 16.dp, vertical = 12.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -466,6 +524,26 @@ fun SettingsScreen(
                                 label = {
                                     Text(stringResource(id = R.string.seconds_short, preset))
                                 },
+                                modifier = Modifier.heightIn(min = 48.dp),
+                            )
+                        }
+                    }
+                }
+
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text(
+                        text = stringResource(id = R.string.settings_week_start_label),
+                        style = MaterialTheme.typography.titleSmall,
+                    )
+                    FlowRow(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                    ) {
+                        WeekScheduleHelper.orderedDaysStartingFrom(DayOfWeek.SATURDAY).forEach { day ->
+                            FilterChip(
+                                selected = state.preferences.weekStartDay == day,
+                                onClick = { viewModel.setWeekStartDay(day) },
+                                label = { Text(dayOfWeekFullName(day)) },
                                 modifier = Modifier.heightIn(min = 48.dp),
                             )
                         }
@@ -754,8 +832,99 @@ fun SettingsScreen(
             }
         }
 
+        // About & GitHub Links Card
+        ElevatedCard(modifier = Modifier.fillMaxWidth()) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(10.dp),
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.Info,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.primary,
+                    )
+                    Text(
+                        text = stringResource(id = R.string.settings_section_about),
+                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                    )
+                }
+
+                Text(
+                    text = stringResource(id = R.string.settings_about_desc),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+
+                FilledTonalButton(
+                    onClick = { openExternalUrl(GITHUB_REPO_URL) },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .heightIn(min = 48.dp),
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.Code,
+                        contentDescription = null,
+                        modifier = Modifier.padding(end = 8.dp),
+                    )
+                    Text(stringResource(id = R.string.settings_view_github_repo))
+                }
+
+                OutlinedButton(
+                    onClick = { openExternalUrl(PRIVACY_POLICY_URL) },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .heightIn(min = 48.dp),
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.PrivacyTip,
+                        contentDescription = null,
+                        modifier = Modifier.padding(end = 8.dp),
+                    )
+                    Text(stringResource(id = R.string.settings_privacy_policy))
+                }
+
+                OutlinedButton(
+                    onClick = openFeedbackEmail,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .heightIn(min = 48.dp),
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.Feedback,
+                        contentDescription = null,
+                        modifier = Modifier.padding(end = 8.dp),
+                    )
+                    Text(stringResource(id = R.string.settings_send_feedback))
+                }
+            }
+        }
+
         Spacer(modifier = Modifier.height(16.dp))
     }
+}
+
+private const val DEVELOPER_EMAIL = "abdulrahman.a.alfeel@gmail.com"
+private const val GITHUB_REPO_URL = "https://github.com/abdo13579/himma-android-native"
+private const val PRIVACY_POLICY_URL =
+    "https://github.com/abdo13579/himma-android-native/blob/main/PRIVACY_POLICY.md"
+
+/** Builds an email subject containing app and device details for user feedback. */
+private fun buildFeedbackEmailSubject(): String {
+    val manufacturer = Build.MANUFACTURER.trim()
+    val model = Build.MODEL.trim()
+    val deviceName = if (model.startsWith(manufacturer, ignoreCase = true)) {
+        model
+    } else {
+        "$manufacturer $model".trim()
+    }
+    return "Himma Feedback — v${BuildConfig.VERSION_NAME} (${BuildConfig.FLAVOR}) | " +
+        "$deviceName | Android ${Build.VERSION.RELEASE} (API ${Build.VERSION.SDK_INT})"
 }
 
 @Composable
@@ -816,7 +985,7 @@ private fun AppUpdateDialog(
                 val sizeMb = info.apkSizeBytes / (1024.0 * 1024.0)
                 if (sizeMb > 0) {
                     Text(
-                        text = "الحجم: %.1f ميجابايت".format(java.util.Locale.US, sizeMb),
+                        text = stringResource(id = R.string.update_dialog_size_mb, sizeMb),
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
@@ -859,7 +1028,7 @@ private fun AppUpdateDialog(
                     }
                     is UpdateDownloadState.Completed -> {
                         Text(
-                            text = "اكتمل التنزيل بنجاح، يمكنك التثبيت الآن.",
+                            text = stringResource(id = R.string.update_download_ready),
                             style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold),
                             color = MaterialTheme.colorScheme.primary,
                         )
@@ -948,6 +1117,12 @@ private fun CustomExportDialog(
                     label = stringResource(id = R.string.backup_export_routines),
                     checked = options.exportRoutines,
                     onCheckedChange = { onOptionsChange(options.copy(exportRoutines = it)) },
+                )
+
+                ExportOptionCheckboxRow(
+                    label = stringResource(id = R.string.backup_export_weekly_schedule),
+                    checked = options.exportWeeklySchedule,
+                    onCheckedChange = { onOptionsChange(options.copy(exportWeeklySchedule = it)) },
                 )
 
                 ExportOptionCheckboxRow(

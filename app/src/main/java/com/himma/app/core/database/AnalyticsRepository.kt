@@ -1,5 +1,6 @@
 package com.himma.app.core.database
 
+import androidx.room.withTransaction
 import com.himma.app.core.database.dao.AnalyticsDao
 import com.himma.app.core.database.dao.ExerciseDao
 import com.himma.app.core.database.dao.WorkoutDao
@@ -13,6 +14,7 @@ import com.himma.app.domain.model.MuscleVolumeDistribution
 import com.himma.app.domain.model.PersonalRecord
 import com.himma.app.domain.model.ProgressionPoint
 import com.himma.app.domain.model.ProgressiveInsight
+import com.himma.app.domain.model.WeightUnitMode
 import com.himma.app.domain.model.WorkoutHistorySummary
 import com.himma.app.domain.model.WorkoutSession
 import com.himma.app.domain.model.WorkoutSet
@@ -54,6 +56,7 @@ interface AnalyticsRepository {
 
 @Singleton
 class RoomAnalyticsRepository @Inject constructor(
+    private val database: HimmaDatabase,
     private val analyticsDao: AnalyticsDao,
     private val workoutDao: WorkoutDao,
     private val exerciseDao: ExerciseDao,
@@ -150,6 +153,8 @@ class RoomAnalyticsRepository @Inject constructor(
                 val exEntity = exerciseDao.getByIdOnce(pr.exerciseId) ?: return@forEach
                 val recentSets = workoutDao.getRecentCompletedSetsForExercise(pr.exerciseId)
                     .map { it.toDomain() }
+                    .filter { it.weightUnitMode != WeightUnitMode.STACK_PLATES }
+                    .asReversed()
                 topExercisesMap[exEntity.toDomain()] = recentSets
             }
             if (history.isEmpty() && prs.isEmpty()) {
@@ -185,79 +190,131 @@ class RoomAnalyticsRepository @Inject constructor(
 
     override suspend fun deleteWorkout(workoutId: String) {
         withContext(Dispatchers.IO) {
-            workoutDao.deleteWorkoutById(workoutId)
+            database.withTransaction {
+                val relation = workoutDao.getWorkoutByIdOnce(workoutId)
+                val affectedExerciseIds = relation?.sets
+                    ?.map { it.set.exerciseId }
+                    ?.distinct()
+                    .orEmpty()
+                workoutDao.deleteWorkoutById(workoutId)
+                affectedExerciseIds.forEach { exerciseId ->
+                    val remainingSets = workoutDao.getCompletedWeightSetsForExerciseAsc(exerciseId)
+                    if (remainingSets.isEmpty()) {
+                        analyticsDao.deletePersonalRecordForExercise(exerciseId)
+                    } else {
+                        var recomputed: PersonalRecord? = null
+                        remainingSets.forEach { setEntity ->
+                            val weight = setEntity.weightKg ?: return@forEach
+                            val reps = setEntity.reps ?: return@forEach
+                            if (weight > 0.0 && reps > 0) {
+                                recomputed = BrzyckiMath.updateRecord(
+                                    existing = recomputed,
+                                    exerciseId = exerciseId,
+                                    weightKg = weight,
+                                    reps = reps,
+                                    achievedAt = setEntity.completedAt ?: System.currentTimeMillis(),
+                                    workoutId = setEntity.workoutId,
+                                )
+                            }
+                        }
+                        val finalRecord = recomputed
+                        if (finalRecord == null) {
+                            analyticsDao.deletePersonalRecordForExercise(exerciseId)
+                        } else {
+                            analyticsDao.upsertPersonalRecord(
+                                PersonalRecordEntity(
+                                    id = finalRecord.id,
+                                    exerciseId = finalRecord.exerciseId,
+                                    maxWeightKg = finalRecord.maxWeightKg,
+                                    maxVolumeSetKg = finalRecord.maxVolumeSetKg,
+                                    estimated1rmKg = finalRecord.estimated1rmKg,
+                                    achievedAt = finalRecord.achievedAt,
+                                    workoutId = finalRecord.workoutId,
+                                ),
+                            )
+                        }
+                    }
+                }
+            }
         }
     }
 
     override suspend fun evaluateAndPersistWorkoutPrs(workoutId: String): Int =
         withContext(Dispatchers.IO) {
-            val relation = workoutDao.getWorkoutByIdOnce(workoutId) ?: return@withContext 0
-            val completedSets = relation.sets
-                .map { it.set }
-                .filter { it.isCompleted && (it.weightKg ?: 0.0) > 0.0 && (it.reps ?: 0) > 0 }
-                .sortedWith(compareBy({ it.exerciseOrder }, { it.setIndex }))
+            database.withTransaction {
+                val relation = workoutDao.getWorkoutByIdOnce(workoutId) ?: return@withTransaction 0
+                val completedSets = relation.sets
+                    .map { it.set }
+                    .filter {
+                        it.isCompleted &&
+                            WeightUnitMode.fromNameOrDefault(it.weightUnitMode) != WeightUnitMode.STACK_PLATES &&
+                            (it.weightKg ?: 0.0) > 0.0 &&
+                            (it.reps ?: 0) > 0
+                    }
+                    .sortedWith(compareBy({ it.exerciseOrder }, { it.setIndex }))
 
-            if (completedSets.isEmpty()) return@withContext 0
+                if (completedSets.isEmpty()) return@withTransaction 0
 
-            var totalNewPrSets = 0
-            val setsByExercise = completedSets.groupBy { it.exerciseId }
+                var totalNewPrSets = 0
+                val setsByExercise = completedSets.groupBy { it.exerciseId }
 
-            setsByExercise.forEach { (exerciseId, exerciseSets) ->
-                val existingEntity = analyticsDao.getPersonalRecordForExercise(exerciseId)
-                var currentRecord = existingEntity?.let {
-                    PersonalRecord(
-                        id = it.id,
-                        exerciseId = it.exerciseId,
-                        maxWeightKg = it.maxWeightKg,
-                        maxVolumeSetKg = it.maxVolumeSetKg,
-                        estimated1rmKg = it.estimated1rmKg,
-                        achievedAt = it.achievedAt,
-                        workoutId = it.workoutId,
-                    )
-                }
+                setsByExercise.forEach { (exerciseId, exerciseSets) ->
+                    val existingEntity = analyticsDao.getPersonalRecordForExercise(exerciseId)
+                    var currentRecord = existingEntity?.let {
+                        PersonalRecord(
+                            id = it.id,
+                            exerciseId = it.exerciseId,
+                            maxWeightKg = it.maxWeightKg,
+                            maxVolumeSetKg = it.maxVolumeSetKg,
+                            estimated1rmKg = it.estimated1rmKg,
+                            achievedAt = it.achievedAt,
+                            workoutId = it.workoutId,
+                        )
+                    }
 
-                var updatedInWorkout = false
-                exerciseSets.forEach { setEntity ->
-                    val w = setEntity.weightKg ?: return@forEach
-                    val r = setEntity.reps ?: return@forEach
-                    val brokePr = BrzyckiMath.isSetPersonalRecord(
-                        weightKg = w,
-                        reps = r,
-                        existingPr = currentRecord,
-                    )
-                    if (brokePr) {
-                        totalNewPrSets++
-                        updatedInWorkout = true
-                        if (!setEntity.isPr) {
-                            workoutDao.upsertSet(setEntity.copy(isPr = true))
-                        }
-                        currentRecord = BrzyckiMath.updateRecord(
-                            existing = currentRecord,
-                            exerciseId = exerciseId,
+                    var updatedInWorkout = false
+                    exerciseSets.forEach { setEntity ->
+                        val w = setEntity.weightKg ?: return@forEach
+                        val r = setEntity.reps ?: return@forEach
+                        val brokePr = BrzyckiMath.isSetPersonalRecord(
                             weightKg = w,
                             reps = r,
-                            achievedAt = setEntity.completedAt ?: System.currentTimeMillis(),
-                            workoutId = workoutId,
+                            existingPr = currentRecord,
+                        )
+                        if (brokePr) {
+                            totalNewPrSets++
+                            updatedInWorkout = true
+                            if (!setEntity.isPr) {
+                                workoutDao.upsertSet(setEntity.copy(isPr = true))
+                            }
+                            currentRecord = BrzyckiMath.updateRecord(
+                                existing = currentRecord,
+                                exerciseId = exerciseId,
+                                weightKg = w,
+                                reps = r,
+                                achievedAt = setEntity.completedAt ?: System.currentTimeMillis(),
+                                workoutId = workoutId,
+                            )
+                        }
+                    }
+
+                    if (updatedInWorkout && currentRecord != null) {
+                        val rec = currentRecord!!
+                        analyticsDao.upsertPersonalRecord(
+                            PersonalRecordEntity(
+                                id = rec.id,
+                                exerciseId = rec.exerciseId,
+                                maxWeightKg = rec.maxWeightKg,
+                                maxVolumeSetKg = rec.maxVolumeSetKg,
+                                estimated1rmKg = rec.estimated1rmKg,
+                                achievedAt = rec.achievedAt,
+                                workoutId = rec.workoutId,
+                            ),
                         )
                     }
                 }
 
-                if (updatedInWorkout && currentRecord != null) {
-                    val rec = currentRecord!!
-                    analyticsDao.upsertPersonalRecord(
-                        PersonalRecordEntity(
-                            id = rec.id,
-                            exerciseId = rec.exerciseId,
-                            maxWeightKg = rec.maxWeightKg,
-                            maxVolumeSetKg = rec.maxVolumeSetKg,
-                            estimated1rmKg = rec.estimated1rmKg,
-                            achievedAt = rec.achievedAt,
-                            workoutId = rec.workoutId,
-                        ),
-                    )
-                }
+                totalNewPrSets
             }
-
-            totalNewPrSets
         }
 }

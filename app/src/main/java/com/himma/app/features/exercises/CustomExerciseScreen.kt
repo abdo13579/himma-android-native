@@ -55,7 +55,6 @@ import com.himma.app.core.datastore.UserPreferences
 import com.himma.app.domain.model.EquipmentType
 import com.himma.app.domain.model.ExerciseType
 import com.himma.app.domain.model.MuscleGroup
-import java.util.UUID
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -148,10 +147,14 @@ fun CustomExerciseBottomSheet(
     onDismiss: () -> Unit,
     onSaved: (String) -> Unit,
     initialName: String = "",
-    viewModel: CustomExerciseViewModel = hiltViewModel(key = remember { UUID.randomUUID().toString() }),
+    viewModel: CustomExerciseViewModel = hiltViewModel(key = "custom_exercise_sheet"),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+
+    LaunchedEffect(Unit) {
+        viewModel.reset(initialName)
+    }
 
     LaunchedEffect(initialName) {
         if (initialName.isNotBlank() && state.nameAr.isBlank()) {

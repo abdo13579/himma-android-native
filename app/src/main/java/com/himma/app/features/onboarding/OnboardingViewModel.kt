@@ -94,16 +94,19 @@ class OnboardingViewModel @Inject constructor(
 
         _uiState.update { it.copy(isSubmitting = true, bodyWeightError = false) }
         viewModelScope.launch {
-            profileRepository.saveProfile(
-                displayName = state.displayName,
-                bodyWeightKg = weightKg,
-            )
-            preferencesRepository.completeOnboarding(
-                language = state.language,
-                weightUnit = state.weightUnit,
-                defaultRestSeconds = state.defaultRestSeconds,
-            )
-            _uiState.update { it.copy(isSubmitting = false) }
+            try {
+                profileRepository.saveProfile(
+                    displayName = state.displayName,
+                    bodyWeightKg = weightKg,
+                )
+                preferencesRepository.completeOnboarding(
+                    language = state.language,
+                    weightUnit = state.weightUnit,
+                    defaultRestSeconds = state.defaultRestSeconds,
+                )
+            } finally {
+                _uiState.update { it.copy(isSubmitting = false) }
+            }
         }
     }
 }

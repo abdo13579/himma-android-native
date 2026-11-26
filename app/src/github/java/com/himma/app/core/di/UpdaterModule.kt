@@ -2,6 +2,8 @@ package com.himma.app.core.di
 
 import com.himma.app.core.updater.AppUpdateRepository
 import com.himma.app.core.updater.GitHubAppUpdateRepository
+import com.himma.app.core.updater.GitHubUpdateInstaller
+import com.himma.app.core.updater.UpdateInstaller
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -17,4 +19,10 @@ abstract class UpdaterModule {
     abstract fun bindAppUpdateRepository(
         impl: GitHubAppUpdateRepository,
     ): AppUpdateRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindUpdateInstaller(
+        impl: GitHubUpdateInstaller,
+    ): UpdateInstaller
 }

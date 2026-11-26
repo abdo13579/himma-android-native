@@ -8,6 +8,7 @@ import com.himma.app.core.database.dao.AnalyticsDao
 import com.himma.app.core.database.dao.ExerciseDao
 import com.himma.app.core.database.dao.RoutineDao
 import com.himma.app.core.database.dao.UserProfileDao
+import com.himma.app.core.database.dao.WeeklyScheduleDao
 import com.himma.app.core.database.dao.WorkoutDao
 import com.himma.app.core.database.entity.BodyWeightEntity
 import com.himma.app.core.database.entity.ExerciseEntity
@@ -15,6 +16,7 @@ import com.himma.app.core.database.entity.PersonalRecordEntity
 import com.himma.app.core.database.entity.RoutineEntity
 import com.himma.app.core.database.entity.RoutineExerciseEntity
 import com.himma.app.core.database.entity.UserProfileEntity
+import com.himma.app.core.database.entity.WeeklyScheduleEntity
 import com.himma.app.core.database.entity.WorkoutEntity
 import com.himma.app.core.database.entity.WorkoutSetEntity
 
@@ -28,6 +30,7 @@ import com.himma.app.core.database.entity.WorkoutSetEntity
         WorkoutSetEntity::class,
         PersonalRecordEntity::class,
         BodyWeightEntity::class,
+        WeeklyScheduleEntity::class,
     ],
     version = HimmaDatabase.DATABASE_VERSION,
     exportSchema = true,
@@ -38,10 +41,11 @@ abstract class HimmaDatabase : RoomDatabase() {
     abstract fun routineDao(): RoutineDao
     abstract fun workoutDao(): WorkoutDao
     abstract fun analyticsDao(): AnalyticsDao
+    abstract fun weeklyScheduleDao(): WeeklyScheduleDao
 
     companion object {
         const val DATABASE_NAME = "himma.db"
-        const val DATABASE_VERSION = 9
+        const val DATABASE_VERSION = 11
 
         val MIGRATION_1_2 = object : Migration(1, 2) {
             override fun migrate(db: SupportSQLiteDatabase) {
@@ -275,6 +279,34 @@ abstract class HimmaDatabase : RoomDatabase() {
             }
         }
 
+        val MIGRATION_9_10 = object : Migration(9, 10) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS `weekly_schedule` (
+                        `day_of_week` INTEGER NOT NULL,
+                        `status` TEXT NOT NULL,
+                        `routine_id` TEXT,
+                        `updated_at` INTEGER NOT NULL,
+                        PRIMARY KEY(`day_of_week`),
+                        FOREIGN KEY(`routine_id`) REFERENCES `routines`(`id`) ON UPDATE NO ACTION ON DELETE SET NULL
+                    )
+                    """.trimIndent(),
+                )
+                db.execSQL(
+                    "CREATE INDEX IF NOT EXISTS `index_weekly_schedule_routine_id` ON `weekly_schedule` (`routine_id`)",
+                )
+            }
+        }
+
+        val MIGRATION_10_11 = object : Migration(10, 11) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    "ALTER TABLE `exercises` ADD COLUMN `is_deleted` INTEGER NOT NULL DEFAULT 0",
+                )
+            }
+        }
+
         /**
          * Explicit migrations array; new specs append versioned migrations here
          * to guarantee zero data loss across updates.
@@ -288,6 +320,8 @@ abstract class HimmaDatabase : RoomDatabase() {
             MIGRATION_6_7,
             MIGRATION_7_8,
             MIGRATION_8_9,
+            MIGRATION_9_10,
+            MIGRATION_10_11,
         )
     }
 }

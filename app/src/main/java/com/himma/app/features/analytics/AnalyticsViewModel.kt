@@ -26,9 +26,11 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -88,7 +90,7 @@ class AnalyticsViewModel @Inject constructor(
     )
 
     private val selection = MutableStateFlow(SelectionState())
-    private val _events = MutableSharedFlow<AnalyticsEvent>()
+    private val _events = MutableSharedFlow<AnalyticsEvent>(extraBufferCapacity = 8)
     val events: SharedFlow<AnalyticsEvent> = _events.asSharedFlow()
 
     private val allExercisesFlow = exerciseRepository.observeExercises(
@@ -102,21 +104,21 @@ class AnalyticsViewModel @Inject constructor(
     private val insightsFlow = analyticsRepository.observeInsights()
 
     private val activeExerciseIdFlow: Flow<String?> = combine(
-        selection,
+        selection.map { it.selectedExerciseId }.distinctUntilChanged(),
         personalRecordsFlow,
         allExercisesFlow,
-    ) { sel, prs, exercises ->
-        sel.selectedExerciseId
+    ) { selectedId, prs, exercises ->
+        selectedId
             ?: prs.firstOrNull()?.exerciseId
             ?: exercises.firstOrNull()?.id
-    }
+    }.distinctUntilChanged()
 
     private val progressionPointsFlow: Flow<List<ProgressionPoint>> = combine(
         activeExerciseIdFlow,
-        selection,
-    ) { exId, sel ->
-        exId to sel.progressionMode
-    }.flatMapLatest { (exId, mode) ->
+        selection.map { it.progressionMode }.distinctUntilChanged(),
+    ) { exId, mode ->
+        exId to mode
+    }.distinctUntilChanged().flatMapLatest { (exId, mode) ->
         if (exId == null) {
             flowOf(emptyList())
         } else {
@@ -128,13 +130,16 @@ class AnalyticsViewModel @Inject constructor(
     }
 
     private val bodyWeightTrendFlow: Flow<List<BodyWeightEntry>> = selection
-        .flatMapLatest { sel ->
-            analyticsRepository.observeBodyWeightTrend(sel.bodyWeightDays)
+        .map { it.bodyWeightDays }
+        .distinctUntilChanged()
+        .flatMapLatest { days ->
+            analyticsRepository.observeBodyWeightTrend(days)
         }
 
     private val selectedWorkoutDetailFlow: Flow<WorkoutSession?> = selection
-        .flatMapLatest { sel ->
-            val wId = sel.selectedWorkoutId
+        .map { it.selectedWorkoutId }
+        .distinctUntilChanged()
+        .flatMapLatest { wId ->
             if (wId == null) flowOf(null) else analyticsRepository.observeWorkoutDetail(wId)
         }
 

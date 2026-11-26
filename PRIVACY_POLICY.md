@@ -1,19 +1,19 @@
 # Privacy Policy — هِمّة | Himma
 
-**Last Updated:** November 21, 2026
+**Last Updated:** November 26, 2026
 
-**هِمّة (Himma)** is a 100% free, open-source, and offline-first workout logging and progressive overload companion for Android. 
+**هِمّة (Himma)** is a free, open-source, and offline-first workout logging and progressive overload companion for Android.
 
 Your privacy is our highest priority. We believe your health and fitness data belongs exclusively to you. This Privacy Policy outlines our principles, how the application handles data, and the permissions required to operate.
 
 ---
 
-## 1. Zero Data Collection & Tracking
+## 1. Offline-First Privacy & Data Handling
 
-* **No Accounts or Registration:** You are never required to create an account, log in, or provide any personal identification (such as name, email address, phone number, or social media profiles).
-* **No Cloud Storage or Remote Databases:** All workout sessions, routines, set weights, reps, rest intervals, custom exercises, and personal records are stored **100% locally on your device** in a private SQLite database.
-* **No Analytics or Telemetry:** We do not include any tracking software, third-party analytics (such as Google Analytics or Firebase), crash reporting SDKs, or session recorders.
-* **No Advertising:** Himma contains zero advertisements and zero ad-tracking networks.
+* **No Mandatory Accounts or Registration:** You can use all core workout tracking, routines, and analytics features without creating an account or providing personal identification.
+* **Local-First Storage:** All workout sessions, routines, set weights, reps, rest intervals, custom exercises, and personal records are stored **locally on your device** in a private SQLite database, and all core features operate fully offline.
+* **No Third-Party Analytics or Advertising:** We do not include any third-party tracking SDKs, advertising networks, or behavioral telemetry.
+* **Optional Connected Features & User-Initiated Actions:** Any optional online features (now or in future updates) and any user-initiated external actions remain strictly optional, are triggered only by your explicit choice, and transmit only what is necessary for that action. All offline features continue to function normally without an internet connection.
 
 ---
 
@@ -26,7 +26,8 @@ Himma requests only the minimum set of permissions necessary to deliver essentia
 | `POST_NOTIFICATIONS` | To display the live rest timer notification and alert you when your rest countdown finishes. |
 | `FOREGROUND_SERVICE` & `FOREGROUND_SERVICE_SPECIAL_USE` | To maintain an uninterrupted countdown rest timer while your phone screen is locked or while using other apps between sets. |
 | `VIBRATE` | To provide tactile haptic feedback and alert vibrations when a rest interval completes. |
-| `INTERNET` | In non-store releases, this is used exclusively to check for newer open-source releases hosted on GitHub when explicitly requested. No personal data, workout metrics, or device identifiers are ever transmitted. |
+| `INTERNET` | Declared only in standalone GitHub APK builds (`github` flavor) to check GitHub Releases for open-source updates when triggered or enabled by the user. Google Play Store builds (`store` flavor) omit `INTERNET` completely. Core workout tracking, routines, and analytics always work completely offline. |
+| `REQUEST_INSTALL_PACKAGES` | Declared only in standalone GitHub APK builds (`github` flavor) to allow installing downloaded open-source update APKs from GitHub Releases when explicitly approved by the user. Google Play Store builds omit this permission. |
 
 Himma does **not** request access to your contacts, camera, microphone, GPS location, or device identity.
 
@@ -35,6 +36,7 @@ Himma does **not** request access to your contacts, camera, microphone, GPS loca
 ## 3. Data Storage, Backup & Export
 
 * **Local Storage:** All app data is maintained within Android's sandboxed local application storage. No external app can access this data without your explicit permission.
+* **Android System Backup & Device Transfer:** Android's built-in system backup and device-to-device transfer (`allowBackup="true"` with configured backup rules for local database, preferences, and auto-snapshots) is supported solely through Android OS when enabled in your device settings. Himma does not operate or access any developer-hosted cloud servers.
 * **User-Controlled Export & Backup:** When you use the Backup & Restore feature (JSON) or the CSV Export feature, the exported files are saved strictly to the folder or cloud drive you select via Android's native Storage Access Framework (SAF). You maintain full ownership and control over these backup files.
 * **Data Deletion:** Uninstalling the application completely deletes all locally stored data, databases, and preferences from your device.
 
@@ -48,7 +50,7 @@ Himma is designed for general audiences and does not knowingly collect, store, o
 
 ## 5. Changes to This Privacy Policy
 
-Because Himma operates entirely offline and does not collect user data, our core privacy commitments will not change. If any updates are made to this document (such as documenting new offline features), the revised policy will be posted within this repository with an updated date.
+Himma is built around an offline-first design where your local workout data stays under your control. If new optional connected features are introduced in the future, this document will be updated in the repository with a revised date to reflect how those features work.
 
 ---
 

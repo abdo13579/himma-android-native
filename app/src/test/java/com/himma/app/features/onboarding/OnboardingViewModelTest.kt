@@ -7,6 +7,7 @@ import com.himma.app.domain.model.AppLanguage
 import com.himma.app.domain.model.ThemeMode
 import com.himma.app.domain.model.UserProfile
 import com.himma.app.domain.model.WeightUnit
+import java.time.DayOfWeek
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -139,12 +140,21 @@ class FakeUserPreferencesRepository : UserPreferencesRepository {
         state.value = state.value.copy(animationsEnabled = enabled)
     }
 
+    override suspend fun setWeekStartDay(dayOfWeek: DayOfWeek) {
+        state.value = state.value.copy(weekStartDay = dayOfWeek)
+    }
+
+    override suspend fun setSeedCatalogVersion(version: Int) {
+        state.value = state.value.copy(seedCatalogVersion = version)
+    }
+
     override suspend fun restorePreferences(
         language: AppLanguage,
         weightUnit: WeightUnit,
         defaultRestSeconds: Int,
         themeMode: ThemeMode,
         useDynamicColor: Boolean,
+        weekStartDay: DayOfWeek,
     ) {
         state.value = state.value.copy(
             language = language,
@@ -152,6 +162,7 @@ class FakeUserPreferencesRepository : UserPreferencesRepository {
             defaultRestSeconds = defaultRestSeconds,
             themeMode = themeMode,
             useDynamicColor = useDynamicColor,
+            weekStartDay = weekStartDay,
             onboardingCompleted = true,
         )
     }
