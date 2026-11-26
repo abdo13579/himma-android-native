@@ -8,8 +8,8 @@ Guidance for AI coding agents working in this repository.
 
 - **Git Policy (STRICT):** Do **NOT** run `git commit` or `git push` before explicit user permission/order. Creating or modifying files is fine; staging/committing/pushing must wait for the user's explicit instruction.
 - **Language with User:** Speak with the user in **Arabic** when reporting progress, asking questions, or explaining what to test.
-- **Verification Before Reporting:** Always run unit tests (`./gradlew testDebugUnitTest`) and build/install checks after edits before reporting completion.
-- **Uploaded APK Policy:** Do **NOT** upload debug APKs to GitHub Releases. Always generate and upload the **production release APK** (`./gradlew assembleRelease`).
+- **Verification Before Reporting:** Always run unit tests (`./gradlew testDebugUnitTest` or both flavors `./gradlew testGithubDebugUnitTest testStoreDebugUnitTest`) and build/install checks after edits before reporting completion.
+- **Uploaded Release Artifacts Policy:** Do **NOT** upload debug APKs to GitHub Releases. Always generate and upload the **`github` production release APK** (`./gradlew assembleGithubRelease`) for GitHub Releases, and the **`store` production release AAB** (`./gradlew bundleStoreRelease`) for Google Play Store.
 
 ---
 
@@ -17,6 +17,10 @@ Guidance for AI coding agents working in this repository.
 
 - **App Name:** هِمّة | Himma (`com.himma.fitness`, namespace `com.himma.app`)
 - **Current Version:** `v1.3.0` (versionCode 9)
+- **Distribution Channels & Product Flavors (`distribution` dimension):**
+  Both flavors share `applicationId = "com.himma.fitness"` and identical core features/data schema:
+  - **`github` flavor** ([GitHub Releases](https://github.com/abdo13579/himma-android-native/releases)): Standalone APK distribution with `BuildConfig.SUPPORTS_IN_APP_UPDATES = true` and `REQUEST_INSTALL_PACKAGES` declared in `app/src/github/AndroidManifest.xml` for in-app release checks and APK installation.
+  - **`store` flavor** ([Google Play Store](https://play.google.com/store/apps/details?id=com.himma.fitness)): Play Store distribution with `BuildConfig.SUPPORTS_IN_APP_UPDATES = false` and `app/src/store/AndroidManifest.xml` omitting `REQUEST_INSTALL_PACKAGES` to comply with Play's Device & Network Abuse policy; updates are managed by Google Play.
 - **License:** **PolyForm Noncommercial License 1.0.0** — free for personal, educational, and non-commercial use.
 - **Model:** **100% Free & Open Source (FOSS)** — no paywalls, no Pro tiers, no Google Play Billing, no ads, no analytics/telemetry, and no cloud servers or mandatory sign-in.
 - **Scope:** Native Android mobile application (Jetpack Compose, Kotlin).
@@ -59,7 +63,10 @@ Base package: `app/src/main/java/com/himma/app/`
   - `CsvWorkoutExporter.kt`: UTF-8 with BOM CSV export for Excel / Google Sheets compatibility.
   - `AutoBackupScheduler.kt`, `AutoBackupWorker.kt`: Periodic 24h snapshot backups via WorkManager.
 - `core/updater/`:
-  - In-app GitHub release updater (`AppUpdateRepository`, `GitHubAppUpdateRepository`, `SemVerHelper`, `AppInstallerHelper`).
+  - In-app GitHub release updater (`AppUpdateRepository`, `GitHubAppUpdateRepository`, `SemVerHelper`, `AppInstallerHelper`), gated by `BuildConfig.SUPPORTS_IN_APP_UPDATES` (enabled in `github` flavor, disabled in `store` flavor).
+- **Flavor Source Sets (`app/src/github/`, `app/src/store/`):**
+  - Flavor-specific `AndroidManifest.xml` files controlling `REQUEST_INSTALL_PACKAGES` permission (`github` only).
+  - UI & startup gating via `BuildConfig.SUPPORTS_IN_APP_UPDATES` in `GitHubAppUpdateRepository`, `SettingsScreen`, and `TodayViewModel`.
 - `core/locale/`:
   - `LocaleHelper.kt`: Idempotent in-app language switching between Arabic (RTL) and English (LTR).
 - `core/di/`:
@@ -112,7 +119,7 @@ Base package: `app/src/main/java/com/himma/app/`
 
 4. **Offline-First & Zero-Telemetry:**
    - Do NOT add third-party analytics, crash trackers, or cloud sync services.
-   - The only network interaction allowed is the opt-in GitHub release check in `GitHubAppUpdateRepository`.
+   - The only network interaction allowed is the opt-in GitHub release check in `GitHubAppUpdateRepository`, which is active **only** in the `github` flavor (`BuildConfig.SUPPORTS_IN_APP_UPDATES == true`). The `store` flavor makes zero network requests for app updates.
 
 5. **Gym Ergonomics & Accessibility:**
    - Interactive elements must maintain a touch target of $\ge 48\text{ dp}$.
@@ -142,7 +149,8 @@ Common commands:
 - **Run Unit Tests:**
   ```zsh
   ./gradlew testDebugUnitTest
-  # or ./gradlew testGithubDebugUnitTest / testStoreDebugUnitTest
+  # testDebugUnitTest aliases testGithubDebugUnitTest; run both flavors explicitly:
+  ./gradlew testGithubDebugUnitTest testStoreDebugUnitTest
   ```
 - **Build GitHub Production Release APK:**
   ```zsh

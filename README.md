@@ -3,10 +3,11 @@
 <div align="center">
 
 ![Version](https://img.shields.io/badge/Version-v1.3.0-16A34A?logo=github&logoColor=white)
+[![Google Play](https://img.shields.io/badge/Google%20Play-Available-01875F?logo=googleplay&logoColor=white)](https://play.google.com/store/apps/details?id=com.himma.fitness)
 ![Kotlin](https://img.shields.io/badge/Kotlin-2.0.21-7F52FF?logo=kotlin&logoColor=white)
 ![Compose](https://img.shields.io/badge/Compose-BOM%202024.12.01-4285F4?logo=jetpackcompose&logoColor=white)
 ![Material 3](https://img.shields.io/badge/Material%20Design-3-16A34A?logo=materialdesign&logoColor=white)
-![Android SDK](https://img.shields.io/badge/Android-8.0+_(SDK_26--35)-brightgreen?logo=android&logoColor=white)
+![Android SDK](https://img.shields.io/badge/Android-8.0+_(SDK_26--36)-brightgreen?logo=android&logoColor=white)
 ![License](https://img.shields.io/badge/License-PolyForm%20Noncommercial-blue)
 ![Offline](https://img.shields.io/badge/100%25-Offline%20&%20Private-black)
 
@@ -28,7 +29,7 @@
 - **📈 أرقام قياسية وتحليلات:** حساب تلقائي للحد الأقصى (Brzycki 1RM)، رصد الأرقام القياسية (PRs)، ورسوم بيانية لتوزيع الحجم الأسبوعي وتطور الأوزان ووزن الجسم.
 - **💾 نسخ احتياطي مفتوح:** تصدير واستعادة كاملة للبيانات محلياً عبر JSON وCSV (متوافق مع Excel)، مع نسخ احتياطي تلقائي دوري.
 - **🎨 مظهر عصري وأداء فائق:** تصميم AMOLED داكن ومظهر Frost (ثلجي)، وشريط تنقل عائم، مع إمكانية إيقاف الحركات لتسريع الاستجابة على الأجهزة الاقتصادية.
-- **🔄 تحديثات مباشرة:** فحص وتحميل التحديثات وتثبيتها من داخل التطبيق مباشرة عبر GitHub Releases.
+- **🔄 قناتا توزيع رسميتان (Google Play & GitHub):** متاح رسمياً على **[متجر Google Play](https://play.google.com/store/apps/details?id=com.himma.fitness)** (تحديثات مُدارة عبر المتجر ومتوافقة تماماً مع سياساته)، وعبر **[GitHub Releases](https://github.com/abdo13579/himma-android-native/releases)** مع ميزة فحص وتثبيت التحديثات مباشرة من داخل التطبيق.
 
 ---
 
@@ -44,17 +45,27 @@
 
 ---
 
-## 📦 التحميل والبناء
+## 📦 التحميل وإصدارات البناء (Build Flavors)
 
-### تحميل ملف الـ APK
-حمّل أحدث إصدار جاهز للتثبيت مباشرة من صفحة **[GitHub Releases](https://github.com/abdo13579/himma-android-native/releases)**.
+يتوفر التطبيق رسمياً عبر قناتين رئيسيتين بنفس معرّف الحزمة (`com.himma.fitness`) وبكامل المميزات دون أي فروق في الخصوصية أو قاعدة البيانات المحلية، عبر نسختي بناء (`distribution` flavors):
+
+| النسخة (`Flavor`) | القناة | آلية التحديثات | صلاحية `REQUEST_INSTALL_PACKAGES` |
+|:---|:---|:---|:---|
+| **`store`** | **[متجر Google Play](https://play.google.com/store/apps/details?id=com.himma.fitness)** | تُدار تلقائياً عبر متجر Google Play (`SUPPORTS_IN_APP_UPDATES = false`) | ❌ غير مضمّنة (امتثال كامل لسياسات المتجر) |
+| **`github`** | **[GitHub Releases](https://github.com/abdo13579/himma-android-native/releases)** | فحص وتثبيت التحديثات من داخل التطبيق عبر GitHub (`SUPPORTS_IN_APP_UPDATES = true`) | ✅ مضمّنة لتثبيت التحديثات المباشرة |
+
+### التحميل المباشر
+- **متجر Google Play (نسخة المتجر `store`):** ثبّت التطبيق مباشرة من **[Google Play](https://play.google.com/store/apps/details?id=com.himma.fitness)**.
+- **ملف APK مباشر (نسخة `github`):** حمّل أحدث إصدار جاهز للتثبيت من صفحة **[GitHub Releases](https://github.com/abdo13579/himma-android-native/releases)**.
 
 ### البناء من المصدر (Build from Source)
 ```bash
 git clone https://github.com/abdo13579/himma-android-native.git
 cd himma-android-native
 
-# تشغيل الاختبارات
+# تشغيل اختبارات الوحدة (لكلتا النسختين)
+./gradlew testGithubDebugUnitTest testStoreDebugUnitTest
+# أو للاختصار (تشغّل testGithubDebugUnitTest):
 ./gradlew testDebugUnitTest
 
 # بناء حزمة الإنتاج لـ GitHub (APK مع التحديث التلقائي)
@@ -67,6 +78,8 @@ cd himma-android-native
 
 # أو تثبيت حزمة التطوير مباشرة عبر ADB
 ./gradlew installGithubDebug
+# أو لنسخة المتجر:
+./gradlew installStoreDebug
 ```
 
 ---
