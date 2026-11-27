@@ -13,7 +13,6 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -95,91 +94,94 @@ fun TrendLineChart(
             )
         }
 
-        // Charts always flow chronologically Left -> Right even in RTL locales
-        CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
-            Canvas(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(170.dp)
-                    .padding(vertical = 8.dp),
-            ) {
-                val width = size.width
-                val height = size.height
-                val horizontalPad = 14.dp.toPx()
-                val usableWidth = (width - horizontalPad * 2).coerceAtLeast(1f)
+        val isRtl = LocalLayoutDirection.current == LayoutDirection.Rtl
+        Canvas(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(170.dp)
+                .padding(vertical = 8.dp),
+        ) {
+            val width = size.width
+            val height = size.height
+            val horizontalPad = 14.dp.toPx()
+            val usableWidth = (width - horizontalPad * 2).coerceAtLeast(1f)
 
-                val dashEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 10f), 0f)
-                listOf(0.25f, 0.5f, 0.75f).forEach { fraction ->
-                    val y = height * fraction
-                    drawLine(
-                        color = gridColor,
-                        start = Offset(horizontalPad, y),
-                        end = Offset(width - horizontalPad, y),
-                        strokeWidth = 1.dp.toPx(),
-                        pathEffect = dashEffect,
-                    )
-                }
+            val dashEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 10f), 0f)
+            listOf(0.25f, 0.5f, 0.75f).forEach { fraction ->
+                val y = height * fraction
+                drawLine(
+                    color = gridColor,
+                    start = Offset(horizontalPad, y),
+                    end = Offset(width - horizontalPad, y),
+                    strokeWidth = 1.dp.toPx(),
+                    pathEffect = dashEffect,
+                )
+            }
 
-                val offsets = points.mapIndexed { idx, pt ->
-                    val x = if (points.size == 1) {
-                        width / 2f
+            val offsets = points.mapIndexed { idx, pt ->
+                val x = if (points.size == 1) {
+                    width / 2f
+                } else {
+                    val fraction = idx.toFloat() / (points.size - 1)
+                    if (isRtl) {
+                        width - horizontalPad - fraction * usableWidth
                     } else {
-                        horizontalPad + (idx.toFloat() / (points.size - 1)) * usableWidth
+                        horizontalPad + fraction * usableWidth
                     }
-                    val normalizedY = ((pt.displayValue - chartMin) / valueSpan).toFloat()
-                    val y = height - (normalizedY * height)
-                    Offset(x, y)
+                }
+                val normalizedY = ((pt.displayValue - chartMin) / valueSpan).toFloat()
+                val y = height - (normalizedY * height)
+                Offset(x, y)
+            }
+
+            if (offsets.size > 1) {
+                val linePath = Path().apply {
+                    moveTo(offsets.first().x, offsets.first().y)
+                    for (i in 1 until offsets.size) {
+                        val prev = offsets[i - 1]
+                        val curr = offsets[i]
+                        val midX = (prev.x + curr.x) / 2f
+                        cubicTo(midX, prev.y, midX, curr.y, curr.x, curr.y)
+                    }
                 }
 
-                if (offsets.size > 1) {
-                    val linePath = Path().apply {
-                        moveTo(offsets.first().x, offsets.first().y)
-                        for (i in 1 until offsets.size) {
-                            val prev = offsets[i - 1]
-                            val curr = offsets[i]
-                            val midX = (prev.x + curr.x) / 2f
-                            cubicTo(midX, prev.y, midX, curr.y, curr.x, curr.y)
-                        }
-                    }
+                val fillPath = Path().apply {
+                    addPath(linePath)
+                    lineTo(offsets.last().x, height)
+                    lineTo(offsets.first().x, height)
+                    close()
+                }
 
-                    val fillPath = Path().apply {
-                        addPath(linePath)
-                        lineTo(offsets.last().x, height)
-                        lineTo(offsets.first().x, height)
-                        close()
-                    }
-
-                    drawPath(
-                        path = fillPath,
-                        brush = Brush.verticalGradient(
-                            colors = listOf(
-                                lineColor.copy(alpha = 0.28f),
-                                lineColor.copy(alpha = 0.01f),
-                            ),
+                drawPath(
+                    path = fillPath,
+                    brush = Brush.verticalGradient(
+                        colors = listOf(
+                            lineColor.copy(alpha = 0.28f),
+                            lineColor.copy(alpha = 0.01f),
                         ),
-                    )
+                    ),
+                )
 
-                    drawPath(
-                        path = linePath,
-                        color = lineColor,
-                        style = Stroke(width = 3.dp.toPx(), cap = StrokeCap.Round),
-                    )
-                }
+                drawPath(
+                    path = linePath,
+                    color = lineColor,
+                    style = Stroke(width = 3.dp.toPx(), cap = StrokeCap.Round),
+                )
+            }
 
-                offsets.forEachIndexed { idx, center ->
-                    val isLast = idx == offsets.lastIndex
+            offsets.forEachIndexed { idx, center ->
+                val isLast = idx == offsets.lastIndex
+                drawCircle(
+                    color = lineColor,
+                    radius = if (isLast) 5.5.dp.toPx() else 3.5.dp.toPx(),
+                    center = center,
+                )
+                if (isLast) {
                     drawCircle(
-                        color = lineColor,
-                        radius = if (isLast) 5.5.dp.toPx() else 3.5.dp.toPx(),
+                        color = lineColor.copy(alpha = 0.28f),
+                        radius = 10.dp.toPx(),
                         center = center,
                     )
-                    if (isLast) {
-                        drawCircle(
-                            color = lineColor.copy(alpha = 0.28f),
-                            radius = 10.dp.toPx(),
-                            center = center,
-                        )
-                    }
                 }
             }
         }

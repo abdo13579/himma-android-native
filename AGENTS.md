@@ -16,7 +16,7 @@ Guidance for AI coding agents working in this repository.
 ## 2. Project Overview & Open-Source Principles
 
 - **App Name:** هِمّة | Himma (`com.himma.fitness`, namespace `com.himma.app`)
-- **Current Version:** `v1.4.0` (versionCode 10)
+- **Current Version:** `v1.4.1` (versionCode 11)
 - **Distribution Channels & Product Flavors (`distribution` dimension):**
   Both flavors share `applicationId = "com.himma.fitness"` and identical core features/data schema:
   - **`github` flavor** ([GitHub Releases](https://github.com/abdo13579/himma-android-native/releases)): Standalone APK distribution with `BuildConfig.SUPPORTS_IN_APP_UPDATES = true` and `REQUEST_INSTALL_PACKAGES` declared in `app/src/github/AndroidManifest.xml` for in-app release checks and APK installation.
